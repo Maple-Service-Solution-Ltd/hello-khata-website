@@ -133,6 +133,46 @@ function CellValue({ value }: { value: boolean | string }) {
   return <span className="text-[var(--text-cream-muted)] text-sm">{value}</span>;
 }
 
+/* ─── Pill Toggle Component ─── */
+function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () => void }) {
+  return (
+    <div
+      className="relative inline-flex items-center rounded-full p-1 cursor-pointer select-none"
+      style={{
+        background: 'var(--ink-2)',
+        border: '1px solid var(--ink-border)',
+      }}
+      onClick={onToggle}
+      role="switch"
+      aria-checked={isYearly}
+      aria-label="Toggle yearly pricing"
+    >
+      {/* Sliding circle indicator */}
+      <motion.div
+        className="absolute top-1 w-[calc(50%-4px)] h-[calc(100%-8px)] rounded-full"
+        style={{
+          background: 'var(--green)',
+          boxShadow: '0 2px 8px rgba(0,194,111,0.3)',
+        }}
+        animate={{ left: isYearly ? 'calc(50% + 2px)' : '2px' }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      />
+      <span
+        className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
+        style={{ color: !isYearly ? 'var(--green)' : 'var(--text-cream-muted)' }}
+      >
+        Monthly
+      </span>
+      <span
+        className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
+        style={{ color: isYearly ? 'white' : 'var(--text-cream-muted)' }}
+      >
+        Yearly
+      </span>
+    </div>
+  );
+}
+
 /* ─── Component ─── */
 export default function PricingSection() {
   const [isYearly, setIsYearly] = useState(false);
@@ -141,8 +181,11 @@ export default function PricingSection() {
   return (
     <section id="pricing" className="relative">
       {/* ─── Pricing Cards ─── */}
-      <div className="bg-[var(--cream)] py-[var(--section-v)] px-4">
-        <div className="max-w-[var(--site-max)] mx-auto">
+      <div className="relative bg-[var(--cream)] py-[clamp(80px,10vw,160px)] px-4">
+        {/* Nakshi diamond micro-texture on container */}
+        <div className="texture-nakshi-diamond absolute inset-0 pointer-events-none opacity-50" />
+
+        <div className="max-w-[1380px] mx-auto relative z-10">
           {/* Header */}
           <Reveal className="text-center mb-12">
             <h2
@@ -158,34 +201,7 @@ export default function PricingSection() {
 
           {/* Toggle */}
           <Reveal delay={0.15} className="flex items-center justify-center gap-4 mb-14">
-            <span
-              className={`font-body text-sm font-medium transition-colors ${
-                !isYearly ? 'text-[var(--text-ink)]' : 'text-[var(--text-ghost)]'
-              }`}
-            >
-              Monthly
-            </span>
-            <button
-              onClick={() => setIsYearly(!isYearly)}
-              className="relative w-14 h-7 rounded-full transition-colors duration-300 cursor-pointer"
-              style={{
-                backgroundColor: isYearly ? 'var(--green)' : 'var(--ink-2)',
-              }}
-              aria-label="Toggle yearly pricing"
-            >
-              <motion.div
-                className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md"
-                animate={{ left: isYearly ? 'calc(100% - 26px)' : '2px' }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              />
-            </button>
-            <span
-              className={`font-body text-sm font-medium transition-colors ${
-                isYearly ? 'text-[var(--text-ink)]' : 'text-[var(--text-ghost)]'
-              }`}
-            >
-              Yearly
-            </span>
+            <PillToggle isYearly={isYearly} onToggle={() => setIsYearly(!isYearly)} />
             <AnimatePresence>
               {isYearly && (
                 <motion.span
@@ -212,23 +228,33 @@ export default function PricingSection() {
                 <motion.div
                   whileHover={{ y: -6 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                  className="relative rounded-[var(--card-r)] p-6 lg:p-8 flex flex-col"
+                  className="relative rounded-[var(--card-r)] p-6 lg:p-8 flex flex-col overflow-hidden"
                   style={{
-                    background: 'var(--ink-1)',
+                    background: 'rgba(22,25,24,0.6)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    border: tier.highlighted
+                      ? '1.5px solid var(--green)'
+                      : '1px solid var(--ink-border)',
                     ...(tier.highlighted
                       ? {
-                          border: '1.5px solid var(--green)',
                           boxShadow:
-                            '0 0 0 1px var(--green), 0 0 40px var(--green-glow), 0 0 80px var(--green-glow)',
+                            '0 0 0 1px var(--green), 0 0 40px var(--green-glow), 0 20px 60px rgba(0,0,0,0.3)',
                         }
-                      : {
-                          border: '1px solid var(--ink-border)',
-                        }),
+                      : {}),
                   }}
                 >
+                  {/* Gradient shine bar at top */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px]"
+                    style={{
+                      background: tier.highlighted
+                        ? 'linear-gradient(90deg, transparent, var(--green), transparent)'
+                        : 'linear-gradient(90deg, transparent, var(--green), transparent)',
+                      opacity: tier.highlighted ? 0.8 : 0.3,
+                    }}
+                  />
+
                   {/* Badge */}
                   {tier.badge && (
                     <motion.div
@@ -305,7 +331,7 @@ export default function PricingSection() {
                             backgroundColor: 'transparent',
                             color: 'var(--text-cream)',
                             border: '1.5px solid var(--ink-border-strong)',
-                        }
+                          }
                     }
                     onMouseEnter={(e) => {
                       if (tier.ctaStyle === 'filled') {
@@ -337,7 +363,7 @@ export default function PricingSection() {
       </div>
 
       {/* ─── Feature Comparison Table ─── */}
-      <div className="bg-[var(--cream-2)] py-[var(--section-v)] px-4">
+      <div className="bg-[var(--cream-2)] py-[clamp(80px,10vw,160px)] px-4">
         <Reveal className="max-w-[900px] mx-auto">
           <div
             className="rounded-[var(--card-r)] overflow-hidden border"
@@ -445,7 +471,7 @@ export default function PricingSection() {
       </div>
 
       {/* ─── FAQ ─── */}
-      <div className="bg-[var(--cream)] py-[var(--section-v)] px-4">
+      <div className="bg-[var(--cream)] py-[clamp(80px,10vw,160px)] px-4">
         <div className="max-w-[720px] mx-auto">
           <Reveal className="text-center mb-12">
             <h3

@@ -262,13 +262,163 @@ Stage Summary:
 - ✅ tsParticles constellation effect in hero
 - ✅ Bengali typography treated as primary
 
-### Potential Enhancements (future):
+### Potential Enhancements (remaining):
 - Add GSAP ScrollTrigger for more complex scroll animations
 - Add actual Lenis ↔ GSAP integration
-- Add custom cursor (cursor: fine detection)
 - Add page transition animations with AnimatePresence
 - Add more detailed Bangladesh district map
 - Add i18n with next-intl for full English translations
-- Add real form submission API
 - Add blog individual article pages
 - Add industry-specific /for/[industry] content
+
+---
+## Round 2: QA, Bug Fixes, Styling Enhancements, New Features
+
+### Current Project Status:
+- 15 sections total (added KhataStorySection)
+- 14 core components (added CustomCursor, BackToTop, WhatsAppWidget)
+- Real API endpoint (/api/contact)
+- Page loading overlay with waveform animation
+- Enhanced hero (vignette, noise texture, shimmer button, vertical divider)
+- Enhanced pricing (glass morphism, gradient shine, premium highlighted card, pill toggle)
+- Bug fixes: nav logo color on dark sections, nav active dot
+
+### Completed Modifications:
+1. **BUG FIX**: Navigation logo "Hello" text now correctly shows cream/white on dark sections (--text-cream) and dark on light sections (--text-ink)
+2. **BUG FIX**: Navigation active dot simplified to single element with proper opacity/scale transition
+3. **BUG FIX**: WaveformMark in nav logo now activates when mobile menu opens
+4. **NEW**: CustomCursor component - dual-element cursor (dot + ring), pointer:fine only, hover/click states
+5. **NEW**: BackToTop component - floating button, appears after 600px scroll, spring animation
+6. **NEW**: WhatsAppWidget component - floating WhatsApp button with pulse, tooltip, 3s delayed entrance
+7. **NEW**: KhataStorySection - origin story with SVG khata illustration, 3 editorial chapters, 6 pain points
+8. **NEW**: Contact Form API (/api/contact) - Zod validation, BD phone regex, Bengali error messages
+9. **NEW**: Contact form real API integration with loading/error/success states
+10. **NEW**: Page loading overlay with pulsing WaveformMark + brand text (800ms duration)
+11. **STYLE**: Hero section - vignette overlay, noise grain texture, text-shadow on headline, shimmer CTA button, vertical divider between text and phone
+12. **STYLE**: Pricing section - glass morphism cards, gradient shine bar at top, enhanced highlighted card shadow, proper pill toggle with sliding indicator, nakshi diamond texture
+
+### Verification Results:
+- ✅ ESLint: zero errors
+- ✅ Dev server: all 200 responses, clean compilation
+- ✅ Browser QA (1920x1080 desktop + 390x844 mobile): all sections render correctly
+- ✅ Contact API: validates correctly (success response + field-level errors in Bengali)
+- ✅ WhatsApp widget, Back-to-top, Custom cursor all functional
+- ✅ Page loading overlay works on initial load
+- ✅ Navigation theme switching (dark/light) works correctly
+
+### Unresolved Issues / Risks:
+- None critical. All known bugs fixed.
+
+### Priority Recommendations for Next Phase:
+1. **HIGH**: Add GSAP ScrollTrigger for advanced parallax on Transformation and Voice sections
+2. **HIGH**: Enhance mobile experience - test and fix any responsive issues on small screens
+3. **MEDIUM**: Add individual blog article pages with /blog/[slug] routes
+4. **MEDIUM**: Add industry-specific /for/[industry] content pages (pharmacy, grocery, etc.)
+5. **LOW**: Add i18n support with next-intl for full English translations
+
+---
+Task ID: round2-widgets
+Agent: Widget Builder
+Task: Build Custom Cursor, Back to Top, WhatsApp Widget
+
+Work Log:
+- Built CustomCursor.tsx:
+  - Dual-element cursor (8px dot + 36px ring) using position: fixed, pointer-events: none, z-index: 9999
+  - Dot follows cursor instantly via direct DOM transform on mousemove
+  - Ring follows with lerp animation (0.15 factor) via requestAnimationFrame loop
+  - Hover state detection via mouseover/mouseout on anchors, buttons, and [role="button"] elements
+  - Hover: dot grows to 16px, ring to 56px, both get mix-blend-mode: difference
+  - Click: dot squishes scaleX(1.4) scaleY(0.6) for 150ms via CSS transition
+  - Hidden when cursor leaves window (opacity toggle)
+  - Uses useSyncExternalStore with window.matchMedia('(pointer: fine)') — renders nothing on mobile/tablet
+  - Fixed ESLint react-hooks/set-state-in-effect error by migrating from useState+useEffect to useSyncExternalStore
+- Built BackToTop.tsx:
+  - Fixed position: bottom-6 right-6, z-30
+  - Visible after scrolling 600px (useState + passive scroll listener)
+  - 48px circle with --ink-1 bg, 1px --ink-border-strong border, green ArrowUp icon (lucide-react)
+  - Hover: bg transitions to --green, icon turns white, shadow: 0 0 20px var(--green-glow) via onMouseEnter/Leave
+  - framer-motion AnimatePresence: fade in/out + scale(0↔1) with spring physics
+  - Click: smooth scroll to top via window.scrollTo({ top: 0, behavior: 'smooth' })
+- Built WhatsAppWidget.tsx:
+  - Fixed position: bottom-6 left-6, z-30
+  - 56px circle with WhatsApp green (#25D366) bg
+  - Inline SVG WhatsApp logo path (28×28, white fill)
+  - Pulse animation: expanding ring every 2.5s via @keyframes whatsapp-pulse (added to globals.css)
+  - Hover: scale 1.1, intensified shadow
+  - Tooltip on hover: "WhatsApp এ কথা বলুন" appears to right (dark pill with Bengali font)
+  - Click: opens https://wa.me/8801XXXXXXXXX in new tab
+  - framer-motion entrance: 3s delay, spring bounce from y:100→0
+- Updated page.tsx: imported all 3 components, added CustomCursor, BackToTop, WhatsAppWidget inside SmoothScrollProvider
+- Added @keyframes whatsapp-pulse to globals.css
+- ESLint: zero errors
+- Dev server: clean compilation, all 200 responses
+
+Stage Summary:
+- 3 new floating widget components built and integrated
+- CustomCursor uses useSyncExternalStore for SSR-safe pointer detection
+- BackToTop and WhatsAppWidget use framer-motion for polished entrance/exit animations
+- All components render nothing on non-fine-pointer devices where applicable
+- Zero lint errors, clean dev server compilation
+
+---
+## Task ID: round2-features
+### Work Task
+Build real backend functionality: Contact Form API, update Contact Section with real API integration, create KhataStorySection (origin story), and wire everything together.
+
+### Work Summary
+
+**1. Contact Form API (`/src/app/api/contact/route.ts`)**
+- POST handler with Zod validation schema:
+  - name: min 2 chars
+  - phone: BD phone regex `/^01[3-9]\d{8}$/`
+  - businessType: required string
+  - district: required string
+  - message: min 5 chars
+- Returns 400 with field-level errors on validation failure (Bengali error messages)
+- Returns 500 on unexpected errors with Bengali error message
+- Returns 200 `{ success: true, message: '...' }` on success
+- Logs submissions to console (no email sending yet)
+- Uses `NextRequest`/`NextResponse` from `next/server`
+
+**2. ContactSection.tsx — Full API Integration**
+- Replaced simulated `setTimeout` with real `fetch('/api/contact', { method: 'POST' })`
+- Client-side phone validation with BD regex — live feedback on 11+ chars ("সঠিক নম্বর দিন")
+- Red border + crimson error text + AlertCircle icon on invalid phone
+- Field-level error display from API 400 response (each field gets its own error message)
+- Server error banner (AnimatePresence animated) for 400/500 responses in Bengali
+- Loading state: spinner + "পাঠানো হচ্ছে..." text, button dims to 60% opacity with cursor:wait
+- Success state: enhanced with staggered animations (CheckCircle2 scales in, text fades up with delays)
+- `useCallback` on handleChange for stable reference
+- All error states clear on form field change
+
+**3. KhataStorySection.tsx — Origin Story Section**
+- Section id: `khata-story`, placed between Transformation and Voice sections
+- **Part 1 — Editorial Story (cream-2 background with khata-lines texture)**:
+  - Large SVG illustration of an old paper khata:
+    - Two pages with ruled lines
+    - Bengali handwritten text (সেলস এন্ট্রি + বাকি হিসাব)
+    - Crimson amounts, red ink corrections, crossed-out entries
+    - Coffee stain ring, worn edge marks
+    - "৳ ???" as mysterious total
+  - Three editorial chapters with useInView-based staggered reveals:
+    - অধ্যায় ০১: "একজন দোকানদারের সকাল" — Karim's morning routine
+    - অধ্যায় ০২: "৩০ বছরের পুরনো সমস্যা" — Data pullquote with green left border ("৮৩% বাংলাদেশি ক্ষুদ্র ব্যবসায়ী...")
+    - অধ্যায় ০৩: "আমরা যা দেখলাম" — Founding insight, glowing HorizonLine, "HelloKhata আসে এই মুহূর্তটা থেকে।"
+  - max-width 720px centered, line-height 1.9 for readability
+- **Part 2 — Pain Points (dark --ink background)**:
+  - Headline: "দোকানদারের আসল যন্ত্রণা।"
+  - 6 pain cards in 3-column responsive grid, each with:
+    - 3px crimson left border
+    - Bengali pain title (bold)
+    - 2-3 sentence description
+    - Crimson impact line
+  - Green separator line → closing CTA statement → "কীভাবে দেখুন →" button (smooth scrolls to #features)
+
+**4. page.tsx Updated**
+- Added KhataStorySection import and placed between TransformationSection and VoiceSection
+
+**Quality:**
+- ESLint: zero errors
+- Dev server: clean compilation, all 200 responses
+- All components use 'use client', TypeScript strict, framer-motion animations
+- Follows existing design system tokens (--cream-2, --ink, --crimson, --green, etc.)

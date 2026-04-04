@@ -2,10 +2,14 @@
 
 import { SmoothScrollProvider } from '@/components/hellokhata/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/hellokhata/ScrollProgress'
+import { CustomCursor } from '@/components/hellokhata/CustomCursor'
+import BackToTop from '@/components/hellokhata/BackToTop'
+import WhatsAppWidget from '@/components/hellokhata/WhatsAppWidget'
 import Navigation from '@/components/hellokhata/Navigation'
 import Footer from '@/components/hellokhata/Footer'
 import HeroSection from '@/components/sections/HeroSection'
 import TransformationSection from '@/components/sections/TransformationSection'
+import KhataStorySection from '@/components/sections/KhataStorySection'
 import VoiceSection from '@/components/sections/VoiceSection'
 import MarketSection from '@/components/sections/MarketSection'
 import BusinessTypesSection from '@/components/sections/BusinessTypesSection'
@@ -22,7 +26,10 @@ import CTASection from '@/components/sections/CTASection'
 export default function Home() {
   return (
     <SmoothScrollProvider>
+      <CustomCursor />
       <ScrollProgress />
+      <BackToTop />
+      <WhatsAppWidget />
       <Navigation />
       <main>
         {/* The Arrival */}
@@ -30,6 +37,9 @@ export default function Home() {
 
         {/* The Transformation */}
         <TransformationSection />
+
+        {/* The Story — Why HelloKhata */}
+        <KhataStorySection />
 
         {/* The Voice */}
         <VoiceSection />

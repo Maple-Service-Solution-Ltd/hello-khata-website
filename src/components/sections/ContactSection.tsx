@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { MessageCircle, Phone, Mail, MapPin, CheckCircle2, Send } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { MessageCircle, Phone, Mail, MapPin, CheckCircle2, Send, AlertCircle } from 'lucide-react';
 
 /* ── Business Types ── */
 const BUSINESS_TYPES = [
@@ -43,6 +43,9 @@ const DISTRICTS = [
   'ফরিদপুর',
   'নোয়াখালী',
 ];
+
+/* ── Phone validation regex ── */
+const BD_PHONE_REGEX = /^01[3-9]\d{8}$/;
 
 /* ── Animation variants ── */
 const containerVariants = {
@@ -187,6 +190,7 @@ function FormField({
   value,
   onChange,
   options,
+  error,
 }: {
   label: string;
   name: string;
@@ -196,17 +200,24 @@ function FormField({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   options?: { value: string; label: string }[];
+  error?: string;
 }) {
-  const baseStyles = {
+  const hasError = !!error;
+  const borderStyle = hasError
+    ? '1.5px solid var(--crimson)'
+    : '1px solid var(--canvas-border)';
+
+  const baseStyles: React.CSSProperties = {
     background: 'var(--white)',
-    border: '1px solid var(--canvas-border)',
+    border: borderStyle,
     borderRadius: '14px',
     fontSize: '15px',
     color: 'var(--text-ink)',
     width: '100%',
     padding: '12px 16px',
     outline: 'none',
-    transition: 'border-color var(--t-base)',
+    transition: 'border-color var(--t-base), box-shadow var(--t-base)',
+    boxShadow: hasError ? '0 0 0 3px rgba(220, 38, 38, 0.08)' : 'none',
   };
 
   return (
@@ -269,6 +280,22 @@ function FormField({
           style={baseStyles}
         />
       )}
+      {/* Error message */}
+      <AnimatePresence>
+        {hasError && (
+          <motion.p
+            className="font-bengali text-xs flex items-center gap-1"
+            style={{ color: 'var(--crimson)' }}
+            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+            animate={{ opacity: 1, height: 'auto', marginTop: 2 }}
+            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <AlertCircle className="w-3 h-3 shrink-0" />
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -292,21 +319,94 @@ export default function ContactSection() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+
+      // Clear field error on change
+      if (fieldErrors[name]) {
+        setFieldErrors((prev) => {
+          const next = { ...prev };
+          delete next[name];
+          return next;
+        });
+      }
+
+      // Phone-specific: live validation feedback
+      if (name === 'phone') {
+        if (value.length > 0 && !BD_PHONE_REGEX.test(value)) {
+          // Only show error if they've typed enough to potentially be valid
+          if (value.length >= 11) {
+            setFieldErrors((prev) => ({
+              ...prev,
+              phone: 'সঠিক নম্বর দিন',
+            }));
+          }
+        } else {
+          setFieldErrors((prev) => {
+            const next = { ...prev };
+            delete next.phone;
+            return next;
+          });
+        }
+      }
+
+      // Clear server error on any change
+      if (serverError) setServerError('');
+    },
+    [fieldErrors, serverError]
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError('');
+    setFieldErrors({});
+
+    // Client-side phone validation before sending
+    if (!BD_PHONE_REGEX.test(formData.phone)) {
+      setFieldErrors((prev) => ({
+        ...prev,
+        phone: 'সঠিক নম্বর দিন',
+      }));
+      return;
+    }
+
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    console.log('Form submitted:', formData);
-    setIsSubmitting(false);
-    setSubmitted(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors (400)
+        if (response.status === 400 && data.errors) {
+          const errors: Record<string, string> = {};
+          for (const err of data.errors) {
+            errors[err.field] = err.message;
+          }
+          setFieldErrors(errors);
+        }
+        // Show server message
+        setServerError(data.message || 'কিছু একটা সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।');
+        return;
+      }
+
+      // Success!
+      setSubmitted(true);
+    } catch {
+      setServerError('নেটওয়ার্কে সমস্যা হচ্ছে। ইন্টারনেট সংযোগ চেক করুন।');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -353,13 +453,13 @@ export default function ContactSection() {
             style={{ fontSize: '17px', color: 'var(--text-muted)' }}
             variants={fadeUp}
           >
-            We're real people. We pick up the phone.
+            We&apos;re real people. We pick up the phone.
           </motion.p>
         </motion.div>
       </div>
 
       {/* ── Three Contact Method Cards ── */}
-      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-12">
+      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-[clamp(80px,10vw,160px)]">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
@@ -400,7 +500,7 @@ export default function ContactSection() {
       {/* ── In-Person Promise (dark with green glow) ── */}
       <div
         ref={promiseRef}
-        className="relative overflow-hidden py-20 md:py-28 px-6"
+        className="relative overflow-hidden py-[clamp(80px,10vw,160px)] px-6"
         style={{ background: 'var(--ink)' }}
       >
         {/* Green glow */}
@@ -444,7 +544,7 @@ export default function ContactSection() {
             style={{ fontSize: 'var(--fs-body)', color: 'var(--text-cream-muted)' }}
             variants={fadeUp}
           >
-            We'll show you everything. No pressure.
+            We&apos;ll show you everything. No pressure.
           </motion.p>
 
           <motion.div variants={fadeUp}>
@@ -467,7 +567,7 @@ export default function ContactSection() {
       {/* ── Contact Form ── */}
       <div
         ref={formRef}
-        className="relative py-20 md:py-28 px-6"
+        className="relative py-[clamp(80px,10vw,160px)] px-6"
         style={{ background: 'var(--cream)' }}
       >
         <div className="texture-nakshi-subtle absolute inset-0 pointer-events-none" />
@@ -521,18 +621,24 @@ export default function ContactSection() {
                   style={{ color: 'var(--green)' }}
                 />
               </motion.div>
-              <p
+              <motion.p
                 className="font-bengali text-xl mb-2"
                 style={{ color: 'var(--text-ink)' }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
               >
                 আপনার বার্তা পাঠানো হয়েছে!
-              </p>
-              <p
+              </motion.p>
+              <motion.p
                 className="font-body"
                 style={{ fontSize: 'var(--fs-body)', color: 'var(--text-muted)' }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
               >
                 আমরা শীঘ্রই যোগাযোগ করব।
-              </p>
+              </motion.p>
               <motion.button
                 className="mt-6 px-5 py-2 rounded-full font-body text-sm font-medium"
                 style={{
@@ -541,9 +647,14 @@ export default function ContactSection() {
                 }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
                 onClick={() => {
                   setSubmitted(false);
                   setFormData({ name: '', phone: '', businessType: '', district: '', message: '' });
+                  setFieldErrors({});
+                  setServerError('');
                 }}
               >
                 আরেকটি বার্তা পাঠান
@@ -568,6 +679,7 @@ export default function ContactSection() {
                   required
                   value={formData.name}
                   onChange={handleChange}
+                  error={fieldErrors.name}
                 />
 
                 <FormField
@@ -578,6 +690,7 @@ export default function ContactSection() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
+                  error={fieldErrors.phone}
                 />
 
                 <FormField
@@ -588,6 +701,7 @@ export default function ContactSection() {
                   value={formData.businessType}
                   onChange={handleChange}
                   options={BUSINESS_TYPES.map((t) => ({ value: t, label: t }))}
+                  error={fieldErrors.businessType}
                 />
 
                 <FormField
@@ -598,6 +712,7 @@ export default function ContactSection() {
                   value={formData.district}
                   onChange={handleChange}
                   options={DISTRICTS.map((d) => ({ value: d, label: d }))}
+                  error={fieldErrors.district}
                 />
 
                 <FormField
@@ -606,22 +721,55 @@ export default function ContactSection() {
                   placeholder="আপনার বার্তা লিখুন..."
                   value={formData.message}
                   onChange={handleChange}
+                  error={fieldErrors.message}
                 />
+
+                {/* Server error banner */}
+                <AnimatePresence>
+                  {serverError && (
+                    <motion.div
+                      className="flex items-center gap-2 p-4 rounded-xl"
+                      style={{
+                        background: 'rgba(220, 38, 38, 0.06)',
+                        border: '1px solid rgba(220, 38, 38, 0.15)',
+                      }}
+                      initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                      animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
+                      exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0" style={{ color: 'var(--crimson)' }} />
+                      <p className="font-bengali text-sm" style={{ color: 'var(--crimson)' }}>
+                        {serverError}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Submit */}
                 <motion.button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-body text-[15px] font-semibold text-white"
-                  style={{ background: 'var(--green)' }}
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: '0 0 28px rgba(0,194,111,0.35)',
+                  style={{
+                    background: isSubmitting ? 'rgba(0,194,111,0.6)' : 'var(--green)',
+                    cursor: isSubmitting ? 'wait' : 'pointer',
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={
+                    isSubmitting
+                      ? {}
+                      : {
+                          scale: 1.02,
+                          boxShadow: '0 0 28px rgba(0,194,111,0.35)',
+                        }
+                  }
+                  whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
-                    <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <>
+                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      পাঠানো হচ্ছে...
+                    </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />

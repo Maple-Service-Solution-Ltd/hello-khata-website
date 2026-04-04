@@ -134,6 +134,56 @@ function GreenQuote() {
   )
 }
 
+/* ── Large decorative quotation mark watermark ── */
+function QuoteWatermark() {
+  return (
+    <svg
+      className="absolute top-3 left-4 pointer-events-none"
+      width="120"
+      height="120"
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ opacity: 0.04 }}
+    >
+      <path
+        d="M30 80c0-12 10-22 22-22 2.2 0 4 0.4 6 0.8C50.4 46.8 44 42 36 42c-2.2 0-4-1.8-4-4s1.8-4 4-4c16.6 0 30 13.4 30 30v14c0 8.3-6.7 15-15 15h-6c-8.3 0-15-6.7-15-15V80zm52 0c0-12 10-22 22-22 2.2 0 4 0.4 6 0.8C102.4 46.8 96 42 88 42c-2.2 0-4-1.8-4-4s1.8-4 4-4c16.6 0 30 13.4 30 30v14c0 8.3-6.7 15-15 15h-6c-8.3 0-15-6.7-15-15V80z"
+        fill="var(--green)"
+      />
+    </svg>
+  )
+}
+
+/* ── Paper Fold Corner Effect ── */
+function PaperFoldCorner() {
+  return (
+    <div
+      className="absolute top-0 right-0 pointer-events-none"
+      style={{
+        width: '28px',
+        height: '28px',
+        overflow: 'hidden',
+        borderTopRightRadius: '16px',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          width: '40px',
+          height: '40px',
+          background: 'var(--cream-2)',
+          transform: 'rotate(0deg)',
+          transformOrigin: 'top right',
+          boxShadow: '-2px 2px 4px rgba(0,0,0,0.06)',
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%)',
+        }}
+      />
+    </div>
+  )
+}
+
 /* ── Single Testimonial Card ── */
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   const isTall = testimonial.height === 'tall'
@@ -164,6 +214,12 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           transition: { duration: 0.25 },
         }}
       >
+        {/* Paper fold corner effect */}
+        <PaperFoldCorner />
+
+        {/* Decorative quotation watermark */}
+        <QuoteWatermark />
+
         {/* Khata ruled lines overlay */}
         <div
           className="absolute inset-0 rounded-2xl pointer-events-none khata-lines"
@@ -189,7 +245,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
         {/* Owner info */}
         <div className="relative flex items-center gap-3 mb-4">
-          {/* Avatar */}
+          {/* Avatar with green ring */}
           <div
             className="flex items-center justify-center flex-shrink-0"
             style={{
@@ -197,6 +253,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               height: '48px',
               borderRadius: '50%',
               background: testimonial.avatarColor,
+              border: '2px solid var(--green)',
+              boxShadow: '0 2px 8px rgba(0,194,111,0.15)',
             }}
           >
             <span
@@ -250,14 +308,6 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             {testimonial.metric}
           </span>
         </div>
-
-        {/* Paper fold shadow corner */}
-        <div
-          className="absolute top-0 right-0 w-6 h-6 rounded-tr-2xl pointer-events-none"
-          style={{
-            background: 'linear-gradient(225deg, rgba(0,0,0,0.04) 50%, transparent 50%)',
-          }}
-        />
       </motion.div>
     </motion.div>
   )
@@ -271,7 +321,7 @@ export default function TestimonialsSection() {
       className="relative overflow-hidden texture-nakshi-subtle"
       style={{
         background: 'var(--cream)',
-        padding: 'var(--section-v) 0',
+        padding: 'clamp(80px,10vw,160px) 0',
       }}
     >
       {/* Soft green glow */}
@@ -282,7 +332,7 @@ export default function TestimonialsSection() {
         }}
       />
 
-      <div className="relative z-10 w-full mx-auto px-6 lg:px-12" style={{ maxWidth: 'var(--site-max)' }}>
+      <div className="relative z-10 w-full mx-auto px-6 lg:px-12" style={{ maxWidth: '1380px' }}>
         {/* ── Header ── */}
         <motion.div
           className="text-center mb-16"

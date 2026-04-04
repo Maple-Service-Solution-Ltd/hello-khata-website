@@ -142,11 +142,11 @@ export default function Navigation() {
             }}
             className="flex items-center gap-[6px] group shrink-0"
           >
-            <WaveformMark size="xs" />
+            <WaveformMark size="xs" active={mobileOpen} />
             <span
               className={cn(
                 'font-body font-bold text-2xl transition-colors duration-300',
-                !isLight ? 'text-[var(--text-ink)]' : 'text-[var(--text-ink)]'
+                isLight ? 'text-[var(--text-ink)]' : 'text-[var(--text-cream)]'
               )}
             >
               Hello
@@ -180,19 +180,10 @@ export default function Navigation() {
                   )}
                 >
                   {link.label}
-                  {/* Active dot */}
                   <span
                     className={cn(
-                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[2px] h-[2px] rounded-full bg-[var(--green)] transition-all duration-300',
-                      isActive || 'opacity-0 group-hover:opacity-0',
-                      isActive ? 'opacity-100 scale-100' : 'scale-0'
-                    )}
-                  />
-                  {/* Hover dot (only if not active) */}
-                  <span
-                    className={cn(
-                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[2px] h-[2px] rounded-full bg-[var(--green)] transition-all duration-200',
-                      isActive ? 'opacity-0' : 'opacity-0 hover:opacity-100'
+                      'absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--green)] transition-all duration-300',
+                      isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                     )}
                   />
                 </a>

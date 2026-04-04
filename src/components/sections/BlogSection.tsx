@@ -235,7 +235,7 @@ export default function BlogSection() {
     <section
       id="blog"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-[clamp(80px,10vw,160px)] md:py-32 overflow-hidden"
       style={{ background: 'var(--cream-2)' }}
     >
       {/* Texture */}

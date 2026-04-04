@@ -197,7 +197,7 @@ export default function MarketSection() {
     <section
       id="market"
       ref={sectionRef}
-      className="relative py-32 overflow-hidden"
+      className="relative py-[clamp(80px,10vw,160px)] overflow-hidden"
       style={{ background: 'var(--cream)' }}
     >
       {/* Texture overlay */}

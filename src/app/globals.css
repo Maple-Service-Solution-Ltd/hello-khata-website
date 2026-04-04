@@ -249,6 +249,11 @@
   100% { transform: scale(2.5); opacity: 0; }
 }
 
+@keyframes whatsapp-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
 /* ── Bengali typography ── */
 .font-bengali {
   font-family: var(--font-bengali), 'Tiro Bangla', serif;
@@ -267,6 +272,16 @@
 ::selection {
   background: rgba(0, 194, 111, 0.2);
   color: var(--text-ink);
+}
+
+/* ── Shimmer animation for CTA buttons ── */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
 }
 
 /* ── Smooth transitions for all interactive elements ── */

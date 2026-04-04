@@ -233,6 +233,39 @@ function PhoneMockup() {
   )
 }
 
+/* ── Shimmer CTA Button ── */
+function ShimmerButton({ children, className, ...props }: {
+  children: React.ReactNode
+  className?: string
+  [key: string]: any
+}) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <motion.a
+      {...props}
+      className={`relative overflow-hidden ${className || ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+      {/* Shimmer overlay */}
+      {isHovered && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%)',
+          }}
+          initial={{ x: '-100%', opacity: 0 }}
+          animate={{ x: '200%', opacity: 1 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          onAnimationComplete={() => setIsHovered(false)}
+        />
+      )}
+    </motion.a>
+  )
+}
+
 /* ── Main Hero Section ── */
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -280,7 +313,26 @@ export default function HeroSection() {
       {/* ── Layer 2: Nakshi texture ── */}
       <div className="texture-nakshi-subtle absolute inset-0 pointer-events-none" />
 
-      {/* ── Layer 3: Particles (ssr:false via dynamic import) ── */}
+      {/* ── Layer 3: Noise/Grain texture overlay (z-5) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 5,
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.03\'/%3E%3C/svg%3E")',
+          mixBlendMode: 'overlay',
+        }}
+      />
+
+      {/* ── Layer 4: Vignette overlay (z-10) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 10,
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%)',
+        }}
+      />
+
+      {/* ── Layer 5: Particles (ssr:false via dynamic import) ── */}
       <div className="absolute inset-0 pointer-events-none">
         <Particles
           id="hero-particles"
@@ -294,11 +346,11 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* ── Layer 4: Horizon Line SVG ── */}
+      {/* ── Layer 6: Horizon Line SVG ── */}
       <HorizonLine />
 
       {/* ── Content ── */}
-      <div className="relative z-10 w-full mx-auto px-6 lg:px-12" style={{ maxWidth: 'var(--site-max)' }}>
+      <div className="relative z-20 w-full mx-auto px-6 lg:px-12" style={{ maxWidth: 'var(--site-max)' }}>
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-8 pt-20 lg:pt-0">
           {/* Left: Text content */}
           <motion.div
@@ -332,7 +384,10 @@ export default function HeroSection() {
               </motion.h1>
               <motion.h1
                 className="font-bengali text-white leading-[1.1]"
-                style={{ fontSize: 'clamp(52px, 8vw, 110px)' }}
+                style={{
+                  fontSize: 'clamp(52px, 8vw, 110px)',
+                  textShadow: '0 0 80px rgba(0,194,111,0.15)',
+                }}
                 variants={fadeUp}
               >
                 কথা বলে<span style={{ color: 'var(--green)' }}>।</span>
@@ -365,7 +420,7 @@ export default function HeroSection() {
 
             {/* CTA row */}
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
-              <motion.a
+              <ShimmerButton
                 href="#"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-body font-semibold text-[15px]"
                 style={{ background: 'var(--green)' }}
@@ -374,7 +429,7 @@ export default function HeroSection() {
               >
                 <Download className="w-4 h-4" />
                 অ্যাপটি নামান
-              </motion.a>
+              </ShimmerButton>
               <motion.a
                 href="#"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-body font-medium text-[15px]"
@@ -398,6 +453,15 @@ export default function HeroSection() {
               কোনো কার্ড লাগবে না · ৩০ দিন ফ্রি · বাংলায় সব
             </motion.p>
           </motion.div>
+
+          {/* ── Vertical Divider Line (appears after text fades in) ── */}
+          <motion.div
+            className="hidden lg:block w-px self-stretch my-4"
+            style={{ background: 'var(--ink-border-strong)' }}
+            initial={{ opacity: 0, scaleY: 0 }}
+            animate={{ opacity: 1, scaleY: 1 }}
+            transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          />
 
           {/* Right: Phone Mockup */}
           <div className="w-full lg:w-[45%] flex flex-col items-center">
@@ -453,7 +517,7 @@ export default function HeroSection() {
 
       {/* ── Scroll indicator ── */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
         style={{ opacity: scrollIndicatorOpacity }}
         transition={{ duration: 0.3 }}
       >
