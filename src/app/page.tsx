@@ -10,6 +10,8 @@ import Footer from '@/components/hellokhata/Footer'
 import HeroSection from '@/components/sections/HeroSection'
 import TransformationSection from '@/components/sections/TransformationSection'
 import KhataStorySection from '@/components/sections/KhataStorySection'
+import HowItWorksSection from '@/components/sections/HowItWorksSection'
+import VoiceDemoSection from '@/components/sections/VoiceDemoSection'
 import VoiceSection from '@/components/sections/VoiceSection'
 import MarketSection from '@/components/sections/MarketSection'
 import TrustedBySection from '@/components/sections/TrustedBySection'
@@ -42,6 +44,12 @@ export default function Home() {
 
         {/* The Story — Why HelloKhata */}
         <KhataStorySection />
+
+        {/* How It Works */}
+        <HowItWorksSection />
+
+        {/* Interactive Voice Demo */}
+        <VoiceDemoSection />
 
         {/* The Voice */}
         <VoiceSection />

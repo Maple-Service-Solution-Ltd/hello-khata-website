@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, ChevronDown } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
@@ -20,6 +20,7 @@ const tiers = [
     id: 'shuru',
     nameBn: 'শুরু',
     nameEn: 'Shuru — Beginning',
+    tierIcon: '🌱',
     priceMonthly: 'বিনামূল্যে',
     priceYearly: 'বিনামূল্যে',
     forText: 'যারা এইমাত্র শুরু করছেন',
@@ -40,6 +41,7 @@ const tiers = [
     id: 'bikash',
     nameBn: 'বিকাশ',
     nameEn: 'Bikash — Growth',
+    tierIcon: '🚀',
     priceMonthly: '৳৪৯৯/মাস',
     priceYearly: '৳৩৯৯/মাস',
     forText: 'বেশিরভাগ দোকানের জন্য সেরা',
@@ -64,6 +66,7 @@ const tiers = [
     id: 'utthan',
     nameBn: 'উত্থান',
     nameEn: 'Utthan — Rise',
+    tierIcon: '👑',
     priceMonthly: '৳৯৯৯/মাস',
     priceYearly: '৳৭৯৯/মাস',
     forText: 'একাধিক শাখা, বড় টিম',
@@ -131,6 +134,48 @@ function CellValue({ value }: { value: boolean | string }) {
   if (value === true) return <Check className="w-5 h-5 text-[var(--green)] mx-auto" />;
   if (value === false) return <X className="w-5 h-5 text-[var(--text-ghost)] mx-auto" />;
   return <span className="text-[var(--text-cream-muted)] text-sm">{value}</span>;
+}
+
+/* ─── Animated Number Badge ─── */
+function AnimatedSavingsBadge() {
+  const [displayNum, setDisplayNum] = useState(0);
+  const animRef = useRef<number | null>(null);
+
+  // Count-up animation on mount (AnimatePresence handles unmount)
+  useEffect(() => {
+    const duration = 600;
+    const startTime = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setDisplayNum(Math.round(eased * 20));
+      if (progress < 1) {
+        animRef.current = requestAnimationFrame(tick);
+      }
+    }
+
+    animRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (animRef.current) cancelAnimationFrame(animRef.current);
+    };
+  }, []);
+
+  return (
+    <motion.span
+      initial={{ opacity: 0, scale: 0.6, x: -10 }}
+      animate={{ opacity: 1, scale: 1, x: 0 }}
+      exit={{ opacity: 0, scale: 0.6, x: -10 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className="px-3 py-1 rounded-full text-xs font-bold font-body text-white"
+      style={{ backgroundColor: 'var(--green)' }}
+    >
+      {displayNum}% সাশ্রয়
+    </motion.span>
+  );
 }
 
 /* ─── Pill Toggle Component ─── */
@@ -204,16 +249,7 @@ export default function PricingSection() {
             <PillToggle isYearly={isYearly} onToggle={() => setIsYearly(!isYearly)} />
             <AnimatePresence>
               {isYearly && (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.6, x: -10 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.6, x: -10 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                  className="px-3 py-1 rounded-full text-xs font-bold font-body text-white"
-                  style={{ backgroundColor: 'var(--green)' }}
-                >
-                  ২০% সাশ্রয়
-                </motion.span>
+                <AnimatedSavingsBadge />
               )}
             </AnimatePresence>
           </Reveal>
@@ -221,14 +257,16 @@ export default function PricingSection() {
           {/* Cards */}
           <StaggerGroup
             stagger={0.12}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start"
           >
             {tiers.map((tier) => (
               <StaggerItem key={tier.id}>
                 <motion.div
                   whileHover={{ y: -6 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                  className="relative rounded-[var(--card-r)] p-6 lg:p-8 flex flex-col overflow-hidden"
+                  className={`relative rounded-[var(--card-r)] p-6 lg:p-8 flex flex-col overflow-hidden ${
+                    tier.highlighted ? 'md:scale-[1.03] pt-10' : ''
+                  }`}
                   style={{
                     background: 'rgba(22,25,24,0.6)',
                     backdropFilter: 'blur(16px)',
@@ -248,15 +286,33 @@ export default function PricingSection() {
                   <div
                     className="absolute top-0 left-0 right-0 h-[2px]"
                     style={{
-                      background: tier.highlighted
-                        ? 'linear-gradient(90deg, transparent, var(--green), transparent)'
-                        : 'linear-gradient(90deg, transparent, var(--green), transparent)',
+                      background: 'linear-gradient(90deg, transparent, var(--green), transparent)',
                       opacity: tier.highlighted ? 0.8 : 0.3,
                     }}
                   />
 
-                  {/* Badge */}
-                  {tier.badge && (
+                  {/* Most Popular ribbon corner (Bikash tier) */}
+                  {tier.highlighted && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25, delay: 0.3 }}
+                      className="absolute top-0 right-0 z-20"
+                    >
+                      <div
+                        className="px-5 py-1.5 text-[10px] font-bold font-body text-white rounded-bl-xl"
+                        style={{
+                          background: 'var(--green)',
+                          boxShadow: '0 4px 12px var(--green-glow)',
+                        }}
+                      >
+                        Most Popular
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Badge (non-ribbon) */}
+                  {tier.badge && !tier.highlighted && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -267,6 +323,11 @@ export default function PricingSection() {
                       {tier.badge}
                     </motion.div>
                   )}
+
+                  {/* Tier Icon */}
+                  <div className="mb-3">
+                    <span className="text-3xl">{tier.tierIcon}</span>
+                  </div>
 
                   {/* Name */}
                   <div className="mb-4">
@@ -305,11 +366,16 @@ export default function PricingSection() {
                   {/* Features */}
                   <ul className="flex-1 space-y-3 mb-8">
                     {tier.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
-                        <Check
-                          className="w-4.5 h-4.5 mt-0.5 shrink-0"
-                          style={{ color: 'var(--green)' }}
-                        />
+                      <li key={i} className="flex items-start gap-3">
+                        <span
+                          className="flex items-center justify-center w-[22px] h-[22px] rounded-full shrink-0 mt-0.5"
+                          style={{ backgroundColor: 'rgba(0, 194, 111, 0.1)' }}
+                        >
+                          <Check
+                            className="w-3.5 h-3.5"
+                            style={{ color: 'var(--green)' }}
+                          />
+                        </span>
                         <span className="font-body text-sm text-[var(--text-cream-muted)]">
                           {f}
                         </span>
@@ -319,7 +385,7 @@ export default function PricingSection() {
 
                   {/* CTA */}
                   <button
-                    className="w-full py-3 rounded-xl font-body text-sm font-semibold transition-all cursor-pointer"
+                    className="w-full py-3 rounded-xl font-body text-sm font-semibold transition-all duration-300 cursor-pointer hover:-translate-y-0.5"
                     style={
                       tier.ctaStyle === 'filled'
                         ? {
@@ -337,9 +403,11 @@ export default function PricingSection() {
                       if (tier.ctaStyle === 'filled') {
                         (e.currentTarget as HTMLElement).style.boxShadow =
                           '0 4px 30px var(--green-glow-strong)';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
                       } else {
                         (e.currentTarget as HTMLElement).style.borderColor = 'var(--green)';
                         (e.currentTarget as HTMLElement).style.color = 'var(--green)';
+                        (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -351,6 +419,7 @@ export default function PricingSection() {
                           'var(--ink-border-strong)';
                         (e.currentTarget as HTMLElement).style.color = 'var(--text-cream)';
                       }
+                      (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
                     }}
                   >
                     {tier.cta}
@@ -365,69 +434,72 @@ export default function PricingSection() {
       {/* ─── Feature Comparison Table ─── */}
       <div className="bg-[var(--cream-2)] py-[clamp(80px,10vw,160px)] px-4">
         <Reveal className="max-w-[900px] mx-auto">
-          <div
-            className="rounded-[var(--card-r)] overflow-hidden border"
-            style={{
-              background: 'var(--ink-1)',
-              borderColor: 'var(--ink-border)',
-            }}
-          >
-            {/* Table header */}
+          {/* Mobile horizontal scroll wrapper */}
+          <div className="overflow-x-auto -mx-4 px-4 pb-2">
             <div
-              className="grid grid-cols-4 gap-0 text-center py-4 px-6"
-              style={{ borderBottom: '1px solid var(--ink-border)' }}
+              className="rounded-[var(--card-r)] overflow-hidden border min-w-[560px]"
+              style={{
+                background: 'var(--ink-1)',
+                borderColor: 'var(--ink-border)',
+              }}
             >
-              <div className="text-left">
-                <span className="font-body text-xs text-[var(--text-cream-muted)] uppercase tracking-wider">
-                  ফিচার
-                </span>
-              </div>
-              <div>
-                <span className="font-bengali text-sm text-[var(--text-cream)]">শুরু</span>
-              </div>
-              <div>
-                <span
-                  className="font-bengali text-sm"
-                  style={{ color: 'var(--green)' }}
-                >
-                  বিকাশ
-                </span>
-              </div>
-              <div>
-                <span className="font-bengali text-sm text-[var(--text-cream)]">উত্থান</span>
-              </div>
-            </div>
-
-            {/* Table rows */}
-            {comparisonFeatures.map((feature, i) => (
+              {/* Table header */}
               <div
-                key={i}
-                className="grid grid-cols-4 gap-0 text-center items-center py-3.5 px-6"
-                style={{
-                  borderBottom:
-                    i < comparisonFeatures.length - 1
-                      ? '1px solid var(--ink-border)'
-                      : 'none',
-                  backgroundColor:
-                    i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)',
-                }}
+                className="grid grid-cols-4 gap-0 text-center py-4 px-6"
+                style={{ borderBottom: '1px solid var(--ink-border)' }}
               >
                 <div className="text-left">
-                  <span className="font-body text-sm text-[var(--text-cream-muted)]">
-                    {feature.name}
+                  <span className="font-body text-xs text-[var(--text-cream-muted)] uppercase tracking-wider">
+                    ফিচার
                   </span>
                 </div>
                 <div>
-                  <CellValue value={feature.shuru} />
+                  <span className="font-bengali text-sm text-[var(--text-cream)]">শুরু</span>
                 </div>
                 <div>
-                  <CellValue value={feature.bikash} />
+                  <span
+                    className="font-bengali text-sm"
+                    style={{ color: 'var(--green)' }}
+                  >
+                    বিকাশ
+                  </span>
                 </div>
                 <div>
-                  <CellValue value={feature.utthan} />
+                  <span className="font-bengali text-sm text-[var(--text-cream)]">উত্থান</span>
                 </div>
               </div>
-            ))}
+
+              {/* Table rows */}
+              {comparisonFeatures.map((feature, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-4 gap-0 text-center items-center py-3.5 px-6"
+                  style={{
+                    borderBottom:
+                      i < comparisonFeatures.length - 1
+                        ? '1px solid var(--ink-border)'
+                        : 'none',
+                    backgroundColor:
+                      i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)',
+                  }}
+                >
+                  <div className="text-left">
+                    <span className="font-body text-sm text-[var(--text-cream-muted)]">
+                      {feature.name}
+                    </span>
+                  </div>
+                  <div>
+                    <CellValue value={feature.shuru} />
+                  </div>
+                  <div>
+                    <CellValue value={feature.bikash} />
+                  </div>
+                  <div>
+                    <CellValue value={feature.utthan} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -486,51 +558,68 @@ export default function PricingSection() {
           </Reveal>
 
           <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <Reveal key={i} delay={i * 0.06}>
-                <div
-                  className="rounded-2xl border overflow-hidden"
-                  style={{
-                    background: 'white',
-                    borderColor: 'var(--canvas-border)',
-                  }}
-                >
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
+            {faqs.map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <Reveal key={i} delay={i * 0.06}>
+                  <div
+                    className="rounded-2xl border overflow-hidden"
+                    style={{
+                      background: 'white',
+                      borderColor: isOpen ? 'var(--green)' : 'var(--canvas-border)',
+                      transition: 'border-color 0.3s ease',
+                    }}
                   >
-                    <span className="font-bengali text-base text-[var(--text-ink)] pr-4">
-                      {faq.q}
-                    </span>
-                    <motion.div
-                      animate={{ rotate: openFaq === i ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="shrink-0"
+                    <button
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                     >
-                      <ChevronDown className="w-5 h-5 text-[var(--text-muted)]" />
-                    </motion.div>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {openFaq === i && (
+                      <div className="flex items-center gap-3 flex-1 pr-4">
+                        {/* Green accent bar on left when open */}
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{
+                            height: isOpen ? 28 : 0,
+                            opacity: isOpen ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className="w-[3px] rounded-full shrink-0"
+                          style={{ backgroundColor: 'var(--green)' }}
+                        />
+                        <span className="font-bengali text-base text-[var(--text-ink)]">
+                          {faq.q}
+                        </span>
+                      </div>
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="shrink-0"
                       >
-                        <div
-                          className="px-6 pb-5 font-body text-[var(--text-muted)] text-[var(--fs-body)]"
-                          style={{ lineHeight: 1.7 }}
-                        >
-                          {faq.a}
-                        </div>
+                        <ChevronDown className="w-5 h-5 text-[var(--text-muted)]" />
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </Reveal>
-            ))}
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <div
+                            className="px-6 pb-5 font-body text-[var(--text-muted)] text-[var(--fs-body)]"
+                            style={{ lineHeight: 1.7 }}
+                          >
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </div>

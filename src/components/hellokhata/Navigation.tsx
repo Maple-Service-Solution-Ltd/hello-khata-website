@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import WaveformMark from '@/components/hellokhata/WaveformMark';
 
@@ -145,19 +145,19 @@ export default function Navigation() {
             <WaveformMark size="xs" active={mobileOpen} />
             <span
               className={cn(
-                'font-body font-bold text-2xl transition-colors duration-300',
+                'font-body font-bold text-[22px] transition-colors duration-300',
                 isLight ? 'text-[var(--text-ink)]' : 'text-[var(--text-cream)]'
               )}
             >
               Hello
             </span>
-            <span className="font-body font-bold text-2xl text-[var(--green)]">
+            <span className="font-body font-bold text-[22px] text-[var(--green)]">
               Khata
             </span>
           </a>
 
           {/* ─── Desktop Nav Links ─── */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((link) => {
               const sectionId = link.href.replace('#', '');
               const isActive = activeSection === sectionId;
@@ -171,18 +171,18 @@ export default function Navigation() {
                     scrollToSection(link.href);
                   }}
                   className={cn(
-                    'relative font-bengali text-[14px] leading-none transition-colors duration-200 py-2',
+                    'relative font-bengali text-[15px] tracking-wide leading-none transition-colors duration-200 py-2 px-3 -mx-3 rounded-lg',
                     isActive
                       ? 'text-[var(--green)]'
                       : !isLight
-                        ? 'text-[var(--text-cream)] hover:text-[var(--green)]'
-                        : 'text-[var(--text-ink)] hover:text-[var(--green)]'
+                        ? 'text-[var(--text-cream)] hover:text-[var(--green)] hover:bg-[rgba(255,255,255,0.06)]'
+                        : 'text-[var(--text-ink)] hover:text-[var(--green)] hover:bg-[rgba(13,15,14,0.04)]'
                   )}
                 >
                   {link.label}
                   <span
                     className={cn(
-                      'absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--green)] transition-all duration-300',
+                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--green)] transition-all duration-300',
                       isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                     )}
                   />
@@ -190,6 +190,19 @@ export default function Navigation() {
               );
             })}
           </div>
+
+          {/* ─── Glass Search Button ─── */}
+          <button
+            className={cn(
+              'hidden lg:flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 shrink-0 backdrop-blur-sm',
+              !isLight
+                ? 'text-[var(--text-cream-muted)] hover:text-[var(--text-cream)] hover:bg-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.05)] border border-[var(--ink-border)]'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-ink)] hover:bg-[rgba(13,15,14,0.06)] bg-[rgba(250,247,240,0.5)] border border-[var(--canvas-border)]'
+            )}
+            aria-label="Search"
+          >
+            <Search size={16} strokeWidth={2} />
+          </button>
 
           {/* ─── Right Actions ─── */}
           <div className="hidden lg:flex items-center gap-4 shrink-0">
@@ -234,7 +247,7 @@ export default function Navigation() {
                 e.preventDefault();
                 scrollToSection('#pricing');
               }}
-              className="flex items-center gap-2 bg-[var(--green)] hover:bg-[var(--green-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 shadow-[0_0_20px_var(--green-glow)] hover:shadow-[0_0_30px_var(--green-glow-strong)]"
+              className="flex items-center gap-2 bg-[var(--green)] hover:bg-[var(--green-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 shadow-[0_0_20px_var(--green-glow)] hover:shadow-[0_0_30px_var(--green-glow-strong)] animate-[pulse-glow_3s_ease-in-out_infinite]"
             >
               <Download size={16} strokeWidth={2} />
               অ্যাপ নামান
@@ -263,7 +276,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[var(--ink)] flex flex-col"
+            className="fixed inset-0 z-50 bg-[var(--ink)]/95 backdrop-blur-xl flex flex-col"
           >
             {/* Mobile header */}
             <div className="flex items-center justify-between px-6 h-[76px]">
@@ -286,7 +299,7 @@ export default function Navigation() {
             </div>
 
             {/* Mobile nav links */}
-            <div className="flex-1 flex flex-col items-center justify-center gap-2">
+            <div className="flex-1 flex flex-col items-center justify-center gap-4">
               {NAV_LINKS.map((link, i) => {
                 const sectionId = link.href.replace('#', '');
                 const isActive = activeSection === sectionId;
@@ -303,15 +316,15 @@ export default function Navigation() {
                       scrollToSection(link.href);
                     }}
                     className={cn(
-                      'font-bengali text-[20px] h-10 flex items-center justify-center transition-colors duration-200 relative',
+                      'font-bengali text-[24px] h-12 flex items-center justify-center transition-all duration-200 relative border-l-2 pl-6',
                       isActive
-                        ? 'text-[var(--green)]'
-                        : 'text-[var(--text-cream)] hover:text-[var(--green)]'
+                        ? 'text-[var(--green)] border-[var(--green)]'
+                        : 'text-[var(--text-cream)] hover:text-[var(--green)] border-transparent'
                     )}
                   >
                     {link.label}
                     {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-[2px] rounded-full bg-[var(--green)]" />
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--green)]" />
                     )}
                   </motion.a>
                 );

@@ -148,17 +148,22 @@
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+}
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 194, 111, 0.3);
-  border-radius: 3px;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 194, 111, 0.5);
+  background: rgba(0, 194, 111, 0.6);
 }
 
 /* ── Texture Utilities ── */
@@ -204,8 +209,8 @@
 
 /* ── River easing animation helper ── */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-14px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
 @keyframes blink {
@@ -270,8 +275,12 @@
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(0, 194, 111, 0.2);
-  color: var(--text-ink);
+  background: rgba(0, 194, 111, 0.15);
+  color: white;
+}
+::-moz-selection {
+  background: rgba(0, 194, 111, 0.15);
+  color: white;
 }
 
 /* ── Shimmer animation for CTA buttons ── */
@@ -296,7 +305,7 @@ a[class*="rounded-full"] {
 }
 button:not(:disabled):active,
 a[class*="rounded-full"]:active {
-  transform: scale(0.97) !important;
+  transform: scale(0.96) !important;
   transition-duration: 100ms;
 }
 
@@ -346,10 +355,40 @@ img.loaded {
   opacity: 1;
 }
 
-/* ── Selection enhancement ── */
-::-moz-selection {
-  background: rgba(0, 194, 111, 0.2);
-  color: var(--text-ink);
+/* ── Section Transition Divider ── */
+.section-divider {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+.section-divider svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Glass Card Utilities ── */
+.glass-card-dark {
+  background: rgba(13, 15, 14, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ink-border);
+}
+.glass-card-light {
+  background: rgba(250, 247, 240, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--canvas-border);
+}
+
+/* ── Gradient Text Utility ── */
+.gradient-text-green {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── Marquee hover pause ── */

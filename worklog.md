@@ -537,3 +537,192 @@ Create "Trusted By" brands bar section (TrustedBySection.tsx) and enhance global
 - ✅ All animations use existing design system tokens (--t-spring, --t-fast, --t-river, --t-slow)
 - ✅ Follows "Refined Bengali Modernism" design language
 - ✅ Responsive: stats stack vertically on mobile, marquee runs on all sizes
+
+---
+Task ID: 4-A
+Agent: Frontend Styling Expert
+Task: Improve Navigation.tsx and globals.css styling per QA feedback
+
+Work Log:
+
+**1. Navigation.tsx — Styling Enhancements**
+- Nav link text size: `text-[14px]` → `text-[15px]` with `tracking-wide` letter-spacing for improved readability
+- Nav links gap: `gap-6` → `gap-7` for more breathing room between links
+- Active indicator: replaced tiny 4px dot (`w-1 h-1`) with visible 24px×2px underline (`w-6 h-[2px]`) using rounded-full
+- Hover highlight: added subtle background tint on desktop nav links — `hover:bg-[rgba(255,255,255,0.06)]` on dark, `hover:bg-[rgba(13,15,14,0.04)]` on light, with `px-3 -mx-3 rounded-lg` for padded hit area
+- Glass-morphism search button: added between nav links and CTA using Search icon from lucide-react, dual-state theming (dark/light), backdrop-blur-sm, subtle glass background
+- Mobile menu backdrop: changed from solid `bg-[var(--ink)]` to `bg-[var(--ink)]/95 backdrop-blur-xl` for depth
+- Mobile link text: `text-[20px]` → `text-[24px]`, `h-10` → `h-12`
+- Mobile link gap: `gap-2` → `gap-4`
+- Mobile active link: added green left border accent (`border-l-2 border-[var(--green)]`) with `pl-6` padding
+- Desktop logo: `text-2xl` → `text-[22px]` (explicit pixel control)
+- Download button: added `animate-[pulse-glow_3s_ease-in-out_infinite]` for subtle glow pulse animation
+- Mobile download button: also received the pulse-glow animation
+
+**2. globals.css — Design System Enhancements**
+- **Scrollbar**: width 6px → 8px desktop, 4px mobile (via @media query), thumb `border-radius: 3px` → `border-radius: 9999px` (rounded-full), hover opacity 0.5 → 0.6
+- **Selection color**: consolidated `::selection` and `::-moz-selection` together, updated to `rgba(0, 194, 111, 0.15)` background with `color: white` text for stronger visual feedback
+- **Button press**: `scale(0.97)` → `scale(0.96)` for more noticeable active state
+- **Float keyframes**: updated from `translateY(-14px)` → `translateY(-12px)` per spec, removed redundant `0px` unit
+- **Pulse-glow keyframes**: already present and matching spec — no changes needed
+- **Section Transition Divider** (new): `.section-divider` utility class with 80px height, overflow hidden, positioned SVG for smooth curved SVG transitions between dark/light sections
+- **Glass Card Utilities** (new): `.glass-card-dark` (ink at 60%, blur 16px, ink-border) and `.glass-card-light` (cream at 70%, blur 16px, canvas-border) — includes `-webkit-backdrop-filter` for Safari support
+- **Gradient Text Utility** (new): `.gradient-text-green` with 135deg gradient from `--green` to `--green-deep`, using `-webkit-background-clip: text` and `-webkit-text-fill-color: transparent` for cross-browser support
+
+Quality:
+- ✅ ESLint: zero errors
+- ✅ All existing functionality preserved
+- ✅ Follows "Refined Bengali Modernism" design language
+- ✅ Uses CSS custom properties consistently
+- ✅ Cross-browser compatibility (webkit prefixes for backdrop-filter, background-clip)
+
+Stage Summary:
+- Navigation enhanced with 9 specific styling improvements per QA
+- globals.css expanded with 7 new/updated design system utilities
+- Zero regressions, all changes additive
+
+---
+## Task ID: 4-B
+### Work Task
+Improve styling of AboutSection.tsx, PricingSection.tsx, and Footer.tsx based on QA feedback — detailed visual enhancements across all three components.
+
+### Work Summary
+
+**1. AboutSection.tsx — 9 QA Improvements**
+
+- **Mission statement heading**: Enlarged from `text-[44px] md:text-[52px]` to `text-[52px] md:text-[60px]` with `font-bold` added for stronger typography hierarchy. Increased bottom margin from `mb-6` to `mb-8` for more breathing room.
+- **Background pattern overlay**: Added a new radial-gradient layer to the mission statement section using two offset green radial gradients (6% and 4% opacity) positioned at 20%/30% and 80%/70% for subtle organic depth behind the nakshi texture.
+- **Decorative green accent line**: Added a 64px-wide, 3px-tall green horizontal line (`rounded-full`) between the timeline section header ("আমাদের গল্প") and the timeline items, wrapped in a `Reveal` component for scroll-triggered entrance.
+- **Timeline stagger delay**: Changed from `i * 0.1` to `i * 0.08` for more varied, faster stagger animation across the 4 milestone items.
+- **Timeline card visual depth**: Converted timeline cards from plain `<div>` to `<motion.div>` with `whileHover={{ y: -4 }}` spring animation and enhanced shadow on hover (`0 8px 30px rgba(0,0,0,0.1)`). Timeline headings now have `font-semibold`.
+- **Team member top accent bar**: Added a 3px-tall colored accent bar at the top of each team card using `absolute top-0 left-0 right-0 h-[3px]` with each member's unique `color` property. Cards now have `overflow-hidden` to clip cleanly.
+- **Team card bio whitespace**: Increased padding from `p-6` to `p-6 pb-8`, increased role-to-bio gap from `mb-3` to `mb-4`, and improved bio line-height from 1.6 to 1.7.
+- **Values ghost number visibility**: Increased ghost number opacity from `0.04` to `0.06` for slightly more visible decorative numbers.
+
+**2. PricingSection.tsx — 8 QA Improvements**
+
+- **Tier icons**: Added `tierIcon` field to each tier data object (🌱 for Shuru, 🚀 for Bikash, 👑 for Utthan). Displayed as `text-3xl` above the tier name for visual distinction.
+- **Bikash card dominance**: Added `md:scale-[1.03]` and `pt-10` extra top padding to the highlighted (Bikash) card. Added `items-start` to the card grid for proper alignment with scaled card.
+- **Feature checkmark circles**: Replaced bare check icons with `w-[22px] h-[22px] rounded-full` circles at `rgba(0,194,111,0.1)` background containing slightly smaller `w-3.5 h-3.5` check icons, with increased gap from `gap-2.5` to `gap-3`.
+- **FAQ green accent bar**: Added a `motion.div` green accent bar (3px wide, 28px tall when open) to the left of each FAQ question text, animated with `height` and `opacity` transitions using `[0.16, 1, 0.3, 1]` river easing. FAQ card border color transitions to `--green` when open.
+- **"Most Popular" ribbon corner**: Replaced the centered floating badge on the Bikash tier with a top-right corner ribbon showing "Most Popular" in English, styled with green background, rounded bottom-left corners, and a green glow shadow. Delayed entrance animation (0.3s).
+- **Comparison table mobile scroll**: Wrapped the comparison table in an `overflow-x-auto -mx-4 px-4 pb-2` container with `min-w-[560px]` on the inner table for horizontal scrolling on small screens.
+- **CTA button hover states**: Added `hover:-translate-y-0.5` Tailwind class and programmatic `translateY(-2px)` on both filled and outline button hover states via `onMouseEnter`/`onMouseLeave` handlers, with `transition-all duration-300`.
+- **Animated savings badge**: Created `AnimatedSavingsBadge` component that counts up from 0→20 using `requestAnimationFrame` with easeOutExpo easing over 600ms on mount. Properly cleans up animation frame on unmount. Wrapped in `AnimatePresence` so it remounts fresh each time yearly toggle is activated.
+
+**3. Footer.tsx — 9 QA Improvements**
+
+- **Company description paragraph**: Added a Bengali company description under the logo ("বাংলাদেশের ক্ষুদ্র ও মাঝারি ব্যবসার জন্য সবচেয়ে সহজ ব্যবসা পরিচালনা অ্যাপ। ভয়েস কমান্ড, ব্যাচ ম্যানেজমেন্ট এবং AI দিয়ে আপনার দোকানকে ডিজিটাল করুন।") with `max-w-[280px]` and `leading-relaxed`.
+- **Contact Us section**: Added a new section between the grid and bottom strip with email (hello@hellokhata.com with Mail icon) and phone (+৮৮০ ১XXX-XXXXXX with Phone icon) displayed horizontally, separated by a HorizonLine divider.
+- **Social icon hover animations**: Added `hover:scale-110 hover:rotate-6` to all social icon links for playful hover interaction.
+- **Tagline green glow**: Added `textShadow: '0 0 30px var(--green-glow), 0 0 60px rgba(0,194,111,0.15)'` to the footer tagline heading.
+- **Column heading underline decoration**: Added `borderBottom: '3px solid var(--green)'` with `pb-2` to all 5 column headings for consistent green underline decoration.
+- **Language selector pills**: Added 3 language buttons (বাংলা, English, हिन्दी) in the bottom strip. Active language (বাংলা) has green background (15% opacity), green text, and green border. Inactive languages have transparent background and muted text.
+- **App store badge green glow hover**: Added `hover:shadow-[0_0_20px_var(--green-glow)]` to both Play Store and App Store badge links.
+- **"Back to top" link**: Added a button in the bottom strip right side with ArrowUp icon and "Back to top" text. Clicks smooth-scroll to page top via `window.scrollTo({ top: 0, behavior: 'smooth' })`. Has `hover:text-[var(--green)]` and `hover:translate-x-[4px]` animations.
+- **Footer link hover slide**: All footer links now use `hover:translate-x-[4px]` slide-right animation on hover via `transition-all duration-200 inline-block`.
+- **Grid expansion**: Footer grid expanded from 5 columns to 6 columns (lg:grid-cols-6) with the logo/description column spanning 2 columns on large screens for better space distribution.
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ All existing functionality preserved — no breaking changes
+- ✅ Follows "Refined Bengali Modernism" design language
+- ✅ Uses CSS custom properties (--green, --ink, --cream, etc.) consistently
+- ✅ Framer Motion animations for interactive elements
+- ✅ Responsive design maintained (mobile scroll, grid breakpoints)
+
+---
+Task ID: 4-C
+Agent: How It Works Builder
+Task: Create "How It Works" interactive section
+
+Work Log:
+- Created HowItWorksSection.tsx at `/src/components/sections/HowItWorksSection.tsx`
+- Section id: `how-it-works`, placed between KhataStorySection and VoiceSection in page.tsx
+- Background: `var(--cream)` with `.texture-nakshi-subtle` at 20% opacity
+- Responsive padding: `clamp(80px, 10vw, 160px)` top/bottom, `px-4` sides, max-width `var(--site-max)`
+- Header: green eyebrow pill "৩টি ধাপে শুরু" with Zap icon, Bengali heading "কীভাবে কাজ করে" (--fs-h2), English subtitle italic
+- 3 step cards in CSS Grid (1-col mobile, 3-col desktop) using StaggerGroup/StaggerItem:
+  - Step 1: Download icon (green), "অ্যাপ ডাউনলোড করুন", ghost number "০১"
+  - Step 2: Mic icon (amber), "ভয়েসে বলুন", ghost number "০২"
+  - Step 3: BarChart3 icon (green), "সব স্বয়ংক্রিয়", ghost number "০৩"
+- Each card: white bg, rounded-[var(--card-r)], ghost number at top-right (120px, 6% opacity), circular icon container (56px, accent at 10% opacity), Bengali title, English subtitle, description, step indicator pill
+- Card hover: whileHover y:-6 with elevated shadow (0 12px 40px)
+- Desktop connector arrows between cards: dashed green SVG arrows at 30% opacity
+- Bottom CTA: "এখনই শুরু করুন →" link with underline grow animation on hover, scrolls to #pricing
+- All animations: Reveal for header, StaggerGroup for cards, CSS group-hover for CTA underline
+- Updated page.tsx: added import and placed section between KhataStorySection and VoiceSection
+
+Stage Summary:
+- New "How It Works" section provides clear 3-step onboarding flow
+- ESLint: zero errors
+- Dev server: clean compilation, all 200 responses
+
+---
+## Task ID: 4-D
+### Work Task
+Create Interactive Voice Demo Widget (VoiceDemoSection.tsx) — a highly interactive section that lets users experience how HelloKhata's voice commands work through a simulated phone screen with pre-built command buttons.
+
+### Work Summary
+
+**1. VoiceDemoSection.tsx — New Section (`/src/components/sections/VoiceDemoSection.tsx`)**
+- Section id: `voice-demo`, placed between HowItWorksSection and VoiceSection in page.tsx
+- Background: `var(--ink)` (dark) with subtle top green radial glow
+- Responsive padding: `clamp(80px, 10vw, 160px)` top/bottom, `px-4` sides, max-width `var(--site-max)`
+
+**Header (centered):**
+- Small green label: "লাইভ ডেমো" (font-body, text-xs, uppercase, tracking-wider)
+- Bengali heading: "নিজে চেষ্টা করুন" (font-bengali, --fs-h2, --text-cream)
+- English subtitle: "Try it yourself — tap a command and watch the magic" (font-display, italic, --text-cream-muted)
+
+**Interactive Demo Area:**
+- **Left: Command Buttons Panel** — 6 pill-shaped buttons with Mic icon + Bengali text:
+  - "আজকের বিক্রি দেখাও" (ShoppingBag icon)
+  - "কাস্টমার খাতা দেখাও" (Users icon)
+  - "নতুন এন্ট্রি করো" (Plus icon)
+  - "বাকি কারা দিচ্ছে" (AlertTriangle icon)
+  - "স্টক আপডেট করো" (Package icon)
+  - "রিপোর্ট তৈরি করো" (FileText icon)
+  - Active: green bg, white text, green glow shadow (0 0 20px/40px)
+  - Inactive: --ink-2 bg, --text-cream-muted text, --ink-border border
+  - Desktop: vertical flex-col | Mobile: horizontal scroll (flex-row overflow-x-auto)
+  - framer-motion whileHover scale:1.03, whileTap scale:0.97
+
+- **Center: Connector Animation (desktop only)** — SVG Bezier path with dashed green stroke and animated traveling dot using framer-motion offsetPath animation (infinite loop, 1.2s duration)
+
+- **Right: Phone Mockup** — 280×520px, rounded-[36px], dark gradient body with realistic side buttons and notch (100×28px, rounded-b-3xl, camera dot):
+  - **Screen 1 (Sales)**: Header "আজকের বিক্রি", large "৳ ১২,৪৫০", "১৮টি ট্রানজ্যাকশন", 5 animated bar chart bars, breakdown "ক্যাশ: ৳৮,২০০ | বিকাশ: ৳৪,২৫০"
+  - **Screen 2 (Customers)**: "কাস্টমার তালিকা" with 3 customer rows (name, amount, due/paid badge), total "মোট বাকি: ৳ ১৫,৩০০"
+  - **Screen 3 (New Entry)**: "নতুন এন্ট্রি" with 3 form fields (পণ্য, পরিমাণ, দাম) pre-filled, green check "সেভ হয়েছে ✓"
+  - **Screen 4 (Debtors)**: "বাকিদার তালিকা" with 3 names sorted by amount (highest first), crimson text, "কল করুন" PhoneCall button
+  - **Screen 5 (Stock)**: "স্টক স্ট্যাটাস" with 4 items and animated progress bars (green/yellow/red), "অর্ডার করুন" suggestion for low stock
+  - **Screen 6 (Report)**: "সাপ্তাহিক রিপোর্ট" with SVG polyline chart + gradient fill, stats "মোট বিক্রি: ৳ ৮৫,৩০০ | মুনাফা: ১২.৫%", "ডাউনলোড" button
+
+- **Screen transitions**: AnimatePresence mode="wait" with opacity 0→1, scale 0.98→1, 300ms duration, [0.16,1,0.3,1] river easing
+- **Default state**: Shows "আজকের বিক্রি দেখাও" screen (index 0)
+
+**Bottom disclaimer (centered):**
+- "এটি একটি ডেমো। আসল অ্যাপে আপনার ভয়েসে কাজ করবে।"
+- Style: font-body, text-xs, --text-ghost
+
+**Technical:**
+- Uses 'use client' directive
+- Imports: motion, AnimatePresence from framer-motion
+- Imports: Mic, Phone, ShoppingBag, Users, Plus, AlertTriangle, Package, FileText, CheckCircle2, PhoneCall, Download, TrendingUp from lucide-react
+- Imports: Reveal from @/components/hellokhata/Reveal
+- useState for activeCommand (default: 0)
+- Each phone screen is a separate function component
+- CSS custom properties for all colors
+- Responsive: mobile-first, buttons horizontal scroll on mobile, vertical on desktop
+
+**2. page.tsx Updated**
+- Added VoiceDemoSection import
+- Placed between HowItWorksSection and VoiceSection
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ All animations use framer-motion with design system easing
+- ✅ Follows "Refined Bengali Modernism" design language
+- ✅ Responsive: works on mobile and desktop

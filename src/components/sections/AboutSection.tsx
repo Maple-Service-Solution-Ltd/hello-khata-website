@@ -115,6 +115,14 @@ export default function AboutSection() {
       >
         {/* Subtle nakshi texture */}
         <div className="absolute inset-0 texture-nakshi-subtle opacity-40" />
+        {/* Background pattern overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 30%, rgba(0,194,111,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,194,111,0.04) 0%, transparent 40%)',
+          }}
+        />
         {/* Glow */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -135,8 +143,8 @@ export default function AboutSection() {
 
           <Reveal>
             <h2
-              className="font-bengali text-[44px] md:text-[52px] text-[var(--text-cream)] mb-6"
-              style={{ lineHeight: 1.35 }}
+              className="font-bengali text-[52px] md:text-[60px] font-bold text-[var(--text-cream)] mb-8"
+              style={{ lineHeight: 1.3 }}
             >
               ব্যবসা চালানো কথা বলার মতোই সহজ হওয়া উচিত।
             </h2>
@@ -163,6 +171,16 @@ export default function AboutSection() {
           </p>
         </Reveal>
 
+        {/* Decorative green accent line between header and timeline */}
+        <Reveal>
+          <div className="flex justify-center mb-16">
+            <div
+              className="w-16 h-[3px] rounded-full"
+              style={{ backgroundColor: 'var(--green)' }}
+            />
+          </div>
+        </Reveal>
+
         {/* Timeline */}
         <div className="relative max-w-[800px] mx-auto">
           {/* Center line */}
@@ -178,7 +196,7 @@ export default function AboutSection() {
                 <Reveal
                   key={i}
                   variant={isLeft ? 'slide-left' : 'slide-right'}
-                  delay={i * 0.1}
+                  delay={i * 0.08}
                   className="relative"
                 >
                   {/* Dot */}
@@ -193,7 +211,9 @@ export default function AboutSection() {
                       isLeft ? 'md:mr-auto md:pr-0' : 'md:ml-auto md:pl-0'
                     }`}
                   >
-                    <div
+                    <motion.div
+                      whileHover={{ y: -4, boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                       className="rounded-[var(--card-r)] p-6 border"
                       style={{
                         background: 'white',
@@ -213,13 +233,13 @@ export default function AboutSection() {
                           {m.year}
                         </span>
                       </div>
-                      <h4 className="font-bengali text-lg text-[var(--text-ink)] mb-2">
+                      <h4 className="font-bengali text-lg font-semibold text-[var(--text-ink)] mb-2">
                         {m.titleBn}
                       </h4>
                       <p className="font-body text-sm text-[var(--text-muted)]" style={{ lineHeight: 1.7 }}>
                         {m.bodyBn}
                       </p>
-                    </div>
+                    </motion.div>
                   </div>
                 </Reveal>
               );
@@ -251,7 +271,7 @@ export default function AboutSection() {
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                className="relative rounded-[var(--card-r)] p-6 text-center border border-transparent"
+                className="relative rounded-[var(--card-r)] p-6 pb-8 text-center border border-transparent overflow-hidden"
                 style={{
                   backgroundColor: 'var(--ink-2)',
                   backdropFilter: 'blur(16px)',
@@ -265,6 +285,12 @@ export default function AboutSection() {
                   (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                 }}
               >
+                {/* Colored top accent bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[3px]"
+                  style={{ backgroundColor: member.color }}
+                />
+
                 {/* Avatar */}
                 <div
                   className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bengali text-white"
@@ -280,12 +306,12 @@ export default function AboutSection() {
                   {member.nameEn}
                 </p>
                 <p
-                  className="font-body text-xs font-semibold mb-3"
+                  className="font-body text-xs font-semibold mb-4"
                   style={{ color: 'var(--green)' }}
                 >
                   {member.role}
                 </p>
-                <p className="font-body text-xs text-[var(--text-cream-muted)]" style={{ lineHeight: 1.6 }}>
+                <p className="font-body text-xs text-[var(--text-cream-muted)]" style={{ lineHeight: 1.7 }}>
                   {member.bio}
                 </p>
               </motion.div>
@@ -324,7 +350,7 @@ export default function AboutSection() {
                   style={{
                     fontSize: 'clamp(100px, 15vw, 150px)',
                     color: 'var(--text-ink)',
-                    opacity: 0.04,
+                    opacity: 0.06,
                     lineHeight: 1,
                     fontWeight: 700,
                   }}
