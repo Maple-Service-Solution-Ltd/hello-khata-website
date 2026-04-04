@@ -1,0 +1,513 @@
+'use client';
+
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, X, ChevronDown } from 'lucide-react';
+import { Reveal } from '@/components/hellokhata/Reveal';
+import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
+
+/* ─── Types ─── */
+interface Feature {
+  name: string;
+  shuru: boolean | string;
+  bikash: boolean | string;
+  utthan: boolean | string;
+}
+
+/* ─── Data ─── */
+const tiers = [
+  {
+    id: 'shuru',
+    nameBn: 'শুরু',
+    nameEn: 'Shuru — Beginning',
+    priceMonthly: 'বিনামূল্যে',
+    priceYearly: 'বিনামূল্যে',
+    forText: 'যারা এইমাত্র শুরু করছেন',
+    highlighted: false,
+    badge: null,
+    features: [
+      '১টি ব্যবসা',
+      'প্রতিদিন ৫০টি এন্ট্রি',
+      'ভয়েস কমান্ড (দৈনিক ২০টি)',
+      'বেসিক রিপোর্ট',
+      'কাস্টমার খাতা',
+      '১ জন স্টাফ',
+    ],
+    cta: 'বিনামূল্যে শুরু করুন',
+    ctaStyle: 'outline' as const,
+  },
+  {
+    id: 'bikash',
+    nameBn: 'বিকাশ',
+    nameEn: 'Bikash — Growth',
+    priceMonthly: '৳৪৯৯/মাস',
+    priceYearly: '৳৩৯৯/মাস',
+    forText: 'বেশিরভাগ দোকানের জন্য সেরা',
+    highlighted: true,
+    badge: 'সবচেয়ে জনপ্রিয়',
+    features: [
+      'সব শুরু ফিচার',
+      'আনলিমিটেড এন্ট্রি',
+      'আনলিমিটেড ভয়েস কমান্ড',
+      'ব্যাচ ম্যানেজমেন্ট',
+      'এক্সপায়ারি ট্র্যাকিং',
+      'সাপ্লায়ার ম্যানেজমেন্ট',
+      'অ্যাডভান্সড রিপোর্ট',
+      '৫ জন পর্যন্ত স্টাফ',
+      'SMS রিমাইন্ডার',
+      'প্রায়োরিটি সাপোর্ট',
+    ],
+    cta: 'বিকাশ শুরু করুন',
+    ctaStyle: 'filled' as const,
+  },
+  {
+    id: 'utthan',
+    nameBn: 'উত্থান',
+    nameEn: 'Utthan — Rise',
+    priceMonthly: '৳৯৯৯/মাস',
+    priceYearly: '৳৭৯৯/মাস',
+    forText: 'একাধিক শাখা, বড় টিম',
+    highlighted: false,
+    badge: null,
+    features: [
+      'সব বিকাশ ফিচার',
+      'মাল্টি-ব্রাঞ্চ',
+      'আনলিমিটেড স্টাফ',
+      'AI ইনসাইট',
+      'কাস্টম রিপোর্ট',
+      'API অ্যাক্সেস',
+      'ডেডিকেটেড অ্যাকাউন্ট ম্যানেজার',
+      'যেকোনো সংখ্যক ব্যবসা',
+      'হোয়াইটলেবেল অপশন',
+      'কাস্টম ইন্টিগ্রেশন',
+      'SLA গ্যারান্টি',
+      'ট্রেনিং ও অনবোর্ডিং',
+      'প্রায়োরিটি সাপোর্ট',
+      'আপটাইম গ্যারান্টি ৯৯.৯%',
+    ],
+    cta: 'উত্থান শুরু করুন',
+    ctaStyle: 'outline' as const,
+  },
+];
+
+const comparisonFeatures: Feature[] = [
+  { name: 'ব্যবসা', shuru: '১টি', bikash: '৩টি', utthan: 'আনলিমিটেড' },
+  { name: 'দৈনিক এন্ট্রি', shuru: '৫০টি', bikash: true, utthan: true },
+  { name: 'ভয়েস কমান্ড', shuru: 'দৈনিক ২০টি', bikash: true, utthan: true },
+  { name: 'রিপোর্ট', shuru: 'বেসিক', bikash: 'অ্যাডভান্সড', utthan: 'কাস্টম' },
+  { name: 'স্টাফ', shuru: '১ জন', bikash: '৫ জন', utthan: true },
+  { name: 'ব্যাচ ম্যানেজমেন্ট', shuru: false, bikash: true, utthan: true },
+  { name: 'এক্সপায়ারি ট্র্যাকিং', shuru: false, bikash: true, utthan: true },
+  { name: 'সাপ্লায়ার ম্যানেজমেন্ট', shuru: false, bikash: true, utthan: true },
+  { name: 'মাল্টি-ব্রাঞ্চ', shuru: false, bikash: false, utthan: true },
+  { name: 'API অ্যাক্সেস', shuru: false, bikash: false, utthan: true },
+];
+
+const faqs = [
+  {
+    q: 'HelloKhata কি অফলাইনে কাজ করে?',
+    a: 'হ্যাঁ, ইন্টারনেট ছাড়াও ব্যবহার করতে পারবেন। আপনার ডেটা স্থানীয়ভাবে সংরক্ষিত থাকবে এবং ইন্টারনেট পেলে অটো-সিঙ্ক হয়ে যাবে।',
+  },
+  {
+    q: 'আমার ডেটা কি নিরাপদ?',
+    a: 'আপনার সব ডেটা encrypted আকারে সংরক্ষিত। আমরা industry-standard security ব্যবহার করি এবং আপনার ডেটা কখনো তৃতীয় পক্ষের সাথে শেয়ার করি না।',
+  },
+  {
+    q: 'কোনো কার্ড লাগবে?',
+    a: 'না, কোনো কার্ড লাগবে না। শুরু প্ল্যান সম্পূর্ণ বিনামূল্যে। প্রিমিয়াম প্ল্যানে bKash, Nagad বা ব্যাংক ট্রান্সফারে পেমেন্ট করতে পারবেন।',
+  },
+  {
+    q: 'বাংলায় কি সব পাবো?',
+    a: 'হ্যাঁ, পুরো অ্যাপ বাংলায় পাবেন। ভয়েস কমান্ডও বাংলায় কাজ করে। আমরা বাংলাদেশের দোকানদারদের জন্যই তৈরি করেছি।',
+  },
+  {
+    q: 'যেকোনো সময় বন্ধ করা যাবে?',
+    a: 'হ্যাঁ, যেকোনো সময় বন্ধ করতে পারবেন। কোনো locked-in contract নেই। আপনার সব ডেটা এক্সপোর্ট করে নিতে পারবেন।',
+  },
+];
+
+/* ─── Helpers ─── */
+function CellValue({ value }: { value: boolean | string }) {
+  if (value === true) return <Check className="w-5 h-5 text-[var(--green)] mx-auto" />;
+  if (value === false) return <X className="w-5 h-5 text-[var(--text-ghost)] mx-auto" />;
+  return <span className="text-[var(--text-cream-muted)] text-sm">{value}</span>;
+}
+
+/* ─── Component ─── */
+export default function PricingSection() {
+  const [isYearly, setIsYearly] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <section id="pricing" className="relative">
+      {/* ─── Pricing Cards ─── */}
+      <div className="bg-[var(--cream)] py-[var(--section-v)] px-4">
+        <div className="max-w-[var(--site-max)] mx-auto">
+          {/* Header */}
+          <Reveal className="text-center mb-12">
+            <h2
+              className="font-bengali text-[var(--fs-h1)] text-[var(--text-ink)] mb-4"
+              style={{ lineHeight: 1.2 }}
+            >
+              সহজ মূল্য। কোনো লুকানো কথা নেই।
+            </h2>
+            <p className="font-body text-[var(--text-muted)] text-[var(--fs-body-lg)]">
+              Transparent pricing. Cancel anytime. No contracts.
+            </p>
+          </Reveal>
+
+          {/* Toggle */}
+          <Reveal delay={0.15} className="flex items-center justify-center gap-4 mb-14">
+            <span
+              className={`font-body text-sm font-medium transition-colors ${
+                !isYearly ? 'text-[var(--text-ink)]' : 'text-[var(--text-ghost)]'
+              }`}
+            >
+              Monthly
+            </span>
+            <button
+              onClick={() => setIsYearly(!isYearly)}
+              className="relative w-14 h-7 rounded-full transition-colors duration-300 cursor-pointer"
+              style={{
+                backgroundColor: isYearly ? 'var(--green)' : 'var(--ink-2)',
+              }}
+              aria-label="Toggle yearly pricing"
+            >
+              <motion.div
+                className="absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md"
+                animate={{ left: isYearly ? 'calc(100% - 26px)' : '2px' }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </button>
+            <span
+              className={`font-body text-sm font-medium transition-colors ${
+                isYearly ? 'text-[var(--text-ink)]' : 'text-[var(--text-ghost)]'
+              }`}
+            >
+              Yearly
+            </span>
+            <AnimatePresence>
+              {isYearly && (
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.6, x: -10 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.6, x: -10 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  className="px-3 py-1 rounded-full text-xs font-bold font-body text-white"
+                  style={{ backgroundColor: 'var(--green)' }}
+                >
+                  ২০% সাশ্রয়
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </Reveal>
+
+          {/* Cards */}
+          <StaggerGroup
+            stagger={0.12}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+          >
+            {tiers.map((tier) => (
+              <StaggerItem key={tier.id}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                  className="relative rounded-[var(--card-r)] p-6 lg:p-8 flex flex-col"
+                  style={{
+                    background: 'var(--ink-1)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    ...(tier.highlighted
+                      ? {
+                          border: '1.5px solid var(--green)',
+                          boxShadow:
+                            '0 0 0 1px var(--green), 0 0 40px var(--green-glow), 0 0 80px var(--green-glow)',
+                        }
+                      : {
+                          border: '1px solid var(--ink-border)',
+                        }),
+                  }}
+                >
+                  {/* Badge */}
+                  {tier.badge && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold font-body text-white z-10"
+                      style={{ backgroundColor: 'var(--green)' }}
+                    >
+                      {tier.badge}
+                    </motion.div>
+                  )}
+
+                  {/* Name */}
+                  <div className="mb-4">
+                    <h3
+                      className="font-bengali text-2xl text-[var(--text-cream)]"
+                      style={{ lineHeight: 1.3 }}
+                    >
+                      {tier.nameBn}
+                    </h3>
+                    <p className="font-body text-[var(--text-cream-muted)] text-xs mt-1">
+                      {tier.nameEn}
+                    </p>
+                  </div>
+
+                  {/* Price */}
+                  <div className="mb-2">
+                    <motion.span
+                      key={isYearly ? 'yearly' : 'monthly'}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="font-bengali text-3xl lg:text-4xl text-[var(--text-cream)]"
+                    >
+                      {isYearly ? tier.priceYearly : tier.priceMonthly}
+                    </motion.span>
+                  </div>
+
+                  {/* For */}
+                  <p className="font-body text-[var(--text-cream-muted)] text-sm mb-6">
+                    {tier.forText}
+                  </p>
+
+                  {/* Divider */}
+                  <div className="w-full h-px mb-6" style={{ backgroundColor: 'var(--ink-border)' }} />
+
+                  {/* Features */}
+                  <ul className="flex-1 space-y-3 mb-8">
+                    {tier.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <Check
+                          className="w-4.5 h-4.5 mt-0.5 shrink-0"
+                          style={{ color: 'var(--green)' }}
+                        />
+                        <span className="font-body text-sm text-[var(--text-cream-muted)]">
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <button
+                    className="w-full py-3 rounded-xl font-body text-sm font-semibold transition-all cursor-pointer"
+                    style={
+                      tier.ctaStyle === 'filled'
+                        ? {
+                            backgroundColor: 'var(--green)',
+                            color: 'white',
+                            boxShadow: '0 4px 20px var(--green-glow)',
+                          }
+                        : {
+                            backgroundColor: 'transparent',
+                            color: 'var(--text-cream)',
+                            border: '1.5px solid var(--ink-border-strong)',
+                        }
+                    }
+                    onMouseEnter={(e) => {
+                      if (tier.ctaStyle === 'filled') {
+                        (e.currentTarget as HTMLElement).style.boxShadow =
+                          '0 4px 30px var(--green-glow-strong)';
+                      } else {
+                        (e.currentTarget as HTMLElement).style.borderColor = 'var(--green)';
+                        (e.currentTarget as HTMLElement).style.color = 'var(--green)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (tier.ctaStyle === 'filled') {
+                        (e.currentTarget as HTMLElement).style.boxShadow =
+                          '0 4px 20px var(--green-glow)';
+                      } else {
+                        (e.currentTarget as HTMLElement).style.borderColor =
+                          'var(--ink-border-strong)';
+                        (e.currentTarget as HTMLElement).style.color = 'var(--text-cream)';
+                      }
+                    }}
+                  >
+                    {tier.cta}
+                  </button>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+        </div>
+      </div>
+
+      {/* ─── Feature Comparison Table ─── */}
+      <div className="bg-[var(--cream-2)] py-[var(--section-v)] px-4">
+        <Reveal className="max-w-[900px] mx-auto">
+          <div
+            className="rounded-[var(--card-r)] overflow-hidden border"
+            style={{
+              background: 'var(--ink-1)',
+              borderColor: 'var(--ink-border)',
+            }}
+          >
+            {/* Table header */}
+            <div
+              className="grid grid-cols-4 gap-0 text-center py-4 px-6"
+              style={{ borderBottom: '1px solid var(--ink-border)' }}
+            >
+              <div className="text-left">
+                <span className="font-body text-xs text-[var(--text-cream-muted)] uppercase tracking-wider">
+                  ফিচার
+                </span>
+              </div>
+              <div>
+                <span className="font-bengali text-sm text-[var(--text-cream)]">শুরু</span>
+              </div>
+              <div>
+                <span
+                  className="font-bengali text-sm"
+                  style={{ color: 'var(--green)' }}
+                >
+                  বিকাশ
+                </span>
+              </div>
+              <div>
+                <span className="font-bengali text-sm text-[var(--text-cream)]">উত্থান</span>
+              </div>
+            </div>
+
+            {/* Table rows */}
+            {comparisonFeatures.map((feature, i) => (
+              <div
+                key={i}
+                className="grid grid-cols-4 gap-0 text-center items-center py-3.5 px-6"
+                style={{
+                  borderBottom:
+                    i < comparisonFeatures.length - 1
+                      ? '1px solid var(--ink-border)'
+                      : 'none',
+                  backgroundColor:
+                    i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)',
+                }}
+              >
+                <div className="text-left">
+                  <span className="font-body text-sm text-[var(--text-cream-muted)]">
+                    {feature.name}
+                  </span>
+                </div>
+                <div>
+                  <CellValue value={feature.shuru} />
+                </div>
+                <div>
+                  <CellValue value={feature.bikash} />
+                </div>
+                <div>
+                  <CellValue value={feature.utthan} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ─── Guarantee ─── */}
+      <div
+        className="relative py-24 px-4 text-center overflow-hidden"
+        style={{ background: 'var(--ink)' }}
+      >
+        {/* Green glow overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, var(--green-glow) 0%, transparent 70%)',
+          }}
+        />
+        <Reveal className="relative z-10">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
+            style={{
+              border: '1px solid rgba(0, 194, 111, 0.3)',
+              background: 'rgba(0, 194, 111, 0.08)',
+            }}
+          >
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--green)' }} />
+            <span className="font-body text-xs" style={{ color: 'var(--green)' }}>
+              ১০০% গ্যারান্টি
+            </span>
+          </div>
+          <h3
+            className="font-bengali text-[var(--fs-h2)] text-[var(--text-cream)] mb-4"
+            style={{ lineHeight: 1.3 }}
+          >
+            ৩০ দিনের মানি-ব্যাক গ্যারান্টি।
+          </h3>
+          <p className="font-body text-[var(--text-cream-muted)] text-[var(--fs-body)] max-w-xl mx-auto">
+            পছন্দ না হলে সম্পূর্য টাকা ফেরত। কোনো প্রশ্ন ছাড়া।
+          </p>
+        </Reveal>
+      </div>
+
+      {/* ─── FAQ ─── */}
+      <div className="bg-[var(--cream)] py-[var(--section-v)] px-4">
+        <div className="max-w-[720px] mx-auto">
+          <Reveal className="text-center mb-12">
+            <h3
+              className="font-bengali text-[var(--fs-h3)] text-[var(--text-ink)] mb-3"
+              style={{ lineHeight: 1.3 }}
+            >
+              সচরাচর জিজ্ঞাসা
+            </h3>
+            <p className="font-body text-[var(--text-muted)] text-[var(--fs-body)]">
+              Frequently asked questions
+            </p>
+          </Reveal>
+
+          <div className="space-y-3">
+            {faqs.map((faq, i) => (
+              <Reveal key={i} delay={i * 0.06}>
+                <div
+                  className="rounded-2xl border overflow-hidden"
+                  style={{
+                    background: 'white',
+                    borderColor: 'var(--canvas-border)',
+                  }}
+                >
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
+                  >
+                    <span className="font-bengali text-base text-[var(--text-ink)] pr-4">
+                      {faq.q}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: openFaq === i ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="shrink-0"
+                    >
+                      <ChevronDown className="w-5 h-5 text-[var(--text-muted)]" />
+                    </motion.div>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {openFaq === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div
+                          className="px-6 pb-5 font-body text-[var(--text-muted)] text-[var(--fs-body)]"
+                          style={{ lineHeight: 1.7 }}
+                        >
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

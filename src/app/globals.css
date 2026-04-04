@@ -1,0 +1,275 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-fira);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* ── Core Brand ── */
+  --green: #00C26F;
+  --green-deep: #007A45;
+  --green-glow: rgba(0, 194, 111, 0.18);
+  --green-glow-strong: rgba(0, 194, 111, 0.40);
+
+  /* ── Emotional Accents ── */
+  --crimson: #DC2626;
+  --amber: #D97706;
+  --gold: #B45309;
+  --indigo: #4F46E5;
+
+  /* ── Dark Surfaces (Ink World) ── */
+  --ink: #0D0F0E;
+  --ink-1: #161918;
+  --ink-2: #1F2220;
+  --ink-border: rgba(255, 255, 255, 0.07);
+  --ink-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* ── Light Surfaces (Khata World) ── */
+  --cream: #FAF7F0;
+  --cream-2: #F3EFE4;
+  --white: #FFFFFF;
+  --canvas-border: rgba(13, 15, 14, 0.08);
+  --canvas-border-strong: rgba(13, 15, 14, 0.16);
+
+  /* ── Text ── */
+  --text-ink: #0D0F0E;
+  --text-body: #374151;
+  --text-muted: #6B7280;
+  --text-ghost: #9CA3AF;
+  --text-cream: #FAF7F0;
+  --text-cream-muted: rgba(250, 247, 240, 0.65);
+
+  /* ── Layout ── */
+  --site-max: 1380px;
+  --nav-h: 76px;
+  --section-v: clamp(100px, 12vw, 180px);
+  --card-r: 24px;
+  --card-r-sm: 14px;
+
+  /* ── Typography Scale ── */
+  --fs-display: clamp(52px, 8vw, 110px);
+  --fs-display-en: clamp(42px, 6vw, 88px);
+  --fs-h1: clamp(40px, 5vw, 68px);
+  --fs-h2: clamp(28px, 3.5vw, 48px);
+  --fs-h3: clamp(22px, 2.5vw, 32px);
+  --fs-body-lg: 19px;
+  --fs-body: 17px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fs-label: 11px;
+
+  /* ── Transitions ── */
+  --t-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-spring: 700ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-river: 800ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Nakshi Pattern ── */
+  --nakshi-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300C26F' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  --nakshi-diamond: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300C26F' fill-opacity='0.03'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z'/%3E%3C/g%3E%3C/svg%3E");
+
+  --nakshi-wave: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300C26F' fill-opacity='0.03'%3E%3Cpath d='M0 10Q25 0 50 10Q75 20 100 10' stroke='%2300C26F' stroke-width='0.5' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+
+  /* ── shadcn overrides ── */
+  --background: #FAF7F0;
+  --foreground: #0D0F0E;
+  --card: #FFFFFF;
+  --card-foreground: #0D0F0E;
+  --popover: #FFFFFF;
+  --popover-foreground: #0D0F0E;
+  --primary: #00C26F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3EFE4;
+  --secondary-foreground: #0D0F0E;
+  --muted: #F3EFE4;
+  --muted-foreground: #6B7280;
+  --accent: #F3EFE4;
+  --accent-foreground: #0D0F0E;
+  --destructive: #DC2626;
+  --border: rgba(13, 15, 14, 0.08);
+  --input: rgba(13, 15, 14, 0.08);
+  --ring: #00C26F;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-[var(--cream)] text-[var(--text-ink)];
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 194, 111, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 194, 111, 0.5);
+}
+
+/* ── Texture Utilities ── */
+.texture-nakshi-subtle {
+  background-image: var(--nakshi-pattern);
+  background-size: 60px 60px;
+}
+.texture-nakshi-medium {
+  background-image: var(--nakshi-pattern);
+  background-size: 60px 60px;
+  opacity: 0.6;
+}
+.texture-nakshi-diamond {
+  background-image: var(--nakshi-diamond);
+  background-size: 40px 40px;
+}
+.texture-nakshi-wave {
+  background-image: var(--nakshi-wave);
+  background-size: 100px 20px;
+}
+
+/* ── Khata ruled lines ── */
+.khata-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(0, 0, 0, 0.04) 27px,
+    rgba(0, 0, 0, 0.04) 28px
+  );
+  background-size: 100% 28px;
+}
+
+/* ── Horizon glow ── */
+.horizon-glow {
+  background: linear-gradient(
+    to bottom,
+    transparent 55%,
+    rgba(0, 194, 111, 0.06) 60%,
+    transparent 65%
+  );
+}
+
+/* ── River easing animation helper ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--green-glow); }
+  50% { box-shadow: 0 0 40px var(--green-glow-strong); }
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes waveform {
+  0%, 100% { height: 8px; }
+  50% { height: var(--wave-height, 24px); }
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes counter-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes ring-expand {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── Bengali typography ── */
+.font-bengali {
+  font-family: var(--font-bengali), 'Tiro Bangla', serif;
+}
+.font-display {
+  font-family: var(--font-display), 'Playfair Display', serif;
+}
+.font-body {
+  font-family: var(--font-body), 'Plus Jakarta Sans', sans-serif;
+}
+.font-mono {
+  font-family: var(--font-fira), 'Fira Code', monospace;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(0, 194, 111, 0.2);
+  color: var(--text-ink);
+}
+
+/* ── Smooth transitions for all interactive elements ── */
+a, button {
+  transition: all var(--t-base);
+}
