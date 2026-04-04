@@ -42,6 +42,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
         duration: 1.4,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
+        wrapper: document.getElementById('__next') || document.documentElement,
       });
 
       lenisRef.current = lenis;
@@ -138,6 +139,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
+            style={{ position: 'relative' }}
           >
             {children}
           </motion.div>

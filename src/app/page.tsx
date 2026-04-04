@@ -18,6 +18,7 @@ import TrustedBySection from '@/components/sections/TrustedBySection'
 import BusinessTypesSection from '@/components/sections/BusinessTypesSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FeaturesSection from '@/components/sections/FeaturesSection'
+import ComparisonSection from '@/components/sections/ComparisonSection'
 import BatchSection from '@/components/sections/BatchSection'
 import PricingSection from '@/components/sections/PricingSection'
 import AboutSection from '@/components/sections/AboutSection'
@@ -26,6 +27,8 @@ import BlogSection from '@/components/sections/BlogSection'
 import NewsletterSection from '@/components/sections/NewsletterSection'
 import ContactSection from '@/components/sections/ContactSection'
 import CTASection from '@/components/sections/CTASection'
+import StatsTickerSection from '@/components/sections/StatsTickerSection'
+import { SectionTransition } from '@/components/hellokhata/SectionTransition'
 
 export default function Home() {
   return (
@@ -49,12 +52,14 @@ export default function Home() {
         <HowItWorksSection />
 
         {/* Interactive Voice Demo */}
+        <SectionTransition direction="light-to-dark" />
         <VoiceDemoSection />
 
         {/* The Voice */}
         <VoiceSection />
 
         {/* The Market - For Investors */}
+        <SectionTransition direction="dark-to-light" />
         <MarketSection />
 
         {/* The Trust - Social Proof */}
@@ -67,21 +72,29 @@ export default function Home() {
         <TestimonialsSection />
 
         {/* The Power - Features */}
+        <SectionTransition direction="light-to-dark" />
         <FeaturesSection />
+
+        {/* The Comparison */}
+        <ComparisonSection />
 
         {/* The Edge - Batch */}
         <BatchSection />
 
         {/* The Promise - Pricing */}
+        <SectionTransition direction="dark-to-light" />
         <PricingSection />
 
         {/* The People - About */}
+        <SectionTransition direction="light-to-dark" />
         <AboutSection />
 
         {/* The Horizon - Vision */}
+        <SectionTransition direction="light-to-dark" />
         <VisionSection />
 
         {/* The Knowledge - Blog */}
+        <SectionTransition direction="dark-to-light" />
         <BlogSection />
 
         {/* The Updates - Newsletter */}
@@ -91,7 +104,11 @@ export default function Home() {
         <ContactSection />
 
         {/* The Final Call */}
+        <SectionTransition direction="light-to-dark" />
         <CTASection />
+
+        {/* The Stats Ticker */}
+        <StatsTickerSection />
       </main>
       <Footer />
     </SmoothScrollProvider>
