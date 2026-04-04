@@ -166,7 +166,7 @@ function MapDot({
           cy={y}
           r={6}
           fill="none"
-          stroke="var(--green)"
+          stroke="var(--gold)"
           strokeWidth={1}
           initial={{ scale: 1, opacity: 0.8 }}
           animate={{ scale: 2.5, opacity: 0 }}
@@ -175,7 +175,7 @@ function MapDot({
         />
       )}
       {/* Main dot */}
-      <circle cx={x} cy={y} r={3} fill="var(--green)" />
+      <circle cx={x} cy={y} r={3} fill="var(--gold)" />
       {/* Bright center */}
       <circle cx={x} cy={y} r={1.5} fill="#5FFFB0" />
     </motion.g>
@@ -271,7 +271,7 @@ export default function MarketSection() {
             numberSuffix="%"
             bengali="স্মার্টফোন ব্যবহার করেন।"
             english="Own a smartphone already."
-            color="var(--green)"
+            color="var(--gold)"
             isInView={isInView}
             delay={0.5}
           />
@@ -303,8 +303,8 @@ export default function MarketSection() {
               {/* Country outline */}
               <path
                 d={BANGLADESH_PATH}
-                fill="rgba(0, 194, 111, 0.05)"
-                stroke="var(--green)"
+                fill="rgba(201, 169, 110, 0.05)"
+                stroke="var(--gold)"
                 strokeWidth={0.5}
                 strokeOpacity={0.3}
               />
@@ -342,7 +342,7 @@ export default function MarketSection() {
             style={{
               fontSize: 'clamp(20px, 2.5vw, 28px)',
               color: 'var(--text-body)',
-              borderLeft: '3px solid var(--green)',
+              borderLeft: '3px solid var(--gold)',
               paddingLeft: '20px',
               textAlign: 'left',
             }}
@@ -356,7 +356,7 @@ export default function MarketSection() {
         {/* ─── Bottom Stats Bar ─── */}
         <motion.div
           className="text-center font-bengali"
-          style={{ fontSize: '18px', color: 'var(--green)' }}
+          style={{ fontSize: '18px', color: 'var(--gold)' }}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.9 }}

@@ -131,7 +131,7 @@ const faqs = [
 
 /* ─── Helpers ─── */
 function CellValue({ value }: { value: boolean | string }) {
-  if (value === true) return <Check className="w-5 h-5 text-[var(--green)] mx-auto" />;
+  if (value === true) return <Check className="w-5 h-5 text-[var(--gold)] mx-auto" />;
   if (value === false) return <X className="w-5 h-5 text-[var(--text-ghost)] mx-auto" />;
   return <span className="text-[var(--text-cream-muted)] text-sm">{value}</span>;
 }
@@ -171,7 +171,7 @@ function AnimatedSavingsBadge() {
       exit={{ opacity: 0, scale: 0.6, x: -10 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className="px-3 py-1 rounded-full text-xs font-bold font-body text-white"
-      style={{ backgroundColor: 'var(--green)' }}
+      style={{ backgroundColor: 'var(--gold)' }}
     >
       {displayNum}% সাশ্রয়
     </motion.span>
@@ -196,15 +196,15 @@ function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () =>
       <motion.div
         className="absolute top-1 w-[calc(50%-4px)] h-[calc(100%-8px)] rounded-full"
         style={{
-          background: 'var(--green)',
-          boxShadow: '0 2px 8px rgba(0,194,111,0.3)',
+          background: 'var(--gold)',
+          boxShadow: '0 2px 8px rgba(201,169,110,0.3)',
         }}
         animate={{ left: isYearly ? 'calc(50% + 2px)' : '2px' }}
         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       />
       <span
         className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
-        style={{ color: !isYearly ? 'var(--green)' : 'var(--text-cream-muted)' }}
+        style={{ color: !isYearly ? 'var(--gold)' : 'var(--text-cream-muted)' }}
       >
         Monthly
       </span>
@@ -272,12 +272,12 @@ export default function PricingSection() {
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
                     border: tier.highlighted
-                      ? '1.5px solid var(--green)'
+                      ? '1.5px solid var(--gold)'
                       : '1px solid var(--ink-border)',
                     ...(tier.highlighted
                       ? {
                           boxShadow:
-                            '0 0 0 1px var(--green), 0 0 40px var(--green-glow), 0 20px 60px rgba(0,0,0,0.3)',
+                            '0 0 0 1px var(--gold), 0 0 40px var(--gold-glow), 0 20px 60px rgba(0,0,0,0.3)',
                         }
                       : {}),
                   }}
@@ -286,7 +286,7 @@ export default function PricingSection() {
                   <div
                     className="absolute top-0 left-0 right-0 h-[2px]"
                     style={{
-                      background: 'linear-gradient(90deg, transparent, var(--green), transparent)',
+                      background: 'linear-gradient(90deg, transparent, var(--gold), transparent)',
                       opacity: tier.highlighted ? 0.8 : 0.3,
                     }}
                   />
@@ -302,8 +302,8 @@ export default function PricingSection() {
                       <div
                         className="px-5 py-1.5 text-[10px] font-bold font-body text-white rounded-bl-xl"
                         style={{
-                          background: 'var(--green)',
-                          boxShadow: '0 4px 12px var(--green-glow)',
+                          background: 'var(--gold)',
+                          boxShadow: '0 4px 12px var(--gold-glow)',
                         }}
                       >
                         Most Popular
@@ -318,7 +318,7 @@ export default function PricingSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                       className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold font-body text-white z-10"
-                      style={{ backgroundColor: 'var(--green)' }}
+                      style={{ backgroundColor: 'var(--gold)' }}
                     >
                       {tier.badge}
                     </motion.div>
@@ -369,11 +369,11 @@ export default function PricingSection() {
                       <li key={i} className="flex items-start gap-3">
                         <span
                           className="flex items-center justify-center w-[22px] h-[22px] rounded-full shrink-0 mt-0.5"
-                          style={{ backgroundColor: 'rgba(0, 194, 111, 0.1)' }}
+                          style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)' }}
                         >
                           <Check
                             className="w-3.5 h-3.5"
-                            style={{ color: 'var(--green)' }}
+                            style={{ color: 'var(--gold)' }}
                           />
                         </span>
                         <span className="font-body text-sm text-[var(--text-cream-muted)]">
@@ -389,9 +389,9 @@ export default function PricingSection() {
                     style={
                       tier.ctaStyle === 'filled'
                         ? {
-                            backgroundColor: 'var(--green)',
+                            backgroundColor: 'var(--gold)',
                             color: 'white',
-                            boxShadow: '0 4px 20px var(--green-glow)',
+                            boxShadow: '0 4px 20px var(--gold-glow)',
                           }
                         : {
                             backgroundColor: 'transparent',
@@ -402,18 +402,18 @@ export default function PricingSection() {
                     onMouseEnter={(e) => {
                       if (tier.ctaStyle === 'filled') {
                         (e.currentTarget as HTMLElement).style.boxShadow =
-                          '0 4px 30px var(--green-glow-strong)';
+                          '0 4px 30px var(--gold-glow-strong)';
                         (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
                       } else {
-                        (e.currentTarget as HTMLElement).style.borderColor = 'var(--green)';
-                        (e.currentTarget as HTMLElement).style.color = 'var(--green)';
+                        (e.currentTarget as HTMLElement).style.borderColor = 'var(--gold)';
+                        (e.currentTarget as HTMLElement).style.color = 'var(--gold)';
                         (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (tier.ctaStyle === 'filled') {
                         (e.currentTarget as HTMLElement).style.boxShadow =
-                          '0 4px 20px var(--green-glow)';
+                          '0 4px 20px var(--gold-glow)';
                       } else {
                         (e.currentTarget as HTMLElement).style.borderColor =
                           'var(--ink-border-strong)';
@@ -459,7 +459,7 @@ export default function PricingSection() {
                 <div>
                   <span
                     className="font-bengali text-sm"
-                    style={{ color: 'var(--green)' }}
+                    style={{ color: 'var(--gold)' }}
                   >
                     বিকাশ
                   </span>
@@ -514,19 +514,19 @@ export default function PricingSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, var(--green-glow) 0%, transparent 70%)',
+              'radial-gradient(ellipse at center, var(--gold-glow) 0%, transparent 70%)',
           }}
         />
         <Reveal className="relative z-10">
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
             style={{
-              border: '1px solid rgba(0, 194, 111, 0.3)',
-              background: 'rgba(0, 194, 111, 0.08)',
+              border: '1px solid rgba(201, 169, 110, 0.3)',
+              background: 'rgba(201, 169, 110, 0.08)',
             }}
           >
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--green)' }} />
-            <span className="font-body text-xs" style={{ color: 'var(--green)' }}>
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
+            <span className="font-body text-xs" style={{ color: 'var(--gold)' }}>
               ১০০% গ্যারান্টি
             </span>
           </div>
@@ -566,7 +566,7 @@ export default function PricingSection() {
                     className="rounded-2xl border overflow-hidden"
                     style={{
                       background: 'white',
-                      borderColor: isOpen ? 'var(--green)' : 'var(--canvas-border)',
+                      borderColor: isOpen ? 'var(--gold)' : 'var(--canvas-border)',
                       transition: 'border-color 0.3s ease',
                     }}
                   >
@@ -584,7 +584,7 @@ export default function PricingSection() {
                           }}
                           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                           className="w-[3px] rounded-full shrink-0"
-                          style={{ backgroundColor: 'var(--green)' }}
+                          style={{ backgroundColor: 'var(--gold)' }}
                         />
                         <span className="font-bengali text-base text-[var(--text-ink)]">
                           {faq.q}

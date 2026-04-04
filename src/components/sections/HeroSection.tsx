@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import { Download, ChevronDown } from 'lucide-react'
+import { Download, ChevronDown, MessageCircle } from 'lucide-react'
 
 /* ── Dynamic import Particles to avoid SSR issues ── */
 const Particles = dynamic(
@@ -20,7 +20,7 @@ async function loadParticlesEngine(engine: any) {
 const particlesConfig = {
   particles: {
     number: { value: 50 },
-    color: { value: '#00C26F' },
+    color: { value: '#C9A96E' },
     opacity: {
       value: { min: 0.05, max: 0.15 },
       animation: { enable: true, speed: 0.5, sync: false },
@@ -38,7 +38,7 @@ const particlesConfig = {
     links: {
       enable: true,
       distance: 120,
-      color: '#00C26F',
+      color: '#C9A96E',
       opacity: 0.06,
       width: 0.5,
     },
@@ -94,7 +94,7 @@ function HorizonLine() {
     >
       <motion.path
         d="M0,35 Q180,10 360,30 T720,28 T1080,32 T1440,25"
-        stroke="#00C26F"
+        stroke="#C9A96E"
         strokeWidth="1.5"
         fill="none"
         variants={pathVariants}
@@ -118,7 +118,7 @@ function PhoneMockup() {
       {/* Green glow behind phone */}
       <div
         className="absolute -inset-12 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(0,194,111,0.18) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(201,169,110,0.18) 0%, transparent 70%)' }}
       />
 
       {/* Phone frame */}
@@ -130,7 +130,7 @@ function PhoneMockup() {
           background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
           borderRadius: '36px',
           border: '2px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,194,111,0.1)',
+          boxShadow: '0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.1)',
           padding: '12px',
         }}
       >
@@ -154,7 +154,7 @@ function PhoneMockup() {
           {/* Status bar */}
           <div className="flex items-center justify-between px-5 pt-10 pb-2" style={{ background: 'var(--ink-1)' }}>
             <span className="text-white text-[11px] font-body">৯:৪১</span>
-            <span className="text-[11px] font-body" style={{ color: 'var(--green)' }}>HelloKhata</span>
+            <span className="text-[11px] font-body" style={{ color: 'var(--gold)' }}>HelloKhata</span>
             <span className="text-white text-[11px] font-body">📶 🔋</span>
           </div>
 
@@ -172,7 +172,7 @@ function PhoneMockup() {
             <p className="text-[14px] text-white font-bengali" style={{ minHeight: '22px' }}>
               {typedText}
               {typedText.length > 0 && (
-                <span className="inline-block w-[2px] h-4 ml-0.5 align-middle" style={{ background: 'var(--green)', animation: 'blink 1s step-end infinite' }} />
+                <span className="inline-block w-[2px] h-4 ml-0.5 align-middle" style={{ background: 'var(--gold)', animation: 'blink 1s step-end infinite' }} />
               )}
             </p>
           </div>
@@ -181,7 +181,7 @@ function PhoneMockup() {
           <div className="mx-3 mt-3 rounded-2xl p-3" style={{ background: 'var(--ink-2)', border: '1px solid var(--ink-border)' }}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-[12px] font-body" style={{ color: 'var(--text-cream-muted)' }}>এই সপ্তাহের বিক্রি</span>
-              <span className="text-[14px] font-body font-semibold" style={{ color: 'var(--green)' }}>৳ ২৪,৫০০</span>
+              <span className="text-[14px] font-body font-semibold" style={{ color: 'var(--gold)' }}>৳ ২৪,৫০০</span>
             </div>
 
             {/* Bar chart */}
@@ -192,8 +192,8 @@ function PhoneMockup() {
                     className="w-full rounded-t-sm"
                     style={{
                       background: i === bars.length - 1
-                        ? 'var(--green)'
-                        : 'rgba(0,194,111,0.3)',
+                        ? 'var(--gold)'
+                        : 'rgba(201,169,110,0.3)',
                       height: `${h}%`,
                       minHeight: '4px',
                     }}
@@ -431,11 +431,11 @@ export default function HeroSection() {
             <motion.div
               variants={fadeUp}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-6"
-              style={{ borderColor: 'rgba(0,194,111,0.3)' }}
+              style={{ borderColor: 'rgba(201,169,110,0.3)' }}
             >
               <span
                 className="font-body tracking-[0.12em] uppercase"
-                style={{ fontSize: '11px', color: 'var(--green)' }}
+                style={{ fontSize: '11px', color: 'var(--gold)' }}
               >
                 Voice-Powered · AI-Driven · Made for Bangladesh
               </span>
@@ -454,18 +454,18 @@ export default function HeroSection() {
                 className="font-bengali text-white leading-[1.1]"
                 style={{
                   fontSize: 'clamp(52px, 8vw, 110px)',
-                  textShadow: '0 0 80px rgba(0,194,111,0.15)',
+                  textShadow: '0 0 80px rgba(201,169,110,0.15)',
                 }}
                 variants={fadeUp}
               >
-                কথা বলে<span style={{ color: 'var(--green)' }}>।</span>
+                কথা বলে<span style={{ color: 'var(--gold)' }}>।</span>
               </motion.h1>
             </div>
 
             {/* English translation */}
             <motion.p
               className="font-display italic mb-6"
-              style={{ fontSize: '24px', color: 'var(--text-cream-muted)', borderLeft: '2px solid var(--green)', paddingLeft: '12px' }}
+              style={{ fontSize: '24px', color: 'var(--text-cream)', borderLeft: '2px solid var(--gold)', paddingLeft: '12px' }}
               variants={fadeUp}
             >
               Your khata now speaks.
@@ -491,8 +491,8 @@ export default function HeroSection() {
               <ShimmerButton
                 href="#"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-body font-semibold text-[15px]"
-                style={{ background: 'var(--green)' }}
-                whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(0,194,111,0.4)' }}
+                style={{ background: 'var(--gold)' }}
+                whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(201,169,110,0.4)' }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Download className="w-4 h-4" />
@@ -509,6 +509,19 @@ export default function HeroSection() {
                 whileTap={{ scale: 0.97 }}
               >
                 কীভাবে কাজ করে →
+              </motion.a>
+              <motion.a
+                href="#"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-body font-medium text-[15px]"
+                style={{
+                  border: '1px solid rgba(201,169,110,0.4)',
+                  color: 'var(--gold)',
+                }}
+                whileHover={{ scale: 1.04, borderColor: 'rgba(201,169,110,0.7)', background: 'rgba(201,169,110,0.08)' }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp এ কথা বলুন
               </motion.a>
             </motion.div>
 
@@ -567,8 +580,8 @@ export default function HeroSection() {
                   }}
                 >
                   <span
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: 'var(--green)' }}
+                    className="w-1.5 h-1.5 rounded-full animate-pulse"
+                    style={{ background: 'var(--gold)' }}
                   />
                   <span className="text-white text-[13px] font-body font-semibold">
                     {stat.value}

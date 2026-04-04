@@ -21,7 +21,7 @@ const sizeConfig: Record<WaveformSize, { count: number; barWidth: string; gap: s
 };
 
 const colorMap: Record<WaveformColor, string> = {
-  green: 'var(--green)',
+  green: 'var(--gold)',
   cream: 'var(--text-cream)',
   white: '#FFFFFF',
 };

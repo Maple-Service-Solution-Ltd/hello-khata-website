@@ -18,7 +18,7 @@ export function GlowCard({ className, children }: GlowCardProps) {
         'relative rounded-[var(--card-r)] border border-transparent',
         'bg-[var(--ink-1)]',
         'transition-shadow duration-500',
-        'hover:shadow-[0_0_0_1px_var(--green),0_0_40px_var(--green-glow)]',
+        'hover:shadow-[0_0_0_1px_var(--gold),0_0_40px_var(--gold-glow)]',
         'p-6',
         className
       )}

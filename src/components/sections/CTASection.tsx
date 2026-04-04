@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Download, Smartphone, MessageCircle } from 'lucide-react';
+import { Download, Smartphone, MessageCircle, ShieldCheck, Zap } from 'lucide-react';
 
 /* ── Animation variants ── */
 const containerVariants = {
@@ -37,7 +37,7 @@ function HorizonLine() {
       <div className="flex-1 h-px" style={{ background: 'rgba(250,247,240,0.08)' }} />
       <div
         className="w-2 h-2 rounded-full"
-        style={{ background: 'rgba(0,194,111,0.3)' }}
+        style={{ background: 'rgba(201,169,110,0.3)' }}
       />
       <div className="flex-1 h-px" style={{ background: 'rgba(250,247,240,0.08)' }} />
     </div>
@@ -127,7 +127,7 @@ export default function CTASection() {
           height: '800px',
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(0,194,111,0.15) 0%, rgba(0,194,111,0.06) 40%, transparent 70%)',
+            'radial-gradient(circle, rgba(201,169,110,0.15) 0%, rgba(201,169,110,0.06) 40%, transparent 70%)',
         }}
       />
 
@@ -142,7 +142,7 @@ export default function CTASection() {
           height: '400px',
           borderRadius: '50%',
           background:
-            'radial-gradient(ellipse, rgba(0,194,111,0.08) 0%, transparent 70%)',
+            'radial-gradient(ellipse, rgba(201,169,110,0.08) 0%, transparent 70%)',
         }}
       />
 
@@ -175,7 +175,7 @@ export default function CTASection() {
             </span>
             <span
               className="font-bengali block leading-[1.1] mt-2"
-              style={{ fontSize: 'var(--fs-display)', color: 'var(--green)' }}
+              style={{ fontSize: 'var(--fs-display)', color: 'var(--gold)' }}
             >
               বিনামূল্যে।
             </span>
@@ -202,11 +202,11 @@ export default function CTASection() {
             {/* Google Play */}
             <motion.a
               href="#"
-              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-full font-body text-[16px] font-semibold text-white"
-              style={{ background: 'var(--green)' }}
+              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4.5 rounded-full font-body text-[16px] font-semibold text-white"
+              style={{ background: 'var(--gold)' }}
               whileHover={{
                 scale: 1.04,
-                boxShadow: '0 0 36px rgba(0,194,111,0.4)',
+                boxShadow: '0 0 36px rgba(201,169,110,0.4)',
               }}
               whileTap={{ scale: 0.97 }}
             >
@@ -217,7 +217,7 @@ export default function CTASection() {
             {/* App Store */}
             <motion.a
               href="#"
-              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-full font-body text-[16px] font-medium"
+              className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-9 py-4.5 rounded-full font-body text-[16px] font-medium"
               style={{
                 border: '1.5px solid rgba(250,247,240,0.2)',
                 color: 'var(--text-cream)',
@@ -234,12 +234,58 @@ export default function CTASection() {
             </motion.a>
           </motion.div>
 
-          {/* WhatsApp link */}
+          {/* ── Trust Badges Row ── */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-2 mb-6"
+            variants={fadeUp}
+          >
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <ShieldCheck className="w-3 h-3" style={{ color: 'var(--gold)' }} />
+              <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
+                SSL সুরক্ষিত
+              </span>
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <Smartphone className="w-3 h-3" style={{ color: 'var(--gold)' }} />
+              <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
+                ৫ মিনিটে ইন্সটল
+              </span>
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full"
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <Zap className="w-3 h-3" style={{ color: 'var(--gold)' }} />
+              <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
+                কোনো কার্ড লাগবে না
+              </span>
+            </span>
+          </motion.div>
+
+          {/* WhatsApp pill button */}
           <motion.a
             href="#"
-            className="inline-flex items-center gap-2 mb-10 font-body text-sm"
-            style={{ color: 'var(--green)' }}
-            whileHover={{ scale: 1.04 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10 font-body text-[15px] font-medium"
+            style={{
+              border: '1px solid rgba(201,169,110,0.4)',
+              color: 'var(--gold)',
+            }}
+            whileHover={{ scale: 1.04, background: 'rgba(201,169,110,0.1)', borderColor: 'rgba(201,169,110,0.6)' }}
             whileTap={{ scale: 0.97 }}
             variants={fadeUp}
           >

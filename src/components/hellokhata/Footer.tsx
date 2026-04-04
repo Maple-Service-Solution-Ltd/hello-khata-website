@@ -13,7 +13,7 @@ function HorizonLine({ variant = 'subtle' }: { variant?: 'subtle' | 'default' })
         background:
           variant === 'subtle'
             ? 'linear-gradient(90deg, transparent, var(--ink-border-strong) 50%, transparent)'
-            : 'linear-gradient(90deg, transparent, var(--green-glow-strong) 50%, transparent)',
+            : 'linear-gradient(90deg, transparent, var(--gold-glow-strong) 50%, transparent)',
       }}
     />
   );
@@ -76,8 +76,8 @@ export default function Footer() {
       {/* ─── Top: Tagline ─── */}
       <div className="max-w-[1380px] mx-auto px-6 pt-16 pb-10 text-center">
         <h2
-          className="font-bengali text-[clamp(28px,4vw,36px)] text-[var(--green)] leading-tight"
-          style={{ textShadow: '0 0 30px var(--green-glow), 0 0 60px rgba(0,194,111,0.15)' }}
+          className="font-bengali text-[clamp(28px,4vw,36px)] text-[var(--gold)] leading-tight"
+          style={{ textShadow: '0 0 30px var(--gold-glow), 0 0 60px rgba(201,169,110,0.15)' }}
         >
           বাংলাদেশের ব্যবসার জন্য তৈরি।
         </h2>
@@ -101,7 +101,7 @@ export default function Footer() {
               <span className="font-body font-bold text-2xl text-[var(--text-cream)]">
                 Hello
               </span>
-              <span className="font-body font-bold text-2xl text-[var(--green)]">
+              <span className="font-body font-bold text-2xl text-[var(--gold)]">
                 Khata
               </span>
             </div>
@@ -118,7 +118,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   onClick={(e) => handleClick(e, social.href)}
-                  className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--ink-border)] text-[var(--text-cream-muted)] transition-all duration-300 hover:text-[var(--green)] hover:border-[var(--green)] hover:scale-110 hover:rotate-6"
+                  className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--ink-border)] text-[var(--text-cream-muted)] transition-all duration-300 hover:text-[var(--gold)] hover:border-[var(--gold)] hover:scale-110 hover:rotate-6"
                   aria-label={social.label}
                 >
                   <social.icon size={16} strokeWidth={1.5} />
@@ -136,7 +136,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
-              style={{ borderBottom: '3px solid var(--green)' }}
+              style={{ borderBottom: '3px solid var(--gold)' }}
             >
               পণ্য
             </h3>
@@ -146,7 +146,7 @@ export default function Footer() {
                   <a
                     href={link.href}
                     onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
                   >
                     {link.label}
                   </a>
@@ -159,7 +159,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
-              style={{ borderBottom: '3px solid var(--green)' }}
+              style={{ borderBottom: '3px solid var(--gold)' }}
             >
               কোম্পানি
             </h3>
@@ -169,7 +169,7 @@ export default function Footer() {
                   <a
                     href={link.href}
                     onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
                   >
                     {link.label}
                   </a>
@@ -182,7 +182,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
-              style={{ borderBottom: '3px solid var(--green)' }}
+              style={{ borderBottom: '3px solid var(--gold)' }}
             >
               সহায়তা
             </h3>
@@ -192,7 +192,7 @@ export default function Footer() {
                   <a
                     href={link.href}
                     onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
                   >
                     {link.label}
                   </a>
@@ -205,7 +205,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
-              style={{ borderBottom: '3px solid var(--green)' }}
+              style={{ borderBottom: '3px solid var(--gold)' }}
             >
               নামান
             </h3>
@@ -214,14 +214,14 @@ export default function Footer() {
               <a
                 href="#pricing"
                 onClick={(e) => handleClick(e, '#pricing')}
-                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--green)] hover:shadow-[0_0_20px_var(--green-glow)]"
+                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)]"
               >
                 <svg
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
-                  className="shrink-0 text-[var(--text-cream-muted)] group-hover:text-[var(--green)] transition-colors"
+                  className="shrink-0 text-[var(--text-cream-muted)] group-hover:text-[var(--gold)] transition-colors"
                 >
                   <path
                     d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.895 10.635l2.56-2.56 3.668 2.11a1 1 0 010 1.734l-3.668 2.11-2.56-2.394zm-1.414 1.414L5.51 21.886l8.581-8.023zm0-2.828L5.51 2.114l8.581 7.921z"
@@ -242,14 +242,14 @@ export default function Footer() {
               <a
                 href="#pricing"
                 onClick={(e) => handleClick(e, '#pricing')}
-                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--green)] hover:shadow-[0_0_20px_var(--green-glow)]"
+                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)]"
               >
                 <svg
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
-                  className="shrink-0 text-[var(--text-cream-muted)] group-hover:text-[var(--green)] transition-colors"
+                  className="shrink-0 text-[var(--text-cream-muted)] group-hover:text-[var(--gold)] transition-colors"
                 >
                   <path
                     d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
@@ -278,14 +278,14 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
           <a
             href="mailto:hello@hellokhata.com"
-            className="flex items-center gap-2 text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 hover:translate-x-[4px]"
+            className="flex items-center gap-2 text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 hover:translate-x-[4px]"
           >
             <Mail size={14} className="shrink-0" />
             <span>hello@hellokhata.com</span>
           </a>
           <a
             href="tel:+8801XXXXXXXXX"
-            className="flex items-center gap-2 text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 hover:translate-x-[4px]"
+            className="flex items-center gap-2 text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 hover:translate-x-[4px]"
           >
             <Phone size={14} className="shrink-0" />
             <span>+৮৮০ ১XXX-XXXXXX</span>
@@ -302,7 +302,7 @@ export default function Footer() {
             <a
               href="#contact"
               onClick={(e) => handleClick(e, '#contact')}
-              className="hover:text-[var(--green)] transition-colors"
+              className="hover:text-[var(--gold)] transition-colors"
             >
               Privacy
             </a>{' '}
@@ -310,7 +310,7 @@ export default function Footer() {
             <a
               href="#contact"
               onClick={(e) => handleClick(e, '#contact')}
-              className="hover:text-[var(--green)] transition-colors"
+              className="hover:text-[var(--gold)] transition-colors"
             >
               Terms
             </a>
@@ -323,10 +323,10 @@ export default function Footer() {
                 key={lang}
                 className="px-3 py-1 rounded-full text-[11px] font-body transition-all duration-200 cursor-pointer"
                 style={{
-                  backgroundColor: i === 0 ? 'rgba(0,194,111,0.15)' : 'transparent',
-                  color: i === 0 ? 'var(--green)' : 'var(--text-cream-muted)',
+                  backgroundColor: i === 0 ? 'rgba(201,169,110,0.15)' : 'transparent',
+                  color: i === 0 ? 'var(--gold)' : 'var(--text-cream-muted)',
                   border: '1px solid',
-                  borderColor: i === 0 ? 'rgba(0,194,111,0.3)' : 'var(--ink-border)',
+                  borderColor: i === 0 ? 'rgba(201,169,110,0.3)' : 'var(--ink-border)',
                 }}
               >
                 {lang}
@@ -341,7 +341,7 @@ export default function Footer() {
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center gap-1 text-[12px] font-body text-[var(--text-cream-muted)] hover:text-[var(--green)] transition-all duration-200 cursor-pointer hover:translate-x-[4px]"
+              className="flex items-center gap-1 text-[12px] font-body text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 cursor-pointer hover:translate-x-[4px]"
             >
               <ArrowUp size={12} />
               <span>Back to top</span>

@@ -47,13 +47,13 @@ function getResponseForCommand(idx: number): ResponseScreen {
   switch (idx) {
     case 0:
       return {
-        icon: <CheckCircle size={14} className="text-[var(--green)]" />,
+        icon: <CheckCircle size={14} className="text-[var(--gold)]" />,
         content: (
           <div className="space-y-2">
             <div className="text-[10px] text-[var(--text-ghost)] font-body">Customer Ledger</div>
             <div className="flex items-center justify-between">
               <span className="text-[13px] font-bengali text-[var(--text-cream)]">রহিম</span>
-              <span className="text-[13px] font-mono text-[var(--green)]">+৳৫০০</span>
+              <span className="text-[13px] font-mono text-[var(--gold)]">+৳৫০০</span>
             </div>
             <div className="h-px bg-[var(--ink-border-strong)]" />
             <div className="text-[11px] text-[var(--text-cream-muted)] font-body">Total Due: ৳৫০০</div>
@@ -62,11 +62,11 @@ function getResponseForCommand(idx: number): ResponseScreen {
       };
     case 1:
       return {
-        icon: <BarChart3 size={14} className="text-[var(--green)]" />,
+        icon: <BarChart3 size={14} className="text-[var(--gold)]" />,
         content: (
           <div className="space-y-2">
             <div className="text-[10px] text-[var(--text-ghost)] font-body">Today&apos;s Sales</div>
-            <div className="text-[20px] font-mono font-bold text-[var(--green)]">৳12,450</div>
+            <div className="text-[20px] font-mono font-bold text-[var(--gold)]">৳12,450</div>
             <div className="flex gap-0.5 items-end h-6">
               {[40, 60, 45, 80, 55, 70, 90, 65, 85, 75, 50, 95].map((h, i) => (
                 <div
@@ -74,7 +74,7 @@ function getResponseForCommand(idx: number): ResponseScreen {
                   className="flex-1 rounded-sm"
                   style={{
                     height: `${h}%`,
-                    background: `linear-gradient(to top, var(--green-deep), var(--green))`,
+                    background: `linear-gradient(to top, var(--gold-deep), var(--gold))`,
                     opacity: 0.5 + (h / 200),
                   }}
                 />
@@ -100,12 +100,12 @@ function getResponseForCommand(idx: number): ResponseScreen {
       };
     case 3:
       return {
-        icon: <Package size={14} className="text-[var(--green)]" />,
+        icon: <Package size={14} className="text-[var(--gold)]" />,
         content: (
           <div className="space-y-2">
             <div className="text-[10px] text-[var(--text-ghost)] font-body">Product Added</div>
             <div className="flex items-center gap-2">
-              <CheckCircle size={16} className="text-[var(--green)]" />
+              <CheckCircle size={16} className="text-[var(--gold)]" />
               <span className="text-[12px] font-bengali text-[var(--text-cream)]">সার্ফ এক্সেল ৫০০g</span>
             </div>
             <div className="text-[10px] text-[var(--text-cream-muted)] font-body">Price: ৳195 · Category: Detergent</div>
@@ -114,11 +114,11 @@ function getResponseForCommand(idx: number): ResponseScreen {
       };
     case 4:
       return {
-        icon: <TrendingUp size={14} className="text-[var(--green)]" />,
+        icon: <TrendingUp size={14} className="text-[var(--gold)]" />,
         content: (
           <div className="space-y-2">
             <div className="text-[10px] text-[var(--text-ghost)] font-body">7-Day Profit</div>
-            <div className="text-[20px] font-mono font-bold text-[var(--green)]">+৳48,200</div>
+            <div className="text-[20px] font-mono font-bold text-[var(--gold)]">+৳48,200</div>
             <div className="text-[10px] text-[var(--text-cream-muted)] font-body">↑ 12% from last week</div>
             <div className="flex gap-0.5 items-end h-5">
               {[55, 40, 65, 70, 50, 80, 90].map((h, i) => (
@@ -127,7 +127,7 @@ function getResponseForCommand(idx: number): ResponseScreen {
                   className="flex-1 rounded-sm"
                   style={{
                     height: `${h}%`,
-                    background: 'linear-gradient(to top, var(--green-deep), var(--green))',
+                    background: 'linear-gradient(to top, var(--gold-deep), var(--gold))',
                   }}
                 />
               ))}
@@ -232,7 +232,7 @@ export default function VoiceSection() {
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, var(--green-glow-strong) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, var(--gold-glow-strong) 0%, transparent 70%)',
           filter: 'blur(80px)',
           opacity: 0.4,
         }}
@@ -253,7 +253,7 @@ export default function VoiceSection() {
               style={{
                 width: '4px',
                 height: '8px',
-                background: 'var(--green)',
+                background: 'var(--gold)',
                 '--wave-height': `${h}px`,
                 animation: `waveform ${0.8 + (i % 3) * 0.2}s ease-in-out ${waveDelays[i]}s infinite`,
                 opacity: 0.7 + (h / 100) * 0.3,
@@ -288,19 +288,19 @@ export default function VoiceSection() {
             {/* Left Panel - Speaking */}
             <div className="flex-1 space-y-4">
               <div className="flex items-center gap-2 text-[11px] font-body uppercase tracking-widest text-[var(--text-ghost)]">
-                <Mic size={12} className="text-[var(--green)]" />
+                <Mic size={12} className="text-[var(--gold)]" />
                 Speaking
               </div>
 
               {/* Typing area */}
               <div className="min-h-[80px] flex items-center">
-                <span className="font-mono text-base text-[var(--green)] leading-relaxed">
+                <span className="font-mono text-base text-[var(--gold)] leading-relaxed">
                   &ldquo;{displayedText}&rdquo;
                   {isTyping && (
                     <span
                       className="inline-block w-0.5 h-5 ml-0.5 align-middle"
                       style={{
-                        background: 'var(--green)',
+                        background: 'var(--gold)',
                         animation: 'pulse-glow 1s ease-in-out infinite',
                       }}
                     />
@@ -326,7 +326,7 @@ export default function VoiceSection() {
               <div className="h-[2px] rounded-full overflow-hidden" style={{ background: 'var(--ink-2)' }}>
                 <motion.div
                   className="h-full rounded-full"
-                  style={{ background: 'var(--green)' }}
+                  style={{ background: 'var(--gold)' }}
                   animate={{ width: isTyping ? `${progress}%` : '100%' }}
                   transition={{ duration: 0.1 }}
                 />
@@ -338,7 +338,7 @@ export default function VoiceSection() {
               <svg viewBox="0 0 48 24" className="w-full" fill="none">
                 <path
                   d="M2 12 C16 2, 32 2, 46 12"
-                  stroke="var(--green)"
+                  stroke="var(--gold)"
                   strokeWidth="1.5"
                   strokeDasharray="4 3"
                   style={{
@@ -346,7 +346,7 @@ export default function VoiceSection() {
                   }}
                 />
                 {/* Traveling dot */}
-                <circle r="3" fill="var(--green)">
+                <circle r="3" fill="var(--gold)">
                   <animateMotion
                     dur="1.5s"
                     repeatCount="indefinite"
@@ -359,7 +359,7 @@ export default function VoiceSection() {
             {/* Right Panel - Response */}
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2 text-[11px] font-body uppercase tracking-widest text-[var(--text-ghost)]">
-                <CheckCircle size={12} className="text-[var(--green)]" />
+                <CheckCircle size={12} className="text-[var(--gold)]" />
                 Response
               </div>
 
@@ -442,7 +442,7 @@ function CommandPill({ roman, bengali }: { roman: string; bengali: string }) {
         border: '1px solid var(--ink-border)',
       }}
     >
-      <span className="text-xs font-mono text-[var(--green)]">{roman}</span>
+      <span className="text-xs font-mono text-[var(--gold)]">{roman}</span>
       <span className="text-xs font-bengali text-[var(--text-cream-muted)]">{bengali}</span>
     </div>
   );

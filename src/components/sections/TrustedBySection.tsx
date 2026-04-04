@@ -214,7 +214,7 @@ export default function TrustedBySection() {
         {/* ── Header ── */}
         <Reveal className="text-center mb-12 md:mb-16">
           <span className="inline-block font-bengali text-xs uppercase tracking-[0.2em] font-semibold mb-4"
-            style={{ color: 'var(--green)' }}
+            style={{ color: 'var(--gold)' }}
           >
             কে বিশ্বাস করছেন
           </span>
@@ -322,7 +322,7 @@ export default function TrustedBySection() {
                     className="font-bold tabular-nums"
                     style={{
                       fontSize: '32px',
-                      color: 'var(--green)',
+                      color: 'var(--gold)',
                       lineHeight: 1.2,
                     }}
                   >
@@ -362,13 +362,13 @@ export default function TrustedBySection() {
                 key={badge.label}
                 className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium"
                 style={{
-                  backgroundColor: 'rgba(0, 194, 111, 0.06)',
+                  backgroundColor: 'rgba(201, 169, 110, 0.06)',
                   color: 'var(--text-body)',
-                  border: '1px solid rgba(0, 194, 111, 0.12)',
+                  border: '1px solid rgba(201, 169, 110, 0.12)',
                 }}
                 whileHover={{
-                  backgroundColor: 'rgba(0, 194, 111, 0.12)',
-                  borderColor: 'rgba(0, 194, 111, 0.25)',
+                  backgroundColor: 'rgba(201, 169, 110, 0.12)',
+                  borderColor: 'rgba(201, 169, 110, 0.25)',
                   y: -2,
                 }}
                 transition={{ duration: 0.2 }}

@@ -48,8 +48,8 @@ function AfterPhoneMockup() {
         height: '400px',
         background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
         borderRadius: '28px',
-        border: '2px solid rgba(0,194,111,0.15)',
-        boxShadow: '0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,194,111,0.08)',
+        border: '2px solid rgba(201,169,110,0.15)',
+        boxShadow: '0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,169,110,0.08)',
         padding: '8px',
       }}
     >
@@ -70,16 +70,16 @@ function AfterPhoneMockup() {
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-9 pb-2" style={{ background: 'var(--ink-1)' }}>
           <span className="text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>Dashboard</span>
-          <span className="text-[10px] font-body" style={{ color: 'var(--green)' }}>HelloKhata</span>
+          <span className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>HelloKhata</span>
         </div>
 
         {/* Clean stat cards */}
         <div className="grid grid-cols-2 gap-1.5 px-2 mt-2">
           {[
-            { label: 'বিক্রি', value: '৳ ২৪,৫০০', color: 'var(--green)' },
+            { label: 'বিক্রি', value: '৳ ২৪,৫০০', color: 'var(--gold)' },
             { label: 'লাভ', value: '৳ ৬,২০০', color: '#4ADE80' },
             { label: 'দেনা', value: '৳ ৩,১০০', color: '#FBBF24' },
-            { label: 'Stock', value: '১২৫ আইটেম', color: 'var(--green)' },
+            { label: 'Stock', value: '১২৫ আইটেম', color: 'var(--gold)' },
           ].map((stat, i) => (
             <div
               key={i}
@@ -101,7 +101,7 @@ function AfterPhoneMockup() {
                 <div
                   className="w-full rounded-t-sm"
                   style={{
-                    background: i === bars.length - 1 ? 'var(--green)' : 'rgba(0,194,111,0.35)',
+                    background: i === bars.length - 1 ? 'var(--gold)' : 'rgba(201,169,110,0.35)',
                     height: `${h}%`,
                     minHeight: '3px',
                   }}
@@ -112,9 +112,9 @@ function AfterPhoneMockup() {
         </div>
 
         {/* Clean status */}
-        <div className="mx-2 mt-2 rounded-lg p-2 flex items-center gap-1.5" style={{ background: 'rgba(0,194,111,0.08)', border: '1px solid rgba(0,194,111,0.15)' }}>
-          <CheckCircle className="w-3 h-3" style={{ color: 'var(--green)' }} />
-          <span className="text-[9px] font-body" style={{ color: 'var(--green)' }}>সব হিসাব আপটুডেট</span>
+        <div className="mx-2 mt-2 rounded-lg p-2 flex items-center gap-1.5" style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.15)' }}>
+          <CheckCircle className="w-3 h-3" style={{ color: 'var(--gold)' }} />
+          <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>সব হিসাব আপটুডেট</span>
         </div>
       </div>
     </div>
@@ -345,7 +345,7 @@ export default function TransformationSection() {
         {/* Green line */}
         <div
           className="absolute left-0 right-0 top-1/2 -translate-y-1/2"
-          style={{ height: '3px', background: 'var(--green)' }}
+          style={{ height: '3px', background: 'var(--gold)' }}
         />
 
         {/* HelloKhata wordmark centered */}
@@ -353,7 +353,7 @@ export default function TransformationSection() {
           className="relative z-10 px-6 py-2 rounded-full"
           style={{
             background: 'var(--cream)',
-            boxShadow: '0 0 0 4px var(--green), 0 0 30px rgba(0,194,111,0.3)',
+            boxShadow: '0 0 0 4px var(--gold), 0 0 30px rgba(201,169,110,0.3)',
           }}
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
@@ -384,7 +384,7 @@ export default function TransformationSection() {
         {/* Soft green glow from below */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at center bottom, rgba(0,194,111,0.08) 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(ellipse at center bottom, rgba(201,169,110,0.08) 0%, transparent 70%)' }}
         />
 
         {/* Khata lines texture */}
@@ -400,7 +400,7 @@ export default function TransformationSection() {
         >
           <span
             className="inline-block px-3 py-1 rounded-full font-body font-semibold text-[13px]"
-            style={{ background: 'rgba(0,194,111,0.1)', color: 'var(--green-deep)', border: '1px solid rgba(0,194,111,0.2)' }}
+            style={{ background: 'rgba(201,169,110,0.1)', color: 'var(--gold-deep)', border: '1px solid rgba(201,169,110,0.2)' }}
           >
             HelloKhata দিয়ে
           </span>
@@ -448,9 +448,9 @@ export default function TransformationSection() {
               >
                 <div
                   className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0"
-                  style={{ background: 'rgba(0,194,111,0.12)' }}
+                  style={{ background: 'rgba(201,169,110,0.12)' }}
                 >
-                  <CheckCircle className="w-4 h-4" style={{ color: 'var(--green)' }} />
+                  <CheckCircle className="w-4 h-4" style={{ color: 'var(--gold)' }} />
                 </div>
                 <span
                   className="font-bengali text-[18px]"

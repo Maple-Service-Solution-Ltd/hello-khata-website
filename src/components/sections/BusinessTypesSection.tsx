@@ -34,8 +34,8 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'আজকের বাকি', value: '৳ ১২,৫০০', color: 'var(--crimson)' },
-      { label: 'মোট কাস্টমার', value: '৮৫ জন', color: 'var(--green)' },
-      { label: 'বাকি পরিশোধ', value: '৮৫% ✓', color: 'var(--green)' },
+      { label: 'মোট কাস্টমার', value: '৮৫ জন', color: 'var(--gold)' },
+      { label: 'বাকি পরিশোধ', value: '৮৫% ✓', color: 'var(--gold)' },
       { label: 'বকেয়া', value: '৳ ৩,২০০', color: '#FBBF24' },
     ],
   },
@@ -53,9 +53,9 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Expiry Alert', value: '৩ আইটেম', color: 'var(--crimson)' },
-      { label: 'আজকের বিক্রি', value: '৳ ১৮,২০০', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ১৮,২০০', color: 'var(--gold)' },
       { label: 'Batch Track', value: '১২ Batch', color: '#3B82F6' },
-      { label: 'Expiry Loss', value: '৳ ০ ✓', color: 'var(--green)' },
+      { label: 'Expiry Loss', value: '৳ ০ ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -73,9 +73,9 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Low Stock', value: '৫ আইটেম', color: '#FBBF24' },
-      { label: 'আজকের বিক্রি', value: '৳ ৩৫,৬০০', color: 'var(--green)' },
-      { label: 'Stock Alert', value: 'Auto ON ✓', color: 'var(--green)' },
-      { label: 'Stock Out', value: '0 আইটেম', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৩৫,৬০০', color: 'var(--gold)' },
+      { label: 'Stock Alert', value: 'Auto ON ✓', color: 'var(--gold)' },
+      { label: 'Stock Out', value: '0 আইটেম', color: 'var(--gold)' },
     ],
   },
   {
@@ -91,9 +91,9 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Purchase Due', value: '৳ ৪৫,০০০', color: '#FBBF24' },
-      { label: 'আজকের বিক্রি', value: '৳ ২২,৮০০', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ২২,৮০০', color: 'var(--gold)' },
       { label: 'Supplier', value: '৮ জন', color: '#3B82F6' },
-      { label: 'Purchase ট্র্যাক', value: 'Active ✓', color: 'var(--green)' },
+      { label: 'Purchase ট্র্যাক', value: 'Active ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -111,9 +111,9 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Supplier বাকি', value: '৳ ৬৭,০০০', color: 'var(--crimson)' },
-      { label: 'আজকের বিক্রি', value: '৳ ১৫,৪০০', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ১৫,৪০০', color: 'var(--gold)' },
       { label: 'Supplier', value: '১২ জন', color: '#A855F7' },
-      { label: 'বাকি ক্লিয়ার', value: '৬০% ✓', color: 'var(--green)' },
+      { label: 'বাকি ক্লিয়ার', value: '৬০% ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -128,10 +128,10 @@ const businessTypes: BusinessType[] = [
       </svg>
     ),
     screenContent: [
-      { label: 'Stock আইটেম', value: '৪৫০+', color: 'var(--green)' },
-      { label: 'আজকের বিক্রি', value: '৳ ৮,৭০০', color: 'var(--green)' },
+      { label: 'Stock আইটেম', value: '৪৫০+', color: 'var(--gold)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৮,৭০০', color: 'var(--gold)' },
       { label: 'Low Stock', value: '৮ আইটেম', color: '#FBBF24' },
-      { label: 'Stock ভিউ', value: 'Clear ✓', color: 'var(--green)' },
+      { label: 'Stock ভিউ', value: 'Clear ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -149,10 +149,10 @@ const businessTypes: BusinessType[] = [
       </svg>
     ),
     screenContent: [
-      { label: 'বিক্রি হিস্ট্রি', value: 'Full ✓', color: 'var(--green)' },
-      { label: 'আজকের বিক্রি', value: '৳ ৫২,৩০০', color: 'var(--green)' },
+      { label: 'বিক্রি হিস্ট্রি', value: 'Full ✓', color: 'var(--gold)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৫২,৩০০', color: 'var(--gold)' },
       { label: 'Warranty', value: '২৩ আইটেম', color: '#3B82F6' },
-      { label: 'Return Rate', value: '২% ✓', color: 'var(--green)' },
+      { label: 'Return Rate', value: '২% ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -168,9 +168,9 @@ const businessTypes: BusinessType[] = [
       </svg>
     ),
     screenContent: [
-      { label: 'আজকের লাভ', value: '৳ ৪,৮০০', color: 'var(--green)' },
-      { label: 'আজকের বিক্রি', value: '৳ ৭৮,৫০০', color: 'var(--green)' },
-      { label: 'Profit View', value: '১০০% ✓', color: 'var(--green)' },
+      { label: 'আজকের লাভ', value: '৳ ৪,৮০০', color: 'var(--gold)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৭৮,৫০০', color: 'var(--gold)' },
+      { label: 'Profit View', value: '১০০% ✓', color: 'var(--gold)' },
       { label: 'Top Model', value: 'Redmi Note', color: '#A855F7' },
     ],
   },
@@ -187,9 +187,9 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Supplier পাওনা', value: '৳ ২,৩৫,০০০', color: '#FBBF24' },
-      { label: 'আজকের বিক্রি', value: '৳ ১,২৫,০০০', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ১,২৫,০০০', color: 'var(--gold)' },
       { label: 'Supplier', value: '৫ জন', color: '#3B82F6' },
-      { label: 'বিরোধ', value: '৬০% ↓', color: 'var(--green)' },
+      { label: 'বিরোধ', value: '৬০% ↓', color: 'var(--gold)' },
     ],
   },
   {
@@ -206,10 +206,10 @@ const businessTypes: BusinessType[] = [
       </svg>
     ),
     screenContent: [
-      { label: 'Batch Active', value: '১৫ Batch', color: 'var(--green)' },
-      { label: 'আজকের বিক্রি', value: '৳ ৪১,২০০', color: 'var(--green)' },
+      { label: 'Batch Active', value: '১৫ Batch', color: 'var(--gold)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৪১,২০০', color: 'var(--gold)' },
       { label: 'Expiry Alert', value: '২ Batch', color: 'var(--crimson)' },
-      { label: 'Batch ট্র্যাক', value: 'Active ✓', color: 'var(--green)' },
+      { label: 'Batch ট্র্যাক', value: 'Active ✓', color: 'var(--gold)' },
     ],
   },
   {
@@ -226,9 +226,9 @@ const businessTypes: BusinessType[] = [
       </svg>
     ),
     screenContent: [
-      { label: 'Staff Active', value: '৩ জন', color: 'var(--green)' },
-      { label: 'আজকের বিক্রি', value: '৳ ৯৫,৮০০', color: 'var(--green)' },
-      { label: 'Staff Perf', value: '৪০% ↑', color: 'var(--green)' },
+      { label: 'Staff Active', value: '৩ জন', color: 'var(--gold)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৯৫,৮০০', color: 'var(--gold)' },
+      { label: 'Staff Perf', value: '৪০% ↑', color: 'var(--gold)' },
       { label: 'Daily Report', value: 'Auto ✓', color: '#3B82F6' },
     ],
   },
@@ -248,8 +248,8 @@ const businessTypes: BusinessType[] = [
     ),
     screenContent: [
       { label: 'Branch', value: '৫ টি', color: '#3B82F6' },
-      { label: 'আজকের বিক্রি', value: '৳ ৩,৪৫,০০০', color: 'var(--green)' },
-      { label: 'Branch View', value: 'Clear ✓', color: 'var(--green)' },
+      { label: 'আজকের বিক্রি', value: '৳ ৩,৪৫,০০০', color: 'var(--gold)' },
+      { label: 'Branch View', value: 'Clear ✓', color: 'var(--gold)' },
       { label: 'Route Plan', value: 'Active ✓', color: '#A855F7' },
     ],
   },
@@ -306,8 +306,8 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
             height: '480px',
             background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
             borderRadius: '32px',
-            border: '2px solid rgba(0,194,111,0.15)',
-            boxShadow: '0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,194,111,0.08)',
+            border: '2px solid rgba(201,169,110,0.15)',
+            boxShadow: '0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,169,110,0.08)',
             padding: '8px',
           }}
         >
@@ -333,7 +333,7 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
               <span className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
                 ৯:৪১
               </span>
-              <span className="text-[10px] font-body" style={{ color: 'var(--green)' }}>
+              <span className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>
                 HelloKhata
               </span>
               <span className="text-[10px]">📶 🔋</span>
@@ -369,10 +369,10 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
             {/* Pain resolved */}
             <div
               className="mx-3 mt-2 rounded-lg p-2 flex items-center gap-1.5"
-              style={{ background: 'rgba(0,194,111,0.08)', border: '1px solid rgba(0,194,111,0.15)' }}
+              style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.15)' }}
             >
               <span className="text-[12px]">✓</span>
-              <span className="text-[9px] font-body" style={{ color: 'var(--green)' }}>
+              <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>
                 &quot;{business.pain}&quot; — সমাধান হয়েছে
               </span>
             </div>
@@ -391,7 +391,7 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
                     <div
                       className="w-full rounded-t-sm"
                       style={{
-                        background: i === 6 ? 'var(--green)' : 'rgba(0,194,111,0.3)',
+                        background: i === 6 ? 'var(--gold)' : 'rgba(201,169,110,0.3)',
                         height: `${h}%`,
                         minHeight: '3px',
                       }}
@@ -455,7 +455,7 @@ export default function BusinessTypesSection() {
           {/* Eyebrow */}
           <motion.span
             className="inline-block font-body tracking-[0.15em] uppercase mb-4"
-            style={{ fontSize: 'var(--fs-label)', color: 'var(--green)' }}
+            style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -512,10 +512,10 @@ export default function BusinessTypesSection() {
                       ? 'rgba(255,255,255,1)'
                       : 'rgba(255,255,255,0.85)',
                     border: isActive
-                      ? '2px solid var(--green)'
+                      ? '2px solid var(--gold)'
                       : '1px solid var(--canvas-border)',
                     boxShadow: isActive
-                      ? '0 12px 40px rgba(0,194,111,0.15), 0 0 0 4px rgba(0,194,111,0.08)'
+                      ? '0 12px 40px rgba(201,169,110,0.15), 0 0 0 4px rgba(201,169,110,0.08)'
                       : '0 2px 12px rgba(0,0,0,0.04)',
                     transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
                     opacity: isDimmed ? 0.4 : 1,
@@ -533,7 +533,7 @@ export default function BusinessTypesSection() {
                   {isActive && (
                     <motion.div
                       className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center"
-                      style={{ background: 'var(--green)' }}
+                      style={{ background: 'var(--gold)' }}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -545,7 +545,7 @@ export default function BusinessTypesSection() {
                   {/* Icon */}
                   <div
                     className={`mb-3 ${gridSpans[index].includes('row-span-2') ? '' : ''}`}
-                    style={{ color: isActive ? 'var(--green)' : 'var(--text-ink)', transition: 'color 0.25s' }}
+                    style={{ color: isActive ? 'var(--gold)' : 'var(--text-ink)', transition: 'color 0.25s' }}
                   >
                     {biz.icon}
                   </div>
@@ -581,9 +581,9 @@ export default function BusinessTypesSection() {
                             key={i}
                             className="inline-block px-2 py-0.5 rounded-full text-[10px] font-body"
                             style={{
-                              background: 'rgba(0,194,111,0.08)',
-                              color: 'var(--green-deep)',
-                              border: '1px solid rgba(0,194,111,0.15)',
+                              background: 'rgba(201,169,110,0.08)',
+                              color: 'var(--gold-deep)',
+                              border: '1px solid rgba(201,169,110,0.15)',
                             }}
                           >
                             {mod.label}: {mod.value}
@@ -612,7 +612,7 @@ export default function BusinessTypesSection() {
                 className="font-body text-[14px] mb-4"
                 style={{ color: 'var(--text-muted)' }}
               >
-                <span style={{ color: 'var(--green)' }}>HelloKhata</span> দিয়ে{' '}
+                <span style={{ color: 'var(--gold)' }}>HelloKhata</span> দিয়ে{' '}
                 <span className="font-bengali font-semibold" style={{ color: 'var(--text-ink)' }}>
                   {activeBusiness.nameBn}
                 </span>{' '}
@@ -622,9 +622,9 @@ export default function BusinessTypesSection() {
               <button
                 className="mt-4 font-body text-[13px] px-4 py-1.5 rounded-full"
                 style={{
-                  color: 'var(--green-deep)',
-                  background: 'rgba(0,194,111,0.08)',
-                  border: '1px solid rgba(0,194,111,0.15)',
+                  color: 'var(--gold-deep)',
+                  background: 'rgba(201,169,110,0.08)',
+                  border: '1px solid rgba(201,169,110,0.15)',
                 }}
                 onClick={() => setActiveId(null)}
               >

@@ -38,7 +38,7 @@ const commands = [
 function ScreenSales() {
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         আজকের বিক্রি
       </h4>
       <div className="text-2xl font-bengali font-bold" style={{ color: 'var(--text-cream)' }}>
@@ -53,7 +53,7 @@ function ScreenSales() {
           <motion.div
             key={i}
             className="flex-1 rounded-sm"
-            style={{ background: 'linear-gradient(to top, var(--green-deep), var(--green))' }}
+            style={{ background: 'linear-gradient(to top, var(--gold-deep), var(--gold))' }}
             initial={{ height: 0 }}
             animate={{ height: `${h}%` }}
             transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
@@ -79,7 +79,7 @@ function ScreenCustomers() {
   ];
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         কাস্টমার তালিকা
       </h4>
       {customers.map((c, i) => (
@@ -102,8 +102,8 @@ function ScreenCustomers() {
           <span
             className="text-[9px] font-body px-2 py-0.5 rounded-full"
             style={{
-              background: c.status === 'due' ? 'rgba(220,38,38,0.15)' : 'rgba(0,194,111,0.15)',
-              color: c.status === 'due' ? 'var(--crimson)' : 'var(--green)',
+              background: c.status === 'due' ? 'rgba(220,38,38,0.15)' : 'rgba(201,169,110,0.15)',
+              color: c.status === 'due' ? 'var(--crimson)' : 'var(--gold)',
             }}
           >
             {c.status === 'due' ? 'বাকি' : 'পরিশোধিত'}
@@ -123,7 +123,7 @@ function ScreenCustomers() {
 function ScreenNewEntry() {
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         নতুন এন্ট্রি
       </h4>
       {/* Form fields visual */}
@@ -148,8 +148,8 @@ function ScreenNewEntry() {
       <motion.div
         className="rounded-lg p-2.5"
         style={{
-          background: 'rgba(0,194,111,0.08)',
-          border: '1px solid rgba(0,194,111,0.15)',
+          background: 'rgba(201,169,110,0.08)',
+          border: '1px solid rgba(201,169,110,0.15)',
         }}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -166,8 +166,8 @@ function ScreenNewEntry() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.3 }}
       >
-        <CheckCircle2 size={14} style={{ color: 'var(--green)' }} />
-        <span className="font-bengali text-xs" style={{ color: 'var(--green)' }}>
+        <CheckCircle2 size={14} style={{ color: 'var(--gold)' }} />
+        <span className="font-bengali text-xs" style={{ color: 'var(--gold)' }}>
           সেভ হয়েছে ✓
         </span>
       </motion.div>
@@ -183,7 +183,7 @@ function ScreenDebtors() {
   ];
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         বাকিদার তালিকা
       </h4>
       {debtors.map((d, i) => (
@@ -206,9 +206,9 @@ function ScreenDebtors() {
           <button
             className="flex items-center gap-1 text-[9px] font-body px-2 py-1 rounded-full"
             style={{
-              background: 'rgba(0,194,111,0.12)',
-              color: 'var(--green)',
-              border: '1px solid rgba(0,194,111,0.2)',
+              background: 'rgba(201,169,110,0.12)',
+              color: 'var(--gold)',
+              border: '1px solid rgba(201,169,110,0.2)',
             }}
           >
             <PhoneCall size={9} />
@@ -228,7 +228,7 @@ function ScreenStock() {
     { name: 'চিনি ১ কেজি', level: 'good', pct: 70 },
   ];
   const colorMap = {
-    good: 'var(--green)',
+    good: 'var(--gold)',
     low: 'var(--amber)',
     out: 'var(--crimson)',
   };
@@ -239,7 +239,7 @@ function ScreenStock() {
   };
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         স্টক স্ট্যাটাস
       </h4>
       {items.map((item, i) => (
@@ -284,7 +284,7 @@ function ScreenReport() {
   const points = '30,55 65,40 90,60 115,35 140,50 165,25 190,40 215,20 240,30 260,15';
   return (
     <div className="px-4 pt-10 pb-4 space-y-3">
-      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--green)' }}>
+      <h4 className="font-bengali text-sm font-semibold" style={{ color: 'var(--gold)' }}>
         সাপ্তাহিক রিপোর্ট
       </h4>
       {/* Line chart */}
@@ -299,7 +299,7 @@ function ScreenReport() {
           <polyline
             points={points}
             fill="none"
-            stroke="var(--green)"
+            stroke="var(--gold)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -311,8 +311,8 @@ function ScreenReport() {
           />
           <defs>
             <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="var(--green)" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="var(--green)" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="var(--gold)" stopOpacity="0" />
             </linearGradient>
           </defs>
         </svg>
@@ -328,8 +328,8 @@ function ScreenReport() {
           </p>
         </div>
         <div className="flex items-center gap-0.5">
-          <TrendingUp size={12} style={{ color: 'var(--green)' }} />
-          <p className="font-body text-[11px]" style={{ color: 'var(--green)' }}>
+          <TrendingUp size={12} style={{ color: 'var(--gold)' }} />
+          <p className="font-body text-[11px]" style={{ color: 'var(--gold)' }}>
             মুনাফা: ১২.৫%
           </p>
         </div>
@@ -338,7 +338,7 @@ function ScreenReport() {
       <button
         className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-bengali font-medium"
         style={{
-          background: 'var(--green)',
+          background: 'var(--gold)',
           color: 'white',
         }}
       >
@@ -361,14 +361,14 @@ function ConnectorDot() {
       <svg viewBox="0 0 80 16" className="w-full h-full" fill="none">
         <path
           d="M0 8 C20 2, 60 2, 80 8"
-          stroke="var(--green)"
+          stroke="var(--gold)"
           strokeWidth="1.5"
           strokeDasharray="4 3"
           opacity="0.4"
         />
         <motion.circle
           r="3"
-          fill="var(--green)"
+          fill="var(--gold)"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 1, 0], offsetDistance: ['0%', '50%', '50%', '100%'] }}
           transition={{ duration: 1.2, ease: 'easeInOut', repeat: Infinity }}
@@ -396,7 +396,7 @@ export default function VoiceDemoSection() {
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, var(--green-glow-strong) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, var(--gold-glow-strong) 0%, transparent 70%)',
           filter: 'blur(60px)',
           opacity: 0.3,
         }}
@@ -415,7 +415,7 @@ export default function VoiceDemoSection() {
           {/* Green label */}
           <span
             className="inline-block font-body text-xs uppercase tracking-[0.15em] mb-4"
-            style={{ color: 'var(--green)' }}
+            style={{ color: 'var(--gold)' }}
           >
             লাইভ ডেমো
           </span>
@@ -455,11 +455,11 @@ export default function VoiceDemoSection() {
                       font-bengali text-sm transition-all duration-200 flex-shrink-0
                     `}
                     style={{
-                      background: isActive ? 'var(--green)' : 'var(--ink-2)',
+                      background: isActive ? 'var(--gold)' : 'var(--ink-2)',
                       color: isActive ? 'white' : 'var(--text-cream-muted)',
                       border: isActive ? 'none' : '1px solid var(--ink-border)',
                       boxShadow: isActive
-                        ? '0 0 20px rgba(0,194,111,0.35), 0 0 40px rgba(0,194,111,0.15)'
+                        ? '0 0 20px rgba(201,169,110,0.35), 0 0 40px rgba(201,169,110,0.15)'
                         : 'none',
                     }}
                     whileHover={{
@@ -489,7 +489,7 @@ export default function VoiceDemoSection() {
                   inset 0 1px 0 rgba(255,255,255,0.1),
                   0 20px 60px rgba(0,0,0,0.4),
                   0 0 0 1px rgba(255,255,255,0.05),
-                  0 0 40px rgba(0,194,111,0.08)
+                  0 0 40px rgba(201,169,110,0.08)
                 `,
               }}
             >
@@ -511,7 +511,7 @@ export default function VoiceDemoSection() {
                     width: '8px',
                     height: '8px',
                     background: 'radial-gradient(circle, #1a3a2a, #0a1a0a)',
-                    boxShadow: 'inset 0 0 2px rgba(0,194,111,0.3)',
+                    boxShadow: 'inset 0 0 2px rgba(201,169,110,0.3)',
                   }}
                 />
               </div>

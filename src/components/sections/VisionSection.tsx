@@ -49,7 +49,7 @@ const roadmap = [
     features: ['Single retail management', 'Voice entries', 'Basic reports', 'Customer ledger'],
     status: 'active' as const,
     statusText: 'চলমান',
-    color: 'var(--green)',
+    color: 'var(--gold)',
   },
   {
     phase: 2,
@@ -58,7 +58,7 @@ const roadmap = [
     features: ['Smart predictions', 'Auto-categorization', 'Demand forecasting', 'Anomaly detection'],
     status: 'upcoming' as const,
     statusText: 'শীঘ্রই',
-    color: 'var(--green)',
+    color: 'var(--gold)',
   },
   {
     phase: 3,
@@ -152,7 +152,7 @@ function OrderGrid() {
             top: `${55 + c.row * 8}%`,
             width: 6,
             height: 6,
-            backgroundColor: 'rgba(0, 194, 111, 0.3)',
+            backgroundColor: 'rgba(201, 169, 110, 0.3)',
           }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -180,13 +180,13 @@ function StatusBadge({
 
   switch (status) {
     case 'active':
-      bg = 'rgba(0, 194, 111, 0.12)';
-      border = 'rgba(0, 194, 111, 0.3)';
+      bg = 'rgba(201, 169, 110, 0.12)';
+      border = 'rgba(201, 169, 110, 0.3)';
       textColor = color;
       break;
     case 'upcoming':
       bg = 'transparent';
-      border = 'rgba(0, 194, 111, 0.3)';
+      border = 'rgba(201, 169, 110, 0.3)';
       textColor = color;
       break;
     case 'planned':
@@ -215,7 +215,7 @@ function StatusBadge({
 
 /* ─── Cell Value for comparison ─── */
 function CompCell({ value }: { value: string | boolean }) {
-  if (value === true) return <span style={{ color: 'var(--green)' }}>✓</span>;
+  if (value === true) return <span style={{ color: 'var(--gold)' }}>✓</span>;
   if (value === false) return <span style={{ color: 'var(--text-ghost)' }}>✗</span>;
   return <span className="text-sm text-[var(--text-cream-muted)]">{value}</span>;
 }
@@ -296,7 +296,7 @@ export default function VisionSection() {
                   <div>
                     <motion.span
                       className="font-bengali block text-[clamp(40px, 6vw, 72px)] leading-none"
-                      style={{ color: 'var(--green)' }}
+                      style={{ color: 'var(--gold)' }}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -358,9 +358,9 @@ export default function VisionSection() {
                   style={
                     name === 'HelloKhata'
                       ? {
-                          backgroundColor: 'rgba(0, 194, 111, 0.1)',
-                          border: '1px solid rgba(0, 194, 111, 0.3)',
-                          boxShadow: '0 0 20px var(--green-glow)',
+                          backgroundColor: 'rgba(201, 169, 110, 0.1)',
+                          border: '1px solid rgba(201, 169, 110, 0.3)',
+                          boxShadow: '0 0 20px var(--gold-glow)',
                         }
                       : {}
                   }
@@ -369,7 +369,7 @@ export default function VisionSection() {
                     className={`font-body text-xs font-semibold ${
                       name === 'HelloKhata' ? '' : 'text-[var(--text-cream-muted)]'
                     }`}
-                    style={name === 'HelloKhata' ? { color: 'var(--green)' } : {}}
+                    style={name === 'HelloKhata' ? { color: 'var(--gold)' } : {}}
                   >
                     {name}
                   </span>
@@ -439,11 +439,11 @@ export default function VisionSection() {
                     background: 'var(--ink-2)',
                     borderColor:
                       phase.status === 'active'
-                        ? 'rgba(0, 194, 111, 0.3)'
+                        ? 'rgba(201, 169, 110, 0.3)'
                         : 'var(--ink-border)',
                     boxShadow:
                       phase.status === 'active'
-                        ? '0 0 20px var(--green-glow)'
+                        ? '0 0 20px var(--gold-glow)'
                         : 'none',
                   }}
                 >
@@ -454,7 +454,7 @@ export default function VisionSection() {
                       style={{
                         backgroundColor:
                           phase.status === 'active'
-                            ? 'rgba(0, 194, 111, 0.3)'
+                            ? 'rgba(201, 169, 110, 0.3)'
                             : 'var(--ink-border)',
                       }}
                     />
@@ -466,7 +466,7 @@ export default function VisionSection() {
                     style={{
                       color:
                         phase.status === 'active' || phase.status === 'upcoming'
-                          ? 'var(--green)'
+                          ? 'var(--gold)'
                           : phase.status === 'planned'
                           ? 'var(--amber)'
                           : 'var(--text-ghost)',
@@ -503,7 +503,7 @@ export default function VisionSection() {
                           style={{
                             backgroundColor:
                               phase.status === 'active' || phase.status === 'upcoming'
-                                ? 'var(--green)'
+                                ? 'var(--gold)'
                                 : phase.status === 'planned'
                                 ? 'var(--amber)'
                                 : 'var(--text-ghost)',
@@ -528,11 +528,11 @@ export default function VisionSection() {
                     background: 'var(--ink-2)',
                     borderColor:
                       phase.status === 'active'
-                        ? 'rgba(0, 194, 111, 0.3)'
+                        ? 'rgba(201, 169, 110, 0.3)'
                         : 'var(--ink-border)',
                     boxShadow:
                       phase.status === 'active'
-                        ? '0 0 20px var(--green-glow)'
+                        ? '0 0 20px var(--gold-glow)'
                         : 'none',
                   }}
                 >
@@ -542,7 +542,7 @@ export default function VisionSection() {
                       style={{
                         color:
                           phase.status === 'active' || phase.status === 'upcoming'
-                            ? 'var(--green)'
+                            ? 'var(--gold)'
                             : phase.status === 'planned'
                             ? 'var(--amber)'
                             : 'var(--text-ghost)',
@@ -572,7 +572,7 @@ export default function VisionSection() {
                           style={{
                             backgroundColor:
                               phase.status === 'active' || phase.status === 'upcoming'
-                                ? 'var(--green)'
+                                ? 'var(--gold)'
                                 : phase.status === 'planned'
                                 ? 'var(--amber)'
                                 : 'var(--text-ghost)',
@@ -604,7 +604,7 @@ export default function VisionSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center bottom, var(--green-glow) 0%, transparent 60%)',
+              'radial-gradient(ellipse at center bottom, var(--gold-glow) 0%, transparent 60%)',
           }}
         />
 
@@ -629,8 +629,8 @@ export default function VisionSection() {
                 whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-body text-sm font-semibold text-white cursor-pointer"
                 style={{
-                  backgroundColor: 'var(--green)',
-                  boxShadow: '0 4px 24px var(--green-glow-strong)',
+                  backgroundColor: 'var(--gold)',
+                  boxShadow: '0 4px 24px var(--gold-glow-strong)',
                 }}
               >
                 <Download className="w-4 h-4" />

@@ -41,7 +41,7 @@ export function PhoneFrame({
         <div
           className="absolute inset-0 rounded-[36px] blur-3xl opacity-50"
           style={{
-            background: 'var(--green)',
+            background: 'var(--gold)',
             transform: 'scale(0.7)',
           }}
         />
@@ -79,7 +79,7 @@ export function PhoneFrame({
               width: '8px',
               height: '8px',
               background: 'radial-gradient(circle, #1a3a2a, #0a1a0a)',
-              boxShadow: 'inset 0 0 2px rgba(0,194,111,0.3)',
+              boxShadow: 'inset 0 0 2px rgba(201,169,110,0.3)',
             }}
           />
         </div>

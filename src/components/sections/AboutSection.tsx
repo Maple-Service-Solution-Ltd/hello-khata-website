@@ -40,7 +40,7 @@ const team = [
     nameEn: 'Rafi Ahmed',
     role: 'Founder & CEO',
     bio: 'ঢাকা বিশ্ববিদ্যালয় থেকে CSE। দোকানদারের সমস্যা নিজের চোখে দেখেছেন।',
-    color: '#00C26F',
+    color: '#C9A96E',
     initials: 'রা',
   },
   {
@@ -120,7 +120,7 @@ export default function AboutSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage:
-              'radial-gradient(circle at 20% 30%, rgba(0,194,111,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,194,111,0.04) 0%, transparent 40%)',
+              'radial-gradient(circle at 20% 30%, rgba(201,169,110,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(201,169,110,0.04) 0%, transparent 40%)',
           }}
         />
         {/* Glow */}
@@ -128,7 +128,7 @@ export default function AboutSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at center, var(--green-glow) 0%, transparent 60%)',
+              'radial-gradient(ellipse at center, var(--gold-glow) 0%, transparent 60%)',
           }}
         />
 
@@ -176,7 +176,7 @@ export default function AboutSection() {
           <div className="flex justify-center mb-16">
             <div
               className="w-16 h-[3px] rounded-full"
-              style={{ backgroundColor: 'var(--green)' }}
+              style={{ backgroundColor: 'var(--gold)' }}
             />
           </div>
         </Reveal>
@@ -202,7 +202,7 @@ export default function AboutSection() {
                   {/* Dot */}
                   <div
                     className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full -translate-x-1.5 md:-translate-x-1.5 top-6 z-10"
-                    style={{ backgroundColor: 'var(--green)', boxShadow: '0 0 12px var(--green-glow)' }}
+                    style={{ backgroundColor: 'var(--gold)', boxShadow: '0 0 12px var(--gold-glow)' }}
                   />
 
                   {/* Card */}
@@ -226,8 +226,8 @@ export default function AboutSection() {
                         <span
                           className="font-body text-xs font-semibold px-2.5 py-0.5 rounded-full"
                           style={{
-                            backgroundColor: 'rgba(0, 194, 111, 0.1)',
-                            color: 'var(--green)',
+                            backgroundColor: 'rgba(201, 169, 110, 0.1)',
+                            color: 'var(--gold)',
                           }}
                         >
                           {m.year}
@@ -279,7 +279,7 @@ export default function AboutSection() {
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.boxShadow =
-                    '0 0 0 1px var(--green), 0 0 30px var(--green-glow)';
+                    '0 0 0 1px var(--gold), 0 0 30px var(--gold-glow)';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.boxShadow = 'none';
@@ -307,7 +307,7 @@ export default function AboutSection() {
                 </p>
                 <p
                   className="font-body text-xs font-semibold mb-4"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 >
                   {member.role}
                 </p>

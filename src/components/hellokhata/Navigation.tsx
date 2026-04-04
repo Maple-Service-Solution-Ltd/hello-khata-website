@@ -151,7 +151,7 @@ export default function Navigation() {
             >
               Hello
             </span>
-            <span className="font-body font-bold text-[22px] text-[var(--green)]">
+            <span className="font-body font-bold text-[22px] text-[var(--gold)]">
               Khata
             </span>
           </a>
@@ -173,16 +173,16 @@ export default function Navigation() {
                   className={cn(
                     'relative font-bengali text-[15px] tracking-wide leading-none transition-colors duration-200 py-2 px-3 -mx-3 rounded-lg',
                     isActive
-                      ? 'text-[var(--green)]'
+                      ? 'text-[var(--gold)]'
                       : !isLight
-                        ? 'text-[var(--text-cream)] hover:text-[var(--green)] hover:bg-[rgba(255,255,255,0.06)]'
-                        : 'text-[var(--text-ink)] hover:text-[var(--green)] hover:bg-[rgba(13,15,14,0.04)]'
+                        ? 'text-[var(--text-cream)] hover:text-[var(--gold)] hover:bg-[rgba(255,255,255,0.06)]'
+                        : 'text-[var(--text-ink)] hover:text-[var(--gold)] hover:bg-[rgba(13,15,14,0.04)]'
                   )}
                 >
                   {link.label}
                   <span
                     className={cn(
-                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--green)] transition-all duration-300',
+                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--gold)] transition-all duration-300',
                       isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
                     )}
                   />
@@ -220,7 +220,7 @@ export default function Navigation() {
                 className={cn(
                   'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-body',
                   lang === 'en'
-                    ? 'bg-[var(--green)] text-white'
+                    ? 'bg-[var(--gold)] text-white'
                     : 'hover:text-[var(--text-ink)]'
                 )}
               >
@@ -232,7 +232,7 @@ export default function Navigation() {
                 className={cn(
                   'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-bengali',
                   lang === 'bn'
-                    ? 'bg-[var(--green)] text-white'
+                    ? 'bg-[var(--gold)] text-white'
                     : 'hover:text-[var(--text-ink)]'
                 )}
               >
@@ -247,7 +247,7 @@ export default function Navigation() {
                 e.preventDefault();
                 scrollToSection('#pricing');
               }}
-              className="flex items-center gap-2 bg-[var(--green)] hover:bg-[var(--green-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 shadow-[0_0_20px_var(--green-glow)] hover:shadow-[0_0_30px_var(--green-glow-strong)] animate-[pulse-glow_3s_ease-in-out_infinite]"
+              className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 shadow-[0_0_20px_var(--gold-glow)] hover:shadow-[0_0_30px_var(--gold-glow-strong)] animate-[pulse-glow_3s_ease-in-out_infinite]"
             >
               <Download size={16} strokeWidth={2} />
               অ্যাপ নামান
@@ -285,7 +285,7 @@ export default function Navigation() {
                 <span className="font-body font-bold text-2xl text-[var(--text-cream)]">
                   Hello
                 </span>
-                <span className="font-body font-bold text-2xl text-[var(--green)]">
+                <span className="font-body font-bold text-2xl text-[var(--gold)]">
                   Khata
                 </span>
               </div>
@@ -318,13 +318,13 @@ export default function Navigation() {
                     className={cn(
                       'font-bengali text-[24px] h-12 flex items-center justify-center transition-all duration-200 relative border-l-2 pl-6',
                       isActive
-                        ? 'text-[var(--green)] border-[var(--green)]'
-                        : 'text-[var(--text-cream)] hover:text-[var(--green)] border-transparent'
+                        ? 'text-[var(--gold)] border-[var(--gold)]'
+                        : 'text-[var(--text-cream)] hover:text-[var(--gold)] border-transparent'
                     )}
                   >
                     {link.label}
                     {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--green)]" />
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--gold)]" />
                     )}
                   </motion.a>
                 );
@@ -340,7 +340,7 @@ export default function Navigation() {
                   className={cn(
                     'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-body',
                     lang === 'en'
-                      ? 'bg-[var(--green)] text-white'
+                      ? 'bg-[var(--gold)] text-white'
                       : 'hover:text-[var(--text-cream)]'
                   )}
                 >
@@ -352,7 +352,7 @@ export default function Navigation() {
                   className={cn(
                     'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-bengali',
                     lang === 'bn'
-                      ? 'bg-[var(--green)] text-white'
+                      ? 'bg-[var(--gold)] text-white'
                       : 'hover:text-[var(--text-cream)]'
                   )}
                 >
@@ -367,7 +367,7 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection('#pricing');
                 }}
-                className="flex items-center gap-2 bg-[var(--green)] hover:bg-[var(--green-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300"
+                className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300"
               >
                 <Download size={18} strokeWidth={2} />
                 অ্যাপ নামান

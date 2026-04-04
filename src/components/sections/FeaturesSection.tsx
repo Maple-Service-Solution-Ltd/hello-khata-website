@@ -170,7 +170,7 @@ function ModulePhoneMockup({ moduleId }: { moduleId: number }) {
         style={{
           background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
           border: '2px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,194,111,0.08)',
+          boxShadow: '0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,169,110,0.08)',
           padding: '10px',
         }}
       >
@@ -205,7 +205,7 @@ function ModulePhoneMockup({ moduleId }: { moduleId: number }) {
             </span>
             <span
               className="text-[10px] font-body font-semibold"
-              style={{ color: 'var(--green)' }}
+              style={{ color: 'var(--gold)' }}
             >
               HelloKhata
             </span>
@@ -238,14 +238,14 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
       return (
         <div className="flex flex-col gap-2 h-full">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,194,111,0.15)' }}>
-              <Users className="w-3.5 h-3.5" style={{ color: 'var(--green)' }} />
+            <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,169,110,0.15)' }}>
+              <Users className="w-3.5 h-3.5" style={{ color: 'var(--gold)' }} />
             </div>
             <span className="font-bengali text-[13px] font-semibold" style={{ color: textPrimary }}>গ্রাহক খাতা</span>
           </div>
           <div className="rounded-xl p-2.5" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
             <span className="text-[10px] font-body" style={{ color: textMuted }}>মোট বাকি</span>
-            <div className="text-[22px] font-body font-bold" style={{ color: 'var(--green)' }}>৳ ১,২৪,৫০০</div>
+            <div className="text-[22px] font-body font-bold" style={{ color: 'var(--gold)' }}>৳ ১,২৪,৫০০</div>
           </div>
           {[{ name: 'রহিম স্টোর', due: '৳ ১২,৫০০', days: '১৫ দিন' }, { name: 'করিম ট্রেডার্স', due: '৳ ৮,২০০', days: '৭ দিন' }, { name: 'আলী ভাই', due: '৳ ৫,৩০০', days: '৩ দিন' }].map((c, i) => (
             <div key={i} className="rounded-xl p-2.5 flex items-center justify-between" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
@@ -266,11 +266,11 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
           <div className="rounded-xl p-2.5" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
             <div className="flex justify-between items-center mb-2">
               <span className="text-[10px] font-body" style={{ color: textMuted }}>আজকের বিক্রি</span>
-              <span className="text-[16px] font-body font-bold" style={{ color: 'var(--green)' }}>৳ ১৫,৭৫০</span>
+              <span className="text-[16px] font-body font-bold" style={{ color: 'var(--gold)' }}>৳ ১৫,৭৫০</span>
             </div>
             <div className="flex items-end gap-1" style={{ height: '50px' }}>
               {[45, 65, 55, 80, 70, 90, 75].map((h, i) => (
-                <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: i === 5 ? 'var(--green)' : isDark ? 'rgba(0,194,111,0.25)' : 'rgba(0,194,111,0.15)' }} />
+                <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: i === 5 ? 'var(--gold)' : isDark ? 'rgba(201,169,110,0.25)' : 'rgba(201,169,110,0.15)' }} />
               ))}
             </div>
           </div>
@@ -300,7 +300,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             <div key={i} className="rounded-xl p-2.5" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-body font-semibold" style={{ color: textPrimary }}>{p.sup}</span>
-                <span className="text-[9px] font-body px-1.5 py-0.5 rounded-full" style={{ background: i === 0 ? 'rgba(0,194,111,0.15)' : 'rgba(217,119,6,0.15)', color: i === 0 ? 'var(--green)' : 'var(--amber)' }}>{p.status}</span>
+                <span className="text-[9px] font-body px-1.5 py-0.5 rounded-full" style={{ background: i === 0 ? 'rgba(201,169,110,0.15)' : 'rgba(217,119,6,0.15)', color: i === 0 ? 'var(--gold)' : 'var(--amber)' }}>{p.status}</span>
               </div>
               <div className="text-[9px] font-body mt-1" style={{ color: textMuted }}>{p.items} · {p.amt}</div>
             </div>
@@ -327,7 +327,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
                 <span className="text-[10px] font-body" style={{ color: item.warn ? 'var(--amber)' : textMuted }}>{item.stock}</span>
               </div>
               <div className="h-1.5 rounded-full" style={{ background: isDark ? 'var(--ink-1)' : 'var(--cream-2)' }}>
-                <div className="h-full rounded-full" style={{ width: `${item.pct}%`, background: item.warn ? 'var(--amber)' : 'var(--green)' }} />
+                <div className="h-full rounded-full" style={{ width: `${item.pct}%`, background: item.warn ? 'var(--amber)' : 'var(--gold)' }} />
               </div>
             </div>
           ))}
@@ -344,21 +344,21 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             { batch: '#B02', cost: '৳৪৮', qty: '৩০', sell: false },
             { batch: '#C03', cost: '৳৪৭', qty: '৪০', sell: false },
           ].map((b, i) => (
-            <div key={i} className="rounded-xl p-2 relative overflow-hidden" style={{ background: b.sell ? 'rgba(0,194,111,0.1)' : cardBg, border: `1px solid ${b.sell ? 'rgba(0,194,111,0.3)' : borderColor}` }}>
+            <div key={i} className="rounded-xl p-2 relative overflow-hidden" style={{ background: b.sell ? 'rgba(201,169,110,0.1)' : cardBg, border: `1px solid ${b.sell ? 'rgba(201,169,110,0.3)' : borderColor}` }}>
               {b.sell && (
-                <div className="absolute top-1.5 right-1.5 text-[8px] font-body font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--green)', color: '#fff' }}>
+                <div className="absolute top-1.5 right-1.5 text-[8px] font-body font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--gold)', color: '#fff' }}>
                   SELL FIRST
                 </div>
               )}
               <div className="flex justify-between items-center">
-                <span className="text-[11px] font-body font-semibold" style={{ color: 'var(--green)' }}>Batch {b.batch}</span>
+                <span className="text-[11px] font-body font-semibold" style={{ color: 'var(--gold)' }}>Batch {b.batch}</span>
                 <span className="text-[10px] font-body" style={{ color: textMuted }}>Qty: {b.qty}</span>
               </div>
               <div className="text-[9px] font-body mt-0.5" style={{ color: textMuted }}>Cost: {b.cost}/unit</div>
             </div>
           ))}
-          <div className="mt-auto rounded-lg p-2" style={{ background: 'rgba(0,194,111,0.08)', border: '1px solid rgba(0,194,111,0.2)' }}>
-            <div className="text-[9px] font-body" style={{ color: 'var(--green)' }}>↕ FIFO অনুযায়ী Batch #A01 আগে বিক্রি হবে</div>
+          <div className="mt-auto rounded-lg p-2" style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.2)' }}>
+            <div className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>↕ FIFO অনুযায়ী Batch #A01 আগে বিক্রি হবে</div>
           </div>
         </div>
       )
@@ -368,7 +368,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
         <div className="flex flex-col gap-2 h-full">
           <div className="text-[13px] font-bengali font-semibold mb-1" style={{ color: textPrimary }}>এক্সপায়ারি ট্র্যাকার</div>
           <div className="grid grid-cols-3 gap-1.5">
-            {[{ label: 'নিরাপদ', val: '১৮৯', color: 'var(--green)' }, { label: 'শীঘ্রই', val: '২৪', color: 'var(--amber)' }, { label: 'এক্সপায়ার্ড', val: '৩', color: 'var(--crimson)' }].map((s, i) => (
+            {[{ label: 'নিরাপদ', val: '১৮৯', color: 'var(--gold)' }, { label: 'শীঘ্রই', val: '২৪', color: 'var(--amber)' }, { label: 'এক্সপায়ার্ড', val: '৩', color: 'var(--crimson)' }].map((s, i) => (
               <div key={i} className="rounded-xl p-2 text-center" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
                 <div className="text-[9px] font-body" style={{ color: textMuted }}>{s.label}</div>
                 <div className="text-[14px] font-body font-bold" style={{ color: s.color }}>{s.val}</div>
@@ -380,7 +380,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             <div className="text-[10px] font-body mb-2" style={{ color: textMuted }}>জুন ২০২৫</div>
             <div className="grid grid-cols-7 gap-1">
               {Array.from({ length: 14 }).map((_, i) => {
-                const color = i === 3 ? 'var(--amber)' : i === 8 ? 'var(--crimson)' : 'var(--green)'
+                const color = i === 3 ? 'var(--amber)' : i === 8 ? 'var(--crimson)' : 'var(--gold)'
                 return (
                   <div key={i} className="w-4 h-4 rounded-full mx-auto flex items-center justify-center">
                     <div className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
@@ -404,7 +404,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
               </div>
               <div className="flex justify-between mt-1">
                 <span className="text-[9px] font-body" style={{ color: 'var(--crimson)' }}>পাওনা: {s.due}</span>
-                <span className="text-[9px] font-body" style={{ color: 'var(--green)' }}>পরিশোধ: {s.paid}</span>
+                <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>পরিশোধ: {s.paid}</span>
               </div>
             </div>
           ))}
@@ -441,7 +441,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             {[{ label: 'আজকের বিক্রি', val: '৳ ১৫,৭৫০' }, { label: 'এই মাসে', val: '৳ ২,৪৫,০০০' }, { label: 'মোট লাভ', val: '৳ ৬৮,৫০০' }, { label: 'গ্রাহক', val: '১২৫' }].map((s, i) => (
               <div key={i} className="rounded-xl p-2" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
                 <div className="text-[8px] font-body" style={{ color: textMuted }}>{s.label}</div>
-                <div className="text-[12px] font-body font-bold" style={{ color: 'var(--green)' }}>{s.val}</div>
+                <div className="text-[12px] font-body font-bold" style={{ color: 'var(--gold)' }}>{s.val}</div>
               </div>
             ))}
           </div>
@@ -449,7 +449,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             <div className="text-[9px] font-body mb-1.5" style={{ color: textMuted }}>সাপ্তাহিক বিক্রি</div>
             <div className="flex items-end gap-1" style={{ height: '50px' }}>
               {[40, 55, 70, 50, 85, 65, 90].map((h, i) => (
-                <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: i === 6 ? 'var(--green)' : isDark ? 'rgba(0,194,111,0.25)' : 'rgba(0,194,111,0.15)' }} />
+                <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: i === 6 ? 'var(--gold)' : isDark ? 'rgba(201,169,110,0.25)' : 'rgba(201,169,110,0.15)' }} />
               ))}
             </div>
           </div>
@@ -468,7 +468,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             <div key={i} className="rounded-xl p-2.5" style={{ background: cardBg, border: `1px solid ${borderColor}` }}>
               <div className="flex justify-between items-center">
                 <span className="text-[11px] font-body font-semibold" style={{ color: textPrimary }}>{b.name}</span>
-                <span className="text-[8px] font-body px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(0,194,111,0.15)', color: 'var(--green)' }}>{b.status}</span>
+                <span className="text-[8px] font-body px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(201,169,110,0.15)', color: 'var(--gold)' }}>{b.status}</span>
               </div>
               <div className="text-[9px] font-body mt-1" style={{ color: textMuted }}>বিক্রি: {b.sales}</div>
             </div>
@@ -488,9 +488,9 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
                 </div>
                 <div className="flex-1">
                   <div className="text-[11px] font-body font-semibold" style={{ color: textPrimary }}>{s.name} <span className="font-normal text-[9px]" style={{ color: textMuted }}>· {s.role}</span></div>
-                  <div className="text-[9px] font-body" style={{ color: 'var(--green)' }}>বিক্রি: {s.sales}</div>
+                  <div className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>বিক্রি: {s.sales}</div>
                 </div>
-                {s.today && <div className="text-[8px] font-body px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(0,194,111,0.15)', color: 'var(--green)' }}>আজ</div>}
+                {s.today && <div className="text-[8px] font-body px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(201,169,110,0.15)', color: 'var(--gold)' }}>আজ</div>}
               </div>
             </div>
           ))}
@@ -498,7 +498,7 @@ function PhoneContent({ moduleId, isDark }: { moduleId: number; isDark: boolean 
             <div className="text-[9px] font-body" style={{ color: textMuted }}>আজকের অ্যাটেন্ড্যান্স</div>
             <div className="flex items-center gap-2 mt-1">
               {['হাসান', 'কামাল', 'রহিম', 'জামাল'].map((n, i) => (
-                <div key={i} className="w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-body" style={{ background: i < 3 ? 'rgba(0,194,111,0.2)' : 'rgba(220,38,38,0.2)', color: i < 3 ? 'var(--green)' : 'var(--crimson)' }}>{n[0]}</div>
+                <div key={i} className="w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-body" style={{ background: i < 3 ? 'rgba(201,169,110,0.2)' : 'rgba(220,38,38,0.2)', color: i < 3 ? 'var(--gold)' : 'var(--crimson)' }}>{n[0]}</div>
               ))}
               <span className="text-[9px] font-body" style={{ color: textMuted }}>৩/৪</span>
             </div>
@@ -550,20 +550,20 @@ function BatchDiagram() {
           <div
             className="rounded-xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 relative"
             style={{
-              background: b.sellFirst ? 'rgba(0,194,111,0.08)' : 'var(--ink-2)',
-              border: `1px solid ${b.sellFirst ? 'rgba(0,194,111,0.3)' : 'var(--ink-border-strong)'}`,
+              background: b.sellFirst ? 'rgba(201,169,110,0.08)' : 'var(--ink-2)',
+              border: `1px solid ${b.sellFirst ? 'rgba(201,169,110,0.3)' : 'var(--ink-border-strong)'}`,
             }}
           >
             {b.sellFirst && (
               <div
                 className="absolute -top-2.5 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-body font-bold text-white"
-                style={{ background: 'var(--green)', animation: 'pulse-glow 2s ease-in-out infinite' }}
+                style={{ background: 'var(--gold)', animation: 'pulse-glow 2s ease-in-out infinite' }}
               >
                 ↓ SELL FIRST
               </div>
             )}
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded" style={{ background: b.sellFirst ? 'rgba(0,194,111,0.2)' : 'var(--ink-1)', color: b.sellFirst ? 'var(--green)' : 'var(--text-cream)' }}>
+              <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded" style={{ background: b.sellFirst ? 'rgba(201,169,110,0.2)' : 'var(--ink-1)', color: b.sellFirst ? 'var(--gold)' : 'var(--text-cream)' }}>
                 #{b.id}
               </span>
               <div className="min-w-0">
@@ -579,7 +579,7 @@ function BatchDiagram() {
           </div>
           {i < batches.length - 1 && (
             <div className="flex justify-center py-1">
-              <ArrowRight className="w-4 h-4 rotate-90" style={{ color: 'var(--green)' }} />
+              <ArrowRight className="w-4 h-4 rotate-90" style={{ color: 'var(--gold)' }} />
             </div>
           )}
         </div>
@@ -674,10 +674,10 @@ export default function FeaturesSection() {
         >
           <motion.div
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-6"
-            style={{ borderColor: 'rgba(0,194,111,0.3)' }}
+            style={{ borderColor: 'rgba(201,169,110,0.3)' }}
             variants={fadeUp}
           >
-            <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--green)' }}>
+            <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}>
               The Power
             </span>
           </motion.div>
@@ -714,9 +714,9 @@ export default function FeaturesSection() {
                 onClick={() => scrollToModule(m.id)}
                 className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full font-body text-[12px] transition-all duration-300"
                 style={{
-                  background: activeModule === m.id ? 'var(--green)' : 'transparent',
+                  background: activeModule === m.id ? 'var(--gold)' : 'transparent',
                   color: activeModule === m.id ? '#fff' : 'var(--text-cream-muted)',
-                  border: `1px solid ${activeModule === m.id ? 'var(--green)' : 'var(--ink-border)'}`,
+                  border: `1px solid ${activeModule === m.id ? 'var(--gold)' : 'var(--ink-border)'}`,
                 }}
               >
                 {m.icon}
@@ -780,9 +780,9 @@ function ModuleSection({
     registerRef(index, ref.current)
   }, [index, registerRef])
 
-  const accentColor = isPremiumIndigo ? 'var(--indigo)' : 'var(--green)'
-  const accentBg = isPremiumIndigo ? 'rgba(79,70,229,0.1)' : 'rgba(0,194,111,0.08)'
-  const accentBorder = isPremiumIndigo ? 'rgba(79,70,229,0.3)' : 'rgba(0,194,111,0.25)'
+  const accentColor = isPremiumIndigo ? 'var(--indigo)' : 'var(--gold)'
+  const accentBg = isPremiumIndigo ? 'rgba(79,70,229,0.1)' : 'rgba(201,169,110,0.08)'
+  const accentBorder = isPremiumIndigo ? 'rgba(79,70,229,0.3)' : 'rgba(201,169,110,0.25)'
 
   /* Reverse layout for even modules */
   const isReversed = !isOdd && !isDouble

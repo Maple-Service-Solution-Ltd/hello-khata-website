@@ -248,7 +248,7 @@ export default function KhataStorySection() {
               <motion.div variants={fadeIn} className="mb-4 mt-4">
                 <span
                   className="font-body text-xs font-semibold tracking-widest uppercase"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 >
                   অধ্যায় ০১
                 </span>
@@ -299,7 +299,7 @@ export default function KhataStorySection() {
               <motion.div variants={fadeIn} className="mb-4">
                 <span
                   className="font-body text-xs font-semibold tracking-widest uppercase"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 >
                   অধ্যায় ০২
                 </span>
@@ -322,12 +322,12 @@ export default function KhataStorySection() {
               {/* Data pullquote */}
               <motion.blockquote
                 className="relative pl-6 py-4 my-10"
-                style={{ borderLeft: '4px solid var(--green)' }}
+                style={{ borderLeft: '4px solid var(--gold)' }}
                 variants={fadeUp}
               >
                 <p
                   className="font-display italic text-xl md:text-2xl"
-                  style={{ color: 'var(--green-deep)', lineHeight: 1.5 }}
+                  style={{ color: 'var(--gold-deep)', lineHeight: 1.5 }}
                 >
                   &ldquo;৮৩% বাংলাদেশি ক্ষুদ্র ব্যবসায়ী এখনো সম্পূর্ণ কাগজে হিসাব রাখেন।&rdquo;
                 </p>
@@ -364,7 +364,7 @@ export default function KhataStorySection() {
               <motion.div variants={fadeIn} className="mb-4">
                 <span
                   className="font-body text-xs font-semibold tracking-widest uppercase"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 >
                   অধ্যায় ০৩
                 </span>
@@ -460,7 +460,7 @@ export default function KhataStorySection() {
           <div className="flex items-center justify-center mb-12">
             <div
               className="w-24 h-0.5"
-              style={{ background: 'var(--green)' }}
+              style={{ background: 'var(--gold)' }}
             />
           </div>
 
@@ -479,10 +479,10 @@ export default function KhataStorySection() {
             {/* CTA Button */}
             <motion.button
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bengali text-base font-semibold text-white"
-              style={{ background: 'var(--green)' }}
+              style={{ background: 'var(--gold)' }}
               whileHover={{
                 scale: 1.04,
-                boxShadow: '0 0 32px rgba(0,194,111,0.4)',
+                boxShadow: '0 0 32px rgba(201,169,110,0.4)',
               }}
               whileTap={{ scale: 0.97 }}
               onClick={() => {

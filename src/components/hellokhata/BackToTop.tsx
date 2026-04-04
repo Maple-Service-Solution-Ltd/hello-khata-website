@@ -40,23 +40,23 @@ export default function BackToTop() {
             transition: 'background-color var(--t-spring), box-shadow var(--t-spring), border-color var(--t-spring)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'var(--green)'
-            e.currentTarget.style.boxShadow = '0 0 20px var(--green-glow)'
-            e.currentTarget.style.borderColor = 'var(--green)'
+            e.currentTarget.style.backgroundColor = 'var(--gold)'
+            e.currentTarget.style.boxShadow = '0 0 20px var(--gold-glow)'
+            e.currentTarget.style.borderColor = 'var(--gold)'
             e.currentTarget.querySelector('svg')?.style.setProperty('color', 'white')
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = 'var(--ink-1)'
             e.currentTarget.style.boxShadow = 'none'
             e.currentTarget.style.borderColor = 'var(--ink-border-strong)'
-            e.currentTarget.querySelector('svg')?.style.setProperty('color', 'var(--green)')
+            e.currentTarget.querySelector('svg')?.style.setProperty('color', 'var(--gold)')
           }}
           aria-label="Back to top"
         >
           <ArrowUp
             size={20}
             strokeWidth={2.5}
-            style={{ color: 'var(--green)', transition: 'color var(--t-spring)' }}
+            style={{ color: 'var(--gold)', transition: 'color var(--t-spring)' }}
           />
         </motion.button>
       )}

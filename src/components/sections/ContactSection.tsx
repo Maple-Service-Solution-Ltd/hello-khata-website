@@ -94,10 +94,10 @@ function ContactCard({
       className="relative flex flex-col items-center text-center p-6 md:p-8 rounded-[var(--card-r)]"
       style={{
         background: primary
-          ? 'linear-gradient(145deg, rgba(0,194,111,0.06), rgba(0,194,111,0.02))'
+          ? 'linear-gradient(145deg, rgba(201,169,110,0.06), rgba(201,169,110,0.02))'
           : 'var(--white)',
         border: primary
-          ? '1.5px solid rgba(0,194,111,0.2)'
+          ? '1.5px solid rgba(201,169,110,0.2)'
           : '1px solid var(--canvas-border)',
       }}
       variants={fadeUp}
@@ -107,7 +107,7 @@ function ContactCard({
         <div
           className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-body font-semibold"
           style={{
-            background: badgeColor || 'var(--green)',
+            background: badgeColor || 'var(--gold)',
             color: 'white',
           }}
         >
@@ -120,13 +120,13 @@ function ContactCard({
         className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
         style={{
           background: isGreen
-            ? 'rgba(0,194,111,0.12)'
+            ? 'rgba(201,169,110,0.12)'
             : 'rgba(13,15,14,0.04)',
         }}
       >
         <Icon
           className="w-7 h-7"
-          style={{ color: isGreen ? 'var(--green)' : 'var(--text-body)' }}
+          style={{ color: isGreen ? 'var(--gold)' : 'var(--text-body)' }}
         />
       </div>
 
@@ -160,7 +160,7 @@ function ContactCard({
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-body text-sm font-semibold"
         style={
           isGreen
-            ? { background: 'var(--green)', color: 'white' }
+            ? { background: 'var(--gold)', color: 'white' }
             : {
                 background: 'transparent',
                 color: 'var(--text-ink)',
@@ -169,7 +169,7 @@ function ContactCard({
         }
         whileHover={
           isGreen
-            ? { scale: 1.04, boxShadow: '0 0 24px rgba(0,194,111,0.35)' }
+            ? { scale: 1.04, boxShadow: '0 0 24px rgba(201,169,110,0.35)' }
             : { scale: 1.04, borderColor: 'var(--text-ink)' }
         }
         whileTap={{ scale: 0.97 }}
@@ -471,7 +471,7 @@ export default function ContactSection() {
             title="WhatsApp এ লিখুন"
             subtitle="সকাল ৯টা – রাত ৯টা"
             badge="সবচেয়ে দ্রুত উত্তর পাবেন"
-            badgeColor="var(--green)"
+            badgeColor="var(--gold)"
             value="+880 1XXX-XXXXXX"
             action="সরাসরি মেসেজ করুন"
             buttonLabel="WhatsApp এ কথা বলুন"
@@ -508,7 +508,7 @@ export default function ContactSection() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 600px 400px at 50% 50%, rgba(0,194,111,0.12) 0%, transparent 70%)',
+              'radial-gradient(ellipse 600px 400px at 50% 50%, rgba(201,169,110,0.12) 0%, transparent 70%)',
           }}
         />
         {/* Nakshi texture at low opacity */}
@@ -550,10 +550,10 @@ export default function ContactSection() {
           <motion.div variants={fadeUp}>
             <motion.button
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body text-[15px] font-semibold text-white"
-              style={{ background: 'var(--green)' }}
+              style={{ background: 'var(--gold)' }}
               whileHover={{
                 scale: 1.04,
-                boxShadow: '0 0 32px rgba(0,194,111,0.4)',
+                boxShadow: '0 0 32px rgba(201,169,110,0.4)',
               }}
               whileTap={{ scale: 0.97 }}
             >
@@ -600,7 +600,7 @@ export default function ContactSection() {
               className="text-center py-16 rounded-[var(--card-r)] px-6"
               style={{
                 background: 'var(--white)',
-                border: '1px solid rgba(0,194,111,0.2)',
+                border: '1px solid rgba(201,169,110,0.2)',
               }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -618,7 +618,7 @@ export default function ContactSection() {
               >
                 <CheckCircle2
                   className="w-16 h-16 mx-auto mb-5"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 />
               </motion.div>
               <motion.p
@@ -751,7 +751,7 @@ export default function ContactSection() {
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-body text-[15px] font-semibold text-white"
                   style={{
-                    background: isSubmitting ? 'rgba(0,194,111,0.6)' : 'var(--green)',
+                    background: isSubmitting ? 'rgba(201,169,110,0.6)' : 'var(--gold)',
                     cursor: isSubmitting ? 'wait' : 'pointer',
                   }}
                   whileHover={
@@ -759,7 +759,7 @@ export default function ContactSection() {
                       ? {}
                       : {
                           scale: 1.02,
-                          boxShadow: '0 0 28px rgba(0,194,111,0.35)',
+                          boxShadow: '0 0 28px rgba(201,169,110,0.35)',
                         }
                   }
                   whileTap={isSubmitting ? {} : { scale: 0.98 }}

@@ -23,7 +23,7 @@ const ARTICLES = [
       'Batch ম্যানেজমেন্ট ফিচার দিয়ে আপনি সহজেই পণ্যের expiry ট্র্যাক করতে পারবেন।',
     readTime: '৩ মিনিট পড়া',
     date: '১২ জানুয়ারি ২০২৫',
-    gradientFrom: '#00C26F',
+    gradientFrom: '#C9A96E',
     gradientTo: '#00A85A',
     icon: Package,
   },
@@ -71,7 +71,7 @@ const ARTICLES = [
       'HelloKhata তে ভয়েস কমান্ড ব্যবহার করার সম্পূর্ণ গাইড এখানে।',
     readTime: '৩ মিনিট পড়া',
     date: '৩ জানুয়ারি ২০২৫',
-    gradientFrom: '#00C26F',
+    gradientFrom: '#C9A96E',
     gradientTo: '#007A45',
     icon: BookOpen,
   },
@@ -135,7 +135,7 @@ function ArticleCard({
       whileHover={{
         y: -4,
         boxShadow: '0 16px 48px rgba(0,0,0,0.06)',
-        borderColor: 'rgba(0,194,111,0.2)',
+        borderColor: 'rgba(201,169,110,0.2)',
       }}
       transition={{ duration: 0.3 }}
     >
@@ -177,8 +177,8 @@ function ArticleCard({
         <span
           className="inline-block px-3 py-1 rounded-full text-[11px] font-body font-semibold mb-3"
           style={{
-            background: 'rgba(0,194,111,0.1)',
-            color: 'var(--green)',
+            background: 'rgba(201,169,110,0.1)',
+            color: 'var(--gold)',
           }}
         >
           {article.category}
@@ -280,7 +280,7 @@ export default function BlogSection() {
               style={
                 activeTab === tab
                   ? {
-                      background: 'var(--green)',
+                      background: 'var(--gold)',
                       color: 'white',
                     }
                   : {
@@ -320,18 +320,18 @@ export default function BlogSection() {
                 className="relative w-full md:w-2/5 min-h-[220px] md:min-h-[300px] flex items-center justify-center overflow-hidden"
                 style={{
                   background:
-                    'linear-gradient(135deg, rgba(0,194,111,0.12) 0%, rgba(0,194,111,0.04) 60%, rgba(0,194,111,0.08) 100%)',
+                    'linear-gradient(135deg, rgba(201,169,110,0.12) 0%, rgba(201,169,110,0.04) 60%, rgba(201,169,110,0.08) 100%)',
                 }}
               >
                 {/* Decorative shapes */}
                 <div className="absolute w-32 h-32 rounded-full opacity-15 -top-8 -left-8"
-                  style={{ background: 'var(--green)' }}
+                  style={{ background: 'var(--gold)' }}
                 />
                 <div className="absolute w-20 h-20 rounded-full opacity-10 bottom-6 right-8"
-                  style={{ background: 'var(--green-deep)' }}
+                  style={{ background: 'var(--gold-deep)' }}
                 />
                 <div className="absolute w-40 h-40 rounded-full opacity-[0.06] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ border: '2px solid var(--green)' }}
+                  style={{ border: '2px solid var(--gold)' }}
                 />
 
                 {/* Center illustration - percentage reduction visual */}
@@ -339,11 +339,11 @@ export default function BlogSection() {
                   <div
                     className="w-20 h-20 rounded-2xl flex items-center justify-center"
                     style={{
-                      background: 'rgba(0,194,111,0.15)',
-                      boxShadow: '0 0 30px rgba(0,194,111,0.1)',
+                      background: 'rgba(201,169,110,0.15)',
+                      boxShadow: '0 0 30px rgba(201,169,110,0.1)',
                     }}
                   >
-                    <TrendingUp className="w-10 h-10" style={{ color: 'var(--green)' }} />
+                    <TrendingUp className="w-10 h-10" style={{ color: 'var(--gold)' }} />
                   </div>
                   {/* Mini chart bars */}
                   <div className="flex items-end gap-1.5">
@@ -355,8 +355,8 @@ export default function BlogSection() {
                           height: `${h * 0.4}px`,
                           background:
                             i === 5
-                              ? 'var(--green)'
-                              : 'rgba(0,194,111,0.25)',
+                              ? 'var(--gold)'
+                              : 'rgba(201,169,110,0.25)',
                           opacity: 0.7,
                         }}
                       />
@@ -371,8 +371,8 @@ export default function BlogSection() {
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-body font-semibold mb-4 self-start"
                   style={{
-                    background: 'rgba(0,194,111,0.1)',
-                    color: 'var(--green)',
+                    background: 'rgba(201,169,110,0.1)',
+                    color: 'var(--gold)',
                   }}
                 >
                   ব্যবসার টিপস
@@ -419,7 +419,7 @@ export default function BlogSection() {
                 {/* CTA */}
                 <motion.span
                   className="inline-flex items-center gap-2 font-body font-semibold text-sm"
-                  style={{ color: 'var(--green)' }}
+                  style={{ color: 'var(--gold)' }}
                 >
                   পড়ুন
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

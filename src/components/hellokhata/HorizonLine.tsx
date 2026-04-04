@@ -14,7 +14,7 @@ interface HorizonLineProps {
 const variantStyles: Record<HorizonLineVariant, { strokeWidth: number; opacity: number; filter?: string }> = {
   subtle: { strokeWidth: 1, opacity: 0.2 },
   strong: { strokeWidth: 2, opacity: 0.4 },
-  glowing: { strokeWidth: 2, opacity: 0.6, filter: 'drop-shadow(0 0 6px var(--green-glow-strong))' },
+  glowing: { strokeWidth: 2, opacity: 0.6, filter: 'drop-shadow(0 0 6px var(--gold-glow-strong))' },
 };
 
 export function HorizonLine({
@@ -43,7 +43,7 @@ export function HorizonLine({
         <motion.path
           d={pathD}
           fill="none"
-          stroke="var(--green)"
+          stroke="var(--gold)"
           strokeWidth={style.strokeWidth}
           strokeLinecap="round"
           opacity={style.opacity}

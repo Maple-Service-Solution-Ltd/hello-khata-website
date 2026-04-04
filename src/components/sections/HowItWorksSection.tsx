@@ -15,7 +15,7 @@ const steps = [
     ghostNumber: '০১',
     pill: 'ধাপ ০১',
     icon: Download,
-    accentColor: '#00C26F',
+    accentColor: '#C9A96E',
     titleBn: 'অ্যাপ ডাউনলোড করুন',
     titleEn: 'Download the app',
     description:
@@ -35,7 +35,7 @@ const steps = [
     ghostNumber: '০৩',
     pill: 'ধাপ ০৩',
     icon: BarChart3,
-    accentColor: '#00C26F',
+    accentColor: '#C9A96E',
     titleBn: 'সব স্বয়ংক্রিয়',
     titleEn: 'Everything automated',
     description:
@@ -76,9 +76,9 @@ export default function HowItWorksSection() {
           <span
             className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] mb-6"
             style={{
-              backgroundColor: 'rgba(0, 194, 111, 0.1)',
-              color: 'var(--green)',
-              border: '1px solid rgba(0, 194, 111, 0.15)',
+              backgroundColor: 'rgba(201, 169, 110, 0.1)',
+              color: 'var(--gold)',
+              border: '1px solid rgba(201, 169, 110, 0.15)',
             }}
           >
             <Zap size={14} strokeWidth={2.5} />
@@ -202,13 +202,13 @@ export default function HowItWorksSection() {
                           y1="12"
                           x2="30"
                           y2="12"
-                          stroke="var(--green)"
+                          stroke="var(--gold)"
                           strokeWidth="1.5"
                           strokeDasharray="4 4"
                         />
                         <path
                           d="M26 6l8 6-8 6"
-                          stroke="var(--green)"
+                          stroke="var(--gold)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -233,7 +233,7 @@ export default function HowItWorksSection() {
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
             className="group inline-flex items-center gap-2 font-bengali text-sm font-medium relative"
-            style={{ color: 'var(--green)' }}
+            style={{ color: 'var(--gold)' }}
             whileHover={{ x: 4 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
@@ -243,7 +243,7 @@ export default function HowItWorksSection() {
               <span
                 className="absolute bottom-[-2px] left-0 h-[2px] rounded-full group-hover:w-full"
                 style={{
-                  backgroundColor: 'var(--green)',
+                  backgroundColor: 'var(--gold)',
                   width: '0%',
                   transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}

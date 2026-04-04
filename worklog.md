@@ -726,3 +726,67 @@ Create Interactive Voice Demo Widget (VoiceDemoSection.tsx) — a highly interac
 - ✅ All animations use framer-motion with design system easing
 - ✅ Follows "Refined Bengali Modernism" design language
 - ✅ Responsive: works on mobile and desktop
+
+---
+## Task ID: 5-A/5-B
+### Work Task
+Improve HeroSection.tsx and CTASection.tsx based on QA feedback — fix contrast, add WhatsApp CTA, enhance micro-stats, add trust badges, and improve button sizing.
+
+### Work Summary
+
+**1. HeroSection.tsx — 3 QA Fixes**
+
+- **a) English subtitle contrast fix**: Changed "Your khata now speaks." color from `var(--text-cream-muted)` to `var(--text-cream)` for improved readability on the dark --ink background.
+- **b) WhatsApp CTA button**: Added third button in the CTA row after "কীভাবে কাজ করে →". Green outline button with `MessageCircle` icon from lucide-react, text "WhatsApp এ কথা বলুন", `border: 1px solid rgba(0,194,111,0.4)`, `color: var(--green)`, rounded-full, gap-2. Hover: `borderColor: rgba(0,194,111,0.7)`, `background: rgba(0,194,111,0.08)`, whileHover scale 1.04, whileTap 0.97.
+- **c) Micro-stats shimmer**: Added `animate-pulse` class to the green dots in the micro-stats array for a subtle pulsing glow animation.
+
+**2. CTASection.tsx — 3 QA Fixes**
+
+- **a) WhatsApp link → pill button**: Converted from subtle `text-sm` text link to prominent pill-shaped button: `inline-flex items-center gap-2 px-4 py-2 rounded-full` with `border: 1px solid rgba(0,194,111,0.4)`, `color: var(--green)`, `text-[15px] font-medium`. Hover: `background: rgba(0,194,111,0.1)`, `borderColor: rgba(0,194,111,0.6)`, whileHover scale 1.04, whileTap 0.97.
+- **b) Trust badges row**: Added 3 trust indicator pills below CTA buttons and above WhatsApp link, in a `flex flex-wrap justify-center gap-2` container. Each pill: `inline-flex items-center gap-1.5 px-3 py-1 rounded-full` with `background: rgba(255,255,255,0.06)`, `border: 1px solid rgba(255,255,255,0.08)`, `font-body text-[12px] text-[var(--text-cream-muted)]`. Icons: ShieldCheck ("SSL সুরক্ষিত"), Smartphone ("৫ মিনিটে ইন্সটল"), Zap ("কোনো কার্ড লাগবে না"). All icons in green.
+- **c) CTA button sizes**: Increased both Google Play and App Store buttons from `px-8 py-4` to `px-9 py-4.5` for better touch targets.
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ All existing functionality preserved
+- ✅ Follows "Refined Bengali Modernism" design language
+- ✅ Uses CSS custom properties (--green, --text-cream, etc.) consistently
+
+---
+Task ID: color-migration-green-to-gold
+Agent: Main Orchestrator
+Task: Change brand color from Signal Green (#00C26F) to Warm Gold (#C9A96E) across entire project
+
+Work Log:
+- Audited all 30+ source files for green color references (~300+ occurrences)
+- Updated globals.css color tokens:
+  - `--green: #00C26F` → `--gold: #C9A96E`
+  - `--green-deep: #007A45` → `--gold-deep: #8B6F3A`
+  - `--green-glow: rgba(0,194,111,0.18)` → `--gold-glow: rgba(201,169,110,0.18)`
+  - `--green-glow-strong: rgba(0,194,111,0.40)` → `--gold-glow-strong: rgba(201,169,110,0.40)`
+  - `--primary: #00C26F` → `--primary: #C9A96E`
+  - `--ring: #00C26F` → `--ring: #C9A96E`
+  - `--gold: #B45309` (old emotional accent) → `--amber-dark: #B45309`
+  - Updated 3 nakshi SVG pattern data URIs (embedded #00C26F → #C9A96E)
+  - Renamed `.gradient-text-green` → `.gradient-text-gold`
+  - Updated scrollbar, selection, horizon-glow, pulse-glow, link-underline, focus-visible colors
+- Bulk-replaced across all component files using sed:
+  - `var(--green)` → `var(--gold)` (all 30+ component files)
+  - `var(--green-deep)` → `var(--gold-deep)`
+  - `var(--green-glow)` → `var(--gold-glow)`
+  - `var(--green-glow-strong)` → `var(--gold-glow-strong)`
+  - All `#00C26F` hex literals → `#C9A96E`
+  - All `rgba(0,194,111,...)` → `rgba(201,169,110,...)` (with and without spaces)
+- Verified zero remaining green references via rg
+- ESLint: zero errors
+- Dev server: clean compilation, all 200 responses
+- Browser QA: verified CSS tokens, 483 gold-styled elements, all sections rendering
+- No console errors
+
+Stage Summary:
+- Complete brand color migration from Signal Green to Warm Gold
+- 30+ files updated, ~300+ color references changed
+- Zero regressions, zero lint errors
+- New gold color system: #C9A96E (primary), #8B6F3A (deep), with glow variants
+- Old emotional accent `--gold: #B45309` preserved as `--amber-dark: #B45309`

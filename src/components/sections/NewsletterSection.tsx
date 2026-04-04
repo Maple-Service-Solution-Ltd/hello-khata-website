@@ -87,7 +87,7 @@ export default function NewsletterSection() {
           width: '500px',
           height: '500px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,194,111,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%)',
         }}
       />
 
@@ -96,16 +96,16 @@ export default function NewsletterSection() {
         {/* Eyebrow */}
         <motion.div
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-6"
-          style={{ borderColor: 'rgba(0,194,111,0.25)' }}
+          style={{ borderColor: 'rgba(201,169,110,0.25)' }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
           variants={fadeUp}
         >
-          <Mail className="w-3.5 h-3.5" style={{ color: 'var(--green)' }} />
+          <Mail className="w-3.5 h-3.5" style={{ color: 'var(--gold)' }} />
           <span
             className="font-body tracking-[0.08em] uppercase"
-            style={{ fontSize: '11px', color: 'var(--green)' }}
+            style={{ fontSize: '11px', color: 'var(--gold)' }}
           >
             থাকে থাকে আপডেট পান
           </span>
@@ -182,12 +182,12 @@ export default function NewsletterSection() {
               >
                 <motion.div
                   className="flex items-center justify-center w-14 h-14 rounded-full"
-                  style={{ background: 'rgba(0,194,111,0.12)' }}
+                  style={{ background: 'rgba(201,169,110,0.12)' }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
                 >
-                  <CheckCircle className="w-7 h-7" style={{ color: 'var(--green)' }} />
+                  <CheckCircle className="w-7 h-7" style={{ color: 'var(--gold)' }} />
                 </motion.div>
 
                 <motion.span
@@ -249,7 +249,7 @@ export default function NewsletterSection() {
                     disabled={status === 'loading'}
                     className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-white font-body font-semibold text-[15px] transition-all duration-200 disabled:opacity-60"
                     style={{
-                      background: 'var(--green)',
+                      background: 'var(--gold)',
                       minWidth: '100px',
                     }}
                   >

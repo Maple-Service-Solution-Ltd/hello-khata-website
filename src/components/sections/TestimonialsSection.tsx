@@ -127,7 +127,7 @@ function GreenQuote() {
     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M10 22c0-3.3 2.7-6 6-6 .6 0 1 .1 1.5.2C16.2 14.4 14.3 13 12 13c-.6 0-1-.4-1-1s.4-1 1-1c4.4 0 8 3.6 8 8v4c0 2.2-1.8 4-4 4h-2c-2.2 0-4-1.8-4-4v-1zm14 0c0-3.3 2.7-6 6-6 .6 0 1 .1 1.5.2C30.2 14.4 28.3 13 26 13c-.6 0-1-.4-1-1s.4-1 1-1c4.4 0 8 3.6 8 8v4c0 2.2-1.8 4-4 4h-2c-2.2 0-4-1.8-4-4v-1z"
-        fill="var(--green)"
+        fill="var(--gold)"
         opacity="0.25"
       />
     </svg>
@@ -148,7 +148,7 @@ function QuoteWatermark() {
     >
       <path
         d="M30 80c0-12 10-22 22-22 2.2 0 4 0.4 6 0.8C50.4 46.8 44 42 36 42c-2.2 0-4-1.8-4-4s1.8-4 4-4c16.6 0 30 13.4 30 30v14c0 8.3-6.7 15-15 15h-6c-8.3 0-15-6.7-15-15V80zm52 0c0-12 10-22 22-22 2.2 0 4 0.4 6 0.8C102.4 46.8 96 42 88 42c-2.2 0-4-1.8-4-4s1.8-4 4-4c16.6 0 30 13.4 30 30v14c0 8.3-6.7 15-15 15h-6c-8.3 0-15-6.7-15-15V80z"
-        fill="var(--green)"
+        fill="var(--gold)"
       />
     </svg>
   )
@@ -210,7 +210,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
         whileHover={{
           y: -4,
           boxShadow:
-            '0 12px 36px rgba(0,194,111,0.1), 0 0 0 1px rgba(0,194,111,0.08)',
+            '0 12px 36px rgba(201,169,110,0.1), 0 0 0 1px rgba(201,169,110,0.08)',
           transition: { duration: 0.25 },
         }}
       >
@@ -253,8 +253,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               height: '48px',
               borderRadius: '50%',
               background: testimonial.avatarColor,
-              border: '2px solid var(--green)',
-              boxShadow: '0 2px 8px rgba(0,194,111,0.15)',
+              border: '2px solid var(--gold)',
+              boxShadow: '0 2px 8px rgba(201,169,110,0.15)',
             }}
           >
             <span
@@ -300,9 +300,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           <span
             className="inline-block px-3 py-1 rounded-full font-bengali text-[13px] font-semibold"
             style={{
-              background: 'rgba(0,194,111,0.1)',
-              color: 'var(--green-deep)',
-              border: '1px solid rgba(0,194,111,0.2)',
+              background: 'rgba(201,169,110,0.1)',
+              color: 'var(--gold-deep)',
+              border: '1px solid rgba(201,169,110,0.2)',
             }}
           >
             {testimonial.metric}
@@ -328,7 +328,7 @@ export default function TestimonialsSection() {
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(0,194,111,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(201,169,110,0.04) 0%, transparent 70%)',
         }}
       />
 
@@ -344,7 +344,7 @@ export default function TestimonialsSection() {
           {/* Eyebrow */}
           <motion.span
             className="inline-block font-body tracking-[0.12em] uppercase mb-4"
-            style={{ fontSize: 'var(--fs-label)', color: 'var(--green)' }}
+            style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -403,7 +403,7 @@ export default function TestimonialsSection() {
         >
           <p className="font-body" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-muted)' }}>
             আপনিও চাইলে{' '}
-            <span style={{ color: 'var(--green)', fontWeight: 600 }}>
+            <span style={{ color: 'var(--gold)', fontWeight: 600 }}>
               আপনার গল্পটা শেয়ার
             </span>{' '}
             করতে পারেন

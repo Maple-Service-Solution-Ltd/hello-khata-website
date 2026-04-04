@@ -123,7 +123,7 @@ const whoNeeds = [
     category: 'এফএমসিজি দোকান',
     en: 'FMCG',
     text: 'একই পণ্যের ৫টা batch চলছে — কোনটা আগে বিক্রি হবে? HelloKhata জানে।',
-    color: 'var(--green)',
+    color: 'var(--gold)',
   },
   {
     icon: <Sprout className="w-6 h-6" />,
@@ -159,8 +159,8 @@ function BatchDiagramSection() {
     >
       {/* Diagram title */}
       <motion.div className="flex items-center gap-2 mb-6" variants={fadeUp}>
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(0,194,111,0.1)' }}>
-          <Layers className="w-4 h-4" style={{ color: 'var(--green)' }} />
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'rgba(201,169,110,0.1)' }}>
+          <Layers className="w-4 h-4" style={{ color: 'var(--gold)' }} />
         </div>
         <div>
           <div className="font-bengali text-[15px] font-semibold" style={{ color: 'var(--text-cream)' }}>
@@ -179,8 +179,8 @@ function BatchDiagramSection() {
             <div
               className="rounded-xl p-4 relative overflow-hidden"
               style={{
-                background: batch.status === 'sell-first' ? 'rgba(0,194,111,0.06)' : 'var(--ink-2)',
-                border: `1px solid ${batch.status === 'sell-first' ? 'rgba(0,194,111,0.25)' : 'var(--ink-border)'}`,
+                background: batch.status === 'sell-first' ? 'rgba(201,169,110,0.06)' : 'var(--ink-2)',
+                border: `1px solid ${batch.status === 'sell-first' ? 'rgba(201,169,110,0.25)' : 'var(--ink-border)'}`,
               }}
             >
               {/* SELL FIRST badge for first batch */}
@@ -188,7 +188,7 @@ function BatchDiagramSection() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-body font-bold text-white"
-                    style={{ background: 'var(--green)', animation: 'pulse-glow 2s ease-in-out infinite' }}
+                    style={{ background: 'var(--gold)', animation: 'pulse-glow 2s ease-in-out infinite' }}
                   >
                     ↓ SELL FIRST
                   </span>
@@ -204,8 +204,8 @@ function BatchDiagramSection() {
                   <div
                     className="font-mono font-bold text-[13px] px-2 py-1 rounded-lg"
                     style={{
-                      background: batch.status === 'sell-first' ? 'rgba(0,194,111,0.15)' : 'var(--ink-1)',
-                      color: batch.status === 'sell-first' ? 'var(--green)' : 'var(--text-cream)',
+                      background: batch.status === 'sell-first' ? 'rgba(201,169,110,0.15)' : 'var(--ink-1)',
+                      color: batch.status === 'sell-first' ? 'var(--gold)' : 'var(--text-cream)',
                     }}
                   >
                     Batch #{batch.id}
@@ -224,14 +224,14 @@ function BatchDiagramSection() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-body text-[11px]" style={{ color: 'var(--text-ghost)' }}>Cost:</span>
-                    <span className="font-body text-[12px] font-semibold" style={{ color: 'var(--green)' }}>{batch.cost}/unit</span>
+                    <span className="font-body text-[12px] font-semibold" style={{ color: 'var(--gold)' }}>{batch.cost}/unit</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="font-body text-[11px]" style={{ color: 'var(--text-ghost)' }}>Expiry:</span>
                     <span
                       className="font-body text-[12px]"
                       style={{
-                        color: batch.id === 'A01' ? 'var(--amber)' : 'var(--green)',
+                        color: batch.id === 'A01' ? 'var(--amber)' : 'var(--gold)',
                       }}
                     >
                       {batch.expiry}
@@ -249,7 +249,7 @@ function BatchDiagramSection() {
                 <motion.div
                   className="h-full rounded-full"
                   style={{
-                    background: batch.status === 'sell-first' ? 'var(--green)' : 'rgba(0,194,111,0.4)',
+                    background: batch.status === 'sell-first' ? 'var(--gold)' : 'rgba(201,169,110,0.4)',
                   }}
                   initial={{ width: 0 }}
                   whileInView={{ width: `${(parseInt(batch.qty) / 50) * 100}%` }}
@@ -266,7 +266,7 @@ function BatchDiagramSection() {
                 variants={fadeUp}
               >
                 <div className="flex flex-col items-center gap-0.5">
-                  <ArrowDown className="w-4 h-4" style={{ color: 'var(--green)' }} />
+                  <ArrowDown className="w-4 h-4" style={{ color: 'var(--gold)' }} />
                   <span className="font-body text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>
                     FIFO: পুরনো batch আগে বিক্রি
                   </span>
@@ -290,7 +290,7 @@ function BatchDiagramSection() {
         ].map((s, i) => (
           <div key={i} className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
-              <span style={{ color: 'var(--green)' }}>{s.icon}</span>
+              <span style={{ color: 'var(--gold)' }}>{s.icon}</span>
               <span className="font-body text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>
                 {s.label}
               </span>
@@ -336,10 +336,10 @@ export default function BatchSection() {
           {/* Eyebrow */}
           <motion.div
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-6"
-            style={{ borderColor: 'rgba(0,194,111,0.3)' }}
+            style={{ borderColor: 'rgba(201,169,110,0.3)' }}
             variants={fadeUp}
           >
-            <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--green)' }}>
+            <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}>
               HelloKhata&apos;s most powerful feature
             </span>
           </motion.div>
@@ -429,7 +429,7 @@ export default function BatchSection() {
                   fontSize: '60px',
                   lineHeight: 1,
                   opacity: 0.06,
-                  color: 'var(--green)',
+                  color: 'var(--gold)',
                   userSelect: 'none',
                 }}
                 variants={fadeUp}
@@ -440,7 +440,7 @@ export default function BatchSection() {
               {/* Icon */}
               <motion.div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: 'rgba(0,194,111,0.1)', color: 'var(--green)' }}
+                style={{ background: 'rgba(201,169,110,0.1)', color: 'var(--gold)' }}
                 variants={fadeUp}
               >
                 {step.icon}
@@ -554,11 +554,11 @@ export default function BatchSection() {
                 <div className="mt-4 flex items-center gap-1.5">
                   <div
                     className="w-5 h-5 rounded-full flex items-center justify-center"
-                    style={{ background: 'rgba(0,194,111,0.1)' }}
+                    style={{ background: 'rgba(201,169,110,0.1)' }}
                   >
-                    <Check className="w-3 h-3" style={{ color: 'var(--green)' }} />
+                    <Check className="w-3 h-3" style={{ color: 'var(--gold)' }} />
                   </div>
-                  <span className="font-body text-[12px]" style={{ color: 'var(--green)' }}>
+                  <span className="font-body text-[12px]" style={{ color: 'var(--gold)' }}>
                     HelloKhata দিয়ে সমাধান সম্ভব
                   </span>
                 </div>
@@ -578,8 +578,8 @@ export default function BatchSection() {
           <motion.a
             href="#"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-body font-semibold text-[15px]"
-            style={{ background: 'var(--green)' }}
-            whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(0,194,111,0.4)' }}
+            style={{ background: 'var(--gold)' }}
+            whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(201,169,110,0.4)' }}
             whileTap={{ scale: 0.97 }}
           >
             <Layers className="w-4 h-4" />
