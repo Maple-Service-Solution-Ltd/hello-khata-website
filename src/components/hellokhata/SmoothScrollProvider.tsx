@@ -23,24 +23,55 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   }, []);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+    let gsapModule: typeof import('gsap') | null = null;
+    let scrollTriggerModule: typeof import('gsap/ScrollTrigger') | null = null;
+    let rafId: number;
 
-    lenisRef.current = lenis;
+    async function init() {
+      // Dynamic imports for GSAP (avoid SSR)
+      gsapModule = await import('gsap');
+      scrollTriggerModule = await import('gsap/ScrollTrigger');
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      const gsap = gsapModule.gsap;
+      const ScrollTrigger = scrollTriggerModule.ScrollTrigger;
+
+      // Register plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      lenisRef.current = lenis;
+
+      // Connect Lenis to GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // Cleanup on unmount
+      return () => {
+        gsap.ticker.remove((time: number) => {
+          lenis.raf(time * 1000);
+        });
+        lenis.destroy();
+        ScrollTrigger.killAll();
+      };
     }
 
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
+    const cleanupPromise = init();
+    const cleanup = () => {
+      cleanupPromise.then((cleanupFn) => {
+        if (cleanupFn) cleanupFn();
+      });
     };
+
+    return cleanup;
   }, []);
 
   return (

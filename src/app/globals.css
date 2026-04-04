@@ -288,3 +288,71 @@
 a, button {
   transition: all var(--t-base);
 }
+
+/* ── Button press micro-interaction ── */
+button:not(:disabled),
+a[class*="rounded-full"] {
+  transition: transform var(--t-spring), box-shadow var(--t-fast);
+}
+button:not(:disabled):active,
+a[class*="rounded-full"]:active {
+  transform: scale(0.97) !important;
+  transition-duration: 100ms;
+}
+
+/* ── Card hover lift effect ── */
+.card-hover {
+  transition: transform var(--t-slow), box-shadow var(--t-slow);
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+/* ── Animated link underline ── */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--green);
+  transition: width 0.3s var(--t-river);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Focus visible ring for accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Image loading placeholder ── */
+img {
+  transition: opacity 0.4s var(--t-base);
+}
+img[loading="lazy"] {
+  opacity: 0;
+}
+img.loaded {
+  opacity: 1;
+}
+
+/* ── Selection enhancement ── */
+::-moz-selection {
+  background: rgba(0, 194, 111, 0.2);
+  color: var(--text-ink);
+}
+
+/* ── Marquee hover pause ── */
+.trusted-section .overflow-hidden:hover > div:last-child {
+  animation-play-state: paused;
+}

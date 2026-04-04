@@ -12,6 +12,7 @@ import TransformationSection from '@/components/sections/TransformationSection'
 import KhataStorySection from '@/components/sections/KhataStorySection'
 import VoiceSection from '@/components/sections/VoiceSection'
 import MarketSection from '@/components/sections/MarketSection'
+import TrustedBySection from '@/components/sections/TrustedBySection'
 import BusinessTypesSection from '@/components/sections/BusinessTypesSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import FeaturesSection from '@/components/sections/FeaturesSection'
@@ -20,6 +21,7 @@ import PricingSection from '@/components/sections/PricingSection'
 import AboutSection from '@/components/sections/AboutSection'
 import VisionSection from '@/components/sections/VisionSection'
 import BlogSection from '@/components/sections/BlogSection'
+import NewsletterSection from '@/components/sections/NewsletterSection'
 import ContactSection from '@/components/sections/ContactSection'
 import CTASection from '@/components/sections/CTASection'
 
@@ -47,6 +49,9 @@ export default function Home() {
         {/* The Market - For Investors */}
         <MarketSection />
 
+        {/* The Trust - Social Proof */}
+        <TrustedBySection />
+
         {/* The Businesses */}
         <BusinessTypesSection />
 
@@ -70,6 +75,9 @@ export default function Home() {
 
         {/* The Knowledge - Blog */}
         <BlogSection />
+
+        {/* The Updates - Newsletter */}
+        <NewsletterSection />
 
         {/* The Connection - Contact */}
         <ContactSection />

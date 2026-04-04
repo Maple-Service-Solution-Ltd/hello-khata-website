@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { CheckCircle, FileText, Calculator, NotebookPen } from 'lucide-react'
 
@@ -124,6 +124,9 @@ function AfterPhoneMockup() {
 /* ── Main Transformation Section ── */
 export default function TransformationSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const beforeRef = useRef<HTMLDivElement>(null)
+  const afterRef = useRef<HTMLDivElement>(null)
+  const horizonLineRef = useRef<HTMLDivElement>(null)
 
   /* Scroll-based parallax and progress */
   const { scrollYProgress } = useScroll({
@@ -141,6 +144,71 @@ export default function TransformationSection() {
   const afterScale = useTransform(scrollYProgress, [0.5, 1], [0.9, 1])
   const afterY = useTransform(scrollYProgress, [0.4, 0.8], [30, 0])
 
+  // GSAP ScrollTrigger parallax effects
+  useEffect(() => {
+    let ctx: { revert: () => void } | undefined
+
+    async function initGSAP() {
+      const gsap = (await import('gsap')).gsap
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      gsap.registerPlugin(ScrollTrigger)
+
+      ctx = gsap.context(() => {
+        // Before section: subtle upward movement (parallax -0.1)
+        if (beforeRef.current) {
+          gsap.to(beforeRef.current, {
+            y: -60,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'center center',
+              scrub: true,
+            },
+          })
+        }
+
+        // After section: subtle downward movement (parallax 0.15)
+        if (afterRef.current) {
+          gsap.to(afterRef.current, {
+            y: 80,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+        }
+
+        // Horizon line: scale X animation on scroll
+        if (horizonLineRef.current) {
+          gsap.fromTo(
+            horizonLineRef.current,
+            { scaleX: 0.8 },
+            {
+              scaleX: 1.05,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                end: 'bottom 40%',
+                scrub: true,
+              },
+            }
+          )
+        }
+      })
+    }
+
+    initGSAP()
+
+    return () => {
+      ctx?.revert()
+    }
+  }, [])
+
   return (
     <section
       id="transformation"
@@ -150,6 +218,7 @@ export default function TransformationSection() {
     >
       {/* ── Top Half: BEFORE ── */}
       <motion.div
+        ref={beforeRef}
         className="relative"
         style={{
           minHeight: '50vh',
@@ -265,6 +334,7 @@ export default function TransformationSection() {
 
       {/* ── Center: Horizon Line / Transition ── */}
       <motion.div
+        ref={horizonLineRef}
         className="relative z-20 flex items-center justify-center"
         style={{
           height: '80px',
@@ -301,6 +371,7 @@ export default function TransformationSection() {
 
       {/* ── Bottom Half: AFTER ── */}
       <motion.div
+        ref={afterRef}
         className="relative"
         style={{
           minHeight: '50vh',

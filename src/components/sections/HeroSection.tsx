@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Download, ChevronDown } from 'lucide-react'
 
@@ -269,8 +269,12 @@ function ShimmerButton({ children, className, ...props }: {
 /* ── Main Hero Section ── */
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const particlesRef = useRef<HTMLDivElement>(null)
+  const phoneRef = useRef<HTMLDivElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
   const [scrollY, setScrollY] = useState(0)
   const [particlesInit, setParticlesInit] = useState(false)
+  const [gsapReady, setGsapReady] = useState(false)
 
   const handleScroll = useCallback(() => {
     setScrollY(window.scrollY)
@@ -280,6 +284,69 @@ export default function HeroSection() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
+
+  // GSAP ScrollTrigger parallax effects
+  useEffect(() => {
+    let ctx: { revert: () => void } | undefined
+
+    async function initGSAP() {
+      const gsap = (await import('gsap')).gsap
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      gsap.registerPlugin(ScrollTrigger)
+
+      ctx = gsap.context(() => {
+        // Particles parallax (moves slower - factor 0.3)
+        if (particlesRef.current) {
+          gsap.to(particlesRef.current, {
+            y: -200,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+        }
+
+        // Phone mockup parallax (moves slightly - factor 0.7)
+        if (phoneRef.current) {
+          gsap.to(phoneRef.current, {
+            y: 100,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+        }
+
+        // Text content fade on scroll (opacity 1 → 0.3)
+        if (textRef.current) {
+          gsap.to(textRef.current, {
+            opacity: 0.3,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top top',
+              end: '+=800px',
+              scrub: true,
+            },
+          })
+        }
+      })
+
+      setGsapReady(true)
+    }
+
+    initGSAP()
+
+    return () => {
+      ctx?.revert()
+    }
+  }, [])
 
   const scrollIndicatorOpacity = Math.max(0, 1 - scrollY / 200)
 
@@ -333,7 +400,7 @@ export default function HeroSection() {
       />
 
       {/* ── Layer 5: Particles (ssr:false via dynamic import) ── */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div ref={particlesRef} className="absolute inset-0 pointer-events-none">
         <Particles
           id="hero-particles"
           init={async (engine) => {
@@ -354,6 +421,7 @@ export default function HeroSection() {
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-8 pt-20 lg:pt-0">
           {/* Left: Text content */}
           <motion.div
+            ref={textRef as React.RefObject<HTMLDivElement>}
             className="flex-1 w-full lg:w-[55%]"
             variants={containerVariants}
             initial="hidden"
@@ -464,7 +532,7 @@ export default function HeroSection() {
           />
 
           {/* Right: Phone Mockup */}
-          <div className="w-full lg:w-[45%] flex flex-col items-center">
+          <div ref={phoneRef} className="w-full lg:w-[45%] flex flex-col items-center">
             <motion.div
               className="w-full"
               style={{ transform: 'rotate(-5deg)' }}

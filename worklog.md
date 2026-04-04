@@ -422,3 +422,118 @@ Build real backend functionality: Contact Form API, update Contact Section with 
 - Dev server: clean compilation, all 200 responses
 - All components use 'use client', TypeScript strict, framer-motion animations
 - Follows existing design system tokens (--cream-2, --ink, --crimson, --green, etc.)
+
+---
+## Task ID: r3-f1-f3
+### Work Task
+Add GSAP ScrollTrigger parallax effects to HeroSection, TransformationSection, and CTASection. Create Newsletter subscription section with API endpoint. Integrate all into page.tsx.
+
+### Work Summary
+
+**1. GSAP ↔ Lenis Integration (SmoothScrollProvider.tsx)**
+- Dynamically imported GSAP and ScrollTrigger to avoid SSR issues
+- Connected Lenis scroll events to ScrollTrigger via `lenis.on('scroll', ScrollTrigger.update)`
+- Added Lenis RAF to GSAP ticker via `gsap.ticker.add()` with `lagSmoothing(0)`
+- Proper cleanup: removes ticker callback, destroys Lenis instance, kills all ScrollTriggers
+
+**2. HeroSection GSAP Parallax (HeroSection.tsx)**
+- Added 3 refs: `particlesRef`, `phoneRef`, `textRef`
+- Dynamic GSAP import inside useEffect with `gsap.context()` for scoped animations
+- Particles container: parallax y: -200px (moves slower than scroll, factor 0.3)
+- Phone mockup: parallax y: +100px (opposite direction, factor 0.7)
+- Text content: opacity fades from 1→0.3 over 800px scroll (scrub: true)
+- Removed unused imports (`useScroll`, `useMotionValueEvent`)
+
+**3. TransformationSection GSAP Parallax (TransformationSection.tsx)**
+- Added 3 refs: `beforeRef`, `afterRef`, `horizonLineRef`
+- Before (ink) section: subtle upward movement y: -60px (parallax -0.1)
+- After (cream) section: subtle downward movement y: +80px (parallax 0.15)
+- Horizon line: scaleX animation from 0.8→1.05 on scroll (scrub: true)
+- All effects use gsap.context() with proper cleanup
+
+**4. CTASection GSAP Parallax (CTASection.tsx)**
+- Added 2 refs: `glowRef`, `contentRef`
+- Massive green glow: scale breathing animation 0.9→1.1 on scroll (scrub: true)
+- Content: smooth fade-in from opacity 0/y:40 to visible with toggleActions: 'play none none none'
+- Added useEffect import
+
+**5. NewsletterSection.tsx — New Section**
+- Section id: `newsletter`, cream background with nakshi texture
+- Eyebrow pill: "থাকে থাকে আপডেট পান" with Mail icon
+- Bengali headline: "নতুন ফিচার, সেরা টিপস, সাফল্যের গল্প" (font-bengali, --fs-h2)
+- English subtitle: "New features, tips, and success stories — delivered to your inbox."
+- Language note: "বাংলায় ইমেইলে পাঠান হবে"
+- Form (max-width 480px, centered):
+  - Email input: rounded-xl, cream bg, canvas-border, placeholder "আপনার ইমেইল ঠিকানা"
+  - Send button: green bg, white Send icon, rounded-xl, loading spinner state
+  - Error: crimson border + error message in Bengali
+  - Trust text: "আমরা কখনো স্প্যাম করি না। আনসাবস্ক্রাইব করতে পারবেন।"
+- Success state: AnimatePresence mode="wait", green CheckCircle, "সাবস্ক্রাইব সফল!", "আমরা শীঘ্রই যোগাযোগ করব।"
+
+**6. Newsletter API (`/src/app/api/newsletter/route.ts`)**
+- POST handler with Zod validation: email (string, email format required)
+- Duplicate detection: checks in-memory array for existing subscribers
+- Bengali success/error messages
+- Console logging of submissions with timestamp
+
+**7. page.tsx Integration**
+- Added NewsletterSection between BlogSection and ContactSection
+- All 16 sections now on the page
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ All GSAP imports are dynamic (async import) to prevent SSR issues
+- ✅ All ScrollTrigger instances use gsap.context() with proper revert() cleanup
+- ✅ All components use 'use client'
+- ✅ Follows existing design system tokens and animation patterns
+
+---
+## Task ID: r3-f2-s1-s2
+### Work Task
+Create "Trusted By" brands bar section (TrustedBySection.tsx) and enhance global micro-interactions in globals.css.
+
+### Work Summary
+
+**1. TrustedBySection.tsx — New Section (`/src/components/sections/TrustedBySection.tsx`)**
+- Section id: `trusted`, placed between MarketSection and BusinessTypesSection in page.tsx
+- Background: --cream with .texture-nakshi-diamond at 30% opacity
+- **Header**: Green uppercase eyebrow "কে বিশ্বাস করছেন" + Bengali headline "বাংলাদেশের বিশ্বাস আমাদের উপর ভরসা করে।" (font-bengali, --fs-h2)
+- **Logo Marquee — Row 1 (scrolls left)**:
+  - 11 hand-crafted SVG geometric brand icons (shopping cart, storefront, warehouse, pharmacy cross, truck, smartphone, cash register, factory, food delivery, bank, analytics chart)
+  - Each ~120x40px, stroke-based #374151 at 20% opacity, with brand name text
+  - Wrapped in white pills: bg-white, rounded-2xl, px-5, py-3, shadow-sm
+  - Set duplicated for seamless infinite loop (40s linear)
+  - Fade edges with gradient overlays on left/right
+- **Logo Marquee — Row 2 (scrolls right)**:
+  - Same 11 logos in reversed order for visual variety
+  - marquee-right animation at 40s linear infinite
+- **Stats Bar**:
+  - Frosted glass container (rgba white bg, backdrop-blur, canvas-border)
+  - 4 stats with AnimatedCounter: ৫০,০০০+ সক্রিয় ব্যবসা, ৬৪ জেলায়, ১ কোটি+ ডেটা এন্ট্রি, ৯৯.৯% আপটাইম
+  - Numbers in --green at 32px bold, labels in --text-muted below
+  - Thin vertical dividers between stats (hidden on mobile)
+- **Trust Badges Row**:
+  - 4 badges: SSL সুরক্ষিত, মোবাইল ফ্রেন্ডলি, বাংলাদেশি ডেটা, ক্লাউড সেভ
+  - Green-tinted pills with emoji icons, hover lift via framer-motion
+- Uses Reveal component for scroll-triggered fade-in animations on all subsections
+- Marquee pauses on hover (via CSS class .trusted-section)
+
+**2. Global Micro-Interactions Added to globals.css**
+- **Button press effect**: `button:not(:disabled)` and `a[class*="rounded-full"]` scale to 0.97 on active with 100ms duration, spring transition for transform
+- **Card hover lift**: `.card-hover` utility class — translateY(-6px) + elevated shadow (0 12px 40px) on hover
+- **Animated link underline**: `.link-underline` — green underline grows from left on hover using width transition with --t-river easing
+- **Focus-visible ring**: All focusable elements get 2px solid --green outline with 2px offset and 4px border-radius for accessibility
+- **Smooth image loading**: Lazy-loaded images (img[loading="lazy"]) start at opacity:0, transition to opacity:1 when .loaded class is added
+- **Firefox selection**: Added `::-moz-selection` matching existing `::selection` green tint
+
+**3. page.tsx Updated**
+- Added TrustedBySection import
+- Placed between MarketSection and BusinessTypesSection (line 53)
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ All animations use existing design system tokens (--t-spring, --t-fast, --t-river, --t-slow)
+- ✅ Follows "Refined Bengali Modernism" design language
+- ✅ Responsive: stats stack vertically on mobile, marquee runs on all sizes

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Download, Smartphone, MessageCircle } from 'lucide-react';
 
@@ -47,7 +47,66 @@ function HorizonLine() {
 /* ── Main CTA Section ── */
 export default function CTASection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+
+  // GSAP ScrollTrigger parallax effects
+  useEffect(() => {
+    let ctx: { revert: () => void } | undefined;
+
+    async function initGSAP() {
+      const gsap = (await import('gsap')).gsap;
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        // Green glow: pulse/breathe scale animation on scroll
+        if (glowRef.current) {
+          gsap.fromTo(
+            glowRef.current,
+            { scale: 0.9 },
+            {
+              scale: 1.1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            }
+          );
+        }
+
+        // Content: smooth fade-in when scrolled to
+        if (contentRef.current) {
+          gsap.fromTo(
+            contentRef.current,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 80%',
+                end: 'top 40%',
+                scrub: false,
+                toggleActions: 'play none none none',
+              },
+            }
+          );
+        }
+      });
+    }
+
+    initGSAP();
+
+    return () => {
+      ctx?.revert();
+    };
+  }, []);
 
   return (
     <section
@@ -58,6 +117,7 @@ export default function CTASection() {
     >
       {/* ── MASSIVE Green Glow (the sunrise horizon) ── */}
       <div
+        ref={glowRef}
         className="absolute pointer-events-none"
         style={{
           top: '50%',
@@ -94,6 +154,7 @@ export default function CTASection() {
 
       {/* ── Content ── */}
       <div
+        ref={contentRef}
         className="relative z-10 flex flex-col items-center justify-center px-6 py-28 md:py-40"
         style={{ minHeight: '85vh' }}
       >
