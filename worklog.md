@@ -317,6 +317,100 @@ Stage Summary:
 5. **LOW**: Add i18n support with next-intl for full English translations
 
 ---
+## Round N: Multi-Page Routing System
+
+### Current Project Status:
+- Converted from single long-scroll page to hash-based multi-page routing system
+- 10 dedicated pages, each rendering only its own sections (performance optimization)
+- Smooth page transitions with Framer Motion AnimatePresence (blur + fade + slide)
+- Hash-based URL routing (#home, #features, #voice, #batch, #stories, #pricing, #about, #vision, #blog, #contact)
+- Navigation, Footer, BackToTop all updated for page-based navigation
+
+### Architecture Changes:
+
+**1. New Files Created:**
+- `src/lib/pages.ts` — Page configuration (10 page definitions, nav links, dark section IDs)
+- `src/components/hellokhata/HashRouter.tsx` — Hash-based router context + provider + useHashRouter hook
+- `src/components/hellokhata/PageContent.tsx` — Page content renderer with AnimatePresence transitions
+
+**2. Modified Files:**
+- `src/app/page.tsx` — Simplified to HashRouter > SmoothScrollProvider > PageContent architecture
+- `src/components/hellokhata/Navigation.tsx` — Rewritten for hash-based navigation (no more scrollToSection)
+- `src/components/hellokhata/BackToTop.tsx` — Navigates to #home instead of scroll to top
+- `src/components/hellokhata/Footer.tsx` — All links use navigate() instead of scrollToSection()
+- `src/app/globals.css` — Added page transition keyframes and nav indicator animation
+
+**3. Page → Sections Mapping:**
+| Page | Sections | First BG |
+|------|----------|----------|
+| home | Hero, Transformation, HowItWorks, TrustedBy, StatsTicker | Dark |
+| features | Features, Comparison | Dark |
+| voice | VoiceDemo, Voice | Dark |
+| batch | Batch | Light |
+| stories | BusinessTypes, Testimonials | Light |
+| pricing | Pricing | Light |
+| about | KhataStory, About | Light |
+| vision | Market, Vision | Dark |
+| blog | Blog, Newsletter | Light |
+| contact | Contact, CTA | Light |
+
+**4. Page Transition Animation:**
+- Exit: opacity 0, y: -20px, blur 4px (0.3s)
+- Enter: opacity 1, y: 0, blur 0 (0.5s, river easing)
+- Scroll resets to top on page change
+
+**5. Navigation Improvements:**
+- Active page determined by URL hash (not IntersectionObserver)
+- Dark/light nav theming still uses scroll-based section detection within each page
+- Added "হোম" link in mobile menu
+- All nav links are now `<button>` elements for accessibility
+
+### Verification Results:
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ Browser QA: All 10 pages render correctly with proper section counts
+- ✅ Hash navigation works (URL changes, page content swaps)
+- ✅ Zero failed resources (37 resources loaded successfully)
+- ✅ Footer links, BackToTop, and all navigation functional
+
+### Unresolved Issues / Risks:
+- None critical. Multi-page system stable and working.
+
+### Priority Recommendations for Next Phase:
+1. **HIGH**: Add breadcrumb/mini-nav within long pages (features, home) for better orientation
+2. **HIGH**: Mobile responsive QA for all 10 pages individually
+3. **MEDIUM**: Add page title/meta updates per page for SEO
+4. **MEDIUM**: Preload adjacent pages for faster navigation
+5. **LOW**: Add keyboard shortcuts (arrow keys for page navigation)
+
+---
+
+Task ID: N-1
+Agent: Main Orchestrator
+Task: Implement multi-page routing system
+
+Work Log:
+- Analyzed current single-page architecture (21 sections in one long scroll)
+- Designed hash-based client-side router architecture
+- Created src/lib/pages.ts with 10 page definitions and navigation config
+- Created src/components/hellokhata/HashRouter.tsx with React context provider + useHashRouter hook
+- Created src/components/hellokhata/PageContent.tsx with AnimatePresence page transitions
+- Refactored src/app/page.tsx to use HashRouter > SmoothScrollProvider > PageContent
+- Rewrote Navigation.tsx: hash-based navigation, active state from URL hash, dark/light scroll detection
+- Updated BackToTop.tsx: navigates to #home page
+- Updated Footer.tsx: all links use navigate() function, social links open in new tabs
+- Added page transition CSS keyframes to globals.css
+- Fixed 2 ESLint errors (react-hooks/set-state-in-effect)
+- Browser QA: verified all 10 pages render correctly
+
+Stage Summary:
+- Successfully converted from single-page to multi-page architecture
+- Only active page sections are rendered (major performance improvement)
+- Smooth page transitions with blur + fade animation
+- Zero lint errors, zero runtime errors
+- All navigation (nav, footer, back-to-top) uses consistent hash-based routing
+
+---
 Task ID: round2-widgets
 Agent: Widget Builder
 Task: Build Custom Cursor, Back to Top, WhatsApp Widget

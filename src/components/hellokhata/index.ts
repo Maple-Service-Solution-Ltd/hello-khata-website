@@ -8,4 +8,5 @@ export { PhoneFrame } from './PhoneFrame';
 export { BengaliNumber } from './BengaliNumber';
 export { AnimatedCounter } from './AnimatedCounter';
 export { ScrollProgress } from './ScrollProgress';
+export { default as PageIndicator } from './PageIndicator';
 export { SmoothScrollProvider } from './SmoothScrollProvider';

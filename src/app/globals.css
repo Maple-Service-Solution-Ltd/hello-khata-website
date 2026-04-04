@@ -420,3 +420,33 @@ img.loaded {
 .trusted-section .overflow-hidden:hover > div:last-child {
   animation-play-state: paused;
 }
+
+/* ── Page Transition Overlay ── */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.page-transition-enter {
+  animation: page-fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Active nav link indicator animation ── */
+@keyframes nav-indicator {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);
+  }
+}

@@ -2,8 +2,9 @@
 
 import { Facebook, Linkedin, Youtube, ArrowUp, Mail, Phone } from 'lucide-react';
 import WaveformMark from '@/components/hellokhata/WaveformMark';
+import { useHashRouter } from '@/components/hellokhata/HashRouter';
 
-/* ─── Inline HorizonLine placeholder (will be replaced by shared component) ─── */
+/* ─── Inline HorizonLine placeholder ─── */
 function HorizonLine({ variant = 'subtle' }: { variant?: 'subtle' | 'default' }) {
   return (
     <div
@@ -21,54 +22,45 @@ function HorizonLine({ variant = 'subtle' }: { variant?: 'subtle' | 'default' })
 
 interface FooterLink {
   label: string;
-  href: string;
-}
-
-/* ─── Scroll-to-section helper ─── */
-function scrollToSection(href: string) {
-  const id = href.replace('#', '');
-  const el = document.getElementById(id);
-  if (el) {
-    const offset = 76;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
+  page: string;
 }
 
 const productLinks: FooterLink[] = [
-  { label: 'Features', href: '#features' },
-  { label: 'Voice', href: '#voice' },
-  { label: 'Batch', href: '#batch' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Download', href: '#pricing' },
+  { label: 'Features', page: 'features' },
+  { label: 'Voice', page: 'voice' },
+  { label: 'Batch', page: 'batch' },
+  { label: 'Pricing', page: 'pricing' },
+  { label: 'Download', page: 'pricing' },
 ];
 
 const companyLinks: FooterLink[] = [
-  { label: 'About', href: '#about' },
-  { label: 'Vision', href: '#vision' },
-  { label: 'Team', href: '#about' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'About', page: 'about' },
+  { label: 'Vision', page: 'vision' },
+  { label: 'Team', page: 'about' },
+  { label: 'Blog', page: 'blog' },
 ];
 
 const supportLinks: FooterLink[] = [
-  { label: 'Contact', href: '#contact' },
-  { label: 'WhatsApp', href: '#contact' },
-  { label: 'Privacy', href: '#contact' },
-  { label: 'Terms', href: '#contact' },
+  { label: 'Contact', page: 'contact' },
+  { label: 'WhatsApp', page: 'contact' },
+  { label: 'Privacy', page: 'contact' },
+  { label: 'Terms', page: 'contact' },
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: '#contact', label: 'Facebook' },
-  { icon: Linkedin, href: '#contact', label: 'LinkedIn' },
-  { icon: Youtube, href: '#contact', label: 'YouTube' },
+  { icon: Facebook, href: 'https://facebook.com/hellokhata', label: 'Facebook' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/hellokhata', label: 'LinkedIn' },
+  { icon: Youtube, href: 'https://youtube.com/@hellokhata', label: 'YouTube' },
 ];
 
 const languages = ['বাংলা', 'English', 'हिन्दी'];
 
 export default function Footer() {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const { navigate } = useHashRouter();
+
+  const handleClick = (e: React.MouseEvent, page: string) => {
     e.preventDefault();
-    scrollToSection(href);
+    navigate(page);
   };
 
   return (
@@ -117,7 +109,8 @@ export default function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
-                  onClick={(e) => handleClick(e, social.href)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--ink-border)] text-[var(--text-cream-muted)] transition-all duration-300 hover:text-[var(--gold)] hover:border-[var(--gold)] hover:scale-110 hover:rotate-6"
                   aria-label={social.label}
                 >
@@ -142,14 +135,13 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {productLinks.map((link) => (
-                <li key={link.label + link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                <li key={link.label + link.page}>
+                  <button
+                    onClick={() => navigate(link.page)}
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -165,14 +157,13 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {companyLinks.map((link) => (
-                <li key={link.label + link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                <li key={link.label + link.page}>
+                  <button
+                    onClick={() => navigate(link.page)}
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -188,14 +179,13 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {supportLinks.map((link) => (
-                <li key={link.label + link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px]"
+                <li key={link.label + link.page}>
+                  <button
+                    onClick={() => navigate(link.page)}
+                    className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -211,10 +201,9 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col gap-3">
               {/* Play Store Badge */}
-              <a
-                href="#pricing"
-                onClick={(e) => handleClick(e, '#pricing')}
-                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)]"
+              <button
+                onClick={() => navigate('pricing')}
+                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)] cursor-pointer w-fit"
               >
                 <svg
                   width="20"
@@ -228,7 +217,7 @@ export default function Footer() {
                     fill="currentColor"
                   />
                 </svg>
-                <div className="flex flex-col leading-tight">
+                <div className="flex flex-col leading-tight text-left">
                   <span className="font-body text-[10px] text-[var(--text-cream-muted)]">
                     GET IT ON
                   </span>
@@ -236,13 +225,12 @@ export default function Footer() {
                     Google Play
                   </span>
                 </div>
-              </a>
+              </button>
 
               {/* App Store Badge */}
-              <a
-                href="#pricing"
-                onClick={(e) => handleClick(e, '#pricing')}
-                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)]"
+              <button
+                onClick={() => navigate('pricing')}
+                className="inline-flex items-center gap-2 border border-[var(--ink-border)] rounded-xl px-4 py-2.5 transition-all duration-300 group hover:border-[var(--gold)] hover:shadow-[0_0_20px_var(--gold-glow)] cursor-pointer w-fit"
               >
                 <svg
                   width="20"
@@ -256,7 +244,7 @@ export default function Footer() {
                     fill="currentColor"
                   />
                 </svg>
-                <div className="flex flex-col leading-tight">
+                <div className="flex flex-col leading-tight text-left">
                   <span className="font-body text-[10px] text-[var(--text-cream-muted)]">
                     Download on the
                   </span>
@@ -264,7 +252,7 @@ export default function Footer() {
                     App Store
                   </span>
                 </div>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -299,21 +287,19 @@ export default function Footer() {
           {/* Left: Copyright + Links */}
           <p className="font-body text-[12px] text-[var(--text-cream-muted)]">
             © 2025 HelloKhata ·{' '}
-            <a
-              href="#contact"
-              onClick={(e) => handleClick(e, '#contact')}
-              className="hover:text-[var(--gold)] transition-colors"
+            <button
+              onClick={() => navigate('contact')}
+              className="hover:text-[var(--gold)] transition-colors cursor-pointer"
             >
               Privacy
-            </a>{' '}
+            </button>{' '}
             ·{' '}
-            <a
-              href="#contact"
-              onClick={(e) => handleClick(e, '#contact')}
-              className="hover:text-[var(--gold)] transition-colors"
+            <button
+              onClick={() => navigate('contact')}
+              className="hover:text-[var(--gold)] transition-colors cursor-pointer"
             >
               Terms
-            </a>
+            </button>
           </p>
 
           {/* Center: Language Selector Pills */}
@@ -334,17 +320,17 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Right: Back to top + Built in */}
+          {/* Right: Back to home + Built in */}
           <div className="flex items-center gap-4">
             <p className="font-body text-[12px] text-[var(--text-cream-muted)]">
               Designed and built in 🇧🇩 Bangladesh
             </p>
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => navigate('home')}
               className="flex items-center gap-1 text-[12px] font-body text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 cursor-pointer hover:translate-x-[4px]"
             >
               <ArrowUp size={12} />
-              <span>Back to top</span>
+              <span>Back to home</span>
             </button>
           </div>
         </div>
