@@ -10,24 +10,33 @@ import WhatsAppWidget from '@/components/hellokhata/WhatsAppWidget';
 import Navigation from '@/components/hellokhata/Navigation';
 import PageIndicator from '@/components/hellokhata/PageIndicator';
 import SearchModal from '@/components/hellokhata/SearchModal';
+import SidePageNav from '@/components/hellokhata/SidePageNav';
+import FloatingActions from '@/components/hellokhata/FloatingActions';
 import Footer from '@/components/hellokhata/Footer';
+import { ToastProvider } from '@/components/hellokhata/ToastProvider';
+import { ToastContainer } from '@/components/hellokhata/Toast';
 
 export default function Home() {
   return (
-    <HashRouter>
-      <SmoothScrollProvider>
-        <CustomCursor />
-        <ScrollProgress />
-        <BackToTop />
-        <WhatsAppWidget />
-        <Navigation />
-        <PageIndicator />
-        <SearchModal />
-        <main>
-          <PageContent />
-        </main>
-        <Footer />
-      </SmoothScrollProvider>
-    </HashRouter>
+    <ToastProvider>
+      <HashRouter>
+        <SmoothScrollProvider>
+          <CustomCursor />
+          <ScrollProgress />
+          <Navigation />
+          <PageIndicator />
+          <SearchModal />
+          <SidePageNav />
+          <main>
+            <PageContent />
+          </main>
+          <Footer />
+          <FloatingActions />
+          <BackToTop />
+          <WhatsAppWidget />
+          <ToastContainer />
+        </SmoothScrollProvider>
+      </HashRouter>
+    </ToastProvider>
   );
 }

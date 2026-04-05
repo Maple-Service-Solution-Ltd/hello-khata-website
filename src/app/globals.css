@@ -635,3 +635,204 @@ hr.gold-line {
 .border-glow-strong {
   box-shadow: 0 0 0 1px var(--gold-glow-strong), 0 0 30px -5px var(--gold-glow);
 }
+
+/* ── Enhanced scrollbar for activity feed ── */
+.activity-feed::-webkit-scrollbar {
+  width: 3px;
+}
+.activity-feed::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.2);
+  border-radius: 9999px;
+}
+.activity-feed::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── Dot pulse indicator ── */
+@keyframes dot-ping {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2.5); opacity: 0; }
+}
+
+.dot-ping {
+  position: relative;
+}
+.dot-ping::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: inherit;
+  animation: dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ── Card tilt hover effect ── */
+@keyframes card-tilt {
+  0% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
+  100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
+}
+
+/* ── Shimmer overlay for cards ── */
+@keyframes card-shimmer {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.card-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(201, 169, 110, 0.06) 45%,
+    rgba(201, 169, 110, 0.12) 50%,
+    rgba(201, 169, 110, 0.06) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: none;
+  pointer-events: none;
+}
+.card-shimmer:hover::after {
+  animation: card-shimmer 0.8s ease-in-out;
+}
+
+/* ── Text reveal animation ── */
+@keyframes text-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+.text-reveal {
+  animation: text-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Magnetic hover effect ── */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Pulse ring animation for mic/listening ── */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+}
+.pulse-ring::before {
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+.pulse-ring::after {
+  animation: pulse-ring 1.5s ease-out infinite 0.5s;
+}
+
+/* ── Smooth gradient border ── */
+.gradient-border {
+  position: relative;
+  border: none !important;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--gold), transparent 40%, transparent 60%, var(--gold-deep));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Section scroll indicator ── */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.scroll-hint {
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+
+/* ── Counting number animation ── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-animate {
+  animation: count-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Smooth corner radius utility ── */
+.rounded-section {
+  border-radius: clamp(16px, 3vw, 32px);
+  overflow: hidden;
+}
+
+/* ── Tab underline indicator ── */
+@keyframes tab-underline {
+  from { width: 0; opacity: 0; }
+  to { width: 100%; opacity: 1; }
+}
+
+/* ── Glow text effect ── */
+.glow-text {
+  text-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(201, 169, 110, 0.1);
+}
+
+/* ── Activity card slide animations ── */
+@keyframes slide-in-right {
+  from { transform: translateX(80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-out-left {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-80px); opacity: 0; }
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.slide-out-left {
+  animation: slide-out-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ── Spinning dots loader ── */
+@keyframes spin-dots {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spin-dots {
+  animation: spin-dots 1.2s linear infinite;
+}
+
+/* ── Floating label effect ── */
+@keyframes float-label {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.float-label {
+  animation: float-label 3s ease-in-out infinite;
+}

@@ -26,6 +26,8 @@ import BlogSection from '@/components/sections/BlogSection';
 import NewsletterSection from '@/components/sections/NewsletterSection';
 import ContactSection from '@/components/sections/ContactSection';
 import CTASection from '@/components/sections/CTASection';
+import InteractiveDemoSection from '@/components/sections/InteractiveDemoSection';
+import LiveActivitySection from '@/components/sections/LiveActivitySection';
 
 /* ─── Page → Section Components Mapping ─── */
 type SectionComponent = React.ComponentType;
@@ -41,8 +43,10 @@ const PAGE_MAP: Record<string, PageDefinition> = {
       HeroSection,
       TransformationSection,
       HowItWorksSection,
+      InteractiveDemoSection,
       TrustedBySection,
       StatsTickerSection,
+      LiveActivitySection,
     ],
     dark: true,
   },

@@ -144,6 +144,8 @@ export const DARK_SECTION_IDS = [
   'vision',
   'market',
   'cta',
+  'live-activity',
+  'stats-ticker',
 ];
 
 /** Helper: get page config by ID */
