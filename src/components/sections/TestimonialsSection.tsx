@@ -263,7 +263,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               className="font-bengali text-white font-bold"
               style={{ fontSize: '18px' }}
             >
-              {testimonial.initial}
+              {t('testimonials.t' + testimonial.id + '.initial')}
             </span>
           </div>
 
@@ -272,13 +272,13 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               className="font-bengali font-bold text-[15px]"
               style={{ color: 'var(--text-ink)' }}
             >
-              {testimonial.name}
+              {t('testimonials.t' + testimonial.id + '.name')}
             </span>
             <span
               className="font-body text-[13px]"
               style={{ color: 'var(--text-muted)' }}
             >
-              {testimonial.business} · {testimonial.district}
+              {t('testimonials.t' + testimonial.id + '.business')} · {t('testimonials.t' + testimonial.id + '.district')}
             </span>
           </div>
         </div>
@@ -293,7 +293,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               border: `1px solid ${testimonial.businessBadgeColor}30`,
             }}
           >
-            {testimonial.businessType}
+            {t('testimonials.t' + testimonial.id + '.businessType')}
           </span>
         </div>
 

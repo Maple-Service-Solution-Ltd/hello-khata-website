@@ -28,11 +28,6 @@ interface ModuleData {
   bn: string
   en: string
   icon: React.ReactNode
-  headline: string
-  body?: string
-  features: string[]
-  callout?: string
-  pullQuote?: string
   isDouble?: boolean
   isPremiumIndigo?: boolean
 }
@@ -43,48 +38,30 @@ const modules: ModuleData[] = [
     bn: 'গ্রাহক খাতা',
     en: 'Customer Ledger',
     icon: <Users className="w-4 h-4" />,
-    headline: 'আর কোনো বাকি ভুলবেন না।',
-    body: 'প্রতিটি গ্রাহকের সম্পূর্ণ হিসাব — কত নিলেন, কত দিলেন, কত বাকি। অটোমেটিক SMS দিয়ে বাকি তালিকা পাঠান।',
-    features: ['গ্রাহকের সম্পূর্ণ হিসাব', 'বাকি রিমাইন্ডার', 'অটোমেটিক SMS', 'পেমেন্ট হিস্ট্রি', 'ডু রিপোর্ট'],
-    callout: 'গড়ে ৮৫% বাকি পরিশোধ বাড়ে',
   },
   {
     id: 2,
     bn: 'বিক্রি ম্যানেজমেন্ট',
     en: 'Sales Management',
     icon: <ShoppingCart className="w-4 h-4" />,
-    headline: 'প্রতিটা বিক্রি, প্রতিটা টাকা।',
-    body: 'প্রতিদিন কত বিক্রি হলো, কোন পণ্য বিক্রি হচ্ছে সবচেয়ে বেশি — সব রেকর্ড হচ্ছে অটোমেটিক।',
-    features: ['দৈনিক বিক্রি রেকর্ড', 'প্রফিট ক্যালকুলেশন', 'বিক্রি রিপোর্ট', 'ডিসকাউন্ট ম্যানেজমেন্ট', 'রিটার্ন হ্যান্ডেল'],
   },
   {
     id: 3,
     bn: 'ক্রয় ম্যানেজমেন্ট',
     en: 'Purchase Management',
     icon: <Package className="w-4 h-4" />,
-    headline: 'কোথায় খরচ হচ্ছে — এখন দেখা যাচ্ছে।',
-    body: 'কোন supplier থেকে কত কিনলেন, পেমেন্ট স্ট্যাটাস কী — সব এক জায়গায়।',
-    features: ['পারচেজ এন্ট্রি', 'সাপ্লায়ার ইনভয়েস', 'কস্ট ট্র্যাকিং', 'পেমেন্ট স্ট্যাটাস', 'পারচেজ রিপোর্ট'],
   },
   {
     id: 4,
     bn: 'ইনভেন্টরি',
     en: 'Inventory / Stock',
     icon: <Box className="w-4 h-4" />,
-    headline: 'Stock শেষ হওয়ার আগেই জানুন।',
-    body: 'রিয়েল-টাইমে দেখুন কোন পণ্য কত আছে। লো স্টক হলেই অ্যালার্ট।',
-    features: ['রিয়েল-টাইম স্টক', 'লো স্টক অ্যালার্ট', 'স্টক ইন আউট', 'ক্যাটাগরি ম্যানেজমেন্ট', 'স্টক ভ্যালুয়েশন'],
   },
   {
     id: 5,
     bn: 'ব্যাচ ম্যানেজমেন্ট',
     en: 'Batch Management',
     icon: <Layers className="w-4 h-4" />,
-    headline: 'ERP-এর শক্তি। দোকানদারের সহজে।',
-    body: 'একই পণ্যের একাধিক batch — কোনটা আগে কিনলেন, কত দামে, কবে expire হবে। HelloKhata সব ট্র্যাক করে।',
-    features: ['Batch-wise tracking', 'FIFO recommendation', 'Expiry tracking', 'Cost per batch', 'Batch report'],
-    callout: 'Enterprise feature, দোকানদারের দামে।',
-    pullQuote: 'Batch management at this level is typically found only in ৳5,00,000/year enterprise software.',
     isDouble: true,
   },
   {
@@ -92,63 +69,42 @@ const modules: ModuleData[] = [
     bn: 'মেয়াদোত্তীর্ণ ম্যানেজমেন্ট',
     en: 'Expiry Management',
     icon: <AlertTriangle className="w-4 h-4" />,
-    headline: 'Expired পণ্য আর ক্ষতি করবে না।',
-    body: 'কোন পণ্য কবে expire হবে — আগেভাগেই জানুন। FIFO সুপারশে পুরনো পণ্য আগে বিক্রি হবে।',
-    features: ['অটো এক্সপায়ারি ট্র্যাকিং', 'নিয়ার-এক্সপায়ারি অ্যালার্ট', 'FIFO সুপারশ', 'লস ক্যালকুলেশন', 'এক্সপায়ারি রিপোর্ট'],
   },
   {
     id: 7,
     bn: 'সাপ্লায়ার ম্যানেজমেন্ট',
     en: 'Supplier Management',
     icon: <Truck className="w-4 h-4" />,
-    headline: 'Supplier এর সব হিসাব এক জায়গায়।',
-    body: 'কোন supplier থেকে কত পণ্য নিলেন, কত পাওনা — সব হিসাব এক ক্লিকে।',
-    features: ['সাপ্লায়ার ডাটাবেস', 'পাওনা ট্র্যাকিং', 'অর্ডার হিস্ট্রি', 'পেমেন্ট ট্র্যাকিং'],
   },
   {
     id: 8,
     bn: 'রিটার্ন ও অ্যাডজাস্টমেন্ট',
     en: 'Returns & Adjustments',
     icon: <RotateCcw className="w-4 h-4" />,
-    headline: 'রিটার্ন আর সমস্যা নয়।',
-    body: 'পণ্য ফেরত নিলে স্টক অটোমেটিক আপডেট। কারণ ট্র্যাকিংয়ে আর কনফিউশন নেই।',
-    features: ['রিটার্ন এন্ট্রি', 'স্টক অ্যাডজাস্টমেন্ট', 'রিটার্ন রিপোর্ট', 'কারণ ট্র্যাকিং'],
   },
   {
     id: 9,
     bn: 'রিপোর্ট ও অ্যানালিটিক্স',
     en: 'Reports & Analytics',
     icon: <BarChart3 className="w-4 h-4" />,
-    headline: 'আপনার ব্যবসার সম্পূর্ণ ছবি।',
-    body: 'লাভ-ক্ষতি, সেলস ট্রেন্ড, টপ প্রোডাক্ট — সব রিপোর্ট দেখুন এক ক্লিকে।',
-    features: ['প্রফিট লস রিপোর্ট', 'সেলস ট্রেন্ড', 'টপ প্রোডাক্ট', 'কাস্টমার ইনসাইট', 'ড্যাশবোর্ড'],
   },
   {
     id: 10,
     bn: 'মাল্টি-ব্রাঞ্চ',
     en: 'Multi-Branch',
     icon: <GitBranch className="w-4 h-4" />,
-    headline: 'একাধিক শাখা, এক কন্ট্রোল।',
-    body: 'একাধিক দোকানের স্টক, বিক্রি, কর্মী — সব ম্যানেজ করুন এক অ্যাপ থেকে।',
-    features: ['ব্রাঞ্চ ম্যানেজমেন্ট', 'স্টক ট্রান্সফার', 'ব্রাঞ্চ রিপোর্ট', 'সেন্ট্রাল কন্ট্রোল'],
   },
   {
     id: 11,
     bn: 'স্টাফ ম্যানেজমেন্ট',
     en: 'Staff Management',
     icon: <UserCog className="w-4 h-4" />,
-    headline: 'কর্মীদের পারফরম্যান্স দেখুন।',
-    body: 'কোন কর্মী কত বিক্রি করছে, কে কখন এসেছে — সব ট্র্যাক করুন।',
-    features: ['স্টাফ একাউন্ট', 'রোল বেসড এক্সেস', 'সেলস ট্র্যাকিং', 'অ্যাটেন্ড্যান্স'],
   },
   {
     id: 12,
     bn: 'AI ইনসাইট',
     en: 'AI Insights',
     icon: <Sparkles className="w-4 h-4" />,
-    headline: 'AI আপনার ব্যবসা বোঝে।',
-    body: 'স্মার্ট ইনসাইট দিয়ে সিদ্ধান্ত নিন — কোন পণ্য বাড়াবেন, কোনটা কমাবেন।',
-    features: ['স্মার্ট ইনসাইট', 'প্রেডিক্টিভ অ্যালার্ট', 'প্রফিট অপটিমাইজেশন'],
     isPremiumIndigo: true,
   },
 ]
@@ -775,8 +731,16 @@ function ModuleSection({
   isDark: boolean
   registerRef: (index: number, el: HTMLElement | null) => void
 }) {
+  const { t, tArray, tRaw } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  const moduleKey = `features.module${module.id}`
+  const headline = t(`${moduleKey}.headline`)
+  const body = t(`${moduleKey}.body`)
+  const features = tArray(`${moduleKey}.features`) ?? []
+  const callout = typeof tRaw(`${moduleKey}.callout`) === 'string' ? tRaw(`${moduleKey}.callout`)! : ''
+  const pullQuote = typeof tRaw(`${moduleKey}.pullQuote`) === 'string' ? tRaw(`${moduleKey}.pullQuote`)! : ''
 
   useEffect(() => {
     registerRef(index, ref.current)
@@ -874,11 +838,11 @@ function ModuleSection({
               color: isDark ? 'var(--text-cream)' : 'var(--text-ink)',
             }}
           >
-            {module.headline}
+            {headline}
           </h4>
 
           {/* Body */}
-          {module.body && (
+          {body && (
             <p
               className="font-body mb-6"
               style={{
@@ -888,13 +852,13 @@ function ModuleSection({
                 maxWidth: '480px',
               }}
             >
-              {module.body}
+              {body}
             </p>
           )}
 
           {/* Feature list */}
           <div className="flex flex-col gap-2 mb-6">
-            {module.features.map((feat, i) => (
+            {features.map((feat, i) => (
               <motion.div
                 key={i}
                 className="flex items-center gap-2.5"
@@ -917,7 +881,7 @@ function ModuleSection({
           </div>
 
           {/* Callout badge */}
-          {module.callout && (
+          {callout && (
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
               style={{
@@ -931,13 +895,13 @@ function ModuleSection({
                 className="font-bengali text-[14px] font-semibold"
                 style={{ color: accentColor }}
               >
-                {module.callout}
+                {callout}
               </span>
             </motion.div>
           )}
 
           {/* Pull quote */}
-          {module.pullQuote && (
+          {pullQuote && (
             <motion.div
               className="relative pl-4 mt-4"
               style={{ borderLeft: `2px solid ${accentColor}` }}
@@ -951,7 +915,7 @@ function ModuleSection({
                   lineHeight: 1.6,
                 }}
               >
-                &ldquo;{module.pullQuote}&rdquo;
+                &ldquo;{pullQuote}&rdquo;
               </p>
             </motion.div>
           )}

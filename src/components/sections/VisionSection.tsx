@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
@@ -141,54 +141,46 @@ function CompCell({ value }: { value: string | boolean }) {
 
 /* ─── Component ─── */
 export default function VisionSection() {
-  const { t, lang } = useTranslation();
+  const { t, tArray, lang } = useTranslation();
 
   const dimensions = tArray('vision.dimensions') || [];
+  const competitorKeys = tArray('vision.competitorKeys') || [];
 
-  const competitorData: Record<string, (string | boolean)[]> =
-    lang === 'bn'
-      ? {
-          HelloKhata: [true, true, true, true, true],
-          'Generic App': ['ইংরেজি শুধু', false, false, false, 'হাই'],
-          'Paper Khata': [false, true, true, true, true],
-          'ERP System': [false, false, false, false, 'খুব বেশি'],
-        }
-      : {
-          HelloKhata: [true, true, true, true, true],
-          'Generic App': ['English only', false, false, false, 'High'],
-          'Paper Khata': [false, true, true, true, true],
-          'ERP System': [false, false, false, false, 'Very High'],
-        };
+  /* ─── Competitor data (translated cell values) ─── */
+  const competitorData: Record<string, (string | boolean)[]> = (() => {
+    const data: Record<string, (string | boolean)[]> = {};
+    competitorKeys.forEach((key) => {
+      const cells = tArray(`vision.competitorCells.${key}`) || [];
+      data[key] = cells.map((v) =>
+        v === 'true' ? true : v === 'false' ? false : v,
+      );
+    });
+    return data;
+  })();
 
-  const marketStats =
-    lang === 'bn'
-      ? [
-          { valueBn: '৳ ২,৮০,০০ কোটি', valueEn: '$28 Billion annual transaction volume', descBn: 'ছোট ব্যবসায় বার্ষিক লেনদেন' },
-          { valueBn: '৯৮%', valueEn: 'No digital management tool', descBn: 'ডিজিটাল ম্যানেজমেন্ট টুল নেই' },
-          { valueBn: '৮৫%', valueEn: 'Already have smartphones', descBn: 'ইতিমধ্যে স্মার্টফোন ব্যবহার করছেন' },
-        ]
-      : [
-          { valueBn: '$28 Billion', valueEn: '$28 Billion annual transaction volume', descBn: '$28 Billion annual transaction volume' },
-          { valueBn: '98%', valueEn: 'No digital management tool', descBn: 'No digital management tool' },
-          { valueBn: '85%', valueEn: 'Already have smartphones', descBn: 'Already have smartphones' },
-        ];
+  /* ─── Market stats (translated values & descriptions) ─── */
+  const marketStats = [0, 1, 2].map((i) => ({
+    value: t(`vision.marketStat${i}Value`),
+    desc: t(`vision.marketStat${i}Desc`),
+    context: t(`vision.marketStat${i}Context`),
+  }));
 
-  const roadmap =
-    lang === 'bn'
-      ? [
-          { phase: 1, label: 'NOW', name: 'Retail Core', features: ['Single retail management', 'Voice entries', 'Basic reports', 'Customer ledger'], status: 'active' as const, statusText: 'চলমান', color: 'var(--gold)' },
-          { phase: 2, label: 'Q3 2025', name: 'AI Layer', features: ['Smart predictions', 'Auto-categorization', 'Demand forecasting', 'Anomaly detection'], status: 'upcoming' as const, statusText: 'শীঘ্রই', color: 'var(--gold)' },
-          { phase: 3, label: 'Q1 2026', name: 'Ecosystem', features: ['Supplier marketplace', 'Multi-branch', 'Staff management', 'Inventory sync'], status: 'planned' as const, statusText: 'পরিকল্পিত', color: 'var(--amber)' },
-          { phase: 4, label: '2026', name: 'Expansion', features: ['API platform', 'Third-party integrations', 'White label', 'Enterprise tier'], status: 'future' as const, statusText: 'ভবিষ্যৎ', color: 'var(--text-ghost)' },
-          { phase: 5, label: '2027', name: 'Platform', features: ['Full fintech suite', 'Credit scoring', 'Marketplace', 'Pan-Bangladesh'], status: 'vision' as const, statusText: 'দৃষ্টি', color: 'var(--text-ghost)' },
-        ]
-      : [
-          { phase: 1, label: 'NOW', name: 'Retail Core', features: ['Single retail management', 'Voice entries', 'Basic reports', 'Customer ledger'], status: 'active' as const, statusText: 'Active', color: 'var(--gold)' },
-          { phase: 2, label: 'Q3 2025', name: 'AI Layer', features: ['Smart predictions', 'Auto-categorization', 'Demand forecasting', 'Anomaly detection'], status: 'upcoming' as const, statusText: 'Upcoming', color: 'var(--gold)' },
-          { phase: 3, label: 'Q1 2026', name: 'Ecosystem', features: ['Supplier marketplace', 'Multi-branch', 'Staff management', 'Inventory sync'], status: 'planned' as const, statusText: 'Planned', color: 'var(--amber)' },
-          { phase: 4, label: '2026', name: 'Expansion', features: ['API platform', 'Third-party integrations', 'White label', 'Enterprise tier'], status: 'future' as const, statusText: 'Future', color: 'var(--text-ghost)' },
-          { phase: 5, label: '2027', name: 'Platform', features: ['Full fintech suite', 'Credit scoring', 'Marketplace', 'Pan-Bangladesh'], status: 'vision' as const, statusText: 'Vision', color: 'var(--text-ghost)' },
-        ];
+  /* ─── Roadmap (structural data stays, translated text from keys) ─── */
+  const phaseMeta = [
+    { phase: 1, label: 'NOW', status: 'active' as const, color: 'var(--gold)' },
+    { phase: 2, label: 'Q3 2025', status: 'upcoming' as const, color: 'var(--gold)' },
+    { phase: 3, label: 'Q1 2026', status: 'planned' as const, color: 'var(--amber)' },
+    { phase: 4, label: '2026', status: 'future' as const, color: 'var(--text-ghost)' },
+    { phase: 5, label: '2027', status: 'vision' as const, color: 'var(--text-ghost)' },
+  ];
+
+  const roadmap = phaseMeta.map((meta) => ({
+    ...meta,
+    name: t(`vision.roadmapPhase${meta.phase}Name`),
+    statusText: t(`vision.roadmapPhase${meta.phase}Status`),
+    features: tArray(`vision.roadmapPhase${meta.phase}Features`) || [],
+  }));
+
 
   return (
     <section id="vision" className="relative">
@@ -270,14 +262,14 @@ export default function VisionSection() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: i * 0.1 }}
                     >
-                      {stat.valueBn}
+                      {stat.value}
                     </motion.span>
                     <p className="font-body text-[var(--text-cream-muted)] text-sm mt-2">
-                      {stat.descBn}
+                      {stat.desc}
                     </p>
                   </div>
                   <p className="font-body text-[var(--text-cream-muted)] text-sm md:text-right">
-                    {stat.valueEn}
+                    {stat.context}
                   </p>
                 </div>
               </div>
@@ -312,7 +304,7 @@ export default function VisionSection() {
             <div className="grid grid-cols-5 gap-0 text-center py-4 px-4 md:px-6" style={{ borderBottom: '1px solid var(--ink-border)' }}>
               <div className="text-left">
                 <span className="font-body text-xs text-[var(--text-cream-muted)] uppercase tracking-wider">
-                  {lang === 'bn' ? 'ডাইমেনশন' : 'Dimension'}
+                  {t('vision.dimensionLabel')}
                 </span>
               </div>
               {Object.keys(competitorData).map((name) => (
@@ -440,7 +432,7 @@ export default function VisionSection() {
                           : 'var(--text-ghost)',
                     }}
                   >
-                    Phase {phase.phase}
+                    {t('vision.phaseLabel')} {phase.phase}
                   </span>
 
                   {/* Status */}
@@ -516,7 +508,7 @@ export default function VisionSection() {
                             : 'var(--text-ghost)',
                       }}
                     >
-                      Phase {phase.phase}
+                      {t('vision.phaseLabel')} {phase.phase}
                     </span>
                     <StatusBadge status={phase.status} text={phase.statusText} color={phase.color} />
                   </div>
