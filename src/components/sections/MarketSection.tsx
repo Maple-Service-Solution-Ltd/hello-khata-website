@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─── Bangladesh Map Dots (approximate district positions) ─── */
 const DISTRICT_DOTS = [
@@ -80,7 +81,7 @@ function AnimatedStatNumber({
   );
 }
 
-/* ─── Stat Card ─── */
+/* ─── Stat Card ── */
 function StatCard({
   number,
   numberSuffix,
@@ -98,6 +99,8 @@ function StatCard({
   isInView: boolean;
   delay?: number;
 }) {
+  const { lang } = useTranslation();
+
   return (
     <motion.div
       className="text-center p-6 md:p-8 rounded-2xl"
@@ -121,10 +124,10 @@ function StatCard({
         )}
       </div>
       <p className="font-bengali text-sm md:text-base mb-1" style={{ color: 'var(--text-body)' }}>
-        {bengali}
+        {lang === 'bn' ? bengali : english}
       </p>
       <p className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>
-        {english}
+        {lang === 'bn' ? english : bengali}
       </p>
     </motion.div>
   );
@@ -187,6 +190,7 @@ const BANGLADESH_PATH = 'M60 5 L68 8 L75 12 L80 10 L85 15 L88 20 L92 22 L95 28 L
 
 /* ─── Main Component ─── */
 export default function MarketSection() {
+  const { t, lang } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
@@ -215,7 +219,7 @@ export default function MarketSection() {
             className="font-body uppercase tracking-widest inline-block"
             style={{ fontSize: 'var(--fs-label)', color: 'var(--text-muted)' }}
           >
-            বাজারের আকার
+            {t('market.eyebrow')}
           </span>
         </motion.div>
 
@@ -231,7 +235,7 @@ export default function MarketSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          ১ কোটি ৭০ লাখ
+          {t('market.headline')}
         </motion.h2>
 
         <motion.p
@@ -241,7 +245,7 @@ export default function MarketSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          ক্ষুদ্র ব্যবসা চালু আছে বাংলাদেশে।
+          {t('market.sub')}
         </motion.p>
 
         <motion.p
@@ -251,8 +255,7 @@ export default function MarketSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          17 million small businesses in Bangladesh. Only 2% have any digital management
-          tool. That is the opportunity HelloKhata is built for.
+          {t('market.subEn')}
         </motion.p>
 
         {/* ─── Three-Column Stat Grid ─── */}
@@ -260,8 +263,8 @@ export default function MarketSection() {
           <StatCard
             number={98}
             numberSuffix="%"
-            bengali="এখনো কোনো ডিজিটাল টুল ব্যবহার করে না।"
-            english="Still use zero digital management tools."
+            bengali={t('market.stats.noDigital.bn')}
+            english={t('market.stats.noDigital.en')}
             color="var(--crimson)"
             isInView={isInView}
             delay={0.4}
@@ -269,8 +272,8 @@ export default function MarketSection() {
           <StatCard
             number={85}
             numberSuffix="%"
-            bengali="স্মার্টফোন ব্যবহার করেন।"
-            english="Own a smartphone already."
+            bengali={t('market.stats.smartphone.bn')}
+            english={t('market.stats.smartphone.en')}
             color="var(--gold)"
             isInView={isInView}
             delay={0.5}
@@ -278,8 +281,8 @@ export default function MarketSection() {
           <StatCard
             number={3.7}
             numberSuffix="×"
-            bengali="ডিজিটাল ব্যবসা বেশি লাভজনক।"
-            english="Digital businesses are 3.7× more profitable."
+            bengali={t('market.stats.profitable.bn')}
+            english={t('market.stats.profitable.en')}
             color="var(--gold)"
             isInView={isInView}
             delay={0.6}
@@ -324,7 +327,7 @@ export default function MarketSection() {
               className="font-body text-center mt-4 text-xs"
               style={{ color: 'var(--text-cream-muted)' }}
             >
-              HelloKhata presence across Bangladesh
+              {t('market.mapCaption')}
             </p>
           </div>
         </div>
@@ -347,9 +350,7 @@ export default function MarketSection() {
               textAlign: 'left',
             }}
           >
-            &ldquo;The last billion people to come online will not use software that was
-            designed for Silicon Valley. They will use software that speaks their
-            language, literally.&rdquo;
+            {t('market.pullQuote')}
           </div>
         </motion.blockquote>
 
@@ -361,7 +362,7 @@ export default function MarketSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          ৫০,০০০+ ব্যবসা &nbsp;·&nbsp; ৬৪ জেলা &nbsp;·&nbsp; ১ কোটি+ এন্ট্রি
+          {t('market.bottomStats')}
         </motion.div>
       </div>
     </section>

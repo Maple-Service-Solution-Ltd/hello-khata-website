@@ -5,105 +5,164 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
 import { WaveformMark } from '@/components/hellokhata/WaveformMark';
-
-/* ─── Data ─── */
-const milestones = [
-  {
-    year: '২০২২',
-    icon: '🏪',
-    titleBn: 'শুরুটা কোথায়',
-    bodyBn: 'ঢাকার একটা মুদি দোকানে। ৳২০,০০০ হারিয়েছিলেন কাগজের খাতায় ভুলে। সেই কষ্ট থেকেই HelloKhata-র জন্ম।',
-  },
-  {
-    year: '২০২২',
-    icon: '❓',
-    titleBn: 'প্রথম প্রশ্নটা',
-    bodyBn: 'কেন এত বড় দেশের দোকানদারদের কাছে ভালো টুল নেই? ১৭ কোটি মানুষ, ১ কোটি ৭০ লাখ দোকান — আর সবাই কাগজে লিখছে।',
-  },
-  {
-    year: '২০২৩',
-    icon: '🚀',
-    titleBn: 'প্রথম version',
-    bodyBn: '১২ জন দোকানদারের সাথে beta test। প্রথম সফল voice command এর দিন — দোকানদার অবাক।',
-  },
-  {
-    year: '২০২৪',
-    icon: '🏆',
-    titleBn: 'আজকের HelloKhata',
-    bodyBn: '৫০,০০০+ ব্যবসা। ৬৪ জেলা। এবং এটা শুধু শুরু। বাংলাদেশের প্রতিটি দোকানকে ডিজিটাল করাই আমাদের লক্ষ্য।',
-  },
-];
-
-const team = [
-  {
-    nameBn: 'রাফি আহমেদ',
-    nameEn: 'Rafi Ahmed',
-    role: 'Founder & CEO',
-    bio: 'ঢাকা বিশ্ববিদ্যালয় থেকে CSE। দোকানদারের সমস্যা নিজের চোখে দেখেছেন।',
-    color: '#C9A96E',
-    initials: 'রা',
-  },
-  {
-    nameBn: 'তানজিনা ইসলাম',
-    nameEn: 'Tanjina Islam',
-    role: 'CTO',
-    bio: '৬ বছরের সফটওয়্যার ইঞ্জিনিয়ার। AI ও voice tech এক্সপার্ট।',
-    color: '#D97706',
-    initials: 'তা',
-  },
-  {
-    nameBn: 'সাকিব হাসান',
-    nameEn: 'Sakib Hasan',
-    role: 'Head of Product',
-    bio: 'আগে বিক্রি করেছেন নিজের দোকানে। জানেন কোথায় কী দরকার।',
-    color: '#4F46E5',
-    initials: 'সা',
-  },
-  {
-    nameBn: 'নুসরাত জাহান',
-    nameEn: 'Nusrat Jahan',
-    role: 'Head of Design',
-    bio: 'সব কিছু বাংলায়, সব কিছু সহজ। ইউজার এক্সপেরিয়েন্স তার প্যাশন।',
-    color: '#DC2626',
-    initials: 'নু',
-  },
-];
-
-const values = [
-  {
-    number: '০১',
-    nameBn: 'স্থানীয় সবার আগে',
-    nameEn: 'Local First',
-    desc: 'বাংলাদেশের জন্য বানানো। বাংলাদেশ থেকে বানানো।',
-  },
-  {
-    number: '০২',
-    nameBn: 'সবসময় সহজ',
-    nameEn: 'Simple Always',
-    desc: 'জটিলতা আমাদের শত্রু। প্রতিটি বাটন, প্রতিটি স্ক্রিন সহজ হতে হবে।',
-  },
-  {
-    number: '০৩',
-    nameBn: 'দরকারে স্মার্ট',
-    nameEn: 'Smart When Needed',
-    desc: 'AI আছে, কিন্তু সামনে নয়। পেছনে কাজ করছে, আপনার জন্য।',
-  },
-  {
-    number: '০৪',
-    nameBn: 'বৃদ্ধির জন্য তৈরি',
-    nameEn: 'Built for Growth',
-    desc: 'আপনার দোকান ১টা থেকে ১০টা হবে। HelloKhata সেই যাত্রায় আছে।',
-  },
-];
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─── Component ─── */
 export default function AboutSection() {
+  const { t, lang } = useTranslation();
   const missionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: missionRef,
     offset: ['start end', 'end start'],
   });
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.0, 1.05, 1.0]);
+
+  const milestones = lang === 'bn' ? [
+    {
+      year: '২০২২',
+      icon: '🏪',
+      title: 'শুরুটা কোথায়',
+      body: 'ঢাকার একটা মুদি দোকানে। ৳২০,০০০ হারিয়েছিলেন কাগজের খাতায় ভুলে। সেই কষ্ট থেকেই HelloKhata-র জন্ম।',
+    },
+    {
+      year: '২০২২',
+      icon: '❓',
+      title: 'প্রথম প্রশ্নটা',
+      body: 'কেন এত বড় দেশের দোকানদারদের কাছে ভালো টুল নেই? ১৭ কোটি মানুষ, ১ কোটি ৭০ লাখ দোকান — আর সবাই কাগজে লিখছে।',
+    },
+    {
+      year: '২০২৩',
+      icon: '🚀',
+      title: 'প্রথম version',
+      body: '১২ জন দোকানদারের সাথে beta test। প্রথম সফল voice command এর দিন — দোকানদার অবাক।',
+    },
+    {
+      year: '২০২৪',
+      icon: '🏆',
+      title: 'আজকের HelloKhata',
+      body: '৫০,০০০+ ব্যবসা। ৬৪ জেলা। এবং এটা শুধু শুরু। বাংলাদেশের প্রতিটি দোকানকে ডিজিটাল করাই আমাদের লক্ষ্য।',
+    },
+  ] : [
+    {
+      year: '2022',
+      icon: '🏪',
+      title: 'Where It Started',
+      body: 'At a grocery shop in Dhaka. They lost ৳20,000 to paper ledger errors. That pain gave birth to HelloKhata.',
+    },
+    {
+      year: '2022',
+      icon: '❓',
+      title: 'The First Question',
+      body: 'Why does a country of 170 million people with 17 million shops — still use paper for everything?',
+    },
+    {
+      year: '2023',
+      icon: '🚀',
+      title: 'First Version',
+      body: 'Beta tested with 12 shopkeepers. The day the first voice command worked — the shopkeeper was amazed.',
+    },
+    {
+      year: '2024',
+      icon: '🏆',
+      title: 'Today\'s HelloKhata',
+      body: '50,000+ businesses. 64 districts. And this is just the beginning. Digitizing every shop in Bangladesh is our mission.',
+    },
+  ];
+
+  const team = [
+    {
+      nameBn: 'রাফি আহমেদ',
+      nameEn: 'Rafi Ahmed',
+      role: lang === 'bn' ? 'Founder & CEO' : 'Founder & CEO',
+      bio: lang === 'bn'
+        ? 'ঢাকা বিশ্ববিদ্যালয় থেকে CSE। দোকানদারের সমস্যা নিজের চোখে দেখেছেন।'
+        : 'CSE from University of Dhaka. Has seen shopkeepers\' struggles firsthand.',
+      color: '#C9A96E',
+      initials: 'রা',
+    },
+    {
+      nameBn: 'তানজিনা ইসলাম',
+      nameEn: 'Tanjina Islam',
+      role: 'CTO',
+      bio: lang === 'bn'
+        ? '৬ বছরের সফটওয়্যার ইঞ্জিনিয়ার। AI ও voice tech এক্সপার্ট।'
+        : '6 years of software engineering experience. AI and voice tech expert.',
+      color: '#D97706',
+      initials: 'তা',
+    },
+    {
+      nameBn: 'সাকিব হাসান',
+      nameEn: 'Sakib Hasan',
+      role: lang === 'bn' ? 'Head of Product' : 'Head of Product',
+      bio: lang === 'bn'
+        ? 'আগে বিক্রি করেছেন নিজের দোকানে। জানেন কোথায় কী দরকার।'
+        : 'Previously ran his own shop. Knows exactly what businesses need.',
+      color: '#4F46E5',
+      initials: 'সা',
+    },
+    {
+      nameBn: 'নুসরাত জাহান',
+      nameEn: 'Nusrat Jahan',
+      role: lang === 'bn' ? 'Head of Design' : 'Head of Design',
+      bio: lang === 'bn'
+        ? 'সব কিছু বাংলায়, সব কিছু সহজ। ইউজার এক্সপেরিয়েন্স তার প্যাশন।'
+        : 'Everything in Bangla, everything simple. User experience is her passion.',
+      color: '#DC2626',
+      initials: 'নু',
+    },
+  ];
+
+  const values = lang === 'bn' ? [
+    {
+      number: '০১',
+      name: 'স্থানীয় সবার আগে',
+      nameEn: 'Local First',
+      desc: 'বাংলাদেশের জন্য বানানো। বাংলাদেশ থেকে বানানো।',
+    },
+    {
+      number: '০২',
+      name: 'সবসময় সহজ',
+      nameEn: 'Simple Always',
+      desc: 'জটিলতা আমাদের শত্রু। প্রতিটি বাটন, প্রতিটি স্ক্রিন সহজ হতে হবে।',
+    },
+    {
+      number: '০৩',
+      name: 'দরকারে স্মার্ট',
+      nameEn: 'Smart When Needed',
+      desc: 'AI আছে, কিন্তু সামনে নয়। পেছনে কাজ করছে, আপনার জন্য।',
+    },
+    {
+      number: '০৪',
+      name: 'বৃদ্ধির জন্য তৈরি',
+      nameEn: 'Built for Growth',
+      desc: 'আপনার দোকান ১টা থেকে ১০টা হবে। HelloKhata সেই যাত্রায় আছে।',
+    },
+  ] : [
+    {
+      number: '01',
+      name: 'Local First',
+      nameEn: 'Local First',
+      desc: 'Built for Bangladesh. Built in Bangladesh.',
+    },
+    {
+      number: '02',
+      name: 'Simple Always',
+      nameEn: 'Simple Always',
+      desc: 'Complexity is our enemy. Every button, every screen must be simple.',
+    },
+    {
+      number: '03',
+      name: 'Smart When Needed',
+      nameEn: 'Smart When Needed',
+      desc: 'AI is there, but not in your face. Working behind the scenes, for you.',
+    },
+    {
+      number: '04',
+      name: 'Built for Growth',
+      nameEn: 'Built for Growth',
+      desc: 'Your shop will grow from 1 to 10. HelloKhata is on that journey with you.',
+    },
+  ];
 
   return (
     <section id="about" className="relative">
@@ -146,12 +205,12 @@ export default function AboutSection() {
               className="font-bengali text-[52px] md:text-[60px] font-bold text-[var(--text-cream)] mb-8"
               style={{ lineHeight: 1.3 }}
             >
-              ব্যবসা চালানো কথা বলার মতোই সহজ হওয়া উচিত।
+              {t('about.mission')}
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
             <p className="font-display italic text-[24px] text-[var(--text-cream-muted)]">
-              Business management should feel as easy as speaking and as familiar as a khata.
+              {t('about.missionEn')}
             </p>
           </Reveal>
         </motion.div>
@@ -164,10 +223,10 @@ export default function AboutSection() {
             className="font-bengali text-[var(--fs-h2)] text-[var(--text-ink)] mb-3"
             style={{ lineHeight: 1.3 }}
           >
-            আমাদের গল্প
+            {t('about.timelineHeading')}
           </h3>
           <p className="font-body text-[var(--text-muted)] text-[var(--fs-body)]">
-            How it all started
+            {t('about.timelineSub')}
           </p>
         </Reveal>
 
@@ -234,10 +293,10 @@ export default function AboutSection() {
                         </span>
                       </div>
                       <h4 className="font-bengali text-lg font-semibold text-[var(--text-ink)] mb-2">
-                        {m.titleBn}
+                        {m.title}
                       </h4>
                       <p className="font-body text-sm text-[var(--text-muted)]" style={{ lineHeight: 1.7 }}>
-                        {m.bodyBn}
+                        {m.body}
                       </p>
                     </motion.div>
                   </div>
@@ -255,10 +314,10 @@ export default function AboutSection() {
             className="font-bengali text-[var(--fs-h2)] text-[var(--text-cream)] mb-3"
             style={{ lineHeight: 1.3 }}
           >
-            যারা বানাচ্ছেন।
+            {t('about.teamHeading')}
           </h3>
           <p className="font-body text-[var(--text-cream-muted)] text-[var(--fs-body)]">
-            The team behind HelloKhata
+            {t('about.teamSub')}
           </p>
         </Reveal>
 
@@ -300,10 +359,10 @@ export default function AboutSection() {
                 </div>
 
                 <h4 className="font-bengali text-base text-[var(--text-cream)] mb-0.5">
-                  {member.nameBn}
+                  {lang === 'bn' ? member.nameBn : member.nameEn}
                 </h4>
                 <p className="font-body text-xs text-[var(--text-cream-muted)] mb-1">
-                  {member.nameEn}
+                  {lang === 'en' ? member.nameBn : member.nameEn}
                 </p>
                 <p
                   className="font-body text-xs font-semibold mb-4"
@@ -327,10 +386,10 @@ export default function AboutSection() {
             className="font-bengali text-[var(--fs-h2)] text-[var(--text-ink)] mb-3"
             style={{ lineHeight: 1.3 }}
           >
-            আমাদের মূল্যবোধ
+            {t('about.valuesHeading')}
           </h3>
           <p className="font-body text-[var(--text-muted)] text-[var(--fs-body)]">
-            What we stand for
+            {t('about.valuesSub')}
           </p>
         </Reveal>
 
@@ -363,7 +422,7 @@ export default function AboutSection() {
                     className="font-bengali text-[clamp(28px, 3.5vw, 36px)] text-[var(--text-ink)] mb-2"
                     style={{ lineHeight: 1.3 }}
                   >
-                    {v.nameBn}
+                    {v.name}
                   </p>
                   <p className="font-body text-sm text-[var(--text-muted)] mb-2">
                     {v.nameEn}

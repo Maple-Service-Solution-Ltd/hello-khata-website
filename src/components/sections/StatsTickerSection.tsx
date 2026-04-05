@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { AnimatedCounter } from '@/components/hellokhata/AnimatedCounter';
 import { Star } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface StatItem {
   target: number;
@@ -14,44 +15,9 @@ interface StatItem {
   showStar?: boolean;
 }
 
-const stats: StatItem[] = [
-  {
-    target: 52347,
-    suffix: '+',
-    label: 'সক্রিয় দোকান',
-    colorClass: 'text-[var(--gold)]',
-  },
-  {
-    target: 64,
-    suffix: '/৬৪',
-    label: 'জেলা কভারেজ',
-    colorClass: 'text-[var(--gold)]',
-  },
-  {
-    target: 1.2,
-    suffix: ' কোটি',
-    label: 'মোট এন্ট্রি',
-    colorClass: 'text-[var(--gold)]',
-  },
-  {
-    target: 98.7,
-    suffix: '%',
-    label: 'আপটাইম',
-    colorClass: 'text-[var(--gold-deep)]',
-  },
-  {
-    target: 4.8,
-    label: 'গড় রেটিং',
-    colorClass: 'text-[var(--gold)]',
-    showStar: true,
-  },
-  {
-    target: 24,
-    suffix: '/৭',
-    label: 'সাপোর্ট',
-    colorClass: 'text-[var(--text-cream)]',
-  },
-];
+/* ─────────────────────────────────────────────
+   Marquee rows (shop names — NOT translated)
+   ───────────────────────────────────────────── */
 
 const marqueeRow1 = [
   'করিম স্টোর',
@@ -121,7 +87,6 @@ function MarqueeRow({
 }
 
 function StatCard({ stat, index }: { stat: StatItem; index: number }) {
-  const showDivider = index < stats.length - 1;
   return (
     <div className="relative flex flex-col items-center px-3 text-center md:px-4">
       <div className="flex items-baseline">
@@ -151,7 +116,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
       </p>
 
       {/* Vertical divider between stats (desktop only) */}
-      {showDivider && (
+      {index < 5 && (
         <div
           className="absolute -right-px top-1/2 hidden h-12 -translate-y-1/2 md:block"
           style={{
@@ -166,6 +131,47 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 }
 
 export default function StatsTickerSection() {
+  const { t } = useTranslation();
+
+  const stats: StatItem[] = [
+    {
+      target: 52347,
+      suffix: '+',
+      label: t('statsTicker.activeShops'),
+      colorClass: 'text-[var(--gold)]',
+    },
+    {
+      target: 64,
+      suffix: '/৬৪',
+      label: t('statsTicker.districtCoverage'),
+      colorClass: 'text-[var(--gold)]',
+    },
+    {
+      target: 1.2,
+      suffix: ' কোটি',
+      label: t('statsTicker.totalEntries'),
+      colorClass: 'text-[var(--gold)]',
+    },
+    {
+      target: 98.7,
+      suffix: '%',
+      label: t('statsTicker.uptime'),
+      colorClass: 'text-[var(--gold-deep)]',
+    },
+    {
+      target: 4.8,
+      label: t('statsTicker.avgRating'),
+      colorClass: 'text-[var(--gold)]',
+      showStar: true,
+    },
+    {
+      target: 24,
+      suffix: '/৭',
+      label: t('statsTicker.support'),
+      colorClass: 'text-[var(--text-cream)]',
+    },
+  ];
+
   return (
     <section
       id="stats-ticker"
@@ -193,7 +199,7 @@ export default function StatsTickerSection() {
                 border: '1px solid rgba(201,169,110,0.2)',
               }}
             >
-              রিয়েল-টাইম পরিসংখ্যান
+              {t('statsTicker.eyebrow')}
             </span>
           </Reveal>
           <Reveal delay={0.1}>
@@ -201,7 +207,7 @@ export default function StatsTickerSection() {
               className="font-bengali text-[var(--fs-h2)] font-bold leading-tight"
               style={{ color: 'var(--text-cream)' }}
             >
-              প্রতিদিন বাড়ছে বিশ্বাস
+              {t('statsTicker.headline')}
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
@@ -209,7 +215,7 @@ export default function StatsTickerSection() {
               className="mt-3 font-display text-lg italic md:text-xl"
               style={{ color: 'var(--text-cream-muted)' }}
             >
-              Growing trust, one shop at a time
+              {t('statsTicker.subtitle')}
             </p>
           </Reveal>
         </div>

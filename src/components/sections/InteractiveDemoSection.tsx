@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─────────────────────────────────────────────
    Types
@@ -34,40 +35,6 @@ interface VoiceCommand {
   result: string;
   icon: React.ElementType;
 }
-
-/* ─────────────────────────────────────────────
-   Data
-   ───────────────────────────────────────────── */
-
-const voiceCommands: VoiceCommand[] = [
-  { id: 'sales', text: 'আজকের বিক্রি দেখাও', result: 'আজকের বিক্রি: ৳ ১২,৫০০', icon: ShoppingBag },
-  { id: 'customers', text: 'কাস্টমার খাতা দেখাও', result: '৩২ জন কাস্টমার', icon: Users },
-  { id: 'dues', text: 'বাকি কত?', result: 'মোট বাকি: ৳ ৪৫,২০০', icon: AlertTriangle },
-  { id: 'stock', text: 'স্টক আপডেট করো', result: 'স্টক আপডেট হয়েছে ✓', icon: Package },
-];
-
-const dashboardStats = [
-  { label: 'আজকের বিক্রি', value: '৳ ১২,৫০০', change: '+৮%', icon: ShoppingBag },
-  { label: 'মোট বাকি', value: '৳ ৪৫,২০০', change: '১২ জন', icon: AlertTriangle },
-  { label: 'স্টক সতর্কতা', value: '৫ টি', change: '২ কম', icon: Package },
-  { label: 'কাস্টমার', value: '৩২ জন', change: '+৩ নতুন', icon: Users },
-];
-
-const weeklyBars = [
-  { day: 'শনি', height: 45 },
-  { day: 'রবি', height: 30 },
-  { day: 'সোম', height: 70 },
-  { day: 'মঙ্গল', height: 55 },
-  { day: 'বুধ', height: 85 },
-  { day: 'বৃহঃ', height: 60 },
-  { day: 'শুক্র', height: 95 },
-];
-
-const tabs: { key: TabKey; label: string; icon: React.ElementType }[] = [
-  { key: 'voice', label: 'ভয়েস', icon: Mic },
-  { key: 'dashboard', label: 'ড্যাশবোর্ড', icon: LayoutDashboard },
-  { key: 'report', label: 'রিপোর্ট', icon: BarChart3 },
-];
 
 /* ─────────────────────────────────────────────
    Processing dots spinner
@@ -136,6 +103,15 @@ function WaveformBars({ active }: { active: boolean }) {
    ───────────────────────────────────────────── */
 
 function VoiceTab() {
+  const { t } = useTranslation();
+
+  const voiceCommands: VoiceCommand[] = [
+    { id: 'sales', text: t('interactiveDemo.cmdShowSales'), result: t('interactiveDemo.resultShowSales'), icon: ShoppingBag },
+    { id: 'customers', text: t('interactiveDemo.cmdShowCustomers'), result: t('interactiveDemo.resultShowCustomers'), icon: Users },
+    { id: 'dues', text: t('interactiveDemo.cmdCheckDues'), result: t('interactiveDemo.resultCheckDues'), icon: AlertTriangle },
+    { id: 'stock', text: t('interactiveDemo.cmdUpdateStock'), result: t('interactiveDemo.resultUpdateStock'), icon: Package },
+  ];
+
   const [isListening, setIsListening] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [activeResult, setActiveResult] = useState<VoiceCommand | null>(null);
@@ -233,7 +209,7 @@ function VoiceTab() {
           className="text-[10px] font-body mt-2"
           style={{ color: isListening ? 'var(--gold)' : 'var(--text-cream-muted)' }}
         >
-          {isListening ? 'শুনছি...' : 'ট্যাপ করুন'}
+          {isListening ? t('interactiveDemo.voiceListening') : t('interactiveDemo.voiceTapToStart')}
         </p>
       </div>
 
@@ -250,7 +226,7 @@ function VoiceTab() {
           minHeight: '36px',
         }}
       >
-        {inputText || 'ভয়েস কমান্ড এখানে দেখা যাবে...'}
+        {inputText || t('interactiveDemo.voicePlaceholder')}
       </div>
 
       {/* Processing animation */}
@@ -265,7 +241,7 @@ function VoiceTab() {
           >
             <ProcessingDots />
             <p className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>
-              প্রসেসিং হচ্ছে...
+              {t('interactiveDemo.voiceProcessing')}
             </p>
           </motion.div>
         )}
@@ -292,7 +268,7 @@ function VoiceTab() {
             <div className="flex items-center gap-2 mb-1.5">
               <CheckCircle2 size={14} style={{ color: 'var(--gold)' }} />
               <span className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>
-                সফল
+                {t('interactiveDemo.voiceSuccess')}
               </span>
             </div>
             <p className="font-bengali text-sm font-semibold" style={{ color: 'var(--text-cream)' }}>
@@ -305,7 +281,7 @@ function VoiceTab() {
       {/* Voice commands list */}
       <div className="w-full space-y-2 mt-auto">
         <p className="text-[10px] font-body mb-2" style={{ color: 'var(--text-cream-muted)' }}>
-          কমান্ড ট্রাই করুন ↓
+          {t('interactiveDemo.voiceTryCommands')}
         </p>
         {voiceCommands.map((cmd) => {
           const Icon = cmd.icon;
@@ -354,16 +330,37 @@ function VoiceTab() {
    ───────────────────────────────────────────── */
 
 function DashboardTab() {
+  const { t, lang } = useTranslation();
+
+  const dashboardStats = [
+    { label: t('interactiveDemo.dashLabelTodaySales'), value: '৳ ১২,৫০০', change: t('interactiveDemo.dashChangeUp'), icon: ShoppingBag },
+    { label: t('interactiveDemo.dashLabelTotalDues'), value: '৳ ৪৫,২০০', change: t('interactiveDemo.dashChangeDues'), icon: AlertTriangle },
+    { label: t('interactiveDemo.dashLabelStockAlerts'), value: '৫ টি', change: t('interactiveDemo.dashChangeLess'), icon: Package },
+    { label: t('interactiveDemo.dashLabelCustomers'), value: '৩২ জন', change: t('interactiveDemo.dashChangeNew'), icon: Users },
+  ];
+
+  const recentItems = lang === 'bn'
+    ? [
+        { name: 'প্রাণ চা ২৪ পিস', amount: '৳ ১২০', time: '৫ মিনিট আগে' },
+        { name: 'আটা ৫ কেজি', amount: '৳ ৪৫০', time: '১ ঘণ্টা আগে' },
+        { name: 'চিনি ১ কেজি', amount: '৳ ১২০', time: '২ ঘণ্টা আগে' },
+      ]
+    : [
+        { name: 'Pran Tea 24 pcs', amount: '৳ ১২০', time: '5 min ago' },
+        { name: 'Flour 5 kg', amount: '৳ ৪৫০', time: '1 hr ago' },
+        { name: 'Sugar 1 kg', amount: '৳ ১২০', time: '2 hr ago' },
+      ];
+
   return (
     <div className="flex flex-col px-4 pt-3 pb-4 gap-3 h-full">
       {/* Summary header */}
       <div className="flex items-center justify-between">
         <div>
           <p className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
-            সারসংক্ষেপ
+            {t('interactiveDemo.dashSummary')}
           </p>
           <p className="font-bengali text-base font-semibold" style={{ color: 'var(--text-cream)' }}>
-            আজ, মঙ্গলবার
+            {t('interactiveDemo.dashToday')}
           </p>
         </div>
         <div
@@ -375,7 +372,7 @@ function DashboardTab() {
         >
           <TrendingUp size={12} style={{ color: 'var(--gold)' }} />
           <span className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>
-            ভালো
+            {t('interactiveDemo.dashTrendGood')}
           </span>
         </div>
       </div>
@@ -422,13 +419,9 @@ function DashboardTab() {
       {/* Recent activity preview */}
       <div className="mt-auto">
         <p className="text-[10px] font-body mb-2" style={{ color: 'var(--text-cream-muted)' }}>
-          সাম্প্রতিক এন্ট্রি
+          {t('interactiveDemo.dashRecentEntries')}
         </p>
-        {[
-          { name: 'প্রাণ চা ২৪ পিস', amount: '৳ ১২০', time: '৫ মিনিট আগে' },
-          { name: 'আটা ৫ কেজি', amount: '৳ ৪৫০', time: '১ ঘণ্টা আগে' },
-          { name: 'চিনি ১ কেজি', amount: '৳ ১২০', time: '২ ঘণ্টা আগে' },
-        ].map((item, i) => (
+        {recentItems.map((item, i) => (
           <motion.div
             key={item.name}
             className="flex items-center justify-between py-1.5"
@@ -460,15 +453,41 @@ function DashboardTab() {
    ───────────────────────────────────────────── */
 
 function ReportTab() {
+  const { t, lang } = useTranslation();
+
+  const weeklyBars = lang === 'bn'
+    ? [
+        { day: 'শনি', height: 45 },
+        { day: 'রবি', height: 30 },
+        { day: 'সোম', height: 70 },
+        { day: 'মঙ্গল', height: 55 },
+        { day: 'বুধ', height: 85 },
+        { day: 'বৃহঃ', height: 60 },
+        { day: 'শুক্র', height: 95 },
+      ]
+    : [
+        { day: 'Sat', height: 45 },
+        { day: 'Sun', height: 30 },
+        { day: 'Mon', height: 70 },
+        { day: 'Tue', height: 55 },
+        { day: 'Wed', height: 85 },
+        { day: 'Thu', height: 60 },
+        { day: 'Fri', height: 95 },
+      ];
+
+  const comparisonBefore = t('interactiveDemo.reportComparisonBefore');
+  const comparisonHighlight = t('interactiveDemo.reportComparisonHighlight');
+  const comparisonAfter = t('interactiveDemo.reportComparisonAfter');
+
   return (
     <div className="flex flex-col px-4 pt-3 pb-4 gap-3 h-full">
       {/* Header */}
       <div>
         <p className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
-          সাপ্তাহিক রিপোর্ট
+          {t('interactiveDemo.reportWeeklyReport')}
         </p>
         <p className="font-bengali text-base font-semibold" style={{ color: 'var(--text-cream)' }}>
-          এই সপ্তাহের বিক্রি
+          {t('interactiveDemo.reportWeeklySales')}
         </p>
       </div>
 
@@ -522,7 +541,7 @@ function ReportTab() {
             ৳ ৮৫,৩০০
           </p>
           <p className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
-            মোট বিক্রি
+            {t('interactiveDemo.reportTotalSales')}
           </p>
         </div>
         <div
@@ -536,11 +555,11 @@ function ReportTab() {
           <div className="flex items-center justify-center gap-1">
             <TrendingUp size={14} style={{ color: 'var(--gold)' }} />
             <p className="font-bengali text-lg font-bold" style={{ color: 'var(--gold)' }}>
-              ১২.৫%
+              {lang === 'bn' ? '১২.৫%' : '12.5%'}
             </p>
           </div>
           <p className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
-            মুনাফা
+            {t('interactiveDemo.reportProfit')}
           </p>
         </div>
       </div>
@@ -555,7 +574,7 @@ function ReportTab() {
       >
         <CheckCircle2 size={14} style={{ color: 'var(--gold)', flexShrink: 0 }} />
         <p className="text-[10px] font-body" style={{ color: 'var(--text-cream)' }}>
-          গত সপ্তাহের চেয়ে <span style={{ color: 'var(--gold)' }}>১৮% বেশি</span> বিক্রি হয়েছে।
+          {comparisonBefore}<span style={{ color: 'var(--gold)' }}>{comparisonHighlight}</span>{comparisonAfter}
         </p>
       </div>
     </div>
@@ -577,7 +596,14 @@ const tabContent: Record<TabKey, React.ComponentType> = {
    ───────────────────────────────────────────── */
 
 export default function InteractiveDemoSection() {
+  const { t, lang } = useTranslation();
   const [activeTab, setActiveTab] = useState<TabKey>('voice');
+
+  const tabs: { key: TabKey; label: string; icon: React.ElementType }[] = [
+    { key: 'voice', label: t('interactiveDemo.tabsVoice'), icon: Mic },
+    { key: 'dashboard', label: t('interactiveDemo.tabsDashboard'), icon: LayoutDashboard },
+    { key: 'report', label: t('interactiveDemo.tabsReport'), icon: BarChart3 },
+  ];
 
   return (
     <section
@@ -611,7 +637,7 @@ export default function InteractiveDemoSection() {
                 border: '1px solid rgba(201, 169, 110, 0.15)',
               }}
             >
-              ইন্টারেক্টিভ ডেমো
+              {t('interactiveDemo.eyebrow')}
             </span>
           </StaggerItem>
 
@@ -621,7 +647,7 @@ export default function InteractiveDemoSection() {
               className="font-bengali leading-tight mb-3"
               style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-ink)' }}
             >
-              নিজে চেষ্টা করুন
+              {t('interactiveDemo.headline')}
             </h2>
           </StaggerItem>
 
@@ -631,7 +657,7 @@ export default function InteractiveDemoSection() {
               className="font-display italic"
               style={{ color: 'var(--text-muted)', fontSize: 'var(--fs-body)' }}
             >
-              Try it yourself — explore every feature in the simulator below
+              {t('interactiveDemo.subtitle')}
             </p>
           </StaggerItem>
         </StaggerGroup>
@@ -709,7 +735,7 @@ export default function InteractiveDemoSection() {
                       className="font-bengali text-[11px]"
                       style={{ color: 'var(--text-cream-muted)' }}
                     >
-                      ৯:৪১
+                      {lang === 'bn' ? '৯:৪১' : '9:41'}
                     </span>
                     <BatteryFull size={13} style={{ color: 'var(--text-cream-muted)' }} />
                   </div>
@@ -807,7 +833,7 @@ export default function InteractiveDemoSection() {
         {/* ── Bottom hint ── */}
         <Reveal variant="fade-in" delay={0.5} className="text-center mt-10 md:mt-14">
           <p className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>
-            এটি একটি সিমুলেটর। আসল অ্যাপ ডাউনলোড করে পুরো অভিজ্ঞতা নিন।
+            {t('interactiveDemo.bottomHint')}
           </p>
         </Reveal>
       </div>

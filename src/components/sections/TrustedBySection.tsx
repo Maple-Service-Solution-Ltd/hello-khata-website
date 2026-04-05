@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { AnimatedCounter } from '@/components/hellokhata/AnimatedCounter';
 import { Reveal } from '@/components/hellokhata/Reveal';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─────────────────────────────────────────────
    Placeholder brand SVGs — simple geometric icons
@@ -172,32 +173,26 @@ const logos = [
 ];
 
 /* ─────────────────────────────────────────────
-   Stats data
-   ───────────────────────────────────────────── */
-
-const stats = [
-  { target: 50000, suffix: '+', label: 'সক্রিয় ব্যবসা' },
-  { target: 64, suffix: '', label: 'জেলায়' },
-  { target: 10000000, suffix: '+', label: 'ডেটা এন্ট্রি' },
-  { target: 99.9, suffix: '%', label: 'আপটাইম', decimal: true },
-];
-
-/* ─────────────────────────────────────────────
-   Trust badges
-   ───────────────────────────────────────────── */
-
-const trustBadges = [
-  { icon: '🔒', label: 'SSL সুরক্ষিত' },
-  { icon: '📱', label: 'মোবাইল ফ্রেন্ডলি' },
-  { icon: '🇧🇩', label: 'বাংলাদেশি ডেটা' },
-  { icon: '☁️', label: 'ক্লাউড সেভ' },
-];
-
-/* ─────────────────────────────────────────────
    Main Component
    ───────────────────────────────────────────── */
 
 export default function TrustedBySection() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { target: 50000, suffix: '+', label: t('trustedBy.statsActiveBusiness') },
+    { target: 64, suffix: '', label: t('trustedBy.statsDistricts') },
+    { target: 10000000, suffix: '+', label: t('trustedBy.statsDataEntries') },
+    { target: 99.9, suffix: '%', label: t('trustedBy.statsUptime'), decimal: true },
+  ];
+
+  const trustBadges = [
+    { icon: '🔒', label: t('trustedBy.badgeSsl') },
+    { icon: '📱', label: t('trustedBy.badgeMobile') },
+    { icon: '🇧🇩', label: t('trustedBy.badgeData') },
+    { icon: '☁️', label: t('trustedBy.badgeCloud') },
+  ];
+
   return (
     <section
       id="trusted"
@@ -216,12 +211,12 @@ export default function TrustedBySection() {
           <span className="inline-block font-bengali text-xs uppercase tracking-[0.2em] font-semibold mb-4"
             style={{ color: 'var(--gold)' }}
           >
-            কে বিশ্বাস করছেন
+            {t('trustedBy.eyebrow')}
           </span>
           <h2 className="font-bengali leading-tight"
             style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-ink)' }}
           >
-            বাংলাদেশের বিশ্বাস আমাদের উপর ভরসা করে।
+            {t('trustedBy.headline')}
           </h2>
         </Reveal>
 

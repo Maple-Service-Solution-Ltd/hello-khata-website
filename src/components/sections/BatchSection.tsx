@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
   ArrowDown,
@@ -13,6 +13,7 @@ import {
   Sprout,
   Check,
 } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 /* ═══════════════════════════════════════════════════
    Animations
@@ -45,7 +46,7 @@ const fadeRight = {
 }
 
 /* ═══════════════════════════════════════════════════
-   Batch Data
+   Batch Data (language-independent)
    ═══════════════════════════════════════════════════ */
 const batchData = [
   {
@@ -78,66 +79,31 @@ const batchData = [
 ]
 
 /* ═══════════════════════════════════════════════════
-   Steps Data
+   Step icon definitions (language-independent)
    ═══════════════════════════════════════════════════ */
-const steps = [
-  {
-    number: '০১',
-    icon: <Layers className="w-5 h-5" />,
-    title: 'পণ্য কেনার সময় batch তৈরি হয়',
-    body: 'প্রতিবার পণ্য কিনলে HelloKhata অটোমেটিক একটা নতুন batch তৈরি করে — তারিখ, ক্রয়মূল্য, supplier সব রেকর্ড হয়ে যায়।',
-  },
-  {
-    number: '০২',
-    icon: <Clock className="w-5 h-5" />,
-    title: 'প্রতিটা batch এ expiry আছে',
-    body: 'একই পণ্যের ৫টা batch থাকতে পারে — প্রতিটার আলাদা expiry ডেট, আলাদা cost। HelloKhata সব আলাদা ট্র্যাক করে।',
-  },
-  {
-    number: '০৩',
-    icon: <ShieldCheck className="w-5 h-5" />,
-    title: 'পুরনো batch আগে বিক্রি হয় (FIFO)',
-    body: 'বিক্রির সময় HelloKhata অটোমেটিক পুরনো batch recommend করে — যাতে কোনো batch expire না হয়।',
-  },
-  {
-    number: '০৪',
-    icon: <AlertTriangle className="w-5 h-5" />,
-    title: 'Expired batch হলে alert আসে',
-    body: 'নিয়ার-এক্সপায়ারি হলে অ্যাম্বার অ্যালার্ট, এক্সপায়ার্ড হলে রেড অ্যালার্ট। ক্ষতির আগেই সিদ্ধান্ত নিন।',
-  },
+const stepIcons = [
+  <Layers key="s1" className="w-5 h-5" />,
+  <Clock key="s2" className="w-5 h-5" />,
+  <ShieldCheck key="s3" className="w-5 h-5" />,
+  <AlertTriangle key="s4" className="w-5 h-5" />,
 ]
 
 /* ═══════════════════════════════════════════════════
-   Who Needs This Data
+   Who-needs icon definitions (language-independent)
    ═══════════════════════════════════════════════════ */
-const whoNeeds = [
-  {
-    icon: <Pill className="w-6 h-6" />,
-    category: 'ফার্মেসি',
-    en: 'Pharmacy',
-    text: 'বাংলাদেশের ফার্মেসিতে প্রতি বছর expired medicine থেকে গড় ক্ষতি ৳৩৫,০০০।',
-    color: 'var(--crimson)',
-  },
-  {
-    icon: <ShoppingBag className="w-6 h-6" />,
-    category: 'এফএমসিজি দোকান',
-    en: 'FMCG',
-    text: 'একই পণ্যের ৫টা batch চলছে — কোনটা আগে বিক্রি হবে? HelloKhata জানে।',
-    color: 'var(--gold)',
-  },
-  {
-    icon: <Sprout className="w-6 h-6" />,
-    category: 'কৃষি পণ্য',
-    en: 'Agro',
-    text: 'বীজের লট ট্র্যাকিং এখন সহজ — কোন supplier থেকে, কোন season এ, কত দামে।',
-    color: 'var(--amber)',
-  },
+const whoNeedsIcons = [
+  <Pill key="w1" className="w-6 h-6" />,
+  <ShoppingBag key="w2" className="w-6 h-6" />,
+  <Sprout key="w3" className="w-6 h-6" />,
 ]
+
+const whoNeedsColors = ['var(--crimson)', 'var(--gold)', 'var(--amber)']
 
 /* ═══════════════════════════════════════════════════
    Batch Diagram Component
    ═══════════════════════════════════════════════════ */
 function BatchDiagramSection() {
+  const { t, lang } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -164,10 +130,10 @@ function BatchDiagramSection() {
         </div>
         <div>
           <div className="font-bengali text-[15px] font-semibold" style={{ color: 'var(--text-cream)' }}>
-            ব্যাচ ট্র্যাকিং — লাইভ ডেমো
+            {t('batch.liveDemo')}
           </div>
           <div className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
-            পণ্য: সার্ফ এক্সেল ৫০০g
+            {lang === 'en' ? 'Product: Excel 500g' : 'পণ্য: সার্ফ এক্সেল ৫০০g'}
           </div>
         </div>
       </motion.div>
@@ -193,7 +159,7 @@ function BatchDiagramSection() {
                     ↓ SELL FIRST
                   </span>
                   <span className="font-body text-[11px]" style={{ color: 'var(--text-cream-muted)' }}>
-                    FIFO অনুযায়ী এই batch আগে বিক্রি হবে
+                    {t('batch.fifoNote')}
                   </span>
                 </div>
               )}
@@ -268,7 +234,7 @@ function BatchDiagramSection() {
                 <div className="flex flex-col items-center gap-0.5">
                   <ArrowDown className="w-4 h-4" style={{ color: 'var(--gold)' }} />
                   <span className="font-body text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>
-                    FIFO: পুরনো batch আগে বিক্রি
+                    {t('batch.fifoNote')}
                   </span>
                 </div>
               </motion.div>
@@ -284,15 +250,15 @@ function BatchDiagramSection() {
         variants={fadeUp}
       >
         {[
-          { label: 'মোট Batch', val: '৩', icon: <Layers className="w-3.5 h-3.5" /> },
-          { label: 'মোট স্টক', val: '১২০ পিস', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
-          { label: 'এভারেজ Cost', val: '৳৪৬.৬৭', icon: <ShoppingBag className="w-3.5 h-3.5" /> },
+          { labelKey: 'batch.totalBatch' as const, val: '৩', icon: <Layers className="w-3.5 h-3.5" /> },
+          { labelKey: 'batch.totalStock' as const, val: lang === 'en' ? '120 pcs' : '১২০ পিস', icon: <ShieldCheck className="w-3.5 h-3.5" /> },
+          { labelKey: 'batch.avgCost' as const, val: '৳৪৬.৬৭', icon: <ShoppingBag className="w-3.5 h-3.5" /> },
         ].map((s, i) => (
           <div key={i} className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
               <span style={{ color: 'var(--gold)' }}>{s.icon}</span>
               <span className="font-body text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>
-                {s.label}
+                {t(s.labelKey)}
               </span>
             </div>
             <div className="font-body text-[16px] font-bold" style={{ color: 'var(--text-cream)' }}>
@@ -309,6 +275,59 @@ function BatchDiagramSection() {
    Main Component
    ═══════════════════════════════════════════════════ */
 export default function BatchSection() {
+  const { t, lang } = useTranslation()
+
+  const steps = useMemo(() => [
+    {
+      number: lang === 'en' ? '01' : '০১',
+      icon: stepIcons[0],
+      title: t('batch.step1.title'),
+      body: t('batch.step1.body'),
+    },
+    {
+      number: lang === 'en' ? '02' : '০২',
+      icon: stepIcons[1],
+      title: t('batch.step2.title'),
+      body: t('batch.step2.body'),
+    },
+    {
+      number: lang === 'en' ? '03' : '০৩',
+      icon: stepIcons[2],
+      title: t('batch.step3.title'),
+      body: t('batch.step3.body'),
+    },
+    {
+      number: lang === 'en' ? '04' : '০৪',
+      icon: stepIcons[3],
+      title: t('batch.step4.title'),
+      body: t('batch.step4.body'),
+    },
+  ], [lang, t])
+
+  const whoNeeds = useMemo(() => [
+    {
+      icon: whoNeedsIcons[0],
+      category: t('batch.whoNeeds1.category'),
+      en: lang === 'en' ? 'Pharmacy' : 'ফার্মেসি',
+      text: t('batch.whoNeeds1.text'),
+      color: whoNeedsColors[0],
+    },
+    {
+      icon: whoNeedsIcons[1],
+      category: t('batch.whoNeeds2.category'),
+      en: lang === 'en' ? 'FMCG' : 'এফএমসিজি দোকান',
+      text: t('batch.whoNeeds2.text'),
+      color: whoNeedsColors[1],
+    },
+    {
+      icon: whoNeedsIcons[2],
+      category: t('batch.whoNeeds3.category'),
+      en: lang === 'en' ? 'Agro' : 'কৃষি পণ্য',
+      text: t('batch.whoNeeds3.text'),
+      color: whoNeedsColors[2],
+    },
+  ], [lang, t])
+
   return (
     <section
       id="batch"
@@ -340,19 +359,22 @@ export default function BatchSection() {
             variants={fadeUp}
           >
             <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}>
-              HelloKhata&apos;s most powerful feature
+              {t('batch.eyebrow')}
             </span>
           </motion.div>
 
-          {/* Bengali headline */}
+          {/* Headline */}
           <motion.h2
             className="font-bengali text-white leading-[1.1] mb-4"
             style={{ fontSize: 'var(--fs-h1)' }}
             variants={fadeUp}
           >
-            ERP সফটওয়্যারের শক্তি।
-            <br />
-            আপনার দোকানের দামে।
+            {t('batch.headline').split('\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <br />}
+                {line}
+              </React.Fragment>
+            ))}
           </motion.h2>
 
           {/* English sub */}
@@ -361,7 +383,7 @@ export default function BatchSection() {
             style={{ fontSize: 'clamp(16px, 2vw, 22px)', color: 'var(--text-cream-muted)' }}
             variants={fadeUp}
           >
-            Enterprise-grade batch management for the shop on your street.
+            {t('batch.sub')}
           </motion.p>
         </motion.div>
       </div>
@@ -394,14 +416,14 @@ export default function BatchSection() {
             style={{ fontSize: 'var(--fs-h2)' }}
             variants={fadeUp}
           >
-            কীভাবে কাজ করে?
+            {t('batch.howItWorks')}
           </motion.h3>
           <motion.p
             className="font-body"
             style={{ fontSize: 'var(--fs-body)', color: 'var(--text-cream-muted)', maxWidth: '500px', margin: '0 auto' }}
             variants={fadeUp}
           >
-            ৪টি সহজ ধাপে batch ম্যানেজমেন্ট কাজ করে
+            {t('batch.howItWorksSub')}
           </motion.p>
         </motion.div>
 
@@ -496,14 +518,14 @@ export default function BatchSection() {
             style={{ fontSize: 'var(--fs-h2)' }}
             variants={fadeUp}
           >
-            কাদের দরকার?
+            {t('batch.whoNeedsTitle')}
           </motion.h3>
           <motion.p
             className="font-body"
             style={{ fontSize: 'var(--fs-body)', color: 'var(--text-cream-muted)', maxWidth: '500px', margin: '0 auto' }}
             variants={fadeUp}
           >
-            যাদের একই পণ্যের একাধিক batch আসে
+            {t('batch.whoNeedsSub')}
           </motion.p>
         </motion.div>
 
@@ -559,7 +581,7 @@ export default function BatchSection() {
                     <Check className="w-3 h-3" style={{ color: 'var(--gold)' }} />
                   </div>
                   <span className="font-body text-[12px]" style={{ color: 'var(--gold)' }}>
-                    HelloKhata দিয়ে সমাধান সম্ভব
+                    {t('batch.whoNeedsCta')}
                   </span>
                 </div>
               </div>
@@ -583,7 +605,7 @@ export default function BatchSection() {
             whileTap={{ scale: 0.97 }}
           >
             <Layers className="w-4 h-4" />
-            Batch ম্যানেজমেন্ট ট্রাই করুন
+            {t('batch.tryBatch')}
           </motion.a>
         </motion.div>
       </div>

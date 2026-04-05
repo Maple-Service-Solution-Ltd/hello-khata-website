@@ -5,41 +5,24 @@ import { motion } from 'framer-motion';
 import { Download, Mic, BarChart3, Zap, ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─────────────────────────────────────────────
-   Step data
+   Step data (icons and accent colors only — text is translated)
    ───────────────────────────────────────────── */
 
-const steps = [
+const stepConfigs = [
   {
-    ghostNumber: '০১',
-    pill: 'ধাপ ০১',
     icon: Download,
     accentColor: '#C9A96E',
-    titleBn: 'অ্যাপ ডাউনলোড করুন',
-    titleEn: 'Download the app',
-    description:
-      'Google Play বা App Store থেকে HelloKhata নামিয়ে নিন। ৩০ সেকেন্ডে রেজিস্ট্রেশন সম্পন্ন।',
   },
   {
-    ghostNumber: '০২',
-    pill: 'ধাপ ০২',
     icon: Mic,
     accentColor: '#D97706',
-    titleBn: 'ভয়েসে বলুন',
-    titleEn: 'Speak in your voice',
-    description:
-      'বাংলায় বলুন — \'আজকের বিক্রি দেখাও\', \'কাস্টমার খাতা দেখাও\'। AI বুঝবে।',
   },
   {
-    ghostNumber: '০৩',
-    pill: 'ধাপ ০৩',
     icon: BarChart3,
     accentColor: '#C9A96E',
-    titleBn: 'সব স্বয়ংক্রিয়',
-    titleEn: 'Everything automated',
-    description:
-      'এন্ট্রি, রিপোর্ট, রিমাইন্ডার — সব HelloKhata করবে। আপনি শুধু ব্যবসা চালান।',
   },
 ];
 
@@ -48,6 +31,21 @@ const steps = [
    ───────────────────────────────────────────── */
 
 export default function HowItWorksSection() {
+  const { t, lang } = useTranslation();
+
+  const stepLabel = t('howItWorks.stepLabel');
+  const ghostNumbers = lang === 'bn' ? ['০১', '০২', '০৩'] : ['01', '02', '03'];
+  const stepTitles = [
+    t('howItWorks.step1Title'),
+    t('howItWorks.step2Title'),
+    t('howItWorks.step3Title'),
+  ];
+  const stepDescriptions = [
+    t('howItWorks.step1Description'),
+    t('howItWorks.step2Description'),
+    t('howItWorks.step3Description'),
+  ];
+
   return (
     <section
       id="how-it-works"
@@ -82,7 +80,7 @@ export default function HowItWorksSection() {
             }}
           >
             <Zap size={14} strokeWidth={2.5} />
-            <span className="font-bengali">৩টি ধাপে শুরু</span>
+            <span className="font-bengali">{t('howItWorks.eyebrow')}</span>
           </span>
 
           {/* Bengali heading */}
@@ -90,7 +88,7 @@ export default function HowItWorksSection() {
             className="font-bengali leading-tight mb-4"
             style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-ink)' }}
           >
-            কীভাবে কাজ করে
+            {t('howItWorks.headline')}
           </h2>
 
           {/* English subtitle */}
@@ -98,16 +96,16 @@ export default function HowItWorksSection() {
             className="font-display italic"
             style={{ color: 'var(--text-muted)', fontSize: 'var(--fs-body)' }}
           >
-            Get started in three simple steps
+            {t('howItWorks.subtitle')}
           </p>
         </Reveal>
 
         {/* ── Step Cards ── */}
         <StaggerGroup stagger={0.15} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative">
-          {steps.map((step, index) => {
+          {stepConfigs.map((step, index) => {
             const IconComponent = step.icon;
             return (
-              <StaggerItem key={step.ghostNumber}>
+              <StaggerItem key={ghostNumbers[index]}>
                 <motion.div
                   className="relative bg-white rounded-[var(--card-r)] p-6 md:p-8 overflow-hidden"
                   style={{
@@ -130,7 +128,7 @@ export default function HowItWorksSection() {
                       lineHeight: 1,
                     }}
                   >
-                    {step.ghostNumber}
+                    {ghostNumbers[index]}
                   </span>
 
                   {/* Icon */}
@@ -152,13 +150,13 @@ export default function HowItWorksSection() {
                     className="font-bengali text-xl font-semibold mb-1"
                     style={{ color: 'var(--text-ink)' }}
                   >
-                    {step.titleBn}
+                    {stepTitles[index]}
                   </h3>
                   <p
                     className="font-display text-xs mb-4"
                     style={{ color: 'var(--text-muted)', opacity: 0.7 }}
                   >
-                    {step.titleEn}
+                    {lang === 'bn' ? '' : t('howItWorks.subtitle')}
                   </p>
 
                   {/* Description */}
@@ -170,7 +168,7 @@ export default function HowItWorksSection() {
                       maxWidth: '300px',
                     }}
                   >
-                    {step.description}
+                    {stepDescriptions[index]}
                   </p>
 
                   {/* Step indicator pill */}
@@ -181,11 +179,11 @@ export default function HowItWorksSection() {
                       color: 'var(--text-muted)',
                     }}
                   >
-                    {step.pill}
+                    {stepLabel} {ghostNumbers[index]}
                   </span>
 
                   {/* Connector arrow — desktop only, not after last card */}
-                  {index < steps.length - 1 && (
+                  {index < stepConfigs.length - 1 && (
                     <div
                       className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 items-center justify-center"
                       style={{ opacity: 0.3 }}
@@ -238,7 +236,7 @@ export default function HowItWorksSection() {
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
           >
             <span className="relative">
-              এখনই শুরু করুন
+              {t('howItWorks.cta')}
               {/* Animated underline — grows on group hover */}
               <span
                 className="absolute bottom-[-2px] left-0 h-[2px] rounded-full group-hover:w-full"

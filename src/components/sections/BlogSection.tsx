@@ -3,91 +3,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, TrendingUp, Package, Award, BookOpen, Clock } from 'lucide-react';
-
-/* ── Tab categories ── */
-const TABS = [
-  'সব',
-  'ব্যবসার টিপস',
-  'পণ্য আপডেট',
-  'সাফল্যের গল্প',
-  'কীভাবে করবেন',
-] as const;
-
-/* ── Articles ── */
-const ARTICLES = [
-  {
-    id: 1,
-    category: 'পণ্য আপডেট',
-    headline: 'HelloKhata তে Batch ম্যানেজমেন্ট কীভাবে কাজ করে',
-    excerpt:
-      'Batch ম্যানেজমেন্ট ফিচার দিয়ে আপনি সহজেই পণ্যের expiry ট্র্যাক করতে পারবেন।',
-    readTime: '৩ মিনিট পড়া',
-    date: '১২ জানুয়ারি ২০২৫',
-    gradientFrom: '#C9A96E',
-    gradientTo: '#00A85A',
-    icon: Package,
-  },
-  {
-    id: 2,
-    category: 'ব্যবসার টিপস',
-    headline: 'ফার্মেসির জন্য ৫টি অপরিহার্য টিপস',
-    excerpt:
-      'ফার্মেসি ম্যানেজমেন্ট করার সহজ উপায় জানুন। লাভ বাড়ান এবং ক্ষতি কমান।',
-    readTime: '৩ মিনিট পড়া',
-    date: '১০ জানুয়ারি ২০২৫',
-    gradientFrom: '#4F46E5',
-    gradientTo: '#3730A3',
-    icon: TrendingUp,
-  },
-  {
-    id: 3,
-    category: 'ব্যবসার টিপস',
-    headline: 'মুদি দোকানের লাভ বাড়ানোর ৭টি উপায়',
-    excerpt:
-      'সহজ কিন্তু কার্যকর টিপস যা আপনার মুদি দোকানের লাভ বাড়াবে।',
-    readTime: '৩ মিনিট পড়া',
-    date: '৮ জানুয়ারি ২০২৫',
-    gradientFrom: '#D97706',
-    gradientTo: '#B45309',
-    icon: TrendingUp,
-  },
-  {
-    id: 4,
-    category: 'সাফল্যের গল্প',
-    headline: 'রফিক ভাইয়ের গল্প: কাগজ থেকে HelloKhata',
-    excerpt:
-      'ঢাকার মিরপুরের মুদি দোকানি রফিক ভাই কীভাবে তাঁর ব্যবসা ডিজিটাল করলেন।',
-    readTime: '৩ মিনিট পড়া',
-    date: '৫ জানুয়ারি ২০২৫',
-    gradientFrom: '#DC2626',
-    gradientTo: '#B91C1C',
-    icon: Award,
-  },
-  {
-    id: 5,
-    category: 'কীভাবে করবেন',
-    headline: 'ভয়েস কমান্ড সম্পূর্ণ গাইড',
-    excerpt:
-      'HelloKhata তে ভয়েস কমান্ড ব্যবহার করার সম্পূর্ণ গাইড এখানে।',
-    readTime: '৩ মিনিট পড়া',
-    date: '৩ জানুয়ারি ২০২৫',
-    gradientFrom: '#C9A96E',
-    gradientTo: '#007A45',
-    icon: BookOpen,
-  },
-  {
-    id: 6,
-    category: 'ব্যবসার টিপস',
-    headline: 'Expired পণ্যের ক্ষতি কীভাবে শূন্য করবেন',
-    excerpt:
-      'প্রতিবছর লাখ লাখ টাকার expired পণ্যের ক্ষতি হয়। এটা শূন্য করুন।',
-    readTime: '৩ মিনিট পড়া',
-    date: '১ জানুয়ারি ২০২৫',
-    gradientFrom: '#D97706',
-    gradientTo: '#92400E',
-    icon: TrendingUp,
-  },
-];
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ── Animation variants ── */
 const containerVariants = {
@@ -120,9 +36,20 @@ function ArticleCard({
   article,
   index,
 }: {
-  article: (typeof ARTICLES)[0];
+  article: {
+    id: number;
+    category: string;
+    headline: string;
+    excerpt: string;
+    readTime: string;
+    date: string;
+    gradientFrom: string;
+    gradientTo: string;
+    icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  };
   index: number;
 }) {
+  const { lang } = useTranslation();
   const Icon = article.icon;
   return (
     <motion.article
@@ -227,9 +154,151 @@ function ArticleCard({
 
 /* ── Main Blog Section ── */
 export default function BlogSection() {
+  const { t, tArray, lang } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
-  const [activeTab, setActiveTab] = useState<string>('সব');
+
+  const tabs = tArray('blog.tabs') || ['সব'];
+  const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+
+  const articlesData =
+    lang === 'bn'
+      ? [
+          {
+            id: 1,
+            category: 'পণ্য আপডেট',
+            headline: 'HelloKhata তে Batch ম্যানেজমেন্ট কীভাবে কাজ করে',
+            excerpt: 'Batch ম্যানেজমেন্ট ফিচার দিয়ে আপনি সহজেই পণ্যের expiry ট্র্যাক করতে পারবেন।',
+            readTime: t('blog.readTime'),
+            date: '১২ জানুয়ারি ২০২৫',
+            gradientFrom: '#C9A96E',
+            gradientTo: '#00A85A',
+            icon: Package,
+          },
+          {
+            id: 2,
+            category: 'ব্যবসার টিপস',
+            headline: 'ফার্মেসির জন্য ৫টি অপরিহার্য টিপস',
+            excerpt: 'ফার্মেসি ম্যানেজমেন্ট করার সহজ উপায় জানুন। লাভ বাড়ান এবং ক্ষতি কমান।',
+            readTime: t('blog.readTime'),
+            date: '১০ জানুয়ারি ২০২৫',
+            gradientFrom: '#4F46E5',
+            gradientTo: '#3730A3',
+            icon: TrendingUp,
+          },
+          {
+            id: 3,
+            category: 'ব্যবসার টিপস',
+            headline: 'মুদি দোকানের লাভ বাড়ানোর ৭টি উপায়',
+            excerpt: 'সহজ কিন্তু কার্যকর টিপস যা আপনার মুদি দোকানের লাভ বাড়াবে।',
+            readTime: t('blog.readTime'),
+            date: '৮ জানুয়ারি ২০২৫',
+            gradientFrom: '#D97706',
+            gradientTo: '#B45309',
+            icon: TrendingUp,
+          },
+          {
+            id: 4,
+            category: 'সাফল্যের গল্প',
+            headline: 'রফিক ভাইয়ের গল্প: কাগজ থেকে HelloKhata',
+            excerpt: 'ঢাকার মিরপুরের মুদি দোকানি রফিক ভাই কীভাবে তাঁর ব্যবসা ডিজিটাল করলেন।',
+            readTime: t('blog.readTime'),
+            date: '৫ জানুয়ারি ২০২৫',
+            gradientFrom: '#DC2626',
+            gradientTo: '#B91C1C',
+            icon: Award,
+          },
+          {
+            id: 5,
+            category: 'কীভাবে করবেন',
+            headline: 'ভয়েস কমান্ড সম্পূর্ণ গাইড',
+            excerpt: 'HelloKhata তে ভয়েস কমান্ড ব্যবহার করার সম্পূর্ণ গাইড এখানে।',
+            readTime: t('blog.readTime'),
+            date: '৩ জানুয়ারি ২০২৫',
+            gradientFrom: '#C9A96E',
+            gradientTo: '#007A45',
+            icon: BookOpen,
+          },
+          {
+            id: 6,
+            category: 'ব্যবসার টিপস',
+            headline: 'Expired পণ্যের ক্ষতি কীভাবে শূন্য করবেন',
+            excerpt: 'প্রতিবছর লাখ লাখ টাকার expired পণ্যের ক্ষতি হয়। এটা শূন্য করুন।',
+            readTime: t('blog.readTime'),
+            date: '১ জানুয়ারি ২০২৫',
+            gradientFrom: '#D97706',
+            gradientTo: '#92400E',
+            icon: TrendingUp,
+          },
+        ]
+      : [
+          {
+            id: 1,
+            category: 'Product Updates',
+            headline: 'How Batch Management Works in HelloKhata',
+            excerpt: 'Track product expiry easily with the batch management feature. Never lose money to expired goods again.',
+            readTime: t('blog.readTime'),
+            date: '12 January 2025',
+            gradientFrom: '#C9A96E',
+            gradientTo: '#00A85A',
+            icon: Package,
+          },
+          {
+            id: 2,
+            category: 'Business Tips',
+            headline: '5 Essential Tips for Pharmacy Owners',
+            excerpt: 'Learn the easy way to manage your pharmacy. Increase profits and reduce losses.',
+            readTime: t('blog.readTime'),
+            date: '10 January 2025',
+            gradientFrom: '#4F46E5',
+            gradientTo: '#3730A3',
+            icon: TrendingUp,
+          },
+          {
+            id: 3,
+            category: 'Business Tips',
+            headline: '7 Ways to Increase Your Grocery Store Profits',
+            excerpt: 'Simple but effective tips that will increase your grocery store profits.',
+            readTime: t('blog.readTime'),
+            date: '8 January 2025',
+            gradientFrom: '#D97706',
+            gradientTo: '#B45309',
+            icon: TrendingUp,
+          },
+          {
+            id: 4,
+            category: 'Success Stories',
+            headline: 'Rafiq\'s Story: From Paper to HelloKhata',
+            excerpt: 'How grocery shop owner Rafiq from Mirpur digitized his business.',
+            readTime: t('blog.readTime'),
+            date: '5 January 2025',
+            gradientFrom: '#DC2626',
+            gradientTo: '#B91C1C',
+            icon: Award,
+          },
+          {
+            id: 5,
+            category: 'How-To',
+            headline: 'Complete Voice Command Guide',
+            excerpt: 'The complete guide to using voice commands in HelloKhata.',
+            readTime: t('blog.readTime'),
+            date: '3 January 2025',
+            gradientFrom: '#C9A96E',
+            gradientTo: '#007A45',
+            icon: BookOpen,
+          },
+          {
+            id: 6,
+            category: 'Business Tips',
+            headline: 'How to Zero Out Expired Product Losses',
+            excerpt: 'Millions are lost every year to expired products. Make it zero.',
+            readTime: t('blog.readTime'),
+            date: '1 January 2025',
+            gradientFrom: '#D97706',
+            gradientTo: '#92400E',
+            icon: TrendingUp,
+          },
+        ];
 
   return (
     <section
@@ -254,14 +323,14 @@ export default function BlogSection() {
             style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-ink)', lineHeight: 1.15 }}
             variants={fadeUp}
           >
-            জ্ঞান · টিপস · গল্প
+            {t('blog.heading')}
           </motion.h2>
           <motion.p
             className="font-bengali"
             style={{ fontSize: 'var(--fs-body-lg)', color: 'var(--text-body)' }}
             variants={fadeUp}
           >
-            বাংলাদেশের ব্যবসায়ীদের জন্য।
+            {t('blog.sub')}
           </motion.p>
         </motion.div>
 
@@ -272,7 +341,7 @@ export default function BlogSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          {TABS.map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -375,7 +444,7 @@ export default function BlogSection() {
                     color: 'var(--gold)',
                   }}
                 >
-                  ব্যবসার টিপস
+                  {t('blog.featured.category')}
                 </span>
 
                 {/* Headline */}
@@ -383,7 +452,7 @@ export default function BlogSection() {
                   className="font-bengali mb-3 leading-snug"
                   style={{ fontSize: '24px', color: 'var(--text-ink)' }}
                 >
-                  কীভাবে আপনার দোকানের বাকি ৫০% কমাবেন
+                  {t('blog.featured.headline')}
                 </h3>
 
                 {/* Excerpt */}
@@ -395,8 +464,7 @@ export default function BlogSection() {
                     lineHeight: 1.75,
                   }}
                 >
-                  বাংলাদেশের ক্ষুদ্র ব্যবসায়ীদের সবচেয়ে বড় সমস্যা হলো বাকি টাকা আদায়।
-                  ৫টি সহজ পদ্ধতিতে...
+                  {t('blog.featured.excerpt')}
                 </p>
 
                 {/* Author meta */}
@@ -405,15 +473,15 @@ export default function BlogSection() {
                   style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-muted)' }}
                 >
                   <span className="font-semibold" style={{ color: 'var(--text-body)' }}>
-                    HelloKhata Team
+                    {t('blog.featured.author')}
                   </span>
                   <span>·</span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
-                    ৫ মিনিট পড়া
+                    {t('blog.featured.readTime')}
                   </span>
                   <span>·</span>
-                  <span>১৫ জানুয়ারি ২০২৫</span>
+                  <span>{t('blog.featured.date')}</span>
                 </div>
 
                 {/* CTA */}
@@ -421,7 +489,7 @@ export default function BlogSection() {
                   className="inline-flex items-center gap-2 font-body font-semibold text-sm"
                   style={{ color: 'var(--gold)' }}
                 >
-                  পড়ুন
+                  {t('blog.featured.readMore')}
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </motion.span>
               </div>
@@ -436,7 +504,7 @@ export default function BlogSection() {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          {ARTICLES.map((article, index) => (
+          {articlesData.map((article, index) => (
             <ArticleCard key={article.id} article={article} index={index} />
           ))}
         </motion.div>

@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { HorizonLine } from '@/components/hellokhata/HorizonLine';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ── Animation variants ── */
 const containerVariants = {
@@ -28,40 +29,6 @@ const fadeIn = {
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
-
-/* ── Pain Points Data ── */
-const PAIN_POINTS = [
-  {
-    title: 'বাকি ভুলে যাওয়া',
-    description: 'কাগজে লেখা বাকি হারিয়ে যায়। গ্রাহক বলে "আমি দিয়েছি", দোকানদার বলে "আপনি দেননি"। সম্পর্ক নষ্ট হয়।',
-    impact: 'ক্ষতি: গড় ৳৮,৫০০/মাস',
-  },
-  {
-    title: 'Stock এর অন্ধকার',
-    description: 'কোন পণ্য কত আছে তার ঠিক নেই। চাহিদা থাকার পরেও বিক্রি হারানো যায়। পুরনো stock পড়ে থাকে।',
-    impact: 'বিক্রি হারানো: ১২%',
-  },
-  {
-    title: 'লাভ না ক্ষতি',
-    description: 'মাস শেষে বুঝতে পারেন না লাভ হলো নাকি ক্ষতি। কোথায় টাকা খরচ হলো, কোথা থেকে আয় হলো — কিছুই পরিষ্কার না।',
-    impact: '৬৭% ব্যবসা সঠিক লাভ জানে না',
-  },
-  {
-    title: 'Expired Product',
-    description: 'মেয়াদ পার হওয়া পণ্য বিক্রি হওয়ার আগেই নষ্ট হয়ে যায়। বিশেষ করে ফার্মেসি ও খাদ্য দোকানে এই সমস্যা ভয়াবহ।',
-    impact: 'ফার্মেসিতে গড় ক্ষতি: ৳১৫,০০০/বছর',
-  },
-  {
-    title: 'Supplier এর জটিলতা',
-    description: 'কোন supplier থেকে কত বকেয়া, কে কখন দেবে — কিছুই মনে নেই। Supplier এর সাথে বিরোধে সম্পর্ক নষ্ট হয়।',
-    impact: 'Supplier বিরোধ: ৪৫% ব্যবসায়',
-  },
-  {
-    title: 'কর্মী ম্যানেজমেন্ট',
-    description: 'কর্মী ঠিকমতো কাজ করছে কি না বুঝতে পারেন না। কে কত পণ্য বিক্রি করলো, ক্যাশ কত নিলো — কোনো tracking নেই।',
-    impact: 'কার্যক্ষমতা কমে ৩০%',
-  },
-];
 
 /* ── Old Paper Khata SVG ── */
 function KhataIllustration() {
@@ -194,6 +161,7 @@ function PainCard({
 
 /* ── Main Khata Story Section ── */
 export default function KhataStorySection() {
+  const { t, lang } = useTranslation();
   const storyRef = useRef<HTMLDivElement>(null);
   const isStoryInView = useInView(storyRef, { once: true, margin: '-40px' });
   const chapter1Ref = useRef<HTMLDivElement>(null);
@@ -204,6 +172,70 @@ export default function KhataStorySection() {
   const isChapter3InView = useInView(chapter3Ref, { once: true, margin: '-60px' });
   const painsRef = useRef<HTMLDivElement>(null);
   const isPainsInView = useInView(painsRef, { once: true, margin: '-60px' });
+
+  const painPointsData = lang === 'bn' ? [
+    {
+      title: 'বাকি ভুলে যাওয়া',
+      description: 'কাগজে লেখা বাকি হারিয়ে যায়। গ্রাহক বলে "আমি দিয়েছি", দোকানদার বলে "আপনি দেননি"। সম্পর্ক নষ্ট হয়।',
+      impact: 'ক্ষতি: গড় ৳৮,৫০০/মাস',
+    },
+    {
+      title: 'Stock এর অন্ধকার',
+      description: 'কোন পণ্য কত আছে তার ঠিক নেই। চাহিদা থাকার পরেও বিক্রি হারানো যায়। পুরনো stock পড়ে থাকে।',
+      impact: 'বিক্রি হারানো: ১২%',
+    },
+    {
+      title: 'লাভ না ক্ষতি',
+      description: 'মাস শেষে বুঝতে পারেন না লাভ হলো নাকি ক্ষতি। কোথায় টাকা খরচ হলো, কোথা থেকে আয় হলো — কিছুই পরিষ্কার না।',
+      impact: '৬৭% ব্যবসা সঠিক লাভ জানে না',
+    },
+    {
+      title: 'Expired Product',
+      description: 'মেয়াদ পার হওয়া পণ্য বিক্রি হওয়ার আগেই নষ্ট হয়ে যায়। বিশেষ করে ফার্মেসি ও খাদ্য দোকানে এই সমস্যা ভয়াবহ।',
+      impact: 'ফার্মেসিতে গড় ক্ষতি: ৳১৫,০০০/বছর',
+    },
+    {
+      title: 'Supplier এর জটিলতা',
+      description: 'কোন supplier থেকে কত বকেয়া, কে কখন দেবে — কিছুই মনে নেই। Supplier এর সাথে বিরোধে সম্পর্ক নষ্ট হয়।',
+      impact: 'Supplier বিরোধ: ৪৫% ব্যবসায়',
+    },
+    {
+      title: 'কর্মী ম্যানেজমেন্ট',
+      description: 'কর্মী ঠিকমতো কাজ করছে কি না বুঝতে পারেন না। কে কত পণ্য বিক্রি করলো, ক্যাশ কত নিলো — কোনো tracking নেই।',
+      impact: 'কার্যক্ষমতা কমে ৩০%',
+    },
+  ] : [
+    {
+      title: 'Forgotten Dues',
+      description: 'Paper records get lost. Customers say "I already paid" while shopkeepers say "You did not." Relationships are ruined.',
+      impact: 'Loss: Avg ৳8,500/month',
+    },
+    {
+      title: 'Stock Blindness',
+      description: 'No clear idea of how much inventory is in stock. Sales are lost even when demand exists. Old stock piles up.',
+      impact: 'Lost sales: 12%',
+    },
+    {
+      title: 'Profit or Loss?',
+      description: 'At month-end, you cannot tell if it was profit or loss. Where the money went, where it came from — nothing is clear.',
+      impact: '67% of businesses do not know their actual profit',
+    },
+    {
+      title: 'Expired Products',
+      description: 'Products expire before they can be sold. Especially devastating for pharmacies and food shops.',
+      impact: 'Avg pharmacy loss: ৳15,000/year',
+    },
+    {
+      title: 'Supplier Confusion',
+      description: 'No idea how much is owed to which supplier, who will pay when. Disputes with suppliers damage relationships.',
+      impact: 'Supplier disputes: 45% of businesses',
+    },
+    {
+      title: 'Staff Management',
+      description: 'No way to know if staff are working properly. Who sold how much, how much cash they took — no tracking at all.',
+      impact: 'Efficiency drops by 30%',
+    },
+  ];
 
   return (
     <section id="khata-story" className="relative overflow-hidden">
@@ -229,7 +261,7 @@ export default function KhataStorySection() {
               className="font-display italic text-sm tracking-widest uppercase mb-6"
               style={{ color: 'var(--text-muted)', letterSpacing: '0.15em' }}
             >
-              The Origin Story
+              {t('khataStory.eyebrow')}
             </p>
           </motion.div>
 
@@ -238,7 +270,7 @@ export default function KhataStorySection() {
             <KhataIllustration />
           </motion.div>
 
-          {/* Chapter 1: একজন দোকানদারের সকাল */}
+          {/* Chapter 1 */}
           <div ref={chapter1Ref}>
             <motion.div
               variants={containerVariants}
@@ -250,7 +282,7 @@ export default function KhataStorySection() {
                   className="font-body text-xs font-semibold tracking-widest uppercase"
                   style={{ color: 'var(--gold)' }}
                 >
-                  অধ্যায় ০১
+                  {t('khataStory.chapter.one')}
                 </span>
               </motion.div>
               <motion.h2
@@ -258,28 +290,28 @@ export default function KhataStorySection() {
                 style={{ color: 'var(--text-ink)', fontWeight: 800, lineHeight: 1.3 }}
                 variants={fadeUp}
               >
-                একজন দোকানদারের সকাল
+                {t('khataStory.ch1Title')}
               </motion.h2>
               <motion.p
                 className="font-bengali text-base md:text-lg mb-6"
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                ভোর ৬টায় উঠে, ঝাঁপ খুলে, ১৫০ জন মানুষের সেবা করে, রাত ১০টায় বাড়ি ফেরেন মোঃ করিম ভাই। তাঁর মাথায় তখনও ঘুরছে — &ldquo;রহিমের বাকি কত? চালের stock কতটুকু? আজকে লাভ হলো কি?&rdquo;
+                {t('khataStory.ch1Body1')}
               </motion.p>
               <motion.p
                 className="font-bengali text-base md:text-lg mb-6"
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                করিম ভাই ভালোবেসে এই দোকান চালান। কিন্তু হিসাবের কারণে তিনি রাতে ঘুমাতে পারেন না। কাগজের খাতায় যা লেখেন, সেটা ঠিক আছে কি না তার কোনো নিশ্চয়তা নেই। বাকি টাকা নিয়ে গ্রাহকের সাথে ঝগড়া হয়। কোন পণ্য কত আছে তার হদিস নেই।
+                {t('khataStory.ch1Body2')}
               </motion.p>
               <motion.p
                 className="font-display italic text-[15px]"
                 style={{ color: 'var(--text-muted)' }}
                 variants={fadeUp}
               >
-                This isn&apos;t a story about technology. It&apos;s a story about dignity.
+                {t('khataStory.ch1Italics')}
               </motion.p>
             </motion.div>
           </div>
@@ -289,7 +321,7 @@ export default function KhataStorySection() {
             <HorizonLine variant="subtle" />
           </div>
 
-          {/* Chapter 2: ৩০ বছরের পুরনো সমস্যা */}
+          {/* Chapter 2 */}
           <div ref={chapter2Ref}>
             <motion.div
               variants={containerVariants}
@@ -301,7 +333,7 @@ export default function KhataStorySection() {
                   className="font-body text-xs font-semibold tracking-widest uppercase"
                   style={{ color: 'var(--gold)' }}
                 >
-                  অধ্যায় ০২
+                  {t('khataStory.chapter.two')}
                 </span>
               </motion.div>
               <motion.h2
@@ -309,14 +341,14 @@ export default function KhataStorySection() {
                 style={{ color: 'var(--text-ink)', fontWeight: 800, lineHeight: 1.3 }}
                 variants={fadeUp}
               >
-                ৩০ বছরের পুরনো সমস্যা
+                {t('khataStory.ch2Title')}
               </motion.h2>
               <motion.p
                 className="font-bengali text-base md:text-lg mb-8"
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                বাংলাদেশে প্রায় ৮০ লাখ ক্ষুদ্র ও মাঝারি ব্যবসা আছে। এর মধ্যে বেশিরভাগের হিসাব পদ্ধতি একই — একটা খাতা, একটা কলম, আর অনেক সন্দেহ। এই পদ্ধতি বাবার বাবার আমল থেকে চলে আসছে। কেউ পরিবর্তন করতে চায় না, কারণ নতুন কিছু শেখার সময় নেই।
+                {t('khataStory.ch2Body1')}
               </motion.p>
 
               {/* Data pullquote */}
@@ -329,13 +361,13 @@ export default function KhataStorySection() {
                   className="font-display italic text-xl md:text-2xl"
                   style={{ color: 'var(--gold-deep)', lineHeight: 1.5 }}
                 >
-                  &ldquo;৮৩% বাংলাদেশি ক্ষুদ্র ব্যবসায়ী এখনো সম্পূর্ণ কাগজে হিসাব রাখেন।&rdquo;
+                  {t('khataStory.ch2Pullquote')}
                 </p>
                 <p
                   className="font-body text-sm mt-3"
                   style={{ color: 'var(--text-muted)' }}
                 >
-                  — SME Foundation Survey, 2023
+                  {t('khataStory.ch2PullquoteSource')}
                 </p>
               </motion.blockquote>
 
@@ -344,7 +376,7 @@ export default function KhataStorySection() {
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                এই কাগজের খাতা কেবল সময় নষ্ট করে না — এটি সম্ভাবনা নষ্ট করে। দোকানদাররা বুঝতে পারেন না তাদের ব্যবসা আসলে কেমন চলছে। কোথায় লাভ, কোথায় ক্ষতি — কোনো পরিষ্কার ছবি নেই। মাস শেষে শুধু অনুমান করতে হয়।
+                {t('khataStory.ch2Body2')}
               </motion.p>
             </motion.div>
           </div>
@@ -354,7 +386,7 @@ export default function KhataStorySection() {
             <HorizonLine variant="subtle" />
           </div>
 
-          {/* Chapter 3: আমরা যা দেখলাম */}
+          {/* Chapter 3 */}
           <div ref={chapter3Ref}>
             <motion.div
               variants={containerVariants}
@@ -366,7 +398,7 @@ export default function KhataStorySection() {
                   className="font-body text-xs font-semibold tracking-widest uppercase"
                   style={{ color: 'var(--gold)' }}
                 >
-                  অধ্যায় ০৩
+                  {t('khataStory.chapter.three')}
                 </span>
               </motion.div>
               <motion.h2
@@ -374,21 +406,21 @@ export default function KhataStorySection() {
                 style={{ color: 'var(--text-ink)', fontWeight: 800, lineHeight: 1.3 }}
                 variants={fadeUp}
               >
-                আমরা যা দেখলাম
+                {t('khataStory.ch3Title')}
               </motion.h2>
               <motion.p
                 className="font-bengali text-base md:text-lg mb-6"
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                আমরা ঢাকার গলিতে, চট্টগ্রামের বাজারে, সিলেটের চায়ের দোকানে, রাজশাহীর মাঠের পাশে — সর্বত্র একই দৃশ্য দেখলাম। পরিশ্রমী মানুষ, যারা ভোরে উঠে রাত পর্যন্ত কাজ করে, কিন্তু তাদের নিজের ব্যবসার হিসাব রাখতে পারে না।
+                {t('khataStory.ch3Body1')}
               </motion.p>
               <motion.p
                 className="font-bengali text-base md:text-lg mb-6"
                 style={{ color: 'var(--text-body)', lineHeight: 1.9 }}
                 variants={fadeUp}
               >
-                তারা জানে কী চায় — একটা সহজ উপায়, যেখানে কথা বলেই হিসাব রাখা যাবে। ইংরেজি না জেনে, কোডিং না জেনে, শুধু বাংলায় কথা বলে। তাদের মতো করে। তাদের ভাষায়।
+                {t('khataStory.ch3Body2')}
               </motion.p>
 
               {/* Horizon separator */}
@@ -401,7 +433,7 @@ export default function KhataStorySection() {
                 style={{ color: 'var(--text-ink)', lineHeight: 1.5 }}
                 variants={fadeUp}
               >
-                HelloKhata আসে এই মুহূর্তটা থেকে।
+                {t('khataStory.ch3Closing')}
               </motion.p>
             </motion.div>
           </div>
@@ -434,19 +466,19 @@ export default function KhataStorySection() {
               className="font-body text-xs font-semibold tracking-widest uppercase mb-4 block"
               style={{ color: 'var(--crimson)' }}
             >
-              The Real Problem
+              {t('khataStory.painsEyebrow')}
             </span>
             <h2
               className="font-bengali text-2xl md:text-4xl"
               style={{ color: 'white', fontWeight: 800, lineHeight: 1.2 }}
             >
-              দোকানদারের আসল যন্ত্রণা।
+              {t('khataStory.painsHeadline')}
             </h2>
           </motion.div>
 
           {/* 6 Pain Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto mb-16">
-            {PAIN_POINTS.map((pain) => (
+            {painPointsData.map((pain) => (
               <PainCard
                 key={pain.title}
                 title={pain.title}
@@ -473,7 +505,7 @@ export default function KhataStorySection() {
               className="font-bengali text-lg md:text-xl mb-8"
               style={{ color: 'var(--text-cream-muted)', lineHeight: 1.8 }}
             >
-              HelloKhata এই ছয়টা সমস্যার সমাধান করে। একটা অ্যাপে। বাংলায়।
+              {t('khataStory.closing')}
             </p>
 
             {/* CTA Button */}
@@ -492,7 +524,7 @@ export default function KhataStorySection() {
                 }
               }}
             >
-              কীভাবে দেখুন →
+              {t('khataStory.cta')}
             </motion.button>
           </motion.div>
         </motion.div>

@@ -1,10 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/hellokhata/Reveal';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
 import { GitCompare, BookOpen, Sparkles, Globe, Check, X } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
+
+/* ── Feature check definitions (language-independent) ── */
+const featureChecks: { bn: string; en: string; oldLedger: boolean; hellokhata: boolean; foreignApp: boolean }[] = [
+  { bn: 'ভয়েস এন্ট্রি', en: 'Voice entry', oldLedger: false, hellokhata: true, foreignApp: false },
+  { bn: 'অটো হিসাব', en: 'Auto calculation', oldLedger: false, hellokhata: true, foreignApp: true },
+  { bn: 'ডিজিটাল রিপোর্ট', en: 'Digital reports', oldLedger: false, hellokhata: true, foreignApp: true },
+  { bn: 'ব্যাচ ম্যানেজমেন্ট', en: 'Batch management', oldLedger: false, hellokhata: true, foreignApp: false },
+  { bn: 'AI প্রেডিকশন', en: 'AI prediction', oldLedger: false, hellokhata: true, foreignApp: false },
+  { bn: 'হাতে লেখা', en: 'Handwritten', oldLedger: true, hellokhata: false, foreignApp: false },
+  { bn: 'বাংলা সাপোর্ট', en: 'Bangla support', oldLedger: true, hellokhata: true, foreignApp: false },
+  { bn: 'বাংলাদেশি পেমেন্ট', en: 'Bangladeshi payment', oldLedger: false, hellokhata: true, foreignApp: false },
+];
 
 interface FeatureRow {
   name: string;
@@ -12,22 +25,6 @@ interface FeatureRow {
   hellokhata: boolean;
   foreignApp: boolean;
 }
-
-const features: FeatureRow[] = [
-  { name: 'ভয়েস এন্ট্রি', oldLedger: false, hellokhata: true, foreignApp: false },
-  { name: 'অটো হিসাব', oldLedger: false, hellokhata: true, foreignApp: true },
-  { name: 'ডিজিটাল রিপোর্ট', oldLedger: false, hellokhata: true, foreignApp: true },
-  { name: 'ব্যাচ ম্যানেজমেন্ট', oldLedger: false, hellokhata: true, foreignApp: false },
-  { name: 'AI প্রেডিকশন', oldLedger: false, hellokhata: true, foreignApp: false },
-];
-
-const extraFeatures = [
-  { name: 'হাতে লেখা', oldLedger: true, hellokhata: false, foreignApp: false },
-  { name: 'বাংলা সাপোর্ট', oldLedger: true, hellokhata: true, foreignApp: false },
-  { name: 'বাংলাদেশি পেমেন্ট', oldLedger: false, hellokhata: true, foreignApp: false },
-];
-
-const allFeatures = [...features, ...extraFeatures];
 
 interface CardData {
   id: string;
@@ -38,7 +35,8 @@ interface CardData {
   borderColor: string;
   cardBg: string;
   highlighted: boolean;
-  ribbon?: string;
+  ribbonBn: string;
+  ribbonEn: string;
   key: 'oldLedger' | 'hellokhata' | 'foreignApp';
   glowShadow?: string;
 }
@@ -53,6 +51,8 @@ const cards: CardData[] = [
     borderColor: 'rgba(220, 38, 38, 0.25)',
     cardBg: 'rgba(220, 38, 38, 0.03)',
     highlighted: false,
+    ribbonBn: '',
+    ribbonEn: '',
     key: 'oldLedger',
   },
   {
@@ -64,7 +64,8 @@ const cards: CardData[] = [
     borderColor: 'rgba(201, 169, 110, 0.4)',
     cardBg: 'rgba(201, 169, 110, 0.04)',
     highlighted: true,
-    ribbon: 'সুপারিশ',
+    ribbonBn: 'সুপারিশ',
+    ribbonEn: 'Recommended',
     key: 'hellokhata',
     glowShadow:
       '0 0 40px rgba(201,169,110,0.12), 0 8px 32px rgba(0,0,0,0.08)',
@@ -78,6 +79,8 @@ const cards: CardData[] = [
     borderColor: 'var(--canvas-border)',
     cardBg: 'rgba(107, 114, 128, 0.02)',
     highlighted: false,
+    ribbonBn: '',
+    ribbonEn: '',
     key: 'foreignApp',
   },
 ];
@@ -108,9 +111,13 @@ function FeatureIcon({ enabled, variant }: { enabled: boolean; variant: 'gold' |
   );
 }
 
-function ComparisonCard({ card }: { card: CardData }) {
+function ComparisonCard({ card, features, featureScoreLabel }: { card: CardData; features: FeatureRow[]; featureScoreLabel: string }) {
+  const { lang } = useTranslation();
   const isCrimson = card.key === 'oldLedger';
   const isGold = card.key === 'hellokhata';
+
+  const displayTitle = lang === 'en' ? card.titleEn : card.title;
+  const displayRibbon = lang === 'en' ? card.ribbonEn : card.ribbonBn;
 
   return (
     <motion.div
@@ -132,7 +139,7 @@ function ComparisonCard({ card }: { card: CardData }) {
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {/* Recommended ribbon */}
-      {card.ribbon && (
+      {displayRibbon && (
         <div className="absolute right-6 top-0 z-10">
           <div
             className="rounded-b-lg px-3 py-1.5 font-body text-xs font-bold"
@@ -142,7 +149,7 @@ function ComparisonCard({ card }: { card: CardData }) {
               boxShadow: '0 4px 12px rgba(201,169,110,0.3)',
             }}
           >
-            {card.ribbon}
+            {displayRibbon}
           </div>
         </div>
       )}
@@ -170,14 +177,16 @@ function ComparisonCard({ card }: { card: CardData }) {
             className="font-bengali text-lg font-bold leading-tight"
             style={{ color: 'var(--text-ink)' }}
           >
-            {card.title}
+            {displayTitle}
           </h3>
-          <p
-            className="font-body text-xs"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            {card.titleEn}
-          </p>
+          {lang === 'en' && (
+            <p
+              className="font-body text-xs"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              {card.title}
+            </p>
+          )}
         </div>
       </div>
 
@@ -195,7 +204,7 @@ function ComparisonCard({ card }: { card: CardData }) {
 
       {/* Features list */}
       <div className="flex flex-col gap-3 p-5 pt-4">
-        {allFeatures.map((feature) => {
+        {features.map((feature) => {
           const enabled = feature[card.key];
           return (
             <div key={feature.name} className="flex items-center gap-2.5">
@@ -222,7 +231,7 @@ function ComparisonCard({ card }: { card: CardData }) {
       <div className="mt-auto border-t p-5 pt-4" style={{ borderColor: card.borderColor }}>
         <div className="flex items-center justify-between">
           <span className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>
-            ফিচার স্কোর
+            {featureScoreLabel}
           </span>
           <div className="flex items-center gap-2">
             <div className="h-1.5 w-24 overflow-hidden rounded-full" style={{ background: 'var(--canvas-border)' }}>
@@ -236,7 +245,7 @@ function ComparisonCard({ card }: { card: CardData }) {
                       : 'var(--text-ghost)',
                 }}
                 initial={{ width: 0 }}
-                whileInView={{ width: `${(allFeatures.filter((f) => f[card.key]).length / allFeatures.length) * 100}%` }}
+                whileInView={{ width: `${(features.filter((f) => f[card.key]).length / features.length) * 100}%` }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
               />
@@ -251,7 +260,7 @@ function ComparisonCard({ card }: { card: CardData }) {
                     : 'var(--text-muted)',
               }}
             >
-              {allFeatures.filter((f) => f[card.key]).length}/{allFeatures.length}
+              {features.filter((f) => f[card.key]).length}/{features.length}
             </span>
           </div>
         </div>
@@ -261,6 +270,18 @@ function ComparisonCard({ card }: { card: CardData }) {
 }
 
 export default function ComparisonSection() {
+  const { t, tArray, lang } = useTranslation();
+
+  const features: FeatureRow[] = useMemo(() => {
+    const featureNames = tArray('comparison.features');
+    return featureChecks.map((fc, i) => ({
+      name: (featureNames && featureNames[i]) || fc.bn,
+      oldLedger: fc.oldLedger,
+      hellokhata: fc.hellokhata,
+      foreignApp: fc.foreignApp,
+    }));
+  }, [lang, tArray]);
+
   const scrollToPricing = () => {
     const el = document.getElementById('pricing');
     if (el) {
@@ -274,7 +295,6 @@ export default function ComparisonSection() {
       className="texture-nakshi-subtle relative w-full overflow-hidden"
       style={{
         background: 'var(--cream)',
-        // nakshi texture at 15% opacity via pseudo or inline
       }}
     >
       {/* Texture overlay at 15% opacity */}
@@ -300,7 +320,7 @@ export default function ComparisonSection() {
                 }}
               >
                 <GitCompare className="h-3.5 w-3.5" />
-                তুলনা করুন
+                {t('comparison.eyebrow')}
               </span>
             </Reveal>
             <Reveal delay={0.1}>
@@ -308,7 +328,7 @@ export default function ComparisonSection() {
                 className="font-bengali text-[var(--fs-h2)] font-bold leading-tight"
                 style={{ color: 'var(--text-ink)' }}
               >
-                কেন HelloKhata?
+                {t('comparison.headline')}
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
@@ -316,7 +336,7 @@ export default function ComparisonSection() {
                 className="mt-3 font-display text-lg italic"
                 style={{ color: 'var(--text-muted)' }}
               >
-                See how we stack up against the old way
+                {t('comparison.sub')}
               </p>
             </Reveal>
           </div>
@@ -331,7 +351,11 @@ export default function ComparisonSection() {
                     transformOrigin: 'center top',
                   }}
                 >
-                  <ComparisonCard card={card} />
+                  <ComparisonCard
+                    card={card}
+                    features={features}
+                    featureScoreLabel={t('comparison.featureScore')}
+                  />
                 </div>
               </StaggerItem>
             ))}
@@ -344,7 +368,7 @@ export default function ComparisonSection() {
               className="group inline-flex items-center gap-2 font-body text-[15px] font-semibold transition-colors duration-300"
               style={{ color: 'var(--gold-deep)' }}
             >
-              <span>আজই HelloKhata ব্যবহার শুরু করুন</span>
+              <span>{t('comparison.cta')}</span>
               <motion.span
                 className="inline-block"
                 animate={{ x: [0, 6, 0] }}

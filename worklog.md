@@ -1288,3 +1288,92 @@ Stage Summary:
 - 6 major components updated with 116+ text replacements total
 - Zero lint errors, clean dev server compilation
 - Toast notifications provide feedback on language change
+
+---
+## Task ID: 3
+### Agent: i18n Developer - Batch 1
+### Work Task
+Implement full i18n (Bengali/English) for 5 section components: HowItWorks, TrustedBy, StatsTicker, InteractiveDemo, LiveActivity.
+
+### Work Log
+- Added translation entries for 5 new sections to translations.ts under both `bn` and `en` objects:
+  - `howItWorks`: eyebrow, headline, subtitle, stepLabel, cta, 3 step titles + descriptions
+  - `trustedBy`: eyebrow, headline, 4 stat labels, 4 trust badge labels
+  - `statsTicker`: eyebrow, headline, subtitle, 6 stat labels (activeShops, districtCoverage, totalEntries, uptime, avgRating, support)
+  - `interactiveDemo`: eyebrow, headline, subtitle, bottomHint, 3 tab labels, voice tab (listening, tapToStart, placeholder, processing, success, tryCommands, 4 commands + 4 results), dashboard tab (summary, today, trendGood, 4 stat labels, 4 change texts, recentEntries), report tab (weeklyReport, weeklySales, totalSales, profit, comparison text parts)
+  - `liveActivity`: eyebrow, headline, onlineNow, todayActivity, weeklyGrowth, 4 stat card labels, 8 activity action texts, 8 time-ago texts
+- Updated TranslationSections type to include 5 new sections
+- Updated HowItWorksSection.tsx:
+  - Imported useTranslation, replaced all hardcoded text with t() calls
+  - Used lang-conditional arrays for ghost numbers (Bengali/English numerals) and step titles/descriptions
+- Updated TrustedBySection.tsx:
+  - Imported useTranslation, moved stats and badges arrays inside component to use t() for labels
+  - All 4 stat labels and 4 trust badge labels now translate
+- Updated StatsTickerSection.tsx:
+  - Imported useTranslation, moved stats array inside component to use t() for labels
+  - Kept marquee rows (shop names) untranslated as per instructions
+  - All 6 stat labels, eyebrow, headline, subtitle now translate
+- Updated InteractiveDemoSection.tsx (most complex):
+  - Imported useTranslation in VoiceTab, DashboardTab, ReportTab sub-components
+  - VoiceTab: all UI text, 4 voice commands + results translated
+  - DashboardTab: summary, today label, trend badge, 4 stat labels, 4 change texts, recent entries label translated; recent item names/times use lang-conditional arrays (amounts preserved)
+  - ReportTab: weekly report labels, total sales, profit labels translated; weekly bar days use lang-conditional arrays; comparison text split into before/highlight/after for styled rendering
+  - Main component: tab labels, eyebrow, headline, subtitle, bottom hint, status bar time all translated
+- Updated LiveActivitySection.tsx:
+  - Imported useTranslation, moved SAMPLE_ACTIVITIES and STAT_CARDS inside component
+  - Used lang-conditional arrays for sample activities (shop names and districts translated to English equivalents, action texts and time-ago texts via t())
+  - Stat card labels translated; weekly growth text translated
+
+### Work Summary
+- 5 section components now fully support Bengali/English language switching
+- All text content is properly translated with professional, natural Bengali and English
+- Shop names in marquees are NOT translated (as per instructions)
+- Specific data values (৳ amounts, percentages) are preserved in both languages
+- ESLint passes with zero errors
+- Dev server compiles cleanly
+
+---
+## Task ID: 4b-retry
+### Work Task
+Add i18n support for BusinessTypesSection and TestimonialsSection components using the existing useTranslation() hook and translations dictionary.
+
+### Work Summary
+
+**1. TranslationSections Type Updated (`src/lib/translations.ts`)**
+- Added `features`, `businessTypes`, `testimonials`, and `comparison` to the `TranslationSections` type for documentation and type completeness
+
+**2. BusinessTypesSection.tsx — Full i18n Integration**
+- Imported `useTranslation` from `@/hooks/use-translation` and `Language` type
+- `BusinessPhoneMockup` now accepts `lang` prop and uses `t()` for translated text
+- Section header text replaced with translation keys:
+  - Eyebrow: `t('businessTypes.eyebrow')` → "কারা ব্যবহার করছেন" / "Who uses HelloKhata"
+  - Headline: `t('businessTypes.headline')` → "আপনার দোকান যেটাই হোক।" / "Whatever your shop is."
+  - Sub-text: `t('businessTypes.sub')`
+- Business card names switch between `nameBn`/`nameEn` based on `lang` (primary name shows Bengali or English, subtitle shows the other)
+- Pain point text: `t('businessTypes.pain' + biz.id)` maps to pain1–pain12 translations
+- Phone mockup text:
+  - Business title swaps primary/subtitle based on language
+  - "সমাধান হয়েছে" → `t('businessTypes.resolved')` / "Problem solved"
+  - "সাপ্তাহিক বিক্রি" → `t('businessTypes.weeklySales')` / "Weekly Sales"
+- Active business CTA: `t('businessTypes.manageWith')` — "ম্যানেজ করুন" / "Manage with"
+- Close button: `t('businessTypes.close')` — "✕ বন্ধ করুন" / "✕ Close"
+- Mobile tap hint: `t('businessTypes.tapHint')` — "যেকোনো কার্ডে ট্যাপ করুন" / "Tap any card"
+
+**3. TestimonialsSection.tsx — Full i18n Integration**
+- Imported `useTranslation` from `@/hooks/use-translation`
+- `TestimonialCard` component now calls `useTranslation()` directly
+- Section header text replaced with translation keys:
+  - Eyebrow: `t('testimonials.eyebrow')` → "বাস্তব মানুষ · বাস্তব ফলাফল" / "Real people. Real results."
+  - Headline: `t('testimonials.headline')` → "তাদের কথা শুনুন।" / "Listen to them."
+  - Sub-text: `t('testimonials.sub')`
+- Testimonial quotes: `t('testimonials.t' + testimonial.id + '.quote')` — each of 6 testimonials has full BN/EN translations
+- Testimonial metrics: `t('testimonials.t' + testimonial.id + '.metric')` — metric badges translated
+- Bottom CTA split into 3 translation keys: `bottomCta`, `bottomCtaHighlight`, `bottomCtaEnd`
+- Names, business names, districts, and business type badges kept as-is (proper nouns per instructions)
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ Dev server: clean compilation
+- ✅ All existing functionality preserved
+- ✅ Translation keys already existed in both `bn` and `en` dictionaries
+- ✅ No new translations needed — all content was pre-translated in previous iterations

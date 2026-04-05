@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslation } from '@/hooks/use-translation'
 
 /* ── Testimonial Data ── */
 interface Testimonial {
@@ -186,6 +187,7 @@ function PaperFoldCorner() {
 
 /* ── Single Testimonial Card ── */
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  const { t } = useTranslation()
   const isTall = testimonial.height === 'tall'
   const isMedium = testimonial.height === 'medium'
 
@@ -240,7 +242,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             lineHeight: '1.8',
           }}
         >
-          {testimonial.quote}
+          {t('testimonials.t' + testimonial.id + '.quote')}
         </p>
 
         {/* Owner info */}
@@ -305,7 +307,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               border: '1px solid rgba(201,169,110,0.2)',
             }}
           >
-            {testimonial.metric}
+            {t('testimonials.t' + testimonial.id + '.metric')}
           </span>
         </div>
       </motion.div>
@@ -315,6 +317,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
 /* ── Main Testimonials Section ── */
 export default function TestimonialsSection() {
+  const { t } = useTranslation()
   return (
     <section
       id="stories"
@@ -350,7 +353,7 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            বাস্তব মানুষ · বাস্তব ফলাফল
+            {t('testimonials.eyebrow')}
           </motion.span>
 
           {/* Headline */}
@@ -358,7 +361,7 @@ export default function TestimonialsSection() {
             className="font-bengali"
             style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-ink)', lineHeight: 1.15 }}
           >
-            তাদের কথা শুনুন।
+            {t('testimonials.headline')}
           </h2>
 
           {/* Sub-text */}
@@ -375,8 +378,7 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            বাংলাদেশের ৫০,০০০+ দোকানদার আজ HelloKhata ব্যবহার করছেন।
-            তাদের কয়েকজনের গল্প শুনুন।
+            {t('testimonials.sub')}
           </motion.p>
         </motion.div>
 
@@ -402,11 +404,11 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <p className="font-body" style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-muted)' }}>
-            আপনিও চাইলে{' '}
+            {t('testimonials.bottomCta')}{' '}
             <span style={{ color: 'var(--gold)', fontWeight: 600 }}>
-              আপনার গল্পটা শেয়ার
+              {t('testimonials.bottomCtaHighlight')}
             </span>{' '}
-            করতে পারেন
+            {t('testimonials.bottomCtaEnd')}
           </p>
         </motion.div>
       </div>

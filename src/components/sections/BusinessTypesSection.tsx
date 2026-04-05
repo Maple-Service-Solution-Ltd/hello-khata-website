@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from '@/hooks/use-translation'
+import type { Language } from '@/lib/language-store'
 
 /* ── Business Type Data ── */
 interface BusinessType {
@@ -290,7 +292,8 @@ const cardVariants = {
 }
 
 /* ── Phone Mockup for active business display ── */
-function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; isVisible: boolean }) {
+function BusinessPhoneMockup({ business, isVisible, lang }: { business: BusinessType; isVisible: boolean; lang: Language }) {
+  const { t } = useTranslation()
   return (
     <AnimatePresence mode="wait">
       {isVisible && (
@@ -344,9 +347,9 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
               className="mx-3 mt-2 rounded-xl p-2.5 text-center"
               style={{ background: 'var(--ink-2)', border: '1px solid var(--ink-border)' }}
             >
-              <p className="font-bengali text-[13px] text-white">{business.nameBn}</p>
+              <p className="font-bengali text-[13px] text-white">{lang === 'en' ? business.nameEn : business.nameBn}</p>
               <p className="text-[10px] font-body" style={{ color: 'var(--text-cream-muted)' }}>
-                {business.nameEn}
+                {lang === 'en' ? business.nameBn : business.nameEn}
               </p>
             </div>
 
@@ -373,7 +376,7 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
             >
               <span className="text-[12px]">✓</span>
               <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>
-                &quot;{business.pain}&quot; — সমাধান হয়েছে
+                &quot;{t('businessTypes.pain' + business.id)}&quot; — {t('businessTypes.resolved')}
               </span>
             </div>
 
@@ -383,7 +386,7 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
               style={{ background: 'var(--ink-2)', border: '1px solid var(--ink-border)' }}
             >
               <p className="text-[8px] font-body mb-1.5" style={{ color: 'var(--text-cream-muted)' }}>
-                সাপ্তাহিক বিক্রি
+                {t('businessTypes.weeklySales')}
               </p>
               <div className="flex items-end gap-1" style={{ height: '50px' }}>
                 {[40, 60, 50, 80, 65, 90, 75].map((h, i) => (
@@ -410,6 +413,7 @@ function BusinessPhoneMockup({ business, isVisible }: { business: BusinessType; 
 /* ── Main Business Types Section ── */
 export default function BusinessTypesSection() {
   const [activeId, setActiveId] = useState<number | null>(null)
+  const { t, lang } = useTranslation()
 
   const handleCardClick = useCallback((id: number) => {
     setActiveId((prev) => (prev === id ? null : id))
@@ -461,12 +465,12 @@ export default function BusinessTypesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            কারা ব্যবহার করছেন
+            {t('businessTypes.eyebrow')}
           </motion.span>
 
           {/* Headline */}
           <h2 className="font-bengali" style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-ink)', lineHeight: 1.15 }}>
-            আপনার দোকান যেটাই হোক।
+            {t('businessTypes.headline')}
           </h2>
 
           {/* Sub-text */}
@@ -478,7 +482,7 @@ export default function BusinessTypesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            বাংলাদেশের প্রতিটি ধরনের দোকান — HelloKhata সবার জন্য কাজ করে।
+            {t('businessTypes.sub')}
           </motion.p>
         </motion.div>
 
@@ -555,13 +559,13 @@ export default function BusinessTypesSection() {
                     className="font-bengali font-bold text-[16px] md:text-[18px] leading-tight mb-0.5"
                     style={{ color: 'var(--text-ink)' }}
                   >
-                    {biz.nameBn}
+                    {lang === 'en' ? biz.nameEn : biz.nameBn}
                   </h3>
                   <p
                     className="font-body text-[12px] md:text-[13px] mb-3"
                     style={{ color: 'var(--text-muted)' }}
                   >
-                    {biz.nameEn}
+                    {lang === 'en' ? biz.nameBn : biz.nameEn}
                   </p>
 
                   {/* Pain point */}
@@ -569,7 +573,7 @@ export default function BusinessTypesSection() {
                     className="font-body"
                     style={{ fontSize: '13px', color: 'var(--crimson)', lineHeight: 1.4 }}
                   >
-                    #{biz.pain}
+                    #{t('businessTypes.pain' + biz.id)}
                   </p>
 
                   {/* Extra content for row-span-2 cards */}
@@ -612,13 +616,12 @@ export default function BusinessTypesSection() {
                 className="font-body text-[14px] mb-4"
                 style={{ color: 'var(--text-muted)' }}
               >
-                <span style={{ color: 'var(--gold)' }}>HelloKhata</span> দিয়ে{' '}
+                <span style={{ color: 'var(--gold)' }}>HelloKhata</span> {t('businessTypes.manageWith')}{' '}
                 <span className="font-bengali font-semibold" style={{ color: 'var(--text-ink)' }}>
-                  {activeBusiness.nameBn}
-                </span>{' '}
-                ম্যানেজ করুন
+                  {lang === 'en' ? activeBusiness.nameEn : activeBusiness.nameBn}
+                </span>
               </p>
-              <BusinessPhoneMockup business={activeBusiness} isVisible={true} />
+              <BusinessPhoneMockup business={activeBusiness} isVisible={true} lang={lang} />
               <button
                 className="mt-4 font-body text-[13px] px-4 py-1.5 rounded-full"
                 style={{
@@ -628,7 +631,7 @@ export default function BusinessTypesSection() {
                 }}
                 onClick={() => setActiveId(null)}
               >
-                ✕ বন্ধ করুন
+                {t('businessTypes.close')}
               </button>
             </motion.div>
           )}
@@ -642,7 +645,7 @@ export default function BusinessTypesSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          যেকোনো কার্ডে ট্যাপ করুন
+          {t('businessTypes.tapHint')}
         </motion.p>
       </div>
     </section>

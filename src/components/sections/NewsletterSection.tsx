@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle, Mail } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 /* ── Animation variants ── */
 const fadeUp = {
@@ -25,6 +26,7 @@ const scaleIn = {
 
 /* ── Newsletter Section ── */
 export default function NewsletterSection() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -35,7 +37,7 @@ export default function NewsletterSection() {
 
     // Basic client-side validation
     if (!email || !email.includes('@') || !email.includes('.')) {
-      setErrorMsg('দয়া করে সঠিক ইমেইল ঠিকানা দিন')
+      setErrorMsg(t('newsletter.errorInvalid'))
       setStatus('error')
       return
     }
@@ -56,14 +58,14 @@ export default function NewsletterSection() {
         setStatus('success')
         setEmail('')
       } else {
-        setErrorMsg(data.message || 'কিছু একটা সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।')
+        setErrorMsg(data.message || t('newsletter.errorServer'))
         setStatus('error')
       }
     } catch {
-      setErrorMsg('নেটওয়ার্ক সমস্যা। দয়া করে আবার চেষ্টা করুন।')
+      setErrorMsg(t('newsletter.errorNetwork'))
       setStatus('error')
     }
-  }, [email])
+  }, [email, t])
 
   return (
     <section
@@ -107,7 +109,7 @@ export default function NewsletterSection() {
             className="font-body tracking-[0.08em] uppercase"
             style={{ fontSize: '11px', color: 'var(--gold)' }}
           >
-            থাকে থাকে আপডেট পান
+            {t('newsletter.eyebrow')}
           </span>
         </motion.div>
 
@@ -125,7 +127,7 @@ export default function NewsletterSection() {
           viewport={{ once: true, margin: '-40px' }}
           variants={fadeUp}
         >
-          নতুন ফিচার, সেরা টিপস, সাফল্যের গল্প
+          {t('newsletter.headline')}
         </motion.h2>
 
         {/* English subtitle */}
@@ -142,7 +144,7 @@ export default function NewsletterSection() {
           viewport={{ once: true, margin: '-40px' }}
           variants={fadeUp}
         >
-          New features, tips, and success stories — delivered to your inbox.
+          {t('newsletter.sub')}
         </motion.p>
 
         {/* Bengali language note */}
@@ -157,7 +159,7 @@ export default function NewsletterSection() {
           viewport={{ once: true, margin: '-40px' }}
           variants={fadeUp}
         >
-          বাংলায় ইমেইলে পাঠান হবে
+          {t('newsletter.langNote')}
         </motion.p>
 
         {/* ── Form / Success State ── */}
@@ -197,7 +199,7 @@ export default function NewsletterSection() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.25, duration: 0.4 }}
                 >
-                  সাবস্ক্রাইব সফল!
+                  {t('newsletter.successTitle')}
                 </motion.span>
 
                 <motion.span
@@ -207,7 +209,7 @@ export default function NewsletterSection() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35, duration: 0.4 }}
                 >
-                  আমরা শীঘ্রই যোগাযোগ করব।
+                  {t('newsletter.successBody')}
                 </motion.span>
               </motion.div>
             ) : (
@@ -234,7 +236,7 @@ export default function NewsletterSection() {
                         setErrorMsg('')
                       }
                     }}
-                    placeholder="আপনার ইমেইল ঠিকানা"
+                    placeholder={t('newsletter.placeholder')}
                     className="flex-1 px-4 py-3 rounded-xl font-body text-[15px] outline-none transition-all duration-200"
                     style={{
                       background: 'var(--cream)',
@@ -262,7 +264,7 @@ export default function NewsletterSection() {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span className="hidden sm:inline">পাঠান</span>
+                        <span className="hidden sm:inline">{t('newsletter.send')}</span>
                       </>
                     )}
                   </button>
@@ -289,7 +291,7 @@ export default function NewsletterSection() {
                   className="font-body text-center"
                   style={{ fontSize: 'var(--fs-xs)', color: 'var(--text-ghost)' }}
                 >
-                  আমরা কখনো স্প্যাম করি না। আনসাবস্ক্রাইব করতে পারবেন।
+                  {t('newsletter.trust')}
                 </p>
               </motion.form>
             )}
