@@ -5,15 +5,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download, Search, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHashRouter } from './HashRouter';
-import { NAV_LINKS, DARK_SECTION_IDS, getPageConfig } from '@/lib/pages';
+import { NAV_LINKS, DARK_SECTION_IDS, getPageConfig, PAGES } from '@/lib/pages';
 import WaveformMark from './WaveformMark';
 
 export default function Navigation() {
-  const { currentPage, navigate } = useHashRouter();
+  const { currentPage, navigate, searchOpen, setSearchOpen } = useHashRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOverDark, setIsOverDark] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const [showSearchHint, setShowSearchHint] = useState(false);
+  const searchHintTimer = useRef<ReturnType<typeof setTimeout>>();
 
   /* ─── Scroll position: determine dark vs light background ─── */
   useEffect(() => {
@@ -26,7 +28,6 @@ export default function Navigation() {
       const navBottom = window.scrollY + 80;
       let overDark = false;
 
-      // First check the current page config
       if (pageConfig?.dark && window.scrollY < 100) {
         overDark = true;
       } else {
@@ -46,7 +47,6 @@ export default function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Immediately check on mount / page change via the handler
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -64,6 +64,17 @@ export default function Navigation() {
     };
   }, [mobileOpen]);
 
+  /* ─── Show search hint briefly on mount ─── */
+  useEffect(() => {
+    searchHintTimer.current = setTimeout(() => {
+      setShowSearchHint(true);
+      setTimeout(() => setShowSearchHint(false), 3000);
+    }, 2000);
+    return () => {
+      if (searchHintTimer.current) clearTimeout(searchHintTimer.current);
+    };
+  }, []);
+
   /* ─── Navigate helper ─── */
   const handleNavigate = useCallback(
     (page: string) => {
@@ -75,6 +86,9 @@ export default function Navigation() {
 
   const isLight = !isOverDark || isScrolled;
 
+  /* ─── Get current page label for breadcrumb ─── */
+  const pageConfig = getPageConfig(currentPage);
+
   return (
     <>
       <nav
@@ -84,7 +98,7 @@ export default function Navigation() {
           'h-[76px] flex items-center',
           !isLight
             ? 'bg-transparent border-b-0'
-            : 'bg-[rgba(250,247,240,0.88)] backdrop-blur-[20px] border-b border-[var(--canvas-border)]'
+            : 'bg-[rgba(250,247,240,0.92)] backdrop-blur-[20px] border-b border-[var(--canvas-border)]'
         )}
       >
         <div className="w-full max-w-[1380px] mx-auto px-6 flex items-center justify-between">
@@ -108,7 +122,7 @@ export default function Navigation() {
           </button>
 
           {/* ─── Desktop Nav Links ─── */}
-          <div className="hidden lg:flex items-center gap-7">
+          <div className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map((link) => {
               const isActive = currentPage === link.page;
 
@@ -117,7 +131,7 @@ export default function Navigation() {
                   key={link.page}
                   onClick={() => handleNavigate(link.page)}
                   className={cn(
-                    'relative font-bengali text-[15px] tracking-wide leading-none transition-colors duration-200 py-2 px-3 -mx-3 rounded-lg cursor-pointer',
+                    'relative font-bengali text-[14px] tracking-wide leading-none transition-all duration-200 py-2 px-3 -mx-3 rounded-lg cursor-pointer',
                     isActive
                       ? 'text-[var(--gold)]'
                       : !isLight
@@ -128,8 +142,8 @@ export default function Navigation() {
                   {link.label}
                   <span
                     className={cn(
-                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--gold)] transition-all duration-300',
-                      isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
+                      'absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-[var(--gold)] transition-all duration-300',
+                      isActive ? 'w-6 opacity-100 scale-100' : 'w-0 opacity-0 scale-0'
                     )}
                   />
                 </button>
@@ -137,21 +151,33 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* ─── Glass Search Button ─── */}
-          <button
-            className={cn(
-              'hidden lg:flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 shrink-0 backdrop-blur-sm cursor-pointer',
-              !isLight
-                ? 'text-[var(--text-cream-muted)] hover:text-[var(--text-cream)] hover:bg-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.05)] border border-[var(--ink-border)]'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-ink)] hover:bg-[rgba(13,15,14,0.06)] bg-[rgba(250,247,240,0.5)] border border-[var(--canvas-border)]'
-            )}
-            aria-label="Search"
-          >
-            <Search size={16} strokeWidth={2} />
-          </button>
-
           {/* ─── Right Actions ─── */}
-          <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <div className="hidden lg:flex items-center gap-3 shrink-0">
+            {/* Search button with Cmd+K hint */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className={cn(
+                'flex items-center gap-2 h-9 rounded-full transition-all duration-200 shrink-0 cursor-pointer border',
+                !isLight
+                  ? 'text-[var(--text-cream-muted)] hover:text-[var(--text-cream)] hover:bg-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.05)] border-[var(--ink-border)]'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-ink)] hover:bg-[var(--cream-2)] bg-[var(--cream-2)] border-[var(--canvas-border)]'
+              )}
+              aria-label="Search pages"
+            >
+              <Search size={14} strokeWidth={2} />
+              <span className="font-body text-[12px]">Search</span>
+              <kbd
+                className={cn(
+                  'hidden xl:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-body border',
+                  !isLight
+                    ? 'border-[var(--ink-border)] text-[var(--text-cream-muted)]'
+                    : 'border-[var(--canvas-border-strong)] text-[var(--text-ghost)]'
+                )}
+              >
+                ⌘K
+              </kbd>
+            </button>
+
             {/* Language toggle pill */}
             <div
               className={cn(
@@ -189,7 +215,11 @@ export default function Navigation() {
             {/* Download CTA button */}
             <button
               onClick={() => handleNavigate('pricing')}
-              className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 shadow-[0_0_20px_var(--gold-glow)] hover:shadow-[0_0_30px_var(--gold-glow-strong)] animate-[pulse-glow_3s_ease-in-out_infinite] cursor-pointer"
+              className={cn(
+                'flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 cursor-pointer',
+                'shadow-[0_0_20px_var(--gold-glow)] hover:shadow-[0_0_30px_var(--gold-glow-strong)]',
+                'animate-[pulse-glow_3s_ease-in-out_infinite]'
+              )}
             >
               <Download size={16} strokeWidth={2} />
               অ্যাপ নামান
@@ -197,16 +227,30 @@ export default function Navigation() {
           </div>
 
           {/* ─── Mobile Hamburger ─── */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className={cn(
-              'lg:hidden p-2 transition-colors duration-200 cursor-pointer',
-              !isLight ? 'text-[var(--text-cream)]' : 'text-[var(--text-ink)]'
-            )}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* Mobile search button */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className={cn(
+                'p-2 transition-colors duration-200 cursor-pointer rounded-lg',
+                !isLight ? 'text-[var(--text-cream-muted)] hover:text-[var(--text-cream)]' : 'text-[var(--text-muted)] hover:text-[var(--text-ink)]'
+              )}
+              aria-label="Search"
+            >
+              <Search size={20} strokeWidth={2} />
+            </button>
+            {/* Hamburger */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className={cn(
+                'p-2 transition-colors duration-200 cursor-pointer rounded-lg',
+                !isLight ? 'text-[var(--text-cream)]' : 'text-[var(--text-ink)]'
+              )}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -240,8 +284,21 @@ export default function Navigation() {
               </button>
             </div>
 
+            {/* Current page indicator */}
+            {currentPage !== 'home' && (
+              <div className="px-6 pb-2">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="font-body text-[12px] text-[var(--text-cream-muted)]"
+                >
+                  বর্তমান: {pageConfig?.icon} {pageConfig?.label}
+                </motion.span>
+              </div>
+            )}
+
             {/* Mobile nav links */}
-            <div className="flex-1 flex flex-col items-center justify-center gap-4">
+            <div className="flex-1 flex flex-col items-center justify-center gap-2">
               {/* Home link */}
               <motion.button
                 initial={{ opacity: 0, x: -20 }}
@@ -249,17 +306,22 @@ export default function Navigation() {
                 transition={{ delay: 0, duration: 0.3 }}
                 onClick={() => handleNavigate('home')}
                 className={cn(
-                  'font-bengali text-[24px] h-12 flex items-center justify-center gap-2 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer',
+                  'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                   currentPage === 'home'
-                    ? 'text-[var(--gold)] border-[var(--gold)]'
-                    : 'text-[var(--text-cream)] hover:text-[var(--gold)] border-transparent'
+                    ? 'text-[var(--gold)] border-[var(--gold)] bg-[rgba(201,169,110,0.08)]'
+                    : 'text-[var(--text-cream)] hover:text-[var(--gold)] hover:bg-[rgba(255,255,255,0.03)] border-transparent'
                 )}
               >
+                <span className="text-lg">🏠</span>
                 হোম
+                {currentPage === 'home' && (
+                  <ChevronRight size={16} className="ml-auto text-[var(--gold)]" />
+                )}
               </motion.button>
 
               {NAV_LINKS.map((link, i) => {
                 const isActive = currentPage === link.page;
+                const linkConfig = getPageConfig(link.page);
 
                 return (
                   <motion.button
@@ -269,15 +331,16 @@ export default function Navigation() {
                     transition={{ delay: (i + 1) * 0.04, duration: 0.3 }}
                     onClick={() => handleNavigate(link.page)}
                     className={cn(
-                      'font-bengali text-[24px] h-12 flex items-center justify-center gap-2 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer',
+                      'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                       isActive
-                        ? 'text-[var(--gold)] border-[var(--gold)]'
-                        : 'text-[var(--text-cream)] hover:text-[var(--gold)] border-transparent'
+                        ? 'text-[var(--gold)] border-[var(--gold)] bg-[rgba(201,169,110,0.08)]'
+                        : 'text-[var(--text-cream)] hover:text-[var(--gold)] hover:bg-[rgba(255,255,255,0.03)] border-transparent'
                     )}
                   >
+                    <span className="text-lg">{linkConfig?.icon}</span>
                     {link.label}
                     {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[2px] rounded-full bg-[var(--gold)]" />
+                      <ChevronRight size={16} className="ml-auto text-[var(--gold)]" />
                     )}
                   </motion.button>
                 );
@@ -316,7 +379,7 @@ export default function Navigation() {
               {/* Download button */}
               <button
                 onClick={() => handleNavigate('pricing')}
-                className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300 cursor-pointer"
+                className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300 cursor-pointer shadow-[0_0_20px_var(--gold-glow)]"
               >
                 <Download size={18} strokeWidth={2} />
                 অ্যাপ নামান

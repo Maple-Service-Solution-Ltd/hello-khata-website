@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHashRouter } from './HashRouter';
 import { PAGES, getPageConfig } from '@/lib/pages';
 import { cn } from '@/lib/utils';
 
 export default function PageIndicator() {
-  const { currentPage } = useHashRouter();
+  const { currentPage, navigate } = useHashRouter();
 
   const { pageIndex, pageConfig } = useMemo(() => {
     const idx = PAGES.findIndex((p) => p.id === currentPage);
@@ -25,6 +25,13 @@ export default function PageIndicator() {
   const indicatorPercent =
     totalPages > 1 ? (pageIndex / (totalPages - 1)) * 100 : 0;
 
+  const handlePageClick = useCallback(
+    (pageId: string) => {
+      navigate(pageId);
+    },
+    [navigate]
+  );
+
   return (
     <div
       className={cn(
@@ -32,7 +39,7 @@ export default function PageIndicator() {
         'border-b',
         isDark
           ? 'bg-[rgba(13,15,14,0.85)] backdrop-blur-[12px] border-b-[var(--ink-border)]'
-          : 'bg-[rgba(250,247,240,0.88)] backdrop-blur-[12px] border-b-[var(--canvas-border)]'
+          : 'bg-[rgba(250,247,240,0.92)] backdrop-blur-[12px] border-b-[var(--canvas-border)]'
       )}
     >
       <div className="w-full max-w-[var(--site-max)] mx-auto px-6 flex items-center justify-between">
@@ -52,17 +59,17 @@ export default function PageIndicator() {
                   : 'text-[var(--text-muted)]'
               )}
             >
-              {/* Home prefix for non-home pages */}
               {currentPage !== 'home' && (
                 <>
-                  <span
+                  <button
+                    onClick={() => handlePageClick('home')}
                     className={cn(
-                      'opacity-50 transition-colors duration-300',
+                      'opacity-50 hover:opacity-80 transition-opacity cursor-pointer',
                       isDark ? 'text-[var(--text-cream-muted)]' : 'text-[var(--text-muted)]'
                     )}
                   >
                     হোম
-                  </span>
+                  </button>
                   <span
                     className={cn(
                       'mx-1.5 opacity-30',
@@ -73,51 +80,55 @@ export default function PageIndicator() {
                   </span>
                 </>
               )}
-              {/* Current page label */}
-              <span className={cn('font-medium', isDark ? 'text-[var(--text-cream)]' : 'text-[var(--text-ink)]')}>
-                {pageConfig.label}
+              <span
+                className={cn(
+                  'font-medium',
+                  isDark ? 'text-[var(--text-cream)]' : 'text-[var(--text-ink)]'
+                )}
+              >
+                {pageConfig.icon} {pageConfig.label}
               </span>
             </motion.span>
           </AnimatePresence>
         </div>
 
-        {/* ─── Center: Sliding gold indicator ─── */}
-        <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden">
-          <motion.div
-            className="relative w-full h-0"
-            initial={false}
-          >
-            {/* Gold dot indicator */}
-            <motion.div
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
-              animate={{ left: `${indicatorPercent}%` }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div
-                className="w-[6px] h-[6px] rounded-full bg-[var(--gold)]"
-                style={{
-                  boxShadow: '0 0 6px var(--gold-glow), 0 0 12px var(--gold-glow-strong)',
-                }}
-              />
-            </motion.div>
-
-            {/* Thin gold trail behind the dot */}
-            <motion.div
-              className="absolute top-1/2 -translate-y-1/2 left-0 h-[2px] rounded-full"
+        {/* ─── Center: Page dot navigation ─── */}
+        <div className="hidden lg:flex items-center gap-1.5">
+          {PAGES.map((page, idx) => (
+            <button
+              key={page.id}
+              onClick={() => handlePageClick(page.id)}
+              className={cn(
+                'relative transition-all duration-300 cursor-pointer rounded-full',
+                idx === pageIndex
+                  ? 'w-6 h-[6px]'
+                  : 'w-[6px] h-[6px] hover:w-4'
+              )}
               style={{
-                background: 'linear-gradient(90deg, transparent 0%, var(--gold-glow) 60%, var(--gold) 100%)',
+                backgroundColor:
+                  idx === pageIndex
+                    ? 'var(--gold)'
+                    : isDark
+                      ? 'var(--ink-border-strong)'
+                      : 'var(--canvas-border-strong)',
+                boxShadow:
+                  idx === pageIndex
+                    ? '0 0 6px var(--gold-glow), 0 0 12px var(--gold-glow-strong)'
+                    : 'none',
               }}
-              animate={{ width: `${indicatorPercent}%` }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              aria-label={`Go to ${page.label}`}
+              title={`${page.icon} ${page.label}`}
             />
-          </motion.div>
+          ))}
         </div>
 
         {/* ─── Right: Page counter ─── */}
         <div
           className={cn(
             'font-body text-[11px] tracking-wide whitespace-nowrap shrink-0 transition-colors duration-300',
-            isDark ? 'text-[var(--text-cream-muted)] opacity-50' : 'text-[var(--text-ghost)]'
+            isDark
+              ? 'text-[var(--text-cream-muted)] opacity-50'
+              : 'text-[var(--text-ghost)]'
           )}
         >
           {currentPage !== 'home' ? (

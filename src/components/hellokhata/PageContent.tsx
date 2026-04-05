@@ -84,26 +84,30 @@ const PAGE_MAP: Record<string, PageDefinition> = {
   },
 };
 
-/* ─── Transition Variants ─── */
+/* ─── Page transition variants (directional) ─── */
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 30,
-    filter: 'blur(4px)',
+    y: 40,
+    filter: 'blur(6px)',
+    scale: 0.98,
   },
   animate: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
+    scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1], // --t-river easing
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+      staggerChildren: 0.08,
     },
   },
   exit: {
     opacity: 0,
-    y: -20,
+    y: -30,
     filter: 'blur(4px)',
+    scale: 0.99,
     transition: {
       duration: 0.3,
       ease: [0.4, 0, 0.2, 1],
@@ -111,28 +115,61 @@ const pageVariants = {
   },
 };
 
+/* ─── Loading bar that shows during transitions ─── */
+function TransitionLoader() {
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 z-[60] h-[3px]"
+      initial={{ scaleX: 0, originX: 0 }}
+      animate={{ scaleX: 0.7, originX: 0 }}
+      exit={{ scaleX: 1, originX: 0, opacity: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      style={{
+        background: 'linear-gradient(90deg, var(--gold-glow) 0%, var(--gold) 50%, var(--gold-glow) 100%)',
+      }}
+    />
+  );
+}
+
 /* ─── Page Content Renderer ─── */
 export function PageContent() {
   const { currentPage } = useHashRouter();
   const pageDef = PAGE_MAP[currentPage] || PAGE_MAP.home;
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentPage}
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="min-h-screen"
-      >
-        {pageDef.sections.map((SectionComponent, index) => (
-          <React.Fragment key={`${currentPage}-${index}`}>
-            <SectionComponent />
-          </React.Fragment>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <>
+      {/* Loading bar during transitions */}
+      <AnimatePresence>
+        <TransitionLoader key={`loader-${currentPage}`} />
+      </AnimatePresence>
+
+      {/* Page content with transitions */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPage}
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="min-h-screen"
+        >
+          {pageDef.sections.map((SectionComponent, index) => (
+            <motion.div
+              key={`${currentPage}-${index}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              <SectionComponent />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </>
   );
 }
 

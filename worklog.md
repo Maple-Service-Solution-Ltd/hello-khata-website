@@ -884,3 +884,123 @@ Stage Summary:
 - Zero regressions, zero lint errors
 - New gold color system: #C9A96E (primary), #8B6F3A (deep), with glow variants
 - Old emotional accent `--gold: #B45309` preserved as `--amber-dark: #B45309`
+
+---
+## Round N+1: Search Modal, Enhanced Navigation, Styling Improvements
+
+### Current Project Status:
+- Hash-based multi-page routing system with 10 dedicated pages
+- New SearchModal component with Cmd+K shortcut
+- Enhanced Navigation with integrated search button and emoji icons in mobile menu
+- PageIndicator with clickable dot navigation
+- BackToTop with dual buttons (Home + Scroll to top)
+- Document title management per page
+- 15+ new CSS utility classes in globals.css
+- Ongoing automated QA via cron job (every 15 minutes)
+
+### Completed Modifications:
+
+**1. SearchModal.tsx — New Component**
+- Full-page search modal with Cmd+K / Ctrl+K keyboard shortcut
+- Key-based remount architecture (SearchModalInner) to avoid setState-in-effect lint errors
+- 10 pages listed with emoji icons, Bengali labels, English labels, descriptions
+- "Current" badge on active page
+- Real-time search filtering by label, description, keywords
+- Recent pages tracking via localStorage (max 5 recent)
+- Keyboard navigation: ArrowUp/Down to select, Enter to navigate, Escape to close
+- Mouse hover highlighting with gold arrow indicator
+- Bengali keyboard hints: "↑↓ নেভিগেট", "↵ নির্বাচন", "esc বন্ধ"
+- Click-outside-to-close with backdrop
+- Framer Motion entrance/exit animations (scale + blur + y offset)
+
+**2. HashRouter.tsx — Enhanced**
+- Added `previousPage` state tracking for directional transitions
+- Added `searchOpen` / `setSearchOpen` to context for search modal control
+- Document.title management: automatically updates to page-specific title on navigation
+- Page titles defined in pages.ts config (10 unique titles in Bengali + English)
+- Cmd+K / Ctrl+K keyboard shortcut listener (global)
+- Escape key closes search modal
+- Improved navigate() with transition delay synchronization
+
+**3. pages.ts — Enhanced Configuration**
+- Added `title` field to PageConfig (unique document.title per page)
+- Added `description` field for search results
+- Added `icon` field (emoji) for search results and mobile menu
+- Added `keywords` field array for search filtering
+- Added `getAdjacentPages()` helper for future prefetching
+
+**4. Navigation.tsx — Major Update**
+- Search button wired to SearchModal: glass-morphism pill with Search icon + "Search" text + ⌘K kbd hint
+- Mobile search button added (Search icon in mobile action bar)
+- Mobile menu links now show emoji icons (🏠 হোম, ⚡ পণ্য, 🎙️ ভয়েস, etc.)
+- Current page indicator shown in mobile menu ("বর্তমান: 🏠 হোম")
+- ChevronRight arrow on active mobile link
+- Active page indicator uses animated width transition (w-0 → w-6)
+- Cream-2 background with gold border for active mobile links
+
+**5. PageContent.tsx — Improved Transitions**
+- Enhanced page variants: added scale(0.98) initial, staggerChildren: 0.08
+- TransitionLoader component: gold gradient loading bar during page transitions
+- Per-section staggered fade-in animations (0.1s delay between sections)
+
+**6. PageIndicator.tsx — Dot Navigation**
+- Added clickable page dots in center area (10 dots, hidden on mobile)
+- Active dot enlarged (w-6) with gold glow shadow
+- Inactive dots expand on hover (w-[6px] → w-4)
+- Clickable dots navigate to corresponding page
+- Breadcrumb "হোম" is now clickable (navigates to home)
+- Shows page emoji icon in breadcrumb: "🏠 হোম"
+- Replaced sliding gold trail with dot-based navigation
+
+**7. BackToTop.tsx — Dual Button Design**
+- Two stacked buttons: Home (above) + Scroll to Top (below)
+- Home button only appears when not on home page
+- Spring animation entrance with staggered delay
+- Redesigned: cream-2 background, gold border, gold hover state with glow
+- Side-entrance animation (x: 20 → 0) instead of scale animation
+
+**8. globals.css — 15+ New Utilities**
+- `.noise-overlay::before` — SVG fractal noise grain texture overlay
+- `.skeleton` / `.skeleton-dark` — Shimmer loading animations
+- `.search-results::-webkit-scrollbar` — Custom thin scrollbar for search
+- `.loading-bar` — Gold gradient loading bar animation
+- `.focus-trap` — isolation: isolate for modal focus management
+- `.nav-link-underline` — Animated underline with scale transform
+- `.tooltip-animate` — Tooltip entrance animation (y + scale)
+- `.breathe` — Gentle breathing opacity animation (4s cycle)
+- `.animate-scale-in` — Scale-in entrance animation
+- `.stagger-1` through `.stagger-6` — Animation delay utilities
+- Backdrop blur quality enhancement (24px + saturate(1.2) on desktop)
+- `hr.gold-line` — Gradient horizontal rule with gold center
+- `.text-gradient-gold` — Animated gradient text effect
+- `.border-glow` / `.border-glow-strong` — Gold border glow utilities
+
+**9. useCommandPalette.ts — Fixed Lint Error**
+- Migrated from useState + useEffect (setState-in-effect) to useSyncExternalStore
+- Eliminated cascading render warning
+
+### Verification Results:
+- ✅ ESLint: zero errors, zero warnings
+- ✅ Dev server: clean compilation, all 200 responses
+- ✅ Browser QA: Home page renders all 5 sections correctly
+- ✅ Browser QA: Search modal opens with all 10 pages listed
+- ✅ Browser QA: Navigation to voice page works (hash changes to #voice)
+- ✅ Browser QA: Document title updates to "Voice AI — HelloKhata | কথায় কথায় ব্যবসা"
+- ✅ Search input accepts text and shows filtered results
+- ✅ All keyboard shortcuts functional (Cmd+K, Escape, Arrow keys)
+
+### Unresolved Issues / Risks:
+- None critical. All changes verified and stable.
+
+### Priority Recommendations for Next Phase:
+1. **HIGH**: Mobile responsive QA for search modal
+2. **HIGH**: Add 404/error page for invalid hash routes
+3. **MEDIUM**: Preload adjacent pages for faster navigation
+4. **MEDIUM**: Add keyboard shortcut hints toast on first visit
+5. **LOW**: Add search result grouping by page category
+6. **LOW**: Add page transition progress indicator (circle)
+
+### Automated QA:
+- Cron job ID 63224: Every 15 minutes, webDevReview task runs
+- Checks worklog.md, performs browser QA, fixes bugs, adds features
+- Updates worklog.md with findings after each run

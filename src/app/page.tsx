@@ -9,6 +9,7 @@ import BackToTop from '@/components/hellokhata/BackToTop';
 import WhatsAppWidget from '@/components/hellokhata/WhatsAppWidget';
 import Navigation from '@/components/hellokhata/Navigation';
 import PageIndicator from '@/components/hellokhata/PageIndicator';
+import SearchModal from '@/components/hellokhata/SearchModal';
 import Footer from '@/components/hellokhata/Footer';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <WhatsAppWidget />
         <Navigation />
         <PageIndicator />
+        <SearchModal />
         <main>
           <PageContent />
         </main>
