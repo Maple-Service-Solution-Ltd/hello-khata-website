@@ -4,6 +4,7 @@ import { Facebook, Linkedin, Youtube, ArrowUp, Mail, Phone } from 'lucide-react'
 import WaveformMark from '@/components/hellokhata/WaveformMark';
 import { useHashRouter } from '@/components/hellokhata/HashRouter';
 import { useLanguageStore, type Language } from '@/lib/language-store';
+import { useTranslation } from '@/hooks/use-translation';
 import { useToast } from '@/components/hellokhata/ToastProvider';
 import { cn } from '@/lib/utils';
 
@@ -29,25 +30,25 @@ interface FooterLink {
 }
 
 const productLinks: FooterLink[] = [
-  { label: 'Features', page: 'features' },
-  { label: 'Voice', page: 'voice' },
-  { label: 'Batch', page: 'batch' },
-  { label: 'Pricing', page: 'pricing' },
-  { label: 'Download', page: 'pricing' },
+  { label: 'footer.links.features', page: 'features' },
+  { label: 'footer.links.voice', page: 'voice' },
+  { label: 'footer.links.batch', page: 'batch' },
+  { label: 'footer.links.pricing', page: 'pricing' },
+  { label: 'footer.links.download', page: 'pricing' },
 ];
 
 const companyLinks: FooterLink[] = [
-  { label: 'About', page: 'about' },
-  { label: 'Vision', page: 'vision' },
-  { label: 'Team', page: 'about' },
-  { label: 'Blog', page: 'blog' },
+  { label: 'footer.links.about', page: 'about' },
+  { label: 'footer.links.vision', page: 'vision' },
+  { label: 'footer.links.team', page: 'about' },
+  { label: 'footer.links.blog', page: 'blog' },
 ];
 
 const supportLinks: FooterLink[] = [
-  { label: 'Contact', page: 'contact' },
-  { label: 'WhatsApp', page: 'contact' },
-  { label: 'Privacy', page: 'contact' },
-  { label: 'Terms', page: 'contact' },
+  { label: 'footer.links.contact', page: 'contact' },
+  { label: 'footer.links.whatsapp', page: 'contact' },
+  { label: 'footer.links.privacy', page: 'contact' },
+  { label: 'footer.links.terms', page: 'contact' },
 ];
 
 const socialLinks = [
@@ -63,7 +64,8 @@ const LANGUAGE_OPTIONS: { code: Language; label: string; nativeFont: string }[] 
 
 export default function Footer() {
   const { navigate } = useHashRouter();
-  const { lang, setLang } = useLanguageStore();
+  const { setLang } = useLanguageStore();
+  const { t, lang } = useTranslation();
   const { toast } = useToast();
 
   const handleClick = (e: React.MouseEvent, page: string) => {
@@ -79,10 +81,10 @@ export default function Footer() {
           className="font-bengali text-[clamp(28px,4vw,36px)] text-[var(--gold)] leading-tight"
           style={{ textShadow: '0 0 30px var(--gold-glow), 0 0 60px rgba(201,169,110,0.15)' }}
         >
-          বাংলাদেশের ব্যবসার জন্য তৈরি।
+          {t('footer.tagline')}
         </h2>
         <p className="font-display italic text-[18px] text-[var(--text-cream-muted)] mt-3">
-          Built in Bangladesh. For Bangladesh.
+          {t('footer.taglineEn')}
         </p>
       </div>
 
@@ -108,7 +110,7 @@ export default function Footer() {
 
             {/* Company description */}
             <p className="font-body text-[13px] text-[var(--text-cream-muted)] mb-5 leading-relaxed max-w-[280px]">
-              বাংলাদেশের ক্ষুদ্র ও মাঝারি ব্যবসার জন্য সবচেয়ে সহজ ব্যবসা পরিচালনা অ্যাপ। ভয়েস কমান্ড, ব্যাচ ম্যানেজমেন্ট এবং AI দিয়ে আপনার দোকানকে ডিজিটাল করুন।
+              {t('footer.description')}
             </p>
 
             {/* Social icons */}
@@ -129,7 +131,7 @@ export default function Footer() {
 
             {/* Made in */}
             <p className="font-body text-[13px] text-[var(--text-cream-muted)]">
-              Made in Bangladesh 🇧🇩
+              {t('footer.madeIn')}
             </p>
           </div>
 
@@ -139,7 +141,7 @@ export default function Footer() {
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
               style={{ borderBottom: '3px solid var(--gold)' }}
             >
-              পণ্য
+              {t('footer.columns.product')}
             </h3>
             <ul className="space-y-2.5">
               {productLinks.map((link) => (
@@ -148,7 +150,7 @@ export default function Footer() {
                     onClick={() => navigate(link.page)}
                     className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
-                    {link.label}
+                    {t(link.label)}
                   </button>
                 </li>
               ))}
@@ -161,7 +163,7 @@ export default function Footer() {
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
               style={{ borderBottom: '3px solid var(--gold)' }}
             >
-              কোম্পানি
+              {t('footer.columns.company')}
             </h3>
             <ul className="space-y-2.5">
               {companyLinks.map((link) => (
@@ -170,7 +172,7 @@ export default function Footer() {
                     onClick={() => navigate(link.page)}
                     className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
-                    {link.label}
+                    {t(link.label)}
                   </button>
                 </li>
               ))}
@@ -183,7 +185,7 @@ export default function Footer() {
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
               style={{ borderBottom: '3px solid var(--gold)' }}
             >
-              সহায়তা
+              {t('footer.columns.support')}
             </h3>
             <ul className="space-y-2.5">
               {supportLinks.map((link) => (
@@ -192,7 +194,7 @@ export default function Footer() {
                     onClick={() => navigate(link.page)}
                     className="font-body text-[13px] text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 inline-block hover:translate-x-[4px] cursor-pointer"
                   >
-                    {link.label}
+                    {t(link.label)}
                   </button>
                 </li>
               ))}
@@ -205,7 +207,7 @@ export default function Footer() {
               className="font-bengali text-[14px] font-semibold text-[var(--text-cream)] mb-4 pb-2"
               style={{ borderBottom: '3px solid var(--gold)' }}
             >
-              নামান
+              {t('footer.columns.download')}
             </h3>
             <div className="flex flex-col gap-3">
               {/* Play Store Badge */}
@@ -227,7 +229,7 @@ export default function Footer() {
                 </svg>
                 <div className="flex flex-col leading-tight text-left">
                   <span className="font-body text-[10px] text-[var(--text-cream-muted)]">
-                    GET IT ON
+                    {t('footer.getEmail')}
                   </span>
                   <span className="font-body text-[13px] font-semibold text-[var(--text-cream)]">
                     Google Play
@@ -254,7 +256,7 @@ export default function Footer() {
                 </svg>
                 <div className="flex flex-col leading-tight text-left">
                   <span className="font-body text-[10px] text-[var(--text-cream-muted)]">
-                    Download on the
+                    {t('footer.downloadOn')}
                   </span>
                   <span className="font-body text-[13px] font-semibold text-[var(--text-cream)]">
                     App Store
@@ -294,19 +296,19 @@ export default function Footer() {
         <div className="max-w-[1380px] mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
           {/* Left: Copyright + Links */}
           <p className="font-body text-[12px] text-[var(--text-cream-muted)]">
-            © 2025 HelloKhata ·{' '}
+            {t('common.copyright')} ·{' '}
             <button
               onClick={() => navigate('contact')}
               className="hover:text-[var(--gold)] transition-colors cursor-pointer"
             >
-              Privacy
+              {t('common.privacy')}
             </button>{' '}
             ·{' '}
             <button
               onClick={() => navigate('contact')}
               className="hover:text-[var(--gold)] transition-colors cursor-pointer"
             >
-              Terms
+              {t('common.terms')}
             </button>
           </p>
 
@@ -322,8 +324,8 @@ export default function Footer() {
                       setLang(opt.code);
                       toast({
                         type: opt.code === 'bn' ? 'success' : 'info',
-                        title: opt.code === 'bn' ? 'ভাষা বাংলায় পরিবর্তন হয়েছে' : 'Language switched to English',
-                        description: opt.code === 'en' ? 'English version coming soon!' : undefined,
+                        title: opt.code === 'bn' ? t('nav.languageSwitchBn') : t('nav.languageSwitchEn'),
+                        description: opt.code === 'en' ? t('nav.languageSwitchEnDesc') : undefined,
                         duration: 3000,
                       });
                     }
@@ -348,14 +350,14 @@ export default function Footer() {
           {/* Right: Back to home + Built in */}
           <div className="flex items-center gap-4">
             <p className="font-body text-[12px] text-[var(--text-cream-muted)]">
-              Designed and built in 🇧🇩 Bangladesh
+              {t('footer.builtIn')}
             </p>
             <button
               onClick={() => navigate('home')}
               className="flex items-center gap-1 text-[12px] font-body text-[var(--text-cream-muted)] hover:text-[var(--gold)] transition-all duration-200 cursor-pointer hover:translate-x-[4px]"
             >
               <ArrowUp size={12} />
-              <span>Back to home</span>
+              <span>{t('footer.backToHome')}</span>
             </button>
           </div>
         </div>

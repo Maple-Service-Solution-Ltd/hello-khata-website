@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Download, ChevronDown, MessageCircle } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 /* ── Dynamic import Particles to avoid SSR issues ── */
 const Particles = dynamic(
@@ -275,6 +276,8 @@ export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
   const [particlesInit, setParticlesInit] = useState(false)
   const [gsapReady, setGsapReady] = useState(false)
+  const { t, tArray } = useTranslation()
+  const headline = tArray('hero.headline') ?? ['খাতা এখন', 'কথা বলে']
 
   const handleScroll = useCallback(() => {
     setScrollY(window.scrollY)
@@ -437,7 +440,7 @@ export default function HeroSection() {
                 className="font-body tracking-[0.12em] uppercase"
                 style={{ fontSize: '11px', color: 'var(--gold)' }}
               >
-                Voice-Powered · AI-Driven · Made for Bangladesh
+                {t('hero.eyebrow')}
               </span>
             </motion.div>
 
@@ -448,7 +451,7 @@ export default function HeroSection() {
                 style={{ fontSize: 'clamp(52px, 8vw, 110px)' }}
                 variants={fadeUp}
               >
-                খাতা এখন
+                {headline[0]}
               </motion.h1>
               <motion.h1
                 className="font-bengali text-white leading-[1.1]"
@@ -458,7 +461,7 @@ export default function HeroSection() {
                 }}
                 variants={fadeUp}
               >
-                কথা বলে<span style={{ color: 'var(--gold)' }}>।</span>
+                {headline[1]}<span style={{ color: 'var(--gold)' }}>।</span>
               </motion.h1>
             </div>
 
@@ -468,7 +471,7 @@ export default function HeroSection() {
               style={{ fontSize: '24px', color: 'var(--text-cream)', borderLeft: '2px solid var(--gold)', paddingLeft: '12px' }}
               variants={fadeUp}
             >
-              Your khata now speaks.
+              {t('hero.body')}
             </motion.p>
 
             {/* Body text */}
@@ -496,7 +499,7 @@ export default function HeroSection() {
                 whileTap={{ scale: 0.97 }}
               >
                 <Download className="w-4 h-4" />
-                অ্যাপটি নামান
+                {t('hero.cta')}
               </ShimmerButton>
               <motion.a
                 href="#"
@@ -508,7 +511,7 @@ export default function HeroSection() {
                 whileHover={{ scale: 1.04, borderColor: 'rgba(250,247,240,0.5)' }}
                 whileTap={{ scale: 0.97 }}
               >
-                কীভাবে কাজ করে →
+                {t('hero.how')} →
               </motion.a>
               <motion.a
                 href="#"
@@ -521,7 +524,7 @@ export default function HeroSection() {
                 whileTap={{ scale: 0.97 }}
               >
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp এ কথা বলুন
+                {t('hero.whatsapp')}
               </motion.a>
             </motion.div>
 
@@ -531,7 +534,7 @@ export default function HeroSection() {
               style={{ fontSize: '12px', color: 'var(--text-ghost)' }}
               variants={fadeUp}
             >
-              কোনো কার্ড লাগবে না · ৩০ দিন ফ্রি · বাংলায় সব
+              {t('hero.sub')}
             </motion.p>
           </motion.div>
 
@@ -567,9 +570,9 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 1.5 }}
             >
               {[
-                { value: '৫০,০০০+', label: 'দোকান' },
-                { value: '৬৪', label: 'জেলা' },
-                { value: '১ কোটি+', label: 'এন্ট্রি' },
+                { value: '৫০,০০০+', label: t('hero.stats.shops') },
+                { value: '৬৪', label: t('hero.stats.districts') },
+                { value: '১ কোটি+', label: t('hero.stats.entries') },
               ].map((stat, i) => (
                 <div
                   key={i}
@@ -603,7 +606,7 @@ export default function HeroSection() {
         transition={{ duration: 0.3 }}
       >
         <span className="font-body" style={{ fontSize: '12px', color: 'var(--text-cream-muted)' }}>
-          নিচে দেখুন
+          {t('hero.scroll')}
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}

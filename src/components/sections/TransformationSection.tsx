@@ -1,43 +1,13 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import { useTranslation } from '@/hooks/use-translation'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { CheckCircle, FileText, Calculator, NotebookPen } from 'lucide-react'
 
-/* ── Chaos card data (Before state) ── */
-const chaosCards = [
-  {
-    icon: FileText,
-    label: 'কার কত বাকি?',
-    rotation: -6,
-    x: 5,
-    y: -10,
-  },
-  {
-    icon: Calculator,
-    label: 'Stock শেষ?',
-    rotation: 4,
-    x: 60,
-    y: 20,
-  },
-  {
-    icon: NotebookPen,
-    label: 'লাভ না ক্ষতি?',
-    rotation: -3,
-    x: 30,
-    y: 50,
-  },
-]
-
-/* ── After features ── */
-const afterFeatures = [
-  'হিসাব পরিষ্কার ✓',
-  'Stock নিয়ন্ত্রণে ✓',
-  'লাভ দেখা যাচ্ছে ✓',
-]
-
 /* ── Mini phone mockup for "After" state ── */
 function AfterPhoneMockup() {
+  const { t } = useTranslation()
   const bars = [50, 70, 55, 85, 65, 90, 75]
 
   return (
@@ -69,17 +39,17 @@ function AfterPhoneMockup() {
       <div className="w-full h-full overflow-hidden rounded-[22px]" style={{ background: 'var(--ink)' }}>
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-9 pb-2" style={{ background: 'var(--ink-1)' }}>
-          <span className="text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>Dashboard</span>
+          <span className="text-[10px]" style={{ color: 'var(--text-cream-muted)' }}>{t('transformation.dashboard.header')}</span>
           <span className="text-[10px] font-body" style={{ color: 'var(--gold)' }}>HelloKhata</span>
         </div>
 
         {/* Clean stat cards */}
         <div className="grid grid-cols-2 gap-1.5 px-2 mt-2">
           {[
-            { label: 'বিক্রি', value: '৳ ২৪,৫০০', color: 'var(--gold)' },
-            { label: 'লাভ', value: '৳ ৬,২০০', color: '#4ADE80' },
-            { label: 'দেনা', value: '৳ ৩,১০০', color: '#FBBF24' },
-            { label: 'Stock', value: '১২৫ আইটেম', color: 'var(--gold)' },
+            { label: t('transformation.dashboard.sales'), value: '৳ ২৪,৫০০', color: 'var(--gold)' },
+            { label: t('transformation.dashboard.profit'), value: '৳ ৬,২০০', color: '#4ADE80' },
+            { label: t('transformation.dashboard.dues'), value: '৳ ৩,১০০', color: '#FBBF24' },
+            { label: t('transformation.dashboard.stock'), value: '১২৫ আইটেম', color: 'var(--gold)' },
           ].map((stat, i) => (
             <div
               key={i}
@@ -94,7 +64,7 @@ function AfterPhoneMockup() {
 
         {/* Clean bar chart */}
         <div className="mx-2 mt-2 rounded-lg p-2" style={{ background: 'var(--ink-2)', border: '1px solid var(--ink-border)' }}>
-          <p className="text-[8px] mb-1.5" style={{ color: 'var(--text-cream-muted)' }}>সাপ্তাহিক বিক্রি</p>
+          <p className="text-[8px] mb-1.5" style={{ color: 'var(--text-cream-muted)' }}>{t('transformation.dashboard.weeklySales')}</p>
           <div className="flex items-end gap-1" style={{ height: '60px' }}>
             {bars.map((h, i) => (
               <div key={i} className="flex-1">
@@ -114,7 +84,7 @@ function AfterPhoneMockup() {
         {/* Clean status */}
         <div className="mx-2 mt-2 rounded-lg p-2 flex items-center gap-1.5" style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.15)' }}>
           <CheckCircle className="w-3 h-3" style={{ color: 'var(--gold)' }} />
-          <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>সব হিসাব আপটুডেট</span>
+          <span className="text-[9px] font-body" style={{ color: 'var(--gold)' }}>{t('transformation.dashboard.allUpdated')}</span>
         </div>
       </div>
     </div>
@@ -127,6 +97,38 @@ export default function TransformationSection() {
   const beforeRef = useRef<HTMLDivElement>(null)
   const afterRef = useRef<HTMLDivElement>(null)
   const horizonLineRef = useRef<HTMLDivElement>(null)
+
+  const { t, tArray } = useTranslation()
+
+  const chaosCards = [
+    {
+      icon: FileText,
+      label: t('transformation.chaosCards.dues'),
+      rotation: -6,
+      x: 5,
+      y: -10,
+    },
+    {
+      icon: Calculator,
+      label: t('transformation.chaosCards.stock'),
+      rotation: 4,
+      x: 60,
+      y: 20,
+    },
+    {
+      icon: NotebookPen,
+      label: t('transformation.chaosCards.profit'),
+      rotation: -3,
+      x: 30,
+      y: 50,
+    },
+  ]
+
+  const afterFeatures = tArray('transformation.afterFeatures') ?? [
+    'হিসাব পরিষ্কার ✓',
+    'Stock নিয়ন্ত্রণে ✓',
+    'লাভ দেখা যাচ্ছে ✓',
+  ]
 
   /* Scroll-based parallax and progress */
   const { scrollYProgress } = useScroll({
@@ -249,7 +251,7 @@ export default function TransformationSection() {
             className="inline-block px-3 py-1 rounded-full font-body font-semibold text-[13px]"
             style={{ background: 'rgba(220, 38, 38, 0.12)', color: 'var(--crimson)', border: '1px solid rgba(220, 38, 38, 0.2)' }}
           >
-            এর আগে
+            {t('transformation.before')}
           </span>
         </motion.div>
 
@@ -402,7 +404,7 @@ export default function TransformationSection() {
             className="inline-block px-3 py-1 rounded-full font-body font-semibold text-[13px]"
             style={{ background: 'rgba(201,169,110,0.1)', color: 'var(--gold-deep)', border: '1px solid rgba(201,169,110,0.2)' }}
           >
-            HelloKhata দিয়ে
+            {t('transformation.after')}
           </span>
         </motion.div>
 
@@ -469,8 +471,7 @@ export default function TransformationSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              HelloKhata দিয়ে আপনার পুরো ব্যবসা এখন আঙুলের ছোঁয়ায়।
-              ভয়েসে বলুন, বাকিটা AI সামলাবে।
+              {t('transformation.body')}
             </motion.p>
           </div>
         </div>

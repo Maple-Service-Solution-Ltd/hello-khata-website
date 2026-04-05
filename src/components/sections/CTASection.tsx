@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Download, Smartphone, MessageCircle, ShieldCheck, Zap } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ── Animation variants ── */
 const containerVariants = {
@@ -50,6 +51,8 @@ export default function CTASection() {
   const glowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const { t, tArray } = useTranslation();
+  const headline = tArray('cta.headline') ?? ['আজই শুরু করুন।', 'বিনামূল্যে।'];
 
   // GSAP ScrollTrigger parallax effects
   useEffect(() => {
@@ -171,13 +174,13 @@ export default function CTASection() {
               className="font-bengali text-white block leading-[1.1]"
               style={{ fontSize: 'var(--fs-display)' }}
             >
-              আজই শুরু করুন।
+              {headline[0]}
             </span>
             <span
               className="font-bengali block leading-[1.1] mt-2"
               style={{ fontSize: 'var(--fs-display)', color: 'var(--gold)' }}
             >
-              বিনামূল্যে।
+              {headline[1]}
             </span>
           </motion.h2>
 
@@ -191,7 +194,7 @@ export default function CTASection() {
             }}
             variants={fadeUp}
           >
-            Your business deserves better than a paper notebook.
+            {t('cta.sub')}
           </motion.p>
 
           {/* ── CTA Buttons ── */}
@@ -211,7 +214,7 @@ export default function CTASection() {
               whileTap={{ scale: 0.97 }}
             >
               <Download className="w-5 h-5" />
-              Google Play থেকে নামান
+              {t('cta.playStore')}
             </motion.a>
 
             {/* App Store */}
@@ -230,7 +233,7 @@ export default function CTASection() {
               whileTap={{ scale: 0.97 }}
             >
               <Smartphone className="w-5 h-5" />
-              App Store থেকে নামান
+              {t('cta.appStore')}
             </motion.a>
           </motion.div>
 
@@ -248,7 +251,7 @@ export default function CTASection() {
             >
               <ShieldCheck className="w-3 h-3" style={{ color: 'var(--gold)' }} />
               <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
-                SSL সুরক্ষিত
+                {t('cta.badges.ssl')}
               </span>
             </span>
             <span
@@ -260,7 +263,7 @@ export default function CTASection() {
             >
               <Smartphone className="w-3 h-3" style={{ color: 'var(--gold)' }} />
               <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
-                ৫ মিনিটে ইন্সটল
+                {t('cta.badges.install')}
               </span>
             </span>
             <span
@@ -272,7 +275,7 @@ export default function CTASection() {
             >
               <Zap className="w-3 h-3" style={{ color: 'var(--gold)' }} />
               <span className="font-body text-[12px]" style={{ color: 'var(--text-cream-muted)' }}>
-                কোনো কার্ড লাগবে না
+                {t('cta.badges.noCard')}
               </span>
             </span>
           </motion.div>
@@ -290,7 +293,7 @@ export default function CTASection() {
             variants={fadeUp}
           >
             <MessageCircle className="w-4 h-4" />
-            WhatsApp এ কথা বলুন
+            {t('cta.whatsapp')}
           </motion.a>
 
           {/* ── Horizon Line ── */}
@@ -307,8 +310,7 @@ export default function CTASection() {
             }}
             variants={fadeUp}
           >
-            কোনো কার্ড লাগবে না &nbsp;·&nbsp; ৩০ দিন ফ্রি &nbsp;·&nbsp;
-            যেকোনো সময় বন্ধ করা যায়
+            {t('cta.trust')}
           </motion.p>
         </motion.div>
       </div>

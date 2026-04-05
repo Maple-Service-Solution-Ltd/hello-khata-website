@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Phone, Mail, MapPin, CheckCircle2, Send, AlertCircle } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ── Business Types ── */
 const BUSINESS_TYPES = [
@@ -321,6 +322,7 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const { t, tArray } = useTranslation();
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -343,7 +345,7 @@ export default function ContactSection() {
           if (value.length >= 11) {
             setFieldErrors((prev) => ({
               ...prev,
-              phone: 'সঠিক নম্বর দিন',
+              phone: t('contact.form.errors.phoneInvalid'),
             }));
           }
         } else {
@@ -358,7 +360,7 @@ export default function ContactSection() {
       // Clear server error on any change
       if (serverError) setServerError('');
     },
-    [fieldErrors, serverError]
+    [fieldErrors, serverError, t]
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -370,7 +372,7 @@ export default function ContactSection() {
     if (!BD_PHONE_REGEX.test(formData.phone)) {
       setFieldErrors((prev) => ({
         ...prev,
-        phone: 'সঠিক নম্বর দিন',
+        phone: t('contact.form.errors.phoneInvalid'),
       }));
       return;
     }
@@ -396,14 +398,14 @@ export default function ContactSection() {
           setFieldErrors(errors);
         }
         // Show server message
-        setServerError(data.message || 'কিছু একটা সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।');
+        setServerError(data.message || t('contact.form.errors.serverError'));
         return;
       }
 
       // Success!
       setSubmitted(true);
     } catch {
-      setServerError('নেটওয়ার্কে সমস্যা হচ্ছে। ইন্টারনেট সংযোগ চেক করুন।');
+      setServerError(t('contact.form.errors.networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -437,7 +439,7 @@ export default function ContactSection() {
             style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-ink)', lineHeight: 1.15 }}
             variants={fadeUp}
           >
-            আমাদের সাথে কথা বলুন।
+            {t('contact.headline')}
           </motion.h2>
 
           <motion.p
@@ -445,7 +447,7 @@ export default function ContactSection() {
             style={{ fontSize: 'var(--fs-body-lg)', color: 'var(--text-body)' }}
             variants={fadeUp}
           >
-            প্রশ্ন থাকলে জিজ্ঞেস করুন। Demo দেখতে চাইলে বলুন।
+            {t('contact.sub')}
           </motion.p>
 
           <motion.p
@@ -468,30 +470,30 @@ export default function ContactSection() {
         >
           <ContactCard
             icon={MessageCircle}
-            title="WhatsApp এ লিখুন"
-            subtitle="সকাল ৯টা – রাত ৯টা"
-            badge="সবচেয়ে দ্রুত উত্তর পাবেন"
+            title={t('contact.cards.whatsapp.title')}
+            subtitle={t('contact.cards.whatsapp.subtitle')}
+            badge={t('contact.cards.whatsapp.badge')}
             badgeColor="var(--gold)"
             value="+880 1XXX-XXXXXX"
-            action="সরাসরি মেসেজ করুন"
-            buttonLabel="WhatsApp এ কথা বলুন"
+            action={t('contact.cards.whatsapp.action')}
+            buttonLabel={t('contact.cards.whatsapp.button')}
             buttonStyle="green"
             primary
           />
           <ContactCard
             icon={Phone}
-            title="ফোন কল"
+            title={t('contact.cards.phone.title')}
             value="+880 1XXX-XXXXXX"
-            action="সরাসরি কল করুন"
-            buttonLabel="কল করুন"
+            action={t('contact.cards.phone.action')}
+            buttonLabel={t('contact.cards.phone.button')}
             buttonStyle="outline"
           />
           <ContactCard
             icon={Mail}
-            title="ইমেইল"
+            title={t('contact.cards.email.title')}
             value="hello@hellokhata.com"
-            action="২৪ ঘণ্টায় উত্তর"
-            buttonLabel="ইমেইল করুন"
+            action={t('contact.cards.email.action')}
+            buttonLabel={t('contact.cards.email.button')}
             buttonStyle="outline"
           />
         </motion.div>
@@ -528,7 +530,7 @@ export default function ContactSection() {
             style={{ fontSize: 'var(--fs-h1)', lineHeight: 1.15 }}
             variants={fadeUp}
           >
-            আমাদের টিম আপনার দোকানে আসবে।
+            {t('contact.inPerson.headline')}
           </motion.h2>
 
           <motion.p
@@ -558,7 +560,7 @@ export default function ContactSection() {
               whileTap={{ scale: 0.97 }}
             >
               <MapPin className="w-4 h-4" />
-              দোকান ভিজিট বুক করুন
+              {t('contact.inPerson.button')}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -584,13 +586,13 @@ export default function ContactSection() {
               className="font-bengali mb-2"
               style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-ink)' }}
             >
-              বার্তা পাঠান
+              {t('contact.form.heading')}
             </h3>
             <p
               className="font-body"
               style={{ fontSize: 'var(--fs-body)', color: 'var(--text-muted)' }}
             >
-              আমরা শীঘ্রই যোগাযোগ করব
+              {t('contact.form.sub')}
             </p>
           </motion.div>
 
@@ -628,7 +630,7 @@ export default function ContactSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                আপনার বার্তা পাঠানো হয়েছে!
+                {t('contact.form.success.title')}
               </motion.p>
               <motion.p
                 className="font-body"
@@ -637,7 +639,7 @@ export default function ContactSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
               >
-                আমরা শীঘ্রই যোগাযোগ করব।
+                {t('contact.form.success.body')}
               </motion.p>
               <motion.button
                 className="mt-6 px-5 py-2 rounded-full font-body text-sm font-medium"
@@ -657,7 +659,7 @@ export default function ContactSection() {
                   setServerError('');
                 }}
               >
-                আরেকটি বার্তা পাঠান
+                {t('contact.form.success.anotherMessage')}
               </motion.button>
             </motion.div>
           ) : (
@@ -673,9 +675,9 @@ export default function ContactSection() {
             >
               <div className="flex flex-col gap-5">
                 <FormField
-                  label="আপনার নাম"
+                  label={t('contact.form.labels.name')}
                   name="name"
-                  placeholder="আপনার পুরো নাম"
+                  placeholder={t('contact.form.placeholders.name')}
                   required
                   value={formData.name}
                   onChange={handleChange}
@@ -683,10 +685,10 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label="মোবাইল নম্বর"
+                  label={t('contact.form.labels.phone')}
                   name="phone"
                   type="tel"
-                  placeholder="০১XXXXXXXXX"
+                  placeholder={t('contact.form.placeholders.phone')}
                   required
                   value={formData.phone}
                   onChange={handleChange}
@@ -694,20 +696,20 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label="দোকানের ধরন"
+                  label={t('contact.form.labels.businessType')}
                   name="businessType"
-                  placeholder="দোকানের ধরন নির্বাচন করুন"
+                  placeholder={t('contact.form.placeholders.businessType')}
                   required
                   value={formData.businessType}
                   onChange={handleChange}
-                  options={BUSINESS_TYPES.map((t) => ({ value: t, label: t }))}
+                  options={(tArray('contact.form.businessTypes') ?? BUSINESS_TYPES).map((item) => ({ value: item, label: item }))}
                   error={fieldErrors.businessType}
                 />
 
                 <FormField
-                  label="জেলা"
+                  label={t('contact.form.labels.district')}
                   name="district"
-                  placeholder="আপনার জেলা নির্বাচন করুন"
+                  placeholder={t('contact.form.placeholders.district')}
                   required
                   value={formData.district}
                   onChange={handleChange}
@@ -716,9 +718,9 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label="বার্তা"
+                  label={t('contact.form.labels.message')}
                   name="message"
-                  placeholder="আপনার বার্তা লিখুন..."
+                  placeholder={t('contact.form.placeholders.message')}
                   value={formData.message}
                   onChange={handleChange}
                   error={fieldErrors.message}
@@ -768,12 +770,12 @@ export default function ContactSection() {
                   {isSubmitting ? (
                     <>
                       <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      পাঠানো হচ্ছে...
+                      {t('contact.form.submitting')}
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      পাঠান →
+                      {t('contact.form.submit')}
                     </>
                   )}
                 </motion.button>
@@ -783,7 +785,7 @@ export default function ContactSection() {
                 className="font-body text-center mt-5"
                 style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-muted)' }}
               >
-                আমরা ২৪ ঘণ্টার মধ্যে যোগাযোগ করব।
+                {t('contact.form.note')}
               </p>
             </motion.form>
           )}

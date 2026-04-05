@@ -8,6 +8,7 @@ import { useHashRouter } from './HashRouter';
 import { NAV_LINKS, DARK_SECTION_IDS, getPageConfig, PAGES } from '@/lib/pages';
 import WaveformMark from './WaveformMark';
 import { useLanguageStore } from '@/lib/language-store';
+import { useTranslation } from '@/hooks/use-translation';
 import { useToast } from './ToastProvider';
 
 export default function Navigation() {
@@ -15,7 +16,8 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOverDark, setIsOverDark] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { lang, setLang } = useLanguageStore();
+  const { setLang } = useLanguageStore();
+  const { t, lang } = useTranslation();
   const { toast } = useToast();
   const [showSearchHint, setShowSearchHint] = useState(false);
   const searchHintTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -142,7 +144,7 @@ export default function Navigation() {
                         : 'text-[var(--text-ink)] hover:text-[var(--gold)] hover:bg-[rgba(13,15,14,0.04)]'
                   )}
                 >
-                  {link.label}
+                  {t('nav.links.' + link.page)}
                   <span
                     className={cn(
                       'absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-[var(--gold)] transition-all duration-300',
@@ -194,7 +196,7 @@ export default function Navigation() {
                 onClick={() => {
                   if (lang !== 'en') {
                     setLang('en');
-                    toast({ type: 'info', title: 'Language switched to English', description: 'English version coming soon!', duration: 3000 });
+                    toast({ type: 'info', title: t('nav.languageSwitchEn'), description: t('nav.languageSwitchEnDesc'), duration: 3000 });
                   }
                 }}
                 className={cn(
@@ -211,7 +213,7 @@ export default function Navigation() {
                 onClick={() => {
                   if (lang !== 'bn') {
                     setLang('bn');
-                    toast({ type: 'success', title: 'ভাষা বাংলায় পরিবর্তন হয়েছে', duration: 3000 });
+                    toast({ type: 'success', title: t('nav.languageSwitchBn'), duration: 3000 });
                   }
                 }}
                 className={cn(
@@ -235,7 +237,7 @@ export default function Navigation() {
               )}
             >
               <Download size={16} strokeWidth={2} />
-              অ্যাপ নামান
+              {t('nav.ctaButton')}
             </button>
           </div>
 
@@ -305,7 +307,7 @@ export default function Navigation() {
                   animate={{ opacity: 1 }}
                   className="font-body text-[12px] text-[var(--text-cream-muted)]"
                 >
-                  বর্তমান: {pageConfig?.icon} {pageConfig?.label}
+                  {t('nav.mobileMenuCurrent')}: {pageConfig?.icon} {pageConfig?.label}
                 </motion.span>
               </div>
             )}
@@ -326,7 +328,7 @@ export default function Navigation() {
                 )}
               >
                 <span className="text-lg">🏠</span>
-                হোম
+                {t('nav.home')}
                 {currentPage === 'home' && (
                   <ChevronRight size={16} className="ml-auto text-[var(--gold)]" />
                 )}
@@ -351,7 +353,7 @@ export default function Navigation() {
                     )}
                   >
                     <span className="text-lg">{linkConfig?.icon}</span>
-                    {link.label}
+                    {t('nav.links.' + link.page)}
                     {isActive && (
                       <ChevronRight size={16} className="ml-auto text-[var(--gold)]" />
                     )}
@@ -368,7 +370,7 @@ export default function Navigation() {
                   onClick={() => {
                     if (lang !== 'en') {
                       setLang('en');
-                      toast({ type: 'info', title: 'Language switched to English', description: 'English version coming soon!', duration: 3000 });
+                      toast({ type: 'info', title: t('nav.languageSwitchEn'), description: t('nav.languageSwitchEnDesc'), duration: 3000 });
                     }
                   }}
                   className={cn(
@@ -385,7 +387,7 @@ export default function Navigation() {
                   onClick={() => {
                     if (lang !== 'bn') {
                       setLang('bn');
-                      toast({ type: 'success', title: 'ভাষা বাংলায় পরিবর্তন হয়েছে', duration: 3000 });
+                      toast({ type: 'success', title: t('nav.languageSwitchBn'), duration: 3000 });
                     }
                   }}
                   className={cn(
@@ -405,7 +407,7 @@ export default function Navigation() {
                 className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300 cursor-pointer shadow-[0_0_20px_var(--gold-glow)]"
               >
                 <Download size={18} strokeWidth={2} />
-                অ্যাপ নামান
+                {t('nav.ctaButton')}
               </button>
             </div>
           </motion.div>

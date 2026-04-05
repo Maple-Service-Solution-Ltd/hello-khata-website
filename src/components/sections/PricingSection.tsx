@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, ChevronDown } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
+import { useTranslation } from '@/hooks/use-translation';
 import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
 
 /* ─── Types ─── */
@@ -106,28 +107,8 @@ const comparisonFeatures: Feature[] = [
   { name: 'API অ্যাক্সেস', shuru: false, bikash: false, utthan: true },
 ];
 
-const faqs = [
-  {
-    q: 'HelloKhata কি অফলাইনে কাজ করে?',
-    a: 'হ্যাঁ, ইন্টারনেট ছাড়াও ব্যবহার করতে পারবেন। আপনার ডেটা স্থানীয়ভাবে সংরক্ষিত থাকবে এবং ইন্টারনেট পেলে অটো-সিঙ্ক হয়ে যাবে।',
-  },
-  {
-    q: 'আমার ডেটা কি নিরাপদ?',
-    a: 'আপনার সব ডেটা encrypted আকারে সংরক্ষিত। আমরা industry-standard security ব্যবহার করি এবং আপনার ডেটা কখনো তৃতীয় পক্ষের সাথে শেয়ার করি না।',
-  },
-  {
-    q: 'কোনো কার্ড লাগবে?',
-    a: 'না, কোনো কার্ড লাগবে না। শুরু প্ল্যান সম্পূর্ণ বিনামূল্যে। প্রিমিয়াম প্ল্যানে bKash, Nagad বা ব্যাংক ট্রান্সফারে পেমেন্ট করতে পারবেন।',
-  },
-  {
-    q: 'বাংলায় কি সব পাবো?',
-    a: 'হ্যাঁ, পুরো অ্যাপ বাংলায় পাবেন। ভয়েস কমান্ডও বাংলায় কাজ করে। আমরা বাংলাদেশের দোকানদারদের জন্যই তৈরি করেছি।',
-  },
-  {
-    q: 'যেকোনো সময় বন্ধ করা যাবে?',
-    a: 'হ্যাঁ, যেকোনো সময় বন্ধ করতে পারবেন। কোনো locked-in contract নেই। আপনার সব ডেটা এক্সপোর্ট করে নিতে পারবেন।',
-  },
-];
+/* ─── FAQ count (mirrors translation items) ─── */
+const FAQ_COUNT = 5;
 
 /* ─── Helpers ─── */
 function CellValue({ value }: { value: boolean | string }) {
@@ -140,6 +121,7 @@ function CellValue({ value }: { value: boolean | string }) {
 function AnimatedSavingsBadge() {
   const [displayNum, setDisplayNum] = useState(0);
   const animRef = useRef<number | null>(null);
+  const { t } = useTranslation();
 
   // Count-up animation on mount (AnimatePresence handles unmount)
   useEffect(() => {
@@ -173,13 +155,14 @@ function AnimatedSavingsBadge() {
       className="px-3 py-1 rounded-full text-xs font-bold font-body text-white"
       style={{ backgroundColor: 'var(--gold)' }}
     >
-      {displayNum}% সাশ্রয়
+      {displayNum}% {t('pricing.savings')}
     </motion.span>
   );
 }
 
 /* ─── Pill Toggle Component ─── */
 function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () => void }) {
+  const { t } = useTranslation();
   return (
     <div
       className="relative inline-flex items-center rounded-full p-1 cursor-pointer select-none"
@@ -206,13 +189,13 @@ function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () =>
         className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
         style={{ color: !isYearly ? 'var(--gold)' : 'var(--text-cream-muted)' }}
       >
-        Monthly
+        {t('pricing.toggle.monthly')}
       </span>
       <span
         className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
         style={{ color: isYearly ? 'white' : 'var(--text-cream-muted)' }}
       >
-        Yearly
+        {t('pricing.toggle.yearly')}
       </span>
     </div>
   );
@@ -222,6 +205,12 @@ function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () =>
 export default function PricingSection() {
   const [isYearly, setIsYearly] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { t, tArray } = useTranslation();
+
+  const faqItems = Array.from({ length: FAQ_COUNT }, (_, i) => ({
+    q: t(`pricing.faq.items.${i}.q`),
+    a: t(`pricing.faq.items.${i}.a`),
+  }));
 
   return (
     <section id="pricing" className="relative">
@@ -237,10 +226,10 @@ export default function PricingSection() {
               className="font-bengali text-[var(--fs-h1)] text-[var(--text-ink)] mb-4"
               style={{ lineHeight: 1.2 }}
             >
-              সহজ মূল্য। কোনো লুকানো কথা নেই।
+              {t('pricing.header')}
             </h2>
             <p className="font-body text-[var(--text-muted)] text-[var(--fs-body-lg)]">
-              Transparent pricing. Cancel anytime. No contracts.
+              {t('pricing.headerSub')}
             </p>
           </Reveal>
 
@@ -306,7 +295,7 @@ export default function PricingSection() {
                           boxShadow: '0 4px 12px var(--gold-glow)',
                         }}
                       >
-                        Most Popular
+                        {t('pricing.mostPopular')}
                       </div>
                     </motion.div>
                   )}
@@ -335,10 +324,10 @@ export default function PricingSection() {
                       className="font-bengali text-2xl text-[var(--text-cream)]"
                       style={{ lineHeight: 1.3 }}
                     >
-                      {tier.nameBn}
+                      {t(`pricing.tier.${tier.id}.name`)}
                     </h3>
                     <p className="font-body text-[var(--text-cream-muted)] text-xs mt-1">
-                      {tier.nameEn}
+                      {t(`pricing.tier.${tier.id}.nameEn`)}
                     </p>
                   </div>
 
@@ -351,13 +340,13 @@ export default function PricingSection() {
                       transition={{ duration: 0.3 }}
                       className="font-bengali text-3xl lg:text-4xl text-[var(--text-cream)]"
                     >
-                      {isYearly ? tier.priceYearly : tier.priceMonthly}
+                      {isYearly ? t(`pricing.tier.${tier.id}.priceYearly`) : t(`pricing.tier.${tier.id}.priceMonthly`)}
                     </motion.span>
                   </div>
 
                   {/* For */}
                   <p className="font-body text-[var(--text-cream-muted)] text-sm mb-6">
-                    {tier.forText}
+                    {t(`pricing.tier.${tier.id}.for`)}
                   </p>
 
                   {/* Divider */}
@@ -365,7 +354,7 @@ export default function PricingSection() {
 
                   {/* Features */}
                   <ul className="flex-1 space-y-3 mb-8">
-                    {tier.features.map((f, i) => (
+                    {(tArray(`pricing.tier.${tier.id}.features`) ?? tier.features).map((f, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span
                           className="flex items-center justify-center w-[22px] h-[22px] rounded-full shrink-0 mt-0.5"
@@ -422,7 +411,7 @@ export default function PricingSection() {
                       (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
                     }}
                   >
-                    {tier.cta}
+                    {t(`pricing.tier.${tier.id}.cta`)}
                   </button>
                 </motion.div>
               </StaggerItem>
@@ -450,22 +439,22 @@ export default function PricingSection() {
               >
                 <div className="text-left">
                   <span className="font-body text-xs text-[var(--text-cream-muted)] uppercase tracking-wider">
-                    ফিচার
+                    {t('pricing.comparison.header')}
                   </span>
                 </div>
                 <div>
-                  <span className="font-bengali text-sm text-[var(--text-cream)]">শুরু</span>
+                  <span className="font-bengali text-sm text-[var(--text-cream)]">{t('pricing.tier.shuru.name')}</span>
                 </div>
                 <div>
                   <span
                     className="font-bengali text-sm"
                     style={{ color: 'var(--gold)' }}
                   >
-                    বিকাশ
+                    {t('pricing.tier.bikash.name')}
                   </span>
                 </div>
                 <div>
-                  <span className="font-bengali text-sm text-[var(--text-cream)]">উত্থান</span>
+                  <span className="font-bengali text-sm text-[var(--text-cream)]">{t('pricing.tier.utthan.name')}</span>
                 </div>
               </div>
 
@@ -527,17 +516,17 @@ export default function PricingSection() {
           >
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--gold)' }} />
             <span className="font-body text-xs" style={{ color: 'var(--gold)' }}>
-              ১০০% গ্যারান্টি
+              {t('pricing.guarantee.badge')}
             </span>
           </div>
           <h3
             className="font-bengali text-[var(--fs-h2)] text-[var(--text-cream)] mb-4"
             style={{ lineHeight: 1.3 }}
           >
-            ৩০ দিনের মানি-ব্যাক গ্যারান্টি।
+            {t('pricing.guarantee.headline')}
           </h3>
           <p className="font-body text-[var(--text-cream-muted)] text-[var(--fs-body)] max-w-xl mx-auto">
-            পছন্দ না হলে সম্পূর্য টাকা ফেরত। কোনো প্রশ্ন ছাড়া।
+            {t('pricing.guarantee.body')}
           </p>
         </Reveal>
       </div>
@@ -550,15 +539,15 @@ export default function PricingSection() {
               className="font-bengali text-[var(--fs-h3)] text-[var(--text-ink)] mb-3"
               style={{ lineHeight: 1.3 }}
             >
-              সচরাচর জিজ্ঞাসা
+              {t('pricing.faq.header')}
             </h3>
             <p className="font-body text-[var(--text-muted)] text-[var(--fs-body)]">
-              Frequently asked questions
+              {t('pricing.faq.headerSub')}
             </p>
           </Reveal>
 
           <div className="space-y-3">
-            {faqs.map((faq, i) => {
+            {faqItems.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
                 <Reveal key={i} delay={i * 0.06}>

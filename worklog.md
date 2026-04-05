@@ -1137,3 +1137,154 @@ Stage Summary:
 - Toast notifications provide clear feedback when language changes
 - Removed unsupported Hindi option to avoid confusion
 - ESLint: zero errors, Dev server: clean compilation
+
+---
+## Task ID: i18n-translations
+### Work Task
+Create comprehensive translation dictionary (translations.ts) and useTranslation hook (use-translation.ts) for the HelloKhata i18n system.
+
+### Work Summary
+
+**1. Translation Dictionary (`/src/lib/translations.ts`)**
+- Created comprehensive `translations` object with `bn` and `en` language keys using `as const` for type safety
+- Organized by 7 top-level sections: `nav`, `footer`, `hero`, `cta`, `pricing`, `contact`, `transformation`, `common`
+- All strings extracted from actual component source code to ensure accuracy
+- Coverage includes:
+  - **Navigation**: 9 nav links, home label, CTA button, search, language switch toast messages
+  - **Footer**: tagline, description, 4 column headings, 13 footer links, made-in text, back-to-home, app store badge labels
+  - **Hero**: eyebrow, headline (array), body, CTA, how-it-works, WhatsApp, trust sub-text, 3 stat labels, scroll indicator
+  - **CTA Section**: headline (array), sub, Play Store/App Store/WhatsApp buttons, trust text, 3 trust badges
+  - **Pricing**: header, toggle labels, savings badge, 3 tier names/subtitles/icons/prices/features (6/10/14 features), most popular badge, comparison table, guarantee section, FAQ header + 5 Q&As
+  - **Contact**: headline, sub, 3 contact cards (titles, subtitles, badges, actions, buttons), in-person promise, full form (5 labels, 5 placeholders, 12 business types translated, submit/sending states, success state, note, 9 error messages)
+  - **Transformation**: before/after labels, 3 chaos cards, 3 after features, body text, 7 dashboard labels
+  - **Common**: back-to-top, copyright, privacy, terms
+- Exported `translations`, `Translations` type, `getTranslation()` utility function
+- `getTranslation()` resolves dot-separated paths and returns `string | readonly string[] | undefined`
+
+**2. Translation Hook (`/src/hooks/use-translation.ts`)**
+- `use client` hook importing from `useLanguageStore` and `translations`
+- `t(key)`: resolves dot-path to string, joins arrays with space, falls back to raw key
+- `tArray(key)`: resolves dot-path to `readonly string[]` for headlines/feature lists
+- `tRaw(key)`: returns raw value without coercion
+- Exported `NestedKeyOf<T>` recursive type helper for autocomplete support
+
+**Quality:**
+- ✅ ESLint: zero errors
+- ✅ TypeScript strict types with `as const`
+- ✅ Dev server: clean compilation, 200 responses
+- ✅ All strings match actual component source code
+- ✅ Comprehensive coverage of all specified sections
+
+---
+## Task ID: translation-nav-footer - Integration Agent
+### Work Task
+Update Navigation.tsx and Footer.tsx to use the new `useTranslation` hook from `@/hooks/use-translation`, replacing all hardcoded Bengali/English text with `t()` calls that resolve from the translation dictionary.
+
+### Work Summary
+
+**Navigation.tsx** (`/home/z/my-project/src/components/hellokhata/Navigation.tsx`):
+- Added `import { useTranslation } from '@/hooks/use-translation'`
+- Replaced `const { lang, setLang } = useLanguageStore()` with `const { setLang } = useLanguageStore()` + `const { t, lang } = useTranslation()` (removes duplicate `lang` source)
+- Replaced desktop nav link labels: `link.label` → `t('nav.links.' + link.page)` (maps page IDs like `features`, `voice`, `batch` etc. to translation keys)
+- Replaced mobile nav link labels with the same `t('nav.links.' + link.page)` pattern
+- Replaced mobile "হোম" → `t('nav.home')`
+- Replaced "বর্তমান:" → `t('nav.mobileMenuCurrent')`
+- Replaced CTA button text "অ্যাপ নামান" → `t('nav.ctaButton')` (both desktop and mobile instances)
+- Replaced all 4 toast messages: `t('nav.languageSwitchEn')`, `t('nav.languageSwitchEnDesc')`, `t('nav.languageSwitchBn')` (desktop + mobile language toggles)
+
+**Footer.tsx** (`/home/z/my-project/src/components/hellokhata/Footer.tsx`):
+- Added `import { useTranslation } from '@/hooks/use-translation'`
+- Replaced `const { lang, setLang } = useLanguageStore()` with `const { setLang } = useLanguageStore()` + `const { t, lang } = useTranslation()`
+- Changed `productLinks`, `companyLinks`, `supportLinks` array labels from English strings to translation keys (e.g., `'Features'` → `'footer.links.features'`)
+- Updated all link renders: `{link.label}` → `{t(link.label)}`
+- Replaced tagline: `t('footer.tagline')` and subtitle: `t('footer.taglineEn')`
+- Replaced description: `t('footer.description')`
+- Replaced 4 column headings: `t('footer.columns.product')`, `.company`, `.support`, `.download`
+- Replaced "Made in Bangladesh 🇧🇩" → `t('footer.madeIn')`
+- Replaced "GET IT ON" → `t('footer.getEmail')`, "Download on the" → `t('footer.downloadOn')`
+- Replaced copyright: `t('common.copyright')`, Privacy: `t('common.privacy')`, Terms: `t('common.terms')`
+- Replaced "Designed and built in 🇧🇩 Bangladesh" → `t('footer.builtIn')`, "Back to home" → `t('footer.backToHome')`
+- Replaced toast messages with `t('nav.languageSwitchBn')`, `t('nav.languageSwitchEn')`, `t('nav.languageSwitchEnDesc')`
+
+**Verification**: `bun run lint` passes with zero errors. Dev server compiles successfully.
+---
+## Task ID: translation-migration - code-agent
+### Work Task
+Migrate PricingSection.tsx and ContactSection.tsx to use the new `useTranslation` hook system, replacing all hardcoded Bengali/English text with translation keys.
+
+### Work Summary
+Successfully updated both section components to use the `useTranslation` hook from `@/hooks/use-translation`. All changes passed `npm run lint` with zero errors.
+
+**PricingSection.tsx changes (27 edits):**
+- Added `import { useTranslation } from '@/hooks/use-translation'`
+- Added `useTranslation()` hook to `PricingSection`, `AnimatedSavingsBadge`, and `PillToggle` components
+- Replaced header/subheader text with `t('pricing.header')` and `t('pricing.headerSub')`
+- Replaced toggle labels with `t('pricing.toggle.monthly')` / `t('pricing.toggle.yearly')`
+- Replaced savings badge with `t('pricing.savings')`
+- Replaced all tier text (name, nameEn, priceMonthly/YEarly, for, features, cta) using dynamic keys `t(\`pricing.tier.${tier.id}.name\`)` etc.
+- Features use `tArray()` with fallback: `tArray(\`pricing.tier.${tier.id}.features\`) ?? tier.features`
+- Replaced "Most Popular" ribbon with `t('pricing.mostPopular')`
+- Replaced comparison table header and tier column names
+- Replaced guarantee section (badge, headline, body)
+- Replaced FAQ section header/subheader
+- Converted `faqs` module constant to `faqItems` computed inside component from `t()` calls (5 items)
+- Added `FAQ_COUNT` constant for FAQ item count
+
+**ContactSection.tsx changes (32 edits):**
+- Added `import { useTranslation } from '@/hooks/use-translation'`
+- Added `const { t, tArray } = useTranslation()` hook
+- Added `t` to `useCallback` dependency array for stale closure prevention
+- Replaced all contact card props (whatsapp/phone/email titles, subtitles, badges, actions, buttons)
+- Replaced in-person section headline and button
+- Replaced form heading/sub/labels/placeholders (name, phone, businessType, district, message)
+- Replaced business types dropdown: `(tArray('contact.form.businessTypes') ?? BUSINESS_TYPES).map(...)` with renamed variable to avoid `t` shadowing
+- Replaced submit/submitting button text
+- Replaced success state (title, body, anotherMessage)
+- Replaced error messages in `handleChange` and `handleSubmit` (phoneInvalid, serverError, networkError)
+- Replaced form note text
+
+---
+Task ID: i18n-translation-system
+Agent: Main Orchestrator
+Task: Build complete translation system — language switching now actually translates content
+
+Work Log:
+- Created `/src/lib/translations.ts` (730 lines):
+  - Comprehensive translation dictionary with `bn` and `en` keys using `as const`
+  - 7 top-level sections: nav, footer, hero, cta, pricing, contact, transformation, common
+  - ~480+ translatable strings with full English translations
+  - Type-safe with `Translations` type and `getTranslation()` utility
+- Created `/src/hooks/use-translation.ts`:
+  - `useTranslation()` hook with `t(key)`, `tArray(key)`, `tRaw(key)` functions
+  - Falls back to key string if translation not found
+  - Automatically joins arrays when using `t()` on array keys
+- Updated Navigation.tsx (9 replacements):
+  - All nav links, home, CTA button, mobile menu current indicator
+  - Toast messages for language switching
+- Updated Footer.tsx (16+ replacements):
+  - Tagline, description, column headings, all link labels
+  - Made in Bangladesh, app store badges, copyright
+  - Language selector pills
+- Updated HeroSection.tsx (11 replacements):
+  - Eyebrow, headline (array), body, CTA, how, whatsapp, sub, stats labels, scroll
+- Updated CTASection.tsx (9 replacements):
+  - Headline (array), sub, play store, app store, whatsapp, trust, badges
+- Updated PricingSection.tsx (27 replacements):
+  - Header, toggle labels, savings badge
+  - All 3 tier cards (names, for-text, prices, features arrays, CTAs)
+  - Most Popular badge, comparison table, guarantee section
+  - FAQ section (header + all 5 Q&As via computed array)
+- Updated ContactSection.tsx (32 replacements):
+  - Headline, sub, all 3 contact cards (title, subtitle, badge, action, button)
+  - In-person section
+  - Form (heading, sub, all labels, placeholders, business types, submit/success/error states)
+- Updated TransformationSection.tsx (12 replacements):
+  - Before/after labels, chaos cards, after features, body text
+  - Dashboard labels (sales, profit, dues, stock, weekly sales, all updated)
+
+Stage Summary:
+- Complete i18n system with Zustand store + translation dictionary + React hook
+- Language toggle in Navigation (desktop + mobile) and Footer now INSTANTLY translates all content
+- 6 major components updated with 116+ text replacements total
+- Zero lint errors, clean dev server compilation
+- Toast notifications provide feedback on language change
