@@ -125,7 +125,7 @@ function ModulePhoneMockup({ moduleId }: { moduleId: number }) {
       <div
         className="w-full h-full rounded-[32px] overflow-hidden relative"
         style={{
-          background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
+          background: 'linear-gradient(145deg, #0A4A3B 0%, #00382C 100%)',
           border: '2px solid rgba(255,255,255,0.08)',
           boxShadow: '0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,169,110,0.08)',
           padding: '10px',
@@ -137,7 +137,7 @@ function ModulePhoneMockup({ moduleId }: { moduleId: number }) {
           style={{
             width: '90px',
             height: '24px',
-            background: '#0d0f0e',
+            background: '#00382C',
             borderRadius: '0 0 14px 14px',
           }}
         />

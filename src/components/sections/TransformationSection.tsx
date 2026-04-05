@@ -16,7 +16,7 @@ function AfterPhoneMockup() {
       style={{
         width: '200px',
         height: '400px',
-        background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
+        background: 'linear-gradient(145deg, #0A4A3B 0%, #00382C 100%)',
         borderRadius: '28px',
         border: '2px solid rgba(201,169,110,0.15)',
         boxShadow: '0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,169,110,0.08)',
@@ -29,7 +29,7 @@ function AfterPhoneMockup() {
         style={{
           width: '70px',
           height: '22px',
-          background: '#0d0f0e',
+          background: '#00382C',
           borderRadius: '0 0 14px 14px',
           zIndex: 10,
         }}

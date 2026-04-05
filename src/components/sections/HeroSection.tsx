@@ -128,7 +128,7 @@ function PhoneMockup() {
         style={{
           width: '280px',
           height: '560px',
-          background: 'linear-gradient(145deg, #1a1d1b 0%, #0d0f0e 100%)',
+          background: 'linear-gradient(145deg, #0A4A3B 0%, #00382C 100%)',
           borderRadius: '36px',
           border: '2px solid rgba(255,255,255,0.08)',
           boxShadow: '0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.1)',
@@ -141,7 +141,7 @@ function PhoneMockup() {
           style={{
             width: '100px',
             height: '28px',
-            background: '#0d0f0e',
+            background: '#00382C',
             borderRadius: '0 0 18px 18px',
             zIndex: 10,
           }}

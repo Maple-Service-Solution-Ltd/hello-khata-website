@@ -200,7 +200,7 @@ function VoiceTab() {
           <Mic
             size={24}
             style={{
-              color: isListening ? '#0D0F0E' : 'var(--gold)',
+              color: isListening ? '#00382C' : 'var(--gold)',
             }}
           />
         </motion.button>

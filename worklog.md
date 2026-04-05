@@ -1457,3 +1457,28 @@ Stage Summary:
 - VoiceSection: Voice commands, marquee text, phone response screens still hardcoded
 - BusinessTypesSection: Pain points, screen content labels still hardcoded
 - FeaturesSection: Phone mockup inner content still hardcoded Bengali
+---
+Task ID: color-change-ink
+Agent: Main Orchestrator
+Task: Change primary ink color from #0D0F0E to #00382C, fix VisionSection error, verify LiveActivitySection
+
+Work Log:
+- Identified all 16 occurrences of #0D0F0E / #0d0f0e across the project
+- Updated globals.css: --ink, --ink-1, --ink-2, --text-ink, --foreground, --card-foreground, --popover-foreground, --secondary-foreground, --accent-foreground, --canvas-border, --canvas-border-strong, --border, --input, glass-card-dark background
+- Updated HeroSection.tsx: gradient colors (#1a1d1b → #0A4A3B, #0d0f0e → #00382C) and notch background
+- Updated TransformationSection.tsx: same gradient and notch color changes
+- Updated FeaturesSection.tsx: same gradient and notch color changes
+- Updated BusinessTypesSection.tsx: same gradient and notch color changes
+- Updated InteractiveDemoSection.tsx: direct color reference (#0D0F0E → #00382C)
+- Fixed VisionSection.tsx: added missing `useMemo` import (was `import React from 'react'` → `import React, { useMemo } from 'react'`)
+- Removed unused StaggerGroup/StaggerItem imports from VisionSection.tsx
+- Verified LiveActivitySection.tsx: duplicate key bug already fixed (uses idCounterRef for unique IDs)
+- Verified SidePageNav: already removed from codebase
+- Set up cron job (ID: 63575) for webDevReview every 15 minutes
+
+Stage Summary:
+- Color palette shifted from near-black (#0D0F0E) to dark green (#00382C) with proper derived shades
+- Ink-1: #0A4A3B (was #161918), Ink-2: #145B4A (was #1F2220)
+- All rgba(13,15,14,...) references updated to rgba(0,56,44,...)
+- VisionSection `useMemo` bug fixed
+- ESLint: zero errors, Dev server: clean compilation

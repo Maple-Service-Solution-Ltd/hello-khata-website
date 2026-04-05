@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/hellokhata/Reveal';
-import { StaggerGroup, StaggerItem } from '@/components/hellokhata/StaggerGroup';
 import { HorizonLine } from '@/components/hellokhata/HorizonLine';
 import { Download, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
