@@ -18,6 +18,7 @@ import {
   Check,
   ArrowRight,
 } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 /* ═══════════════════════════════════════════════════
    Module Data
@@ -625,6 +626,7 @@ export default function FeaturesSection() {
   const [activeModule, setActiveModule] = useState(1)
   const navRef = useRef<HTMLDivElement>(null)
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
+  const { t, lang } = useTranslation()
 
   /* IntersectionObserver for active module detection */
   useEffect(() => {
@@ -678,7 +680,7 @@ export default function FeaturesSection() {
             variants={fadeUp}
           >
             <span className="font-body tracking-[0.12em] uppercase" style={{ fontSize: 'var(--fs-label)', color: 'var(--gold)' }}>
-              The Power
+              {t('features.eyebrow')}
             </span>
           </motion.div>
 
@@ -687,7 +689,7 @@ export default function FeaturesSection() {
             style={{ fontSize: 'clamp(32px, 5vw, 52px)' }}
             variants={fadeUp}
           >
-            ১২টি শক্তিশালী টুল। একটাই অ্যাপ।
+            {t('features.headline')}
           </motion.h2>
 
           <motion.p
@@ -695,7 +697,7 @@ export default function FeaturesSection() {
             style={{ fontSize: 'var(--fs-body)', color: 'var(--text-cream-muted)', maxWidth: '580px' }}
             variants={fadeUp}
           >
-            12 powerful modules. One simple app. Built for the real Bangladesh shop.
+            {t('features.sub')}
           </motion.p>
         </motion.div>
       </div>
@@ -720,7 +722,7 @@ export default function FeaturesSection() {
                 }}
               >
                 {m.icon}
-                <span className="font-bengali text-[11px]">{m.bn}</span>
+                <span className="font-bengali text-[11px]">{lang === 'bn' ? m.bn : m.en}</span>
               </button>
             ))}
           </div>

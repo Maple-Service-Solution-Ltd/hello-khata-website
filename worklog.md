@@ -1377,3 +1377,41 @@ Add i18n support for BusinessTypesSection and TestimonialsSection components usi
 - ✅ All existing functionality preserved
 - ✅ Translation keys already existed in both `bn` and `en` dictionaries
 - ✅ No new translations needed — all content was pre-translated in previous iterations
+
+---
+Task ID: i18n-fix
+Agent: Main Orchestrator
+Task: Fix duplicate key error, remove SidePageNav, complete i18n for all sections
+
+Work Log:
+- Fixed duplicate key error in LiveActivitySection.tsx:
+  - Root cause: SAMPLE_ACTIVITIES was recreated every render (inside component body), causing useCallback dependency to change every render
+  - Combined with React Strict Mode, this caused race conditions with initial fill timers creating activities with duplicate IDs
+  - Fix: Used useMemo for sampleActivities (stable until lang changes), useRef for idCounter (component-scoped), removed module-level globalId variable
+  - Fixed lint error: Cannot access refs during render — changed from ref assignment pattern to direct useMemo
+- Removed SidePageNav.tsx completely:
+  - File was at src/components/hellokhata/SidePageNav.tsx (not src/components/)
+  - Was already not imported anywhere in the app
+  - Deleted the file and verified no remaining references
+- Added i18n to FeaturesSection.tsx:
+  - Added useTranslation import and hook
+  - Section header (eyebrow, headline, subtitle) now uses t() translation keys
+  - Module navigation tabs use lang === 'bn' ? m.bn : m.en for language-aware tab names
+- Added i18n to VoiceDemoSection.tsx:
+  - Added useTranslation import and hook
+  - Section header (eyebrow, headline, subtitle, disclaimer) now uses t() translation keys
+  - Voice command buttons updated with { bn, en } text objects for language-aware labels
+  - Added voiceDemo translations to both bn and en sections in translations.ts
+- Added i18n to VoiceSection.tsx:
+  - Added useTranslation import and hook
+  - Headline "শুধু বলুন।" now uses t('voice.headline')
+  - Speaking/Response labels now use t('voice.speaking') and t('voice.response')
+  - Translation keys already existed in both bn and en dictionaries
+
+Stage Summary:
+- All 22 section components now use useTranslation hook (100% coverage)
+- Duplicate key error completely fixed with proper React patterns
+- SidePageNav component fully removed
+- Language switching now works across all sections including Features, VoiceDemo, Voice
+- ESLint: zero errors
+- Dev server: clean compilation

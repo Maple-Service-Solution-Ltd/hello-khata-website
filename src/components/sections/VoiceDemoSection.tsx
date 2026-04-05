@@ -17,18 +17,19 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─────────────────────────────────────────────
    Voice Commands
    ───────────────────────────────────────────── */
 
 const commands = [
-  { text: 'আজকের বিক্রি দেখাও', icon: ShoppingBag },
-  { text: 'কাস্টমার খাতা দেখাও', icon: Users },
-  { text: 'নতুন এন্ট্রি করো', icon: Plus },
-  { text: 'বাকি কারা দিচ্ছে', icon: AlertTriangle },
-  { text: 'স্টক আপডেট করো', icon: Package },
-  { text: 'রিপোর্ট তৈরি করো', icon: FileText },
+  { text: { bn: 'আজকের বিক্রি দেখাও', en: "Show today's sales" }, icon: ShoppingBag },
+  { text: { bn: 'কাস্টমার খাতা দেখাও', en: 'Show customer ledger' }, icon: Users },
+  { text: { bn: 'নতুন এন্ট্রি করো', en: 'Add new entry' }, icon: Plus },
+  { text: { bn: 'বাকি কারা দিচ্ছে', en: 'Who has dues?' }, icon: AlertTriangle },
+  { text: { bn: 'স্টক আপডেট করো', en: 'Update stock' }, icon: Package },
+  { text: { bn: 'রিপোর্ট তৈরি করো', en: 'Generate report' }, icon: FileText },
 ];
 
 /* ─────────────────────────────────────────────
@@ -384,6 +385,7 @@ function ConnectorDot() {
    ───────────────────────────────────────────── */
 
 export default function VoiceDemoSection() {
+  const { t, lang } = useTranslation();
   const [activeCommand, setActiveCommand] = useState(0);
 
   return (
@@ -417,21 +419,21 @@ export default function VoiceDemoSection() {
             className="inline-block font-body text-xs uppercase tracking-[0.15em] mb-4"
             style={{ color: 'var(--gold)' }}
           >
-            লাইভ ডেমো
+            {t('voiceDemo.eyebrow')}
           </span>
           {/* Bengali heading */}
           <h2
             className="font-bengali text-center mb-3"
             style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-cream)' }}
           >
-            নিজে চেষ্টা করুন
+            {t('voiceDemo.headline')}
           </h2>
           {/* English subtitle */}
           <p
             className="font-display italic text-center"
             style={{ color: 'var(--text-cream-muted)', fontSize: 'var(--fs-body)' }}
           >
-            Try it yourself — tap a command and watch the magic
+            {t('voiceDemo.subtitle')}
           </p>
         </Reveal>
 
@@ -448,7 +450,7 @@ export default function VoiceDemoSection() {
                 const isActive = activeCommand === idx;
                 return (
                   <motion.button
-                    key={cmd.text}
+                    key={cmd.text.bn}
                     onClick={() => setActiveCommand(idx)}
                     className={`
                       relative flex items-center gap-2 px-4 py-2.5 rounded-full whitespace-nowrap
@@ -468,7 +470,7 @@ export default function VoiceDemoSection() {
                     whileTap={{ scale: 0.97 }}
                   >
                     <Icon size={14} />
-                    <span>{cmd.text}</span>
+                    <span>{cmd.text[lang]}</span>
                   </motion.button>
                 );
               })}
@@ -576,7 +578,7 @@ export default function VoiceDemoSection() {
         {/* ── Bottom Disclaimer ── */}
         <Reveal variant="fade-in" delay={0.4} className="text-center mt-10 md:mt-14">
           <p className="font-body text-xs" style={{ color: 'var(--text-ghost)' }}>
-            এটি একটি ডেমো। আসল অ্যাপে আপনার ভয়েসে কাজ করবে।
+            {t('voiceDemo.disclaimer')}
           </p>
         </Reveal>
       </div>

@@ -30,6 +30,7 @@ type TranslationSections = {
   newsletter: SectionMap;
   features: SectionMap;
   voice: SectionMap;
+  voiceDemo: SectionMap;
   businessTypes: SectionMap;
   testimonials: SectionMap;
   comparison: SectionMap;
@@ -705,6 +706,13 @@ const translations = {
     /* ══════════════════════════════════════════
        VOICE SECTION
        ══════════════════════════════════════════ */
+    voiceDemo: {
+      eyebrow: 'লাইভ ডেমো',
+      headline: 'নিজে চেষ্টা করুন',
+      subtitle: 'Try it yourself — tap a command and watch the magic',
+      disclaimer: 'এটি একটি ডেমো। আসল অ্যাপে আপনার ভয়েসে কাজ করবে।',
+    },
+
     voice: {
       headline: 'শুধু বলুন।',
       speaking: 'Speaking',
@@ -1523,6 +1531,13 @@ const translations = {
     /* ══════════════════════════════════════════
        VOICE SECTION
        ══════════════════════════════════════════ */
+    voiceDemo: {
+      eyebrow: 'Live Demo',
+      headline: 'Try it yourself',
+      subtitle: 'Try it yourself — tap a command and watch the magic',
+      disclaimer: 'This is a demo. In the real app, your voice will control everything.',
+    },
+
     voice: {
       headline: 'Just speak.',
       speaking: 'Speaking',

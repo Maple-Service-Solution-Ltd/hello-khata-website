@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Mic, CheckCircle, BarChart3, AlertTriangle, Package, TrendingUp, ShieldAlert } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 /* ─── Voice Commands Data ─── */
 const VOICE_COMMANDS = [
@@ -159,6 +160,7 @@ function getResponseForCommand(idx: number): ResponseScreen {
 export default function VoiceSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const { t, lang } = useTranslation();
 
   const [currentCmdIdx, setCurrentCmdIdx] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -270,7 +272,7 @@ export default function VoiceSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          শুধু বলুন।
+          {t('voice.headline')}
         </motion.h2>
 
         {/* ─── Voice Command Theatre ─── */}
@@ -289,7 +291,7 @@ export default function VoiceSection() {
             <div className="flex-1 space-y-4">
               <div className="flex items-center gap-2 text-[11px] font-body uppercase tracking-widest text-[var(--text-ghost)]">
                 <Mic size={12} className="text-[var(--gold)]" />
-                Speaking
+                {t('voice.speaking')}
               </div>
 
               {/* Typing area */}
@@ -360,7 +362,7 @@ export default function VoiceSection() {
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-2 text-[11px] font-body uppercase tracking-widest text-[var(--text-ghost)]">
                 <CheckCircle size={12} className="text-[var(--gold)]" />
-                Response
+                {t('voice.response')}
               </div>
 
               {/* Phone mockup */}

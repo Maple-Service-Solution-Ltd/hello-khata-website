@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, TrendingUp, Store, HandCoins } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
@@ -23,170 +23,55 @@ interface Activity {
 export default function LiveActivitySection() {
   const { t, lang } = useTranslation();
 
-  const SAMPLE_ACTIVITIES: Omit<Activity, 'id'>[] = lang === 'bn'
-    ? [
-        {
-          emoji: '🏪',
-          shopName: 'করিম স্টোর',
-          district: 'ঢাকা',
-          action: t('liveActivity.actionNewSale'),
-          timeAgo: t('liveActivity.timeJustNow'),
-        },
-        {
-          emoji: '💊',
-          shopName: 'রহিম ফার্মেসি',
-          district: 'চট্টগ্রাম',
-          action: t('liveActivity.actionStockUpdate'),
-          timeAgo: t('liveActivity.time2MinAgo'),
-        },
-        {
-          emoji: '👗',
-          shopName: 'ফাতেমা টেইলার্স',
-          district: 'সিলেট',
-          action: t('liveActivity.actionDuesCollected'),
-          timeAgo: t('liveActivity.time5MinAgo'),
-        },
-        {
-          emoji: '📱',
-          shopName: 'জামান ইলেকট্রনিক্স',
-          district: 'রাজশাহী',
-          action: t('liveActivity.actionVoiceEntry'),
-          timeAgo: t('liveActivity.time7MinAgo'),
-        },
-        {
-          emoji: '🍚',
-          shopName: 'আকবর মুদি ডালা',
-          district: 'খুলনা',
-          action: t('liveActivity.actionDailyReport'),
-          timeAgo: t('liveActivity.time10MinAgo'),
-        },
-        {
-          emoji: '✂️',
-          shopName: 'নাসরিন বিউটি পার্লার',
-          district: 'বরিশাল',
-          action: t('liveActivity.actionNewCustomer'),
-          timeAgo: t('liveActivity.time12MinAgo'),
-        },
-        {
-          emoji: '🔧',
-          shopName: 'হাসান হার্ডওয়্যার',
-          district: 'ময়মনসিংহ',
-          action: t('liveActivity.actionBatchExpiry'),
-          timeAgo: t('liveActivity.time15MinAgo'),
-        },
-        {
-          emoji: '📚',
-          shopName: 'সালমা জুট হাউজ',
-          district: 'রংপুর',
-          action: t('liveActivity.actionMonthlyReport'),
-          timeAgo: t('liveActivity.time20MinAgo'),
-        },
-      ]
-    : [
-        {
-          emoji: '🏪',
-          shopName: 'Karim Store',
-          district: 'Dhaka',
-          action: t('liveActivity.actionNewSale'),
-          timeAgo: t('liveActivity.timeJustNow'),
-        },
-        {
-          emoji: '💊',
-          shopName: 'Rahim Pharmacy',
-          district: 'Chattogram',
-          action: t('liveActivity.actionStockUpdate'),
-          timeAgo: t('liveActivity.time2MinAgo'),
-        },
-        {
-          emoji: '👗',
-          shopName: 'Fatema Tailors',
-          district: 'Sylhet',
-          action: t('liveActivity.actionDuesCollected'),
-          timeAgo: t('liveActivity.time5MinAgo'),
-        },
-        {
-          emoji: '📱',
-          shopName: 'Zaman Electronics',
-          district: 'Rajshahi',
-          action: t('liveActivity.actionVoiceEntry'),
-          timeAgo: t('liveActivity.time7MinAgo'),
-        },
-        {
-          emoji: '🍚',
-          shopName: 'Akbar Grocery',
-          district: 'Khulna',
-          action: t('liveActivity.actionDailyReport'),
-          timeAgo: t('liveActivity.time10MinAgo'),
-        },
-        {
-          emoji: '✂️',
-          shopName: 'Nasrin Beauty Parlor',
-          district: 'Barishal',
-          action: t('liveActivity.actionNewCustomer'),
-          timeAgo: t('liveActivity.time12MinAgo'),
-        },
-        {
-          emoji: '🔧',
-          shopName: 'Hasan Hardware',
-          district: 'Mymensingh',
-          action: t('liveActivity.actionBatchExpiry'),
-          timeAgo: t('liveActivity.time15MinAgo'),
-        },
-        {
-          emoji: '📚',
-          shopName: 'Salma Jute House',
-          district: 'Rangpur',
-          action: t('liveActivity.actionMonthlyReport'),
-          timeAgo: t('liveActivity.time20MinAgo'),
-        },
-      ];
-
-  const STAT_CARDS = [
-    {
-      icon: Mic,
-      label: t('liveActivity.statVoiceEntry'),
-      value: '১২,৪৫৬',
-      color: 'var(--green)',
-    },
-    {
-      icon: TrendingUp,
-      label: t('liveActivity.statSales'),
-      value: '৳ ৪.৫ কোটি',
-      color: 'var(--gold)',
-    },
-    {
-      icon: Store,
-      label: t('liveActivity.statNewShops'),
-      value: '৩৪',
-      color: 'var(--green)',
-    },
-    {
-      icon: HandCoins,
-      label: t('liveActivity.statDuesCollected'),
-      value: '৳ ২.১ কোটি',
-      color: 'var(--gold)',
-    },
-  ];
-
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [onlineCount] = useState(52347);
+  const idCounterRef = useRef(0);
   const activityIndexRef = useRef(0);
   const isInitialFillRef = useRef(true);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [onlineCount] = useState(52347);
+
+  /* Build sample activities only when language changes */
+  const sampleActivities = useMemo(() => {
+    if (lang === 'bn') {
+      return [
+        { emoji: '🏪', shopName: 'করিম স্টোর', district: 'ঢাকা', action: t('liveActivity.actionNewSale'), timeAgo: t('liveActivity.timeJustNow') },
+        { emoji: '💊', shopName: 'রহিম ফার্মেসি', district: 'চট্টগ্রাম', action: t('liveActivity.actionStockUpdate'), timeAgo: t('liveActivity.time2MinAgo') },
+        { emoji: '👗', shopName: 'ফাতেমা টেইলার্স', district: 'সিলেট', action: t('liveActivity.actionDuesCollected'), timeAgo: t('liveActivity.time5MinAgo') },
+        { emoji: '📱', shopName: 'জামান ইলেকট্রনিক্স', district: 'রাজশাহী', action: t('liveActivity.actionVoiceEntry'), timeAgo: t('liveActivity.time7MinAgo') },
+        { emoji: '🍚', shopName: 'আকবর মুদি ডালা', district: 'খুলনা', action: t('liveActivity.actionDailyReport'), timeAgo: t('liveActivity.time10MinAgo') },
+        { emoji: '✂️', shopName: 'নাসরিন বিউটি পার্লার', district: 'বরিশাল', action: t('liveActivity.actionNewCustomer'), timeAgo: t('liveActivity.time12MinAgo') },
+        { emoji: '🔧', shopName: 'হাসান হার্ডওয়্যার', district: 'ময়মনসিংহ', action: t('liveActivity.actionBatchExpiry'), timeAgo: t('liveActivity.time15MinAgo') },
+        { emoji: '📚', shopName: 'সালমা জুট হাউজ', district: 'রংপুর', action: t('liveActivity.actionMonthlyReport'), timeAgo: t('liveActivity.time20MinAgo') },
+      ];
+    }
+    return [
+      { emoji: '🏪', shopName: 'Karim Store', district: 'Dhaka', action: t('liveActivity.actionNewSale'), timeAgo: t('liveActivity.timeJustNow') },
+      { emoji: '💊', shopName: 'Rahim Pharmacy', district: 'Chattogram', action: t('liveActivity.actionStockUpdate'), timeAgo: t('liveActivity.time2MinAgo') },
+      { emoji: '👗', shopName: 'Fatema Tailors', district: 'Sylhet', action: t('liveActivity.actionDuesCollected'), timeAgo: t('liveActivity.time5MinAgo') },
+      { emoji: '📱', shopName: 'Zaman Electronics', district: 'Rajshahi', action: t('liveActivity.actionVoiceEntry'), timeAgo: t('liveActivity.time7MinAgo') },
+      { emoji: '🍚', shopName: 'Akbar Grocery', district: 'Khulna', action: t('liveActivity.actionDailyReport'), timeAgo: t('liveActivity.time10MinAgo') },
+      { emoji: '✂️', shopName: 'Nasrin Beauty Parlor', district: 'Barishal', action: t('liveActivity.actionNewCustomer'), timeAgo: t('liveActivity.time12MinAgo') },
+      { emoji: '🔧', shopName: 'Hasan Hardware', district: 'Mymensingh', action: t('liveActivity.actionBatchExpiry'), timeAgo: t('liveActivity.time15MinAgo') },
+      { emoji: '📚', shopName: 'Salma Jute House', district: 'Rangpur', action: t('liveActivity.actionMonthlyReport'), timeAgo: t('liveActivity.time20MinAgo') },
+    ];
+  }, [lang, t]);
+
+  const STAT_CARDS = useMemo(() => [
+    { icon: Mic, label: t('liveActivity.statVoiceEntry'), value: lang === 'bn' ? '১২,৪৫৬' : '12,456', color: 'var(--green)' },
+    { icon: TrendingUp, label: t('liveActivity.statSales'), value: lang === 'bn' ? '৳ ৪.৫ কোটি' : '৳ 4.5 Crore', color: 'var(--gold)' },
+    { icon: Store, label: t('liveActivity.statNewShops'), value: lang === 'bn' ? '৩৪' : '34', color: 'var(--green)' },
+    { icon: HandCoins, label: t('liveActivity.statDuesCollected'), value: lang === 'bn' ? '৳ ২.১ কোটি' : '৳ 2.1 Crore', color: 'var(--gold)' },
+  ], [lang, t]);
 
   const addActivity = useCallback(() => {
-    const sample = SAMPLE_ACTIVITIES[activityIndexRef.current % SAMPLE_ACTIVITIES.length];
+    const sample = sampleActivities[activityIndexRef.current % sampleActivities.length];
     activityIndexRef.current += 1;
 
-    const newActivity: Activity = {
-      ...sample,
-      id: getNextId(),
-    };
+    idCounterRef.current += 1;
+    const newActivity: Activity = { ...sample, id: idCounterRef.current };
 
     if (isInitialFillRef.current) {
-      // Initial fill: just prepend without removal
       setActivities((prev) => [newActivity, ...prev]);
     } else {
-      // After initial fill: prepend and trim to max 5
       setActivities((prev) => {
         const next = [newActivity, ...prev];
         if (next.length > 5) {
@@ -195,7 +80,7 @@ export default function LiveActivitySection() {
         return next;
       });
     }
-  }, [SAMPLE_ACTIVITIES]);
+  }, [sampleActivities]);
 
   // Initial fill: add all 8 activities quickly
   useEffect(() => {
@@ -362,17 +247,6 @@ export default function LiveActivitySection() {
       </div>
     </section>
   );
-}
-
-/* ─────────────────────────────────────────────
-   Helper: global ID counter
-   ───────────────────────────────────────────── */
-
-let globalId = 0;
-
-function getNextId(): number {
-  globalId += 1;
-  return globalId;
 }
 
 /* ─────────────────────────────────────────────
