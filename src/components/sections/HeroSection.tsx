@@ -2,50 +2,116 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { Download, ChevronDown, MessageCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/use-translation'
 
-/* ── Dynamic import Particles to avoid SSR issues ── */
-const Particles = dynamic(
-  () => import('@tsparticles/react').then(mod => mod.default || mod.Particles),
-  { ssr: false }
-)
+/* ── Lightweight Canvas Particle System ── */
+function useCanvasParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-/* ── Particles init (slim engine) ── */
-async function loadParticlesEngine(engine: any) {
-  const { loadSlim } = await import('@tsparticles/slim')
-  await loadSlim(engine)
+    let animId: number
+    let w = 0
+    let h = 0
+
+    interface Particle {
+      x: number; y: number; vx: number; vy: number;
+      r: number; opacity: number; phase: number; speed: number;
+    }
+
+    const particles: Particle[] = []
+    const COUNT = 60
+    const LINK_DIST = 120
+
+    function resize() {
+      w = canvas!.width = canvas!.offsetWidth
+      h = canvas!.height = canvas!.offsetHeight
+    }
+
+    function init() {
+      resize()
+      particles.length = 0
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: -(Math.random() * 0.3 + 0.1),
+          r: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.12 + 0.03,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.005 + 0.002,
+        })
+      }
+    }
+
+    function draw() {
+      ctx!.clearRect(0, 0, w, h)
+      const gold = '201,169,110'
+
+      // Draw links
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x
+          const dy = particles[i].y - particles[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < LINK_DIST) {
+            const alpha = (1 - dist / LINK_DIST) * 0.06
+            ctx!.strokeStyle = `rgba(${gold},${alpha})`
+            ctx!.lineWidth = 0.5
+            ctx!.beginPath()
+            ctx!.moveTo(particles[i].x, particles[i].y)
+            ctx!.lineTo(particles[j].x, particles[j].y)
+            ctx!.stroke()
+          }
+        }
+      }
+
+      // Draw & update particles
+      for (const p of particles) {
+        p.phase += p.speed
+        const alpha = p.opacity * (0.6 + 0.4 * Math.sin(p.phase))
+        ctx!.beginPath()
+        ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+        ctx!.fillStyle = `rgba(${gold},${alpha})`
+        ctx!.fill()
+
+        p.x += p.vx
+        p.y += p.vy
+
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w }
+        if (p.x < -10) p.x = w + 10
+        if (p.x > w + 10) p.x = -10
+      }
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    init()
+    draw()
+    window.addEventListener('resize', resize)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [canvasRef])
 }
 
-const particlesConfig = {
-  particles: {
-    number: { value: 50 },
-    color: { value: '#C9A96E' },
-    opacity: {
-      value: { min: 0.05, max: 0.15 },
-      animation: { enable: true, speed: 0.5, sync: false },
-    },
-    size: {
-      value: { min: 1, max: 2.5 },
-    },
-    move: {
-      enable: true,
-      speed: 0.3,
-      direction: 'top' as const,
-      straight: false,
-      outModes: { default: 'out' as const },
-    },
-    links: {
-      enable: true,
-      distance: 120,
-      color: '#C9A96E',
-      opacity: 0.06,
-      width: 0.5,
-    },
-  },
-  fullScreen: { enable: false },
-  detectRetina: true,
+/* ── Canvas Particles Component ── */
+function CanvasParticles() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  useCanvasParticles(canvasRef)
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ pointerEvents: 'none' }}
+    />
+  )
 }
 
 /* ── Typewriter hook ── */
@@ -274,8 +340,6 @@ export default function HeroSection() {
   const phoneRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const [scrollY, setScrollY] = useState(0)
-  const [particlesInit, setParticlesInit] = useState(false)
-  const [gsapReady, setGsapReady] = useState(false)
   const { t, tArray } = useTranslation()
   const headline = tArray('hero.headline') ?? ['খাতা এখন', 'কথা বলে']
 
@@ -341,7 +405,6 @@ export default function HeroSection() {
         }
       })
 
-      setGsapReady(true)
     }
 
     initGSAP()
@@ -402,18 +465,9 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ── Layer 5: Particles (ssr:false via dynamic import) ── */}
+      {/* ── Layer 5: Canvas Particles ── */}
       <div ref={particlesRef} className="absolute inset-0 pointer-events-none">
-        <Particles
-          id="hero-particles"
-          init={async (engine) => {
-            if (!particlesInit) {
-              await loadParticlesEngine(engine)
-              setParticlesInit(true)
-            }
-          }}
-          options={particlesConfig}
-        />
+        <CanvasParticles />
       </div>
 
       {/* ── Layer 6: Horizon Line SVG ── */}
