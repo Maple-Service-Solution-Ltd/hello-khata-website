@@ -7,13 +7,16 @@ import { cn } from '@/lib/utils';
 import { useHashRouter } from './HashRouter';
 import { NAV_LINKS, DARK_SECTION_IDS, getPageConfig, PAGES } from '@/lib/pages';
 import WaveformMark from './WaveformMark';
+import { useLanguageStore } from '@/lib/language-store';
+import { useToast } from './ToastProvider';
 
 export default function Navigation() {
   const { currentPage, navigate, searchOpen, setSearchOpen } = useHashRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOverDark, setIsOverDark] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [lang, setLang] = useState<'bn' | 'en'>('bn');
+  const { lang, setLang } = useLanguageStore();
+  const { toast } = useToast();
   const [showSearchHint, setShowSearchHint] = useState(false);
   const searchHintTimer = useRef<ReturnType<typeof setTimeout>>();
 
@@ -188,7 +191,12 @@ export default function Navigation() {
               )}
             >
               <button
-                onClick={() => setLang('en')}
+                onClick={() => {
+                  if (lang !== 'en') {
+                    setLang('en');
+                    toast({ type: 'info', title: 'Language switched to English', description: 'English version coming soon!', duration: 3000 });
+                  }
+                }}
                 className={cn(
                   'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-body cursor-pointer',
                   lang === 'en'
@@ -200,7 +208,12 @@ export default function Navigation() {
               </button>
               <span className="text-[10px] opacity-40">·</span>
               <button
-                onClick={() => setLang('bn')}
+                onClick={() => {
+                  if (lang !== 'bn') {
+                    setLang('bn');
+                    toast({ type: 'success', title: 'ভাষা বাংলায় পরিবর্তন হয়েছে', duration: 3000 });
+                  }
+                }}
                 className={cn(
                   'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-bengali cursor-pointer',
                   lang === 'bn'
@@ -352,7 +365,12 @@ export default function Navigation() {
               {/* Language toggle */}
               <div className="flex items-center rounded-full px-1 py-1 text-[12px] border border-[var(--ink-border-strong)] text-[var(--text-cream-muted)]">
                 <button
-                  onClick={() => setLang('en')}
+                  onClick={() => {
+                    if (lang !== 'en') {
+                      setLang('en');
+                      toast({ type: 'info', title: 'Language switched to English', description: 'English version coming soon!', duration: 3000 });
+                    }
+                  }}
                   className={cn(
                     'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-body cursor-pointer',
                     lang === 'en'
@@ -364,7 +382,12 @@ export default function Navigation() {
                 </button>
                 <span className="text-[10px] opacity-40">·</span>
                 <button
-                  onClick={() => setLang('bn')}
+                  onClick={() => {
+                    if (lang !== 'bn') {
+                      setLang('bn');
+                      toast({ type: 'success', title: 'ভাষা বাংলায় পরিবর্তন হয়েছে', duration: 3000 });
+                    }
+                  }}
                   className={cn(
                     'px-2.5 py-0.5 rounded-full transition-all duration-200 text-[12px] font-bengali cursor-pointer',
                     lang === 'bn'

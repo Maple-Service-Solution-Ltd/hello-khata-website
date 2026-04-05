@@ -3,6 +3,9 @@
 import { Facebook, Linkedin, Youtube, ArrowUp, Mail, Phone } from 'lucide-react';
 import WaveformMark from '@/components/hellokhata/WaveformMark';
 import { useHashRouter } from '@/components/hellokhata/HashRouter';
+import { useLanguageStore, type Language } from '@/lib/language-store';
+import { useToast } from '@/components/hellokhata/ToastProvider';
+import { cn } from '@/lib/utils';
 
 /* ─── Inline HorizonLine placeholder ─── */
 function HorizonLine({ variant = 'subtle' }: { variant?: 'subtle' | 'default' }) {
@@ -53,10 +56,15 @@ const socialLinks = [
   { icon: Youtube, href: 'https://youtube.com/@hellokhata', label: 'YouTube' },
 ];
 
-const languages = ['বাংলা', 'English', 'हिन्दी'];
+const LANGUAGE_OPTIONS: { code: Language; label: string; nativeFont: string }[] = [
+  { code: 'bn', label: 'বাংলা', nativeFont: 'font-bengali' },
+  { code: 'en', label: 'English', nativeFont: 'font-body' },
+];
 
 export default function Footer() {
   const { navigate } = useHashRouter();
+  const { lang, setLang } = useLanguageStore();
+  const { toast } = useToast();
 
   const handleClick = (e: React.MouseEvent, page: string) => {
     e.preventDefault();
@@ -304,20 +312,37 @@ export default function Footer() {
 
           {/* Center: Language Selector Pills */}
           <div className="flex items-center gap-1.5">
-            {languages.map((lang, i) => (
-              <button
-                key={lang}
-                className="px-3 py-1 rounded-full text-[11px] font-body transition-all duration-200 cursor-pointer"
-                style={{
-                  backgroundColor: i === 0 ? 'rgba(201,169,110,0.15)' : 'transparent',
-                  color: i === 0 ? 'var(--gold)' : 'var(--text-cream-muted)',
-                  border: '1px solid',
-                  borderColor: i === 0 ? 'rgba(201,169,110,0.3)' : 'var(--ink-border)',
-                }}
-              >
-                {lang}
-              </button>
-            ))}
+            {LANGUAGE_OPTIONS.map((opt) => {
+              const isActive = lang === opt.code;
+              return (
+                <button
+                  key={opt.code}
+                  onClick={() => {
+                    if (lang !== opt.code) {
+                      setLang(opt.code);
+                      toast({
+                        type: opt.code === 'bn' ? 'success' : 'info',
+                        title: opt.code === 'bn' ? 'ভাষা বাংলায় পরিবর্তন হয়েছে' : 'Language switched to English',
+                        description: opt.code === 'en' ? 'English version coming soon!' : undefined,
+                        duration: 3000,
+                      });
+                    }
+                  }}
+                  className={cn(
+                    'px-3 py-1 rounded-full text-[11px] font-body transition-all duration-200 cursor-pointer',
+                    opt.nativeFont
+                  )}
+                  style={{
+                    backgroundColor: isActive ? 'rgba(201,169,110,0.15)' : 'transparent',
+                    color: isActive ? 'var(--gold)' : 'var(--text-cream-muted)',
+                    border: '1px solid',
+                    borderColor: isActive ? 'rgba(201,169,110,0.3)' : 'var(--ink-border)',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Right: Back to home + Built in */}

@@ -52,7 +52,7 @@ export default function SidePageNav() {
 
   return (
     <div
-      className="fixed right-4 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-center"
+      className="fixed right-4 top-1/2 -translate-y-1/2 z-30 hidden flex-col items-center"
       role="navigation"
       aria-label="Page navigation"
     >

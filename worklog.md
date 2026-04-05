@@ -1102,3 +1102,38 @@ Stage Summary:
 4. **MEDIUM**: Add industry-specific landing pages (/for/pharmacy, /for/grocery, etc.)
 5. **LOW**: Add i18n support with next-intl for full English translations
 6. **LOW**: Add analytics tracking (page views, scroll depth, CTA clicks)
+
+---
+Task ID: bugfix-sidebar-lang
+Agent: Main Orchestrator
+Task: Remove side page navigation dots for desktop + fix language switching (EN/BN)
+
+Work Log:
+- Removed SidePageNav desktop visibility: changed `hidden lg:flex` to `hidden` so dots never appear
+- Created Zustand language store at `src/lib/language-store.ts`:
+  - Shared `useLanguageStore` with `lang` state and `setLang` action
+  - Persists to localStorage under key `hellokhata-lang`
+  - Hydrates from localStorage on client mount
+- Updated Navigation.tsx language toggle:
+  - Replaced local `useState` with shared `useLanguageStore`
+  - Added `useToast()` for feedback on language change
+  - EN click: shows info toast "Language switched to English" + "English version coming soon!"
+  - BN click: shows success toast "ভাষা বাংলায় পরিবর্তন হয়েছে"
+  - Only fires when actually changing language (no duplicate toasts)
+  - Applied to both desktop and mobile language toggles
+- Updated Footer.tsx language selector:
+  - Replaced static `languages` array with typed `LANGUAGE_OPTIONS` (bn/en only)
+  - Removed non-functional Hindi option (was never supported)
+  - Added `onClick` handlers using shared `useLanguageStore`
+  - Active state now dynamically determined by store (not hardcoded index)
+  - Bengali text uses `font-bengali` class, English uses `font-body`
+  - Added toast feedback on language change
+  - Added `cn` utility import for className composition
+
+Stage Summary:
+- SidePageNav dots completely hidden on all screen sizes
+- Language switching now works consistently across Navigation (desktop + mobile) and Footer
+- Shared Zustand store ensures state synchronization between all language selectors
+- Toast notifications provide clear feedback when language changes
+- Removed unsupported Hindi option to avoid confusion
+- ESLint: zero errors, Dev server: clean compilation
