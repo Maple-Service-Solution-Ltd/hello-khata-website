@@ -243,7 +243,7 @@ export default function TransformationSection() {
       </motion.div> */}
 
       {/* ── Center: Horizon Line ── */}
-      <motion.div
+      {/* <motion.div
         className="relative z-20 flex items-center justify-center -mt-8"
         style={{
           height: '80px',
@@ -251,13 +251,11 @@ export default function TransformationSection() {
           background: 'linear-gradient(to bottom, var(--ink) 0%, var(--cream) 100%)',
         }}
       >
-        {/* Gold divider line */}
         <div
           className="absolute left-0 right-0"
           style={{ height: '3px', background: 'var(--gold)' }}
         />
 
-        {/* HelloKhata wordmark */}
         <motion.div
           className="relative z-10 px-6 py-2 rounded-full"
           style={{
@@ -276,18 +274,20 @@ export default function TransformationSection() {
             HelloKhata
           </span>
         </motion.div>
-      </motion.div>
-
-      {/* ── Bottom Half: AFTER ── */}
+      </motion.div> */}
       <motion.div
         className="relative"
-        style={{
-          minHeight: '50vh',
-          background: 'var(--cream)',
-          opacity: afterOpacity,
-          scale: afterScale,
-          y: afterParallaxY,
-        }}
+  style={{
+    minHeight: '50vh',
+    background: 'var(--cream)',
+    scale: afterScale,
+    y: afterParallaxY,
+  }}
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{ duration: 0.8 }}
+
       >
         {/* Soft gold glow */}
         <div
@@ -301,10 +301,10 @@ export default function TransformationSection() {
         {/* After label */}
         <motion.div
           className="absolute bottom-6 right-6 z-10"
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0.6, x: 20 }}
+          whileInView={{ opacity: 1, x: 20 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
         >
           <span
             className="inline-block px-3 py-1 rounded-full font-body font-semibold text-[13px]"
