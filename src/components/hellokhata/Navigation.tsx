@@ -10,6 +10,7 @@ import WaveformMark from './WaveformMark';
 import { useLanguageStore } from '@/lib/language-store';
 import { useTranslation } from '@/hooks/use-translation';
 import { useToast } from './ToastProvider';
+import { useRouter } from 'next/navigation';
 
 export default function Navigation() {
   const { currentPage, navigate, searchOpen, setSearchOpen } = useHashRouter();
@@ -21,11 +22,19 @@ export default function Navigation() {
   const { toast } = useToast();
   const [showSearchHint, setShowSearchHint] = useState(false);
   const searchHintTimer = useRef<ReturnType<typeof setTimeout>>();
+  const router = useRouter()
+  /* ─── Navigate helper ─── */
+  const handleNavigate = useCallback(
+    (page: string) => {
+      navigate(page);
+      setMobileOpen(false);
+    },
+    [navigate]
+  );
 
   /* ─── Scroll position: determine dark vs light background ─── */
   useEffect(() => {
     const pageConfig = getPageConfig(currentPage);
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
@@ -80,14 +89,6 @@ export default function Navigation() {
     };
   }, []);
 
-  /* ─── Navigate helper ─── */
-  const handleNavigate = useCallback(
-    (page: string) => {
-      navigate(page);
-      setMobileOpen(false);
-    },
-    [navigate]
-  );
 
   const isLight = !isOverDark || isScrolled;
 
@@ -109,7 +110,7 @@ export default function Navigation() {
         <div className="w-full max-w-[1380px] mx-auto px-6 flex items-center justify-between">
           {/* ─── Logo ─── */}
           <button
-            onClick={() => handleNavigate('home')}
+            onClick={() => router.push('/')}
             className="flex items-center gap-[6px] group shrink-0 cursor-pointer"
           >
             <WaveformMark size="xs" active={mobileOpen} />
@@ -134,7 +135,7 @@ export default function Navigation() {
               return (
                 <button
                   key={link.page}
-                  onClick={() => handleNavigate(link.page)}
+                  onClick={() => router.push('/' + link.page)}
                   className={cn(
                     'relative font-bengali text-[14px] tracking-wide leading-none transition-all duration-200 py-2 px-3 -mx-3 rounded-lg cursor-pointer',
                     isActive
@@ -162,7 +163,7 @@ export default function Navigation() {
             <button
               onClick={() => setSearchOpen(true)}
               className={cn(
-                'flex items-center gap-2 h-9 rounded-full transition-all duration-200 shrink-0 cursor-pointer border',
+                'flex items-center gap-2 h-9 rounded-full transition-all duration-200 shrink-0 cursor-pointer border px-2',
                 !isLight
                   ? 'text-[var(--text-cream-muted)] hover:text-[var(--text-cream)] hover:bg-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.05)] border-[var(--ink-border)]'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-ink)] hover:bg-[var(--cream-2)] bg-[var(--cream-2)] border-[var(--canvas-border)]'
@@ -229,7 +230,7 @@ export default function Navigation() {
 
             {/* Download CTA button */}
             <button
-              onClick={() => handleNavigate('pricing')}
+              onClick={() => router.push('/pricing')}
               className={cn(
                 'flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-5 py-2.5 rounded-full font-bengali text-[14px] font-medium transition-all duration-300 cursor-pointer',
                 'shadow-[0_0_20px_var(--gold-glow)] hover:shadow-[0_0_30px_var(--gold-glow-strong)]',
@@ -319,7 +320,7 @@ export default function Navigation() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0, duration: 0.3 }}
-                onClick={() => handleNavigate('home')}
+                onClick={() => router.push('/home')}
                 className={cn(
                   'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                   currentPage === 'home'
@@ -344,7 +345,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: (i + 1) * 0.04, duration: 0.3 }}
-                    onClick={() => handleNavigate(link.page)}
+                    onClick={() => router.push('/' + link.page)}
                     className={cn(
                       'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                       isActive
@@ -403,7 +404,7 @@ export default function Navigation() {
 
               {/* Download button */}
               <button
-                onClick={() => handleNavigate('pricing')}
+                onClick={() => router.push('/pricing')}
                 className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-deep)] text-white px-6 py-3 rounded-full font-bengali text-[16px] font-medium transition-all duration-300 cursor-pointer shadow-[0_0_20px_var(--gold-glow)]"
               >
                 <Download size={18} strokeWidth={2} />

@@ -1,40 +1,24 @@
-'use client';
+import HeroSection from '@/components/sections/HeroSection';
+import TransformationSection from '@/components/sections/TransformationSection';
+import HowItWorksSection from '@/components/sections/HowItWorksSection';
+import TrustedBySection from '@/components/sections/TrustedBySection';
+import StatsTickerSection from '@/components/sections/StatsTickerSection';
+import InteractiveDemoSection from '@/components/sections/InteractiveDemoSection';
+import LiveActivitySection from '@/components/sections/LiveActivitySection';
 
-import { HashRouter } from '@/components/hellokhata/HashRouter';
-import { SmoothScrollProvider } from '@/components/hellokhata/SmoothScrollProvider';
-import { ScrollProgress } from '@/components/hellokhata/ScrollProgress';
-import { CustomCursor } from '@/components/hellokhata/CustomCursor';
-import { PageContent } from '@/components/hellokhata/PageContent';
-import BackToTop from '@/components/hellokhata/BackToTop';
-import WhatsAppWidget from '@/components/hellokhata/WhatsAppWidget';
-import Navigation from '@/components/hellokhata/Navigation';
-import PageIndicator from '@/components/hellokhata/PageIndicator';
-import SearchModal from '@/components/hellokhata/SearchModal';
-import FloatingActions from '@/components/hellokhata/FloatingActions';
-import Footer from '@/components/hellokhata/Footer';
-import { ToastProvider } from '@/components/hellokhata/ToastProvider';
-import { ToastContainer } from '@/components/hellokhata/Toast';
 
-export default function Home() {
-  return (
-    <ToastProvider>
-      <HashRouter>
-        <SmoothScrollProvider>
-          <CustomCursor />
-          <ScrollProgress />
-          <Navigation />
-          <PageIndicator />
-          <SearchModal />
-          <main>
-            <PageContent />
-          </main>
-          <Footer />
-          <FloatingActions />
-          <BackToTop />
-          <WhatsAppWidget />
-          <ToastContainer />
-        </SmoothScrollProvider>
-      </HashRouter>
-    </ToastProvider>
-  );
+const HomePage = () => {
+    return (
+        <div>
+            <HeroSection />
+            <TransformationSection />
+            <HowItWorksSection />
+            <InteractiveDemoSection />
+            <TrustedBySection />
+            <StatsTickerSection />
+            <LiveActivitySection />
+        </div>
+    )
 }
+
+export default HomePage

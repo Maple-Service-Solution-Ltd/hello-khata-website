@@ -621,8 +621,8 @@ export default function InteractiveDemoSection() {
         className="relative z-10 mx-auto px-4"
         style={{
           maxWidth: 'var(--site-max)',
-          paddingTop: 'var(--section-v)',
-          paddingBottom: 'var(--section-v)',
+          // paddingTop: 'var(--section-v)',
+          // paddingBottom: 'var(--section-v)',
         }}
       >
         {/* ── Header ── */}

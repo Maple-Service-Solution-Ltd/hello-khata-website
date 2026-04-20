@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import { Tiro_Bangla, Playfair_Display, Plus_Jakarta_Sans, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { ToastProvider } from "@/components/hellokhata/ToastProvider";
+import { ScrollProgress, SmoothScrollProvider } from "@/components/hellokhata";
+import { CustomCursor } from "@/components/hellokhata/CustomCursor";
+import Navigation from "@/components/hellokhata/Navigation";
+import SearchModal from "@/components/hellokhata/SearchModal";
+import FloatingActions from "@/components/hellokhata/FloatingActions";
+import BackToTop from "@/components/hellokhata/BackToTop";
+import { ToastContainer } from "@/components/hellokhata/Toast";
+import Footer from "@/components/hellokhata/Footer";
 
 export const tiroBangla = Tiro_Bangla({
   subsets: ['bengali'],
@@ -55,8 +64,25 @@ export default function RootLayout({
         className={`${tiroBangla.variable} ${playfairDisplay.variable} ${plusJakartaSans.variable} ${firaCode.variable} antialiased`}
         style={{ background: 'var(--cream)' }}
       >
-        {children}
+
         <Toaster />
+
+        <ToastProvider>
+
+          <SmoothScrollProvider>
+            <CustomCursor />
+            <ScrollProgress />
+            <Navigation />
+            <SearchModal />
+            {children}
+            <Footer />
+            <FloatingActions />
+            <BackToTop />
+            {/* <WhatsAppWidget /> */}
+            <ToastContainer />
+          </SmoothScrollProvider>
+
+        </ToastProvider>
       </body>
     </html>
   );

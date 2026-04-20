@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, TrendingUp, Store, HandCoins } from 'lucide-react';
 import { Reveal } from '@/components/hellokhata/Reveal';
@@ -16,20 +16,118 @@ interface Activity {
   timeAgo: string;
 }
 
-/* ─────────────────────────────────────────────
-   Main Component
-   ───────────────────────────────────────────── */
+const MAX_VISIBLE = 5;
+const CYCLE_INTERVAL = 1800;
+const INITIAL_STAGGER = 70;
+ // ms between each initial card — was 80ms, too fast
+
+// ─── Memoized sub-components ─────────────────────────────────────────────────
+
+const ActivityCard = memo(function ActivityCard({ activity }: { activity: Activity }) {
+  return (
+    <motion.div
+    layout
+      key={activity.id}
+//         initial={{ opacity: 0, x: 40, scale: 0.96 }}
+//   animate={{ opacity: 1, x: 0, scale: 1 }}
+//   exit={{ opacity: 0, x: -40, scale: 0.96 , transition: { duration: 0.22, ease: 'easeIn' }}}
+//  transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+  initial={{ opacity: 0, y: 60, scale: 0.97 }}
+animate={{ opacity: 1, y: 0, scale: 1 }}
+exit={{ opacity: 0, y: -60, scale: 0.97, transition: { duration: 0.18, ease: 'easeIn' } }}
+transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      className="glass-card-dark mb-3 flex items-center gap-3 rounded-xl px-4 py-3.5"
+      style={{ borderLeft: '3px solid var(--gold)', willChange: 'transform, opacity' }}
+    >
+      <span
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl"
+        style={{ background: 'rgba(201,169,110,0.1)' }}
+      >
+        {activity.emoji}
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <span
+            className="font-bengali text-sm font-semibold truncate"
+            style={{ color: 'var(--text-cream)' }}
+          >
+            {activity.shopName}
+          </span>
+          <span className="shrink-0 text-xs" style={{ color: 'var(--text-cream-muted)' }}>
+            {activity.district}
+          </span>
+        </div>
+        <p className="mt-0.5 truncate text-xs" style={{ color: 'var(--text-cream-muted)' }}>
+          {activity.action}
+        </p>
+      </div>
+
+      <span className="shrink-0 text-[11px] font-medium" style={{ color: 'var(--gold)' }}>
+        {activity.timeAgo}
+      </span>
+    </motion.div>
+  );
+});
+
+// Stats never change at runtime — memo prevents re-renders on activity push
+const StatsGrid = memo(function StatsGrid({
+  cards,
+  weeklyGrowthLabel,
+}: {
+  cards: { icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; label: string; value: string; color: string }[];
+  weeklyGrowthLabel: string;
+}) {
+  return (
+    <div className="flex h-full flex-col">
+      <div className="grid grid-cols-2 gap-4">
+        {cards.map((stat) => (
+          <div key={stat.label} className="glass-card-dark flex flex-col gap-2 rounded-xl p-4">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: `color-mix(in srgb, ${stat.color} 15%, transparent)` }}
+              >
+                <stat.icon className="h-4 w-4" style={{ color: stat.color }} />
+              </div>
+              <span className="text-xs" style={{ color: 'var(--text-cream-muted)' }}>
+                {stat.label}
+              </span>
+            </div>
+            <span className="font-bengali text-lg font-bold" style={{ color: 'var(--text-cream)' }}>
+              {stat.value}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div
+        className="mt-6 rounded-xl px-4 py-3"
+        style={{
+          background: 'rgba(0,194,111,0.06)',
+          border: '1px solid rgba(0,194,111,0.15)',
+        }}
+      >
+        <p className="text-center text-white text-sm">
+          📈 {weeklyGrowthLabel}
+        </p>
+      </div>
+    </div>
+  );
+});
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export default function LiveActivitySection() {
   const { t, lang } = useTranslation();
-
   const idCounterRef = useRef(0);
   const activityIndexRef = useRef(0);
-  const isInitialFillRef = useRef(true);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [onlineCount] = useState(52347);
 
-  /* Build sample activities only when language changes */
+  // Stable callback ref pattern — interval never restarts on lang change
+  const addActivityRef = useRef<() => void>(() => {});
+
   const sampleActivities = useMemo(() => {
     if (lang === 'bn') {
       return [
@@ -62,59 +160,42 @@ export default function LiveActivitySection() {
     { icon: HandCoins, label: t('liveActivity.statDuesCollected'), value: lang === 'bn' ? '৳ ২.১ কোটি' : '৳ 2.1 Crore', color: 'var(--gold)' },
   ], [lang, t]);
 
-  const addActivity = useCallback(() => {
-    const sample = sampleActivities[activityIndexRef.current % sampleActivities.length];
-    activityIndexRef.current += 1;
+  // Keep addActivityRef always pointing at the latest sampleActivities
+  useEffect(() => {
+    addActivityRef.current = () => {
+      const sample = sampleActivities[activityIndexRef.current % sampleActivities.length];
+      activityIndexRef.current += 1;
+      idCounterRef.current += 1;
+      const newActivity: Activity = { ...sample, id: idCounterRef.current };
 
-    idCounterRef.current += 1;
-    const newActivity: Activity = { ...sample, id: idCounterRef.current };
-
-    if (isInitialFillRef.current) {
-      setActivities((prev) => [newActivity, ...prev]);
-    } else {
       setActivities((prev) => {
         const next = [newActivity, ...prev];
-        if (next.length > 5) {
-          return next.slice(0, 5);
-        }
-        return next;
+        return next.length > MAX_VISIBLE ? next.slice(0, MAX_VISIBLE) : next;
       });
-    }
+    };
   }, [sampleActivities]);
 
-  // Initial fill: add all 8 activities quickly
+  // Initial staggered fill — slower gaps = no animation collision
   useEffect(() => {
-    const delays = [0, 80, 160, 240, 320, 400, 480, 560];
-    const timers = delays.map((delay) =>
-      setTimeout(() => {
-        addActivity();
-        if (delay === delays[delays.length - 1]) {
-          isInitialFillRef.current = false;
-        }
-      }, delay)
-    );
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    for (let i = 0; i < sampleActivities.length; i++) {
+      timers.push(setTimeout(() => addActivityRef.current(), i * INITIAL_STAGGER));
+    }
+    return () => timers.forEach(clearTimeout);
+  }, []); // runs once on mount only
 
-    return () => {
-      timers.forEach(clearTimeout);
-    };
-  }, [addActivity]);
-
-  // Auto-cycle: new card every 3 seconds
+  // Stable interval — never recreated, reads latest via ref
   useEffect(() => {
-    const interval = setInterval(() => {
-      addActivity();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [addActivity]);
+    const id = setInterval(() => addActivityRef.current(), CYCLE_INTERVAL);
+    return () => clearInterval(id);
+  }, []); // no deps — intentional
 
   return (
     <section
       id="live-activity"
-      className="relative w-full overflow-hidden py-20 md:py-28"
+      className="relative w-full overflow-hidden py-16"
       style={{ background: 'var(--ink)' }}
     >
-      {/* Gold radial glow at top center */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[400px]"
         style={{
@@ -124,7 +205,6 @@ export default function LiveActivitySection() {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[var(--site-max)] px-4">
-        {/* Header */}
         <div className="mb-12 text-center md:mb-16">
           <Reveal delay={0}>
             <span
@@ -148,7 +228,6 @@ export default function LiveActivitySection() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-6 flex items-center justify-center gap-2.5">
-              {/* Pulsing green dot */}
               <span className="relative flex h-3 w-3">
                 <span
                   className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
@@ -159,50 +238,34 @@ export default function LiveActivitySection() {
                   style={{ background: 'var(--green)' }}
                 />
               </span>
-              <span
-                className="font-bengali text-base md:text-lg"
-                style={{ color: 'var(--text-cream)' }}
-              >
+              <span className="font-bengali text-base md:text-lg" style={{ color: 'var(--text-cream)' }}>
                 <AnimatedCounter
                   target={onlineCount}
                   duration={2}
                   className="font-bengali text-base font-semibold md:text-lg"
                 />
-                {' '}
-                {t('liveActivity.onlineNow')}
+                {' '}{t('liveActivity.onlineNow')}
               </span>
             </div>
           </Reveal>
         </div>
 
-        {/* Two-column layout */}
         <div className="grid gap-8 md:grid-cols-2 md:gap-12">
-          {/* Left column: Live activity feed */}
           <Reveal delay={0.3} variant="slide-right">
             <div className="relative">
-              {/* Fade edges */}
               <div
                 className="pointer-events-none absolute inset-x-0 top-0 z-20 h-8"
-                style={{
-                  background:
-                    'linear-gradient(to bottom, var(--ink), transparent)',
-                }}
+                style={{ background: 'linear-gradient(to bottom, var(--ink), transparent)' }}
               />
               <div
                 className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-8"
-                style={{
-                  background:
-                    'linear-gradient(to top, var(--ink), transparent)',
-                }}
+                style={{ background: 'linear-gradient(to top, var(--ink), transparent)' }}
               />
-
-              <div className="max-h-[400px] overflow-y-auto pr-1"
-                style={{
-                  scrollbarWidth: 'thin',
-                  scrollbarColor: 'rgba(201,169,110,0.3) transparent',
-                }}
+              <div
+                className="max-h-[400px] overflow-y-auto pr-1"
+                style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(201,169,110,0.3) transparent' }}
               >
-                <AnimatePresence mode="popLayout">
+                <AnimatePresence initial={false}>
                   {activities.map((activity) => (
                     <ActivityCard key={activity.id} activity={activity} />
                   ))}
@@ -211,136 +274,16 @@ export default function LiveActivitySection() {
             </div>
           </Reveal>
 
-          {/* Right column: Stats summary */}
           <Reveal delay={0.4} variant="slide-left">
-            <div className="flex h-full flex-col">
-              <h3
-                className="mb-6 font-bengali text-xl font-bold"
-                style={{ color: 'var(--text-cream)' }}
-              >
+            <div className="mb-6">
+              <h3 className="font-bengali text-xl font-bold" style={{ color: 'var(--text-cream)' }}>
                 {t('liveActivity.todayActivity')}
               </h3>
-
-              <div className="grid grid-cols-2 gap-4">
-                {STAT_CARDS.map((stat) => (
-                  <StatMiniCard key={stat.label} {...stat} />
-                ))}
-              </div>
-
-              {/* Bottom accent text */}
-              <div className="mt-6 rounded-xl px-4 py-3"
-                style={{
-                  background: 'rgba(0,194,111,0.06)',
-                  border: '1px solid rgba(0,194,111,0.15)',
-                }}
-              >
-                <p
-                  className="text-center text-sm"
-                  style={{ color: 'var(--green)' }}
-                >
-                  📈 {t('liveActivity.weeklyGrowth')}
-                </p>
-              </div>
             </div>
+            <StatsGrid cards={STAT_CARDS} weeklyGrowthLabel={t('liveActivity.weeklyGrowth')} />
           </Reveal>
         </div>
       </div>
     </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Sub-components
-   ───────────────────────────────────────────── */
-
-function ActivityCard({ activity }: { activity: Activity }) {
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, x: 80, scale: 0.95 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, x: -80, scale: 0.95 }}
-      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-      className="glass-card-dark mb-3 flex items-center gap-3 rounded-xl px-4 py-3.5"
-      style={{ borderLeft: '3px solid var(--gold)' }}
-    >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xl"
-        style={{ background: 'rgba(201,169,110,0.1)' }}
-      >
-        {activity.emoji}
-      </span>
-
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span
-            className="font-bengali text-sm font-semibold truncate"
-            style={{ color: 'var(--text-cream)' }}
-          >
-            {activity.shopName}
-          </span>
-          <span
-            className="shrink-0 text-xs"
-            style={{ color: 'var(--text-cream-muted)' }}
-          >
-            {activity.district}
-          </span>
-        </div>
-        <p
-          className="mt-0.5 truncate text-xs"
-          style={{ color: 'var(--text-cream-muted)' }}
-        >
-          {activity.action}
-        </p>
-      </div>
-
-      <span
-        className="shrink-0 text-[11px] font-medium"
-        style={{ color: 'var(--gold)' }}
-      >
-        {activity.timeAgo}
-      </span>
-    </motion.div>
-  );
-}
-
-function StatMiniCard({
-  icon: Icon,
-  label,
-  value,
-  color,
-}: {
-  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  label: string;
-  value: string;
-  color: string;
-}) {
-  return (
-    <div
-      className="glass-card-dark flex flex-col gap-2 rounded-xl p-4"
-    >
-      <div className="flex items-center gap-2">
-        <div
-          className="flex h-8 w-8 items-center justify-center rounded-lg"
-          style={{ background: `color-mix(in srgb, ${color} 15%, transparent)` }}
-        >
-          <Icon
-            className="h-4 w-4"
-            style={{ color }}
-          />
-        </div>
-        <span
-          className="text-xs"
-          style={{ color: 'var(--text-cream-muted)' }}
-        >
-          {label}
-        </span>
-      </div>
-      <span
-        className="font-bengali text-lg font-bold"
-        style={{ color: 'var(--text-cream)' }}
-      >
-        {value}
-      </span>
-    </div>
   );
 }

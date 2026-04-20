@@ -175,7 +175,7 @@ export default function StatsTickerSection() {
   return (
     <section
       id="stats-ticker"
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden pt-10"
       style={{ background: 'var(--ink)' }}
     >
       {/* Gold radial glow at top center */}

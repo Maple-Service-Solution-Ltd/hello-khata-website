@@ -243,7 +243,7 @@ export default function VoiceSection() {
       <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-20 flex flex-col items-center">
         {/* ─── Waveform Visual ─── */}
         <motion.div
-          className="flex items-center gap-1.5 mb-12"
+          className="absolute flex items-center gap-1.5"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -266,7 +266,7 @@ export default function VoiceSection() {
 
         {/* ─── Headline ─── */}
         <motion.h2
-          className="font-bengali text-[var(--text-cream)] mb-16 text-center"
+          className="font-bengali text-[var(--text-cream)] mt-20 mb-16 text-center"
           style={{ fontSize: 'clamp(48px, 8vw, 80px)', lineHeight: 1.1 }}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

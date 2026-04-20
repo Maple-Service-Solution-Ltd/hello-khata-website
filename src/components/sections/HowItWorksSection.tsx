@@ -64,8 +64,8 @@ export default function HowItWorksSection() {
         className="relative z-10 mx-auto px-4"
         style={{
           maxWidth: 'var(--site-max)',
-          paddingTop: 'clamp(80px, 10vw, 160px)',
-          paddingBottom: 'clamp(80px, 10vw, 160px)',
+          paddingTop: 'clamp(50px, 10vw, 160px)',
+          paddingBottom: 'clamp(50px, 10vw, 160px)',
         }}
       >
         {/* ── Header ── */}

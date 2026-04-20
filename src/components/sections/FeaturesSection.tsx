@@ -658,33 +658,6 @@ export default function FeaturesSection() {
         </motion.div>
       </div>
 
-      {/* ── Module Navigation ── */}
-      <div className="relative z-10 sticky top-0 py-3 px-4" style={{ background: 'rgba(13,15,14,0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--ink-border)', zIndex: 40 }}>
-        <div className="mx-auto" style={{ maxWidth: 'var(--site-max)' }}>
-          <div
-            ref={navRef}
-            className="flex gap-2 overflow-x-auto pb-1 scrollbar-none"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {modules.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => scrollToModule(m.id)}
-                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full font-body text-[12px] transition-all duration-300"
-                style={{
-                  background: activeModule === m.id ? 'var(--gold)' : 'transparent',
-                  color: activeModule === m.id ? '#fff' : 'var(--text-cream-muted)',
-                  border: `1px solid ${activeModule === m.id ? 'var(--gold)' : 'var(--ink-border)'}`,
-                }}
-              >
-                {m.icon}
-                <span className="font-bengali text-[11px]">{lang === 'bn' ? m.bn : m.en}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ── Module Sections ── */}
       <div className="relative z-10">
         {modules.map((m, idx) => {
