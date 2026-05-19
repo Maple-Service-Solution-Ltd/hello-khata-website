@@ -142,7 +142,7 @@ export const DARK_SECTION_IDS = [
   'features',
   'comparison',
   'vision',
-  'market',
+  // 'market',
   'cta',
   'live-activity',
   'stats-ticker',
