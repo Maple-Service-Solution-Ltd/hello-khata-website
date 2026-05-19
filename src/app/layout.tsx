@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastProvider } from "@/components/hellokhata/ToastProvider";
 import { ScrollProgress, SmoothScrollProvider } from "@/components/hellokhata";
 import { CustomCursor } from "@/components/hellokhata/CustomCursor";
+import { HashRouter } from "@/components/hellokhata/HashRouter";
 import Navigation from "@/components/hellokhata/Navigation";
 import SearchModal from "@/components/hellokhata/SearchModal";
 import FloatingActions from "@/components/hellokhata/FloatingActions";
@@ -68,20 +69,20 @@ export default function RootLayout({
         <Toaster />
 
         <ToastProvider>
-
-          <SmoothScrollProvider>
-            <CustomCursor />
-            <ScrollProgress />
-            <Navigation />
-            <SearchModal />
-            {children}
-            <Footer />
-            <FloatingActions />
-            <BackToTop />
-            {/* <WhatsAppWidget /> */}
-            <ToastContainer />
-          </SmoothScrollProvider>
-
+          <HashRouter>
+            <SmoothScrollProvider>
+              <CustomCursor />
+              <ScrollProgress />
+              <Navigation />
+              <SearchModal />
+              {children}
+              <Footer />
+              <FloatingActions />
+              <BackToTop />
+              {/* <WhatsAppWidget /> */}
+              <ToastContainer />
+            </SmoothScrollProvider>
+          </HashRouter>
         </ToastProvider>
       </body>
     </html>

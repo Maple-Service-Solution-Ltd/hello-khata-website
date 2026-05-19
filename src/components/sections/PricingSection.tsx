@@ -187,7 +187,7 @@ function PillToggle({ isYearly, onToggle }: { isYearly: boolean; onToggle: () =>
       />
       <span
         className="relative z-10 px-4 py-1.5 text-sm font-body font-medium transition-colors"
-        style={{ color: !isYearly ? 'var(--gold)' : 'var(--text-cream-muted)' }}
+        style={{ color: !isYearly ? 'white' : 'var(--text-cream-muted)' }}
       >
         {t('pricing.toggle.monthly')}
       </span>
@@ -215,7 +215,7 @@ export default function PricingSection() {
   return (
     <section id="pricing" className="relative">
       {/* ─── Pricing Cards ─── */}
-      <div className="relative bg-[var(--cream)] py-[clamp(80px,10vw,160px)] px-4">
+      <div className="relative bg-[var(--cream)] py-[var(--section-v)] px-4">
         {/* Nakshi diamond micro-texture on container */}
         <div className="texture-nakshi-diamond absolute inset-0 pointer-events-none opacity-50" />
 
@@ -421,7 +421,7 @@ export default function PricingSection() {
       </div>
 
       {/* ─── Feature Comparison Table ─── */}
-      <div className="bg-[var(--cream-2)] py-[clamp(80px,10vw,160px)] px-4">
+      <div className="bg-[var(--cream-2)] py-[var(--section-v)] px-4">
         <Reveal className="max-w-[900px] mx-auto">
           {/* Mobile horizontal scroll wrapper */}
           <div className="overflow-x-auto -mx-4 px-4 pb-2">
@@ -532,7 +532,7 @@ export default function PricingSection() {
       </div>
 
       {/* ─── FAQ ─── */}
-      <div className="bg-[var(--cream)] py-[clamp(80px,10vw,160px)] px-4">
+      <div className="bg-[var(--cream)] py-[var(--section-v)] px-4">
         <div className="max-w-[720px] mx-auto">
           <Reveal className="text-center mb-12">
             <h3

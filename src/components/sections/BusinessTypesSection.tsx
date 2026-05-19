@@ -476,7 +476,7 @@ export default function BusinessTypesSection() {
           {/* Sub-text */}
           <motion.p
             className="font-body mx-auto mt-4"
-            style={{ fontSize: 'var(--fs-body-lg)', color: 'var(--text-muted)', maxWidth: '560px', lineHeight: 1.7 }}
+            style={{ fontSize: 'var(--fs-body-lg)', color: 'white', maxWidth: '560px', lineHeight: 1.7 }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

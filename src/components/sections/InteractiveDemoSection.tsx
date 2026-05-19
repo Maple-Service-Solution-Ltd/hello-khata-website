@@ -618,11 +618,9 @@ export default function InteractiveDemoSection() {
       />
 
       <div
-        className="relative z-10 mx-auto px-4"
+        className="relative z-10 mx-auto px-4 py-[var(--section-v)]"
         style={{
           maxWidth: 'var(--site-max)',
-          // paddingTop: 'var(--section-v)',
-          // paddingBottom: 'var(--section-v)',
         }}
       >
         {/* ── Header ── */}

@@ -24,13 +24,7 @@ export default function Navigation() {
   const searchHintTimer = useRef<ReturnType<typeof setTimeout>>();
   const router = useRouter()
   /* ─── Navigate helper ─── */
-  const handleNavigate = useCallback(
-    (page: string) => {
-      navigate(page);
-      setMobileOpen(false);
-    },
-    [navigate]
-  );
+
 
   /* ─── Scroll position: determine dark vs light background ─── */
   useEffect(() => {

@@ -5,6 +5,8 @@ import { useInView } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { BengaliNumber } from './BengaliNumber';
 
+import { useLanguageStore } from '@/lib/language-store';
+
 interface AnimatedCounterProps {
   target: number;
   duration?: number;
@@ -28,6 +30,7 @@ export function AnimatedCounter({
   const isInView = useInView(ref, { once: true, margin: '-40px 0px' });
   const [currentValue, setCurrentValue] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const { lang } = useLanguageStore();
 
   const animate = useCallback(() => {
     const startTime = performance.now();
@@ -76,7 +79,13 @@ export function AnimatedCounter({
         <span className="font-body mr-0.5">{prefix}</span>
       )}
       {isComplete ? (
-        <BengaliNumber value={displayValue} />
+        lang === 'bn' ? (
+          <BengaliNumber value={displayValue} />
+        ) : (
+          <span className="font-body font-semibold">
+            {Number(displayValue).toLocaleString('en-US')}
+          </span>
+        )
       ) : (
         <span className="font-mono tabular-nums">{displayValue}</span>
       )}

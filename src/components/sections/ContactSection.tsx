@@ -461,7 +461,7 @@ export default function ContactSection() {
       </div>
 
       {/* ── Three Contact Method Cards ── */}
-      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-[clamp(80px,10vw,160px)]">
+      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-[var(--section-v)]">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
@@ -502,7 +502,7 @@ export default function ContactSection() {
       {/* ── In-Person Promise (dark with green glow) ── */}
       <div
         ref={promiseRef}
-        className="relative overflow-hidden py-[clamp(80px,10vw,160px)] px-6"
+        className="relative overflow-hidden py-[var(--section-v)] px-6"
         style={{ background: 'var(--ink)' }}
       >
         {/* Green glow */}
@@ -569,7 +569,7 @@ export default function ContactSection() {
       {/* ── Contact Form ── */}
       <div
         ref={formRef}
-        className="relative py-[clamp(80px,10vw,160px)] px-6"
+        className="relative py-[var(--section-v)] px-6"
         style={{ background: 'var(--cream)' }}
       >
         <div className="texture-nakshi-subtle absolute inset-0 pointer-events-none" />

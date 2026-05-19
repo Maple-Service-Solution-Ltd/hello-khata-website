@@ -321,10 +321,9 @@ export default function TestimonialsSection() {
   return (
     <section
       id="stories"
-      className="relative overflow-hidden texture-nakshi-subtle"
+      className="relative overflow-hidden texture-nakshi-subtle py-[var(--section-v)]"
       style={{
         background: 'var(--cream)',
-        padding: 'clamp(80px,10vw,160px) 0',
       }}
     >
       {/* Soft green glow */}

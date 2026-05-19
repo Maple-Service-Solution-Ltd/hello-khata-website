@@ -175,7 +175,7 @@ export default function StatsTickerSection() {
   return (
     <section
       id="stats-ticker"
-      className="relative w-full overflow-hidden pt-10"
+      className="relative w-full overflow-hidden"
       style={{ background: 'var(--ink)' }}
     >
       {/* Gold radial glow at top center */}
@@ -187,7 +187,7 @@ export default function StatsTickerSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[var(--site-max)] px-4">
+      <div className="relative z-10 mx-auto w-full max-w-[var(--site-max)] px-4 pt-[var(--section-v)]">
         {/* Header */}
         <div className="pb-10 text-center md:pb-16">
           <Reveal delay={0}>

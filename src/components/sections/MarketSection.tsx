@@ -151,9 +151,9 @@ function MapDot({
       animate={
         isInView
           ? {
-              scale: [0, 1.3, 1],
-              opacity: [0, 1, 1],
-            }
+            scale: [0, 1.3, 1],
+            opacity: [0, 1, 1],
+          }
           : {}
       }
       transition={{
@@ -201,7 +201,7 @@ export default function MarketSection() {
     <section
       id="market"
       ref={sectionRef}
-      className="relative py-[clamp(80px,10vw,160px)] overflow-hidden"
+      className="relative py-[var(--section-v)] overflow-hidden"
       style={{ background: 'var(--cream)' }}
     >
       {/* Texture overlay */}

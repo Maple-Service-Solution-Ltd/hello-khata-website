@@ -405,11 +405,9 @@ export default function VoiceDemoSection() {
       />
 
       <div
-        className="relative z-10 mx-auto px-4"
+        className="relative z-10 mx-auto px-4 py-[var(--section-v)]"
         style={{
           maxWidth: 'var(--site-max)',
-          paddingTop: 'clamp(80px, 10vw, 160px)',
-          paddingBottom: 'clamp(80px, 10vw, 160px)',
         }}
       >
         {/* ── Header ── */}

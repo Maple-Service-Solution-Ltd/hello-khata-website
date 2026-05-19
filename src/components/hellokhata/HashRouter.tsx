@@ -5,9 +5,9 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { getPageConfig } from '@/lib/pages';
 
 /* ─────────────── Context ─────────────── */
@@ -36,10 +36,9 @@ export function useHashRouter() {
 
 /* ─────────────── Helpers ─────────────── */
 
-function getHashPage(): string {
-  if (typeof window === 'undefined') return 'home';
-  const hash = window.location.hash.replace('#', '');
-  return hash || 'home';
+function getPageIdFromPathname(pathname: string): string {
+  const clean = pathname.replace(/^\//, '').replace(/\/$/, '');
+  return clean || 'home';
 }
 
 function updateDocumentTitle(pageId: string) {
@@ -56,36 +55,22 @@ interface HashRouterProps {
 }
 
 export function HashRouter({ children }: HashRouterProps) {
-  const [currentPage, setCurrentPage] = useState<string>(() => getHashPage());
+  const pathname = usePathname();
+  const router = useRouter();
+  const [currentPage, setCurrentPage] = useState<string>(() => getPageIdFromPathname(pathname));
   const [previousPage, setPreviousPage] = useState<string>('home');
   const [isNavigating, setIsNavigating] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const isNavigatingRef = useRef(false);
 
-  /* Sync from hash changes (browser back/forward) */
+  // Sync state with path updates (e.g. back/forward buttons or direct navigation)
   useEffect(() => {
-    const handleHashChange = () => {
-      const newPage = getHashPage();
-      if (newPage === currentPage) return;
-
-      setIsNavigating(true);
-      isNavigatingRef.current = true;
-
-      setTimeout(() => {
-        setPreviousPage(currentPage);
-        setCurrentPage(newPage);
-        updateDocumentTitle(newPage);
-        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-        setTimeout(() => {
-          setIsNavigating(false);
-          isNavigatingRef.current = false;
-        }, 50);
-      }, 300);
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [currentPage]);
+    const pageId = getPageIdFromPathname(pathname);
+    if (pageId !== currentPage) {
+      setPreviousPage(currentPage);
+      setCurrentPage(pageId);
+      updateDocumentTitle(pageId);
+    }
+  }, [pathname, currentPage]);
 
   /* Set initial title on mount */
   useEffect(() => {
@@ -109,24 +94,23 @@ export function HashRouter({ children }: HashRouterProps) {
   }, [searchOpen]);
 
   const navigate = useCallback((page: string) => {
-    const newHash = page === 'home' ? '' : page;
-    const currentHash = window.location.hash.replace('#', '');
-
-    if (currentHash === newHash) {
+    const targetPath = page === 'home' ? '/' : `/${page}`;
+    if (pathname === targetPath) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
     setIsNavigating(true);
-    isNavigatingRef.current = true;
 
     // Small delay for exit animation
     setTimeout(() => {
       setPreviousPage(currentPage);
-      window.location.hash = newHash;
-      // hashchange event will handle the rest
+      router.push(targetPath);
+      setTimeout(() => {
+        setIsNavigating(false);
+      }, 50);
     }, 280);
-  }, [currentPage]);
+  }, [currentPage, pathname, router]);
 
   return (
     <RouterContext.Provider

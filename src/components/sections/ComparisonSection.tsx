@@ -301,13 +301,7 @@ export default function ComparisonSection() {
       <div className="pointer-events-none absolute inset-0" style={{ opacity: 0.15 }} />
 
       <div className="relative z-10 mx-auto w-full max-w-[var(--site-max)] px-4">
-        <div
-          className="mx-auto w-full"
-          style={{
-            paddingTop: 'clamp(80px, 10vw, 160px)',
-            paddingBottom: 'clamp(80px, 10vw, 160px)',
-          }}
-        >
+        <div className="mx-auto w-full py-[var(--section-v)]">
           {/* Header */}
           <div className="mb-12 text-center md:mb-16">
             <Reveal delay={0}>
