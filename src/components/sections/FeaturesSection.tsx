@@ -749,10 +749,11 @@ function ModuleSection({
       )}
 
       <div
-        className="relative z-10 mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-10 lg:gap-16"
+        className={`relative z-10 mx-auto px-6 lg:px-12 flex flex-col items-center gap-10 lg:gap-16 ${
+          isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
+        }`}
         style={{
           maxWidth: isDouble ? 'var(--site-max)' : '1200px',
-          flexDirection: isReversed ? 'row-reverse' : 'row',
         }}
       >
         {/* Left: Phone Mockup */}
@@ -760,7 +761,7 @@ function ModuleSection({
           className="w-full lg:w-[42%] flex justify-center"
           variants={isReversed ? fadeRight : fadeLeft}
         >
-          <div style={{ transform: isReversed ? 'scaleX(-1)' : 'none' }}>
+          <div className="w-full max-w-[280px]">
             <ModulePhoneMockup moduleId={module.id} />
           </div>
         </motion.div>
