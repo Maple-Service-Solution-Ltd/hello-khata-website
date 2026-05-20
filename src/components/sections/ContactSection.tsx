@@ -461,7 +461,7 @@ export default function ContactSection() {
       </div>
 
       {/* ── Three Contact Method Cards ── */}
-      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 py-[var(--section-v)]">
+      <div className="relative z-10 w-full max-w-[var(--site-max)] mx-auto px-6 pb-[var(--section-v)]">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}

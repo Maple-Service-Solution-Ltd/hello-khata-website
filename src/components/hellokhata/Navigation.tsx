@@ -314,7 +314,7 @@ export default function Navigation() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0, duration: 0.3 }}
-                onClick={() => router.push('/home')}
+                onClick={() => {router.push('/'); setMobileOpen(false);}}
                 className={cn(
                   'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                   currentPage === 'home'
@@ -339,7 +339,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: (i + 1) * 0.04, duration: 0.3 }}
-                    onClick={() => router.push('/' + link.page)}
+                    onClick={() => {router.push('/' + link.page); setMobileOpen(false);}}
                     className={cn(
                       'font-bengali text-[22px] h-14 w-full max-w-[280px] flex items-center gap-3 transition-all duration-200 relative border-l-2 pl-6 cursor-pointer rounded-r-lg',
                       isActive
