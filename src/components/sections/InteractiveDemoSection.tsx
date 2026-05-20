@@ -609,7 +609,8 @@ export default function InteractiveDemoSection() {
     <section
       id="interactive-demo"
       className="relative overflow-hidden"
-      style={{ background: 'var(--cream)' }}
+      style={{ background:'#fffdf7' }}
+      
     >
       {/* Nakshi texture overlay at 20% opacity */}
       <div

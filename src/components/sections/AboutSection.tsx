@@ -196,7 +196,7 @@ export default function AboutSection() {
           className="relative z-10 text-center max-w-[760px] mx-auto"
         >
           {/* Waveform */}
-          <div className="flex justify-center mb-8">
+          <div className="absolute left-1/2 -top-10 flex justify-center mb-8">
             <WaveformMark active size="md" color="white" />
           </div>
 

@@ -76,7 +76,7 @@ export default function Footer() {
   return (
     <footer id="footer" className="bg-[var(--ink)] text-[var(--text-cream)]">
       {/* ─── Top: Tagline ─── */}
-      <div className="max-w-[1380px] mx-auto px-6 pb-10 text-center">
+      <div className="max-w-[1380px] mx-auto px-6 py-10 text-center">
         <h2
           className="font-bengali text-[clamp(28px,4vw,36px)] text-[var(--gold)] leading-tight"
           style={{ textShadow: '0 0 30px var(--gold-glow), 0 0 60px rgba(201,169,110,0.15)' }}
