@@ -300,6 +300,12 @@ export default function BlogSection() {
           },
         ];
 
+  const ALL_TAB = tabs[0];
+  const filteredArticles =
+    activeTab === ALL_TAB
+      ? articlesData
+      : articlesData.filter((article) => article.category === activeTab);
+
   return (
     <section
       id="blog"
@@ -337,6 +343,7 @@ export default function BlogSection() {
         {/* ── Tab Filter ── */}
         <motion.div
           className="flex flex-wrap justify-center gap-2 mb-14"
+          role="tablist"
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -346,6 +353,8 @@ export default function BlogSection() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className="px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-300"
+              role="tab"
+              aria-selected={activeTab === tab}
               style={
                 activeTab === tab
                   ? {
@@ -504,7 +513,7 @@ export default function BlogSection() {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          {articlesData.map((article, index) => (
+          {filteredArticles.map((article, index) => (
             <ArticleCard key={article.id} article={article} index={index} />
           ))}
         </motion.div>
