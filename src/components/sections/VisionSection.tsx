@@ -185,16 +185,16 @@ export default function VisionSection() {
     <section id="vision" className="relative">
       {/* ─── Opening (Full Viewport) ─── */}
       <div
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-[50vh] flex items-center justify-center overflow-hidden"
         style={{ background: 'var(--ink)' }}
       >
         <ChaosDots />
         <OrderGrid />
 
         {/* Horizon Line at 60% */}
-        <div className="absolute left-0 right-0" style={{ top: '60%' }}>
+        {/* <div className="absolute left-0 right-0" style={{ top: '60%' }}>
           <HorizonLine variant="glowing" />
-        </div>
+        </div> */}
 
         {/* Text ON the line */}
         <div
@@ -371,7 +371,7 @@ export default function VisionSection() {
 
       {/* ─── Roadmap ─── */}
       <div
-        className="py-[var(--section-v)] px-4"
+        className="pt-[var(--section-v)] px-4"
         style={{ background: 'var(--ink)' }}
       >
         <Reveal className="text-center mb-14">
@@ -554,9 +554,9 @@ export default function VisionSection() {
         style={{ background: 'var(--ink)' }}
       >
         {/* Horizon line */}
-        <div className="absolute left-0 right-0" style={{ top: '55%' }}>
+        {/* <div className="absolute left-0 right-0" style={{ top: '55%' }}>
           <HorizonLine variant="glowing" />
-        </div>
+        </div> */}
 
         {/* Glow */}
         <div

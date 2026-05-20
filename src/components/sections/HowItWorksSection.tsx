@@ -61,7 +61,7 @@ export default function HowItWorksSection() {
       />
 
       <div
-        className="relative z-10 mx-auto px-4 py-[var(--section-v)]"
+        className="relative z-10 mx-auto px-4 pt-16 pb-24 md:pt-20 md:pb-32"
         style={{
           maxWidth: 'var(--site-max)',
         }}
