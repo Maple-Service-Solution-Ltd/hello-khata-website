@@ -1,48 +1,56 @@
-'use client';
+"use client";
 
-import { useState, useRef, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Phone, Mail, MapPin, CheckCircle2, Send, AlertCircle } from 'lucide-react';
-import { useTranslation } from '@/hooks/use-translation';
+import { useState, useRef, useCallback } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  MessageCircle,
+  Phone,
+  Mail,
+  MapPin,
+  CheckCircle2,
+  Send,
+  AlertCircle,
+} from "lucide-react";
+import { useTranslation } from "@/hooks/use-translation";
 
 /* ── Business Types ── */
 const BUSINESS_TYPES = [
-  'মুদি দোকান',
-  'ফার্মেসি',
-  'কাপড়ের দোকান',
-  'হার্ডওয়্যার দোকান',
-  'রেস্টুরেন্ট / খাবারের দোকান',
-  'মোবাইল দোকান',
-  'কসমেটিক দোকান',
-  'ফুটপাতের দোকান',
-  'পাইকারি ব্যবসা',
-  'কারখানা / ছোট শিল্প',
-  'সার্ভিস ব্যবসা',
-  'অন্যান্য',
+  "মুদি দোকান",
+  "ফার্মেসি",
+  "কাপড়ের দোকান",
+  "হার্ডওয়্যার দোকান",
+  "রেস্টুরেন্ট / খাবারের দোকান",
+  "মোবাইল দোকান",
+  "কসমেটিক দোকান",
+  "ফুটপাতের দোকান",
+  "পাইকারি ব্যবসা",
+  "কারখানা / ছোট শিল্প",
+  "সার্ভিস ব্যবসা",
+  "অন্যান্য",
 ];
 
 /* ── Districts ── */
 const DISTRICTS = [
-  'ঢাকা',
-  'চট্টগ্রাম',
-  'খুলনা',
-  'রাজশাহী',
-  'সিলেট',
-  'রংপুর',
-  'বরিশাল',
-  'ময়মনসিংহ',
-  'কুমিল্লা',
-  'গাজীপুর',
-  'নারায়ণগঞ্জ',
-  'দিনাজপুর',
-  'বগুড়া',
-  'যশোর',
-  'কক্সবাজার',
-  'টাঙ্গাইল',
-  'নাটোর',
-  'পাবনা',
-  'ফরিদপুর',
-  'নোয়াখালী',
+  "ঢাকা",
+  "চট্টগ্রাম",
+  "খুলনা",
+  "রাজশাহী",
+  "সিলেট",
+  "রংপুর",
+  "বরিশাল",
+  "ময়মনসিংহ",
+  "কুমিল্লা",
+  "গাজীপুর",
+  "নারায়ণগঞ্জ",
+  "দিনাজপুর",
+  "বগুড়া",
+  "যশোর",
+  "কক্সবাজার",
+  "টাঙ্গাইল",
+  "নাটোর",
+  "পাবনা",
+  "ফরিদপুর",
+  "নোয়াখালী",
 ];
 
 /* ── Phone validation regex ── */
@@ -86,20 +94,20 @@ function ContactCard({
   value: string;
   action: string;
   buttonLabel: string;
-  buttonStyle: 'green' | 'outline';
+  buttonStyle: "green" | "outline";
   primary?: boolean;
 }) {
-  const isGreen = buttonStyle === 'green';
+  const isGreen = buttonStyle === "green";
   return (
     <motion.div
       className="relative flex flex-col items-center text-center p-6 md:p-8 rounded-[var(--card-r)]"
       style={{
         background: primary
-          ? 'linear-gradient(145deg, rgba(201,169,110,0.06), rgba(201,169,110,0.02))'
-          : 'var(--white)',
+          ? "linear-gradient(145deg, rgba(201,169,110,0.06), rgba(201,169,110,0.02))"
+          : "var(--white)",
         border: primary
-          ? '1.5px solid rgba(201,169,110,0.2)'
-          : '1px solid var(--canvas-border)',
+          ? "1.5px solid rgba(201,169,110,0.2)"
+          : "1px solid var(--canvas-border)",
       }}
       variants={fadeUp}
     >
@@ -108,8 +116,8 @@ function ContactCard({
         <div
           className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-body font-semibold"
           style={{
-            background: badgeColor || 'var(--gold)',
-            color: 'white',
+            background: badgeColor || "var(--gold)",
+            color: "white",
           }}
         >
           {badge}
@@ -121,24 +129,30 @@ function ContactCard({
         className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
         style={{
           background: isGreen
-            ? 'rgba(201,169,110,0.12)'
-            : 'rgba(13,15,14,0.04)',
+            ? "rgba(201,169,110,0.12)"
+            : "rgba(13,15,14,0.04)",
         }}
       >
         <Icon
           className="w-7 h-7"
-          style={{ color: isGreen ? 'var(--gold)' : 'var(--text-body)' }}
+          style={{ color: isGreen ? "var(--gold)" : "var(--text-body)" }}
         />
       </div>
 
       {/* Title */}
-      <h3 className="font-bengali text-lg mb-1" style={{ color: 'var(--text-ink)' }}>
+      <h3
+        className="font-bengali text-lg mb-1"
+        style={{ color: "var(--text-ink)" }}
+      >
         {title}
       </h3>
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="font-body text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
+        <p
+          className="font-body text-xs mb-2"
+          style={{ color: "var(--text-muted)" }}
+        >
           {subtitle}
         </p>
       )}
@@ -146,13 +160,16 @@ function ContactCard({
       {/* Value */}
       <p
         className="font-body text-base font-semibold mb-4"
-        style={{ color: 'var(--text-ink)' }}
+        style={{ color: "var(--text-ink)" }}
       >
         {value}
       </p>
 
       {/* Action text */}
-      <p className="font-body text-xs mb-4" style={{ color: 'var(--text-muted)' }}>
+      <p
+        className="font-body text-xs mb-4"
+        style={{ color: "var(--text-muted)" }}
+      >
         {action}
       </p>
 
@@ -161,17 +178,17 @@ function ContactCard({
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-body text-sm font-semibold"
         style={
           isGreen
-            ? { background: 'var(--gold)', color: 'white' }
+            ? { background: "var(--gold)", color: "white" }
             : {
-                background: 'transparent',
-                color: 'var(--text-ink)',
-                border: '1px solid var(--canvas-border-strong)',
+                background: "transparent",
+                color: "var(--text-ink)",
+                border: "1px solid var(--canvas-border-strong)",
               }
         }
         whileHover={
           isGreen
-            ? { scale: 1.04, boxShadow: '0 0 24px rgba(201,169,110,0.35)' }
-            : { scale: 1.04, borderColor: 'var(--text-ink)' }
+            ? { scale: 1.04, boxShadow: "0 0 24px rgba(201,169,110,0.35)" }
+            : { scale: 1.04, borderColor: "var(--text-ink)" }
         }
         whileTap={{ scale: 0.97 }}
       >
@@ -185,7 +202,7 @@ function ContactCard({
 function FormField({
   label,
   name,
-  type = 'text',
+  type = "text",
   placeholder,
   required = false,
   value,
@@ -199,26 +216,30 @@ function FormField({
   placeholder?: string;
   required?: boolean;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   options?: { value: string; label: string }[];
   error?: string;
 }) {
   const hasError = !!error;
   const borderStyle = hasError
-    ? '1.5px solid var(--crimson)'
-    : '1px solid var(--canvas-border)';
+    ? "1.5px solid var(--crimson)"
+    : "1px solid var(--canvas-border)";
 
   const baseStyles: React.CSSProperties = {
-    background: 'var(--white)',
+    background: "var(--white)",
     border: borderStyle,
-    borderRadius: '14px',
-    fontSize: '15px',
-    color: 'var(--text-ink)',
-    width: '100%',
-    padding: '12px 16px',
-    outline: 'none',
-    transition: 'border-color var(--t-base), box-shadow var(--t-base)',
-    boxShadow: hasError ? '0 0 0 3px rgba(220, 38, 38, 0.08)' : 'none',
+    borderRadius: "14px",
+    fontSize: "15px",
+    color: "var(--text-ink)",
+    width: "100%",
+    padding: "12px 16px",
+    outline: "none",
+    transition: "border-color var(--t-base), box-shadow var(--t-base)",
+    boxShadow: hasError ? "0 0 0 3px rgba(220, 38, 38, 0.08)" : "none",
   };
 
   return (
@@ -226,10 +247,10 @@ function FormField({
       <label
         htmlFor={name}
         className="font-bengali text-sm"
-        style={{ color: 'var(--text-body)' }}
+        style={{ color: "var(--text-body)" }}
       >
         {label}
-        {required && <span style={{ color: 'var(--crimson)' }}> *</span>}
+        {required && <span style={{ color: "var(--crimson)" }}> *</span>}
       </label>
       {options ? (
         <select
@@ -240,11 +261,11 @@ function FormField({
           required={required}
           style={{
             ...baseStyles,
-            appearance: 'none',
+            appearance: "none",
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 16px center',
-            paddingRight: '40px',
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right 16px center",
+            paddingRight: "40px",
           }}
         >
           <option value="">{placeholder}</option>
@@ -254,7 +275,7 @@ function FormField({
             </option>
           ))}
         </select>
-      ) : type === 'textarea' ? (
+      ) : type === "textarea" ? (
         <textarea
           id={name}
           name={name}
@@ -265,8 +286,8 @@ function FormField({
           rows={4}
           style={{
             ...baseStyles,
-            resize: 'vertical',
-            minHeight: '100px',
+            resize: "vertical",
+            minHeight: "100px",
           }}
         />
       ) : (
@@ -286,9 +307,9 @@ function FormField({
         {hasError && (
           <motion.p
             className="font-bengali text-xs flex items-center gap-1"
-            style={{ color: 'var(--crimson)' }}
+            style={{ color: "var(--crimson)" }}
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
-            animate={{ opacity: 1, height: 'auto', marginTop: 2 }}
+            animate={{ opacity: 1, height: "auto", marginTop: 2 }}
             exit={{ opacity: 0, height: 0, marginTop: 0 }}
             transition={{ duration: 0.2 }}
           >
@@ -304,28 +325,35 @@ function FormField({
 /* ── Main Contact Section ── */
 export default function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-60px' });
+  const isInView = useInView(sectionRef, { once: true, margin: "-60px" });
   const formRef = useRef<HTMLDivElement>(null);
-  const isFormInView = useInView(formRef, { once: true, margin: '-40px' });
+  const isFormInView = useInView(formRef, { once: true, margin: "-40px" });
   const promiseRef = useRef<HTMLDivElement>(null);
-  const isPromiseInView = useInView(promiseRef, { once: true, margin: '-60px' });
+  const isPromiseInView = useInView(promiseRef, {
+    once: true,
+    margin: "-60px",
+  });
 
   /* Form state */
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    businessType: '',
-    district: '',
-    message: '',
+    name: "",
+    phone: "",
+    businessType: "",
+    district: "",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [serverError, setServerError] = useState('');
+  const [serverError, setServerError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const { t, tArray } = useTranslation();
 
   const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
 
@@ -339,13 +367,13 @@ export default function ContactSection() {
       }
 
       // Phone-specific: live validation feedback
-      if (name === 'phone') {
+      if (name === "phone") {
         if (value.length > 0 && !BD_PHONE_REGEX.test(value)) {
           // Only show error if they've typed enough to potentially be valid
           if (value.length >= 11) {
             setFieldErrors((prev) => ({
               ...prev,
-              phone: t('contact.form.errors.phoneInvalid'),
+              phone: t("contact.form.errors.phoneInvalid"),
             }));
           }
         } else {
@@ -358,21 +386,21 @@ export default function ContactSection() {
       }
 
       // Clear server error on any change
-      if (serverError) setServerError('');
+      if (serverError) setServerError("");
     },
-    [fieldErrors, serverError, t]
+    [fieldErrors, serverError, t],
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setServerError('');
+    setServerError("");
     setFieldErrors({});
 
     // Client-side phone validation before sending
     if (!BD_PHONE_REGEX.test(formData.phone)) {
       setFieldErrors((prev) => ({
         ...prev,
-        phone: t('contact.form.errors.phoneInvalid'),
+        phone: t("contact.form.errors.phoneInvalid"),
       }));
       return;
     }
@@ -380,9 +408,9 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -398,14 +426,14 @@ export default function ContactSection() {
           setFieldErrors(errors);
         }
         // Show server message
-        setServerError(data.message || t('contact.form.errors.serverError'));
+        setServerError(data.message || t("contact.form.errors.serverError"));
         return;
       }
 
       // Success!
       setSubmitted(true);
     } catch {
-      setServerError(t('contact.form.errors.networkError'));
+      setServerError(t("contact.form.errors.networkError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -416,13 +444,13 @@ export default function ContactSection() {
       id="contact"
       ref={sectionRef}
       className="relative overflow-hidden"
-      style={{ background: 'var(--cream)' }}
+      style={{ background: "var(--cream)" }}
     >
       {/* ── Opening ── */}
       <div
         className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-6"
         style={{
-          background: 'var(--cream)',
+          background: "var(--cream)",
         }}
       >
         {/* Subtle texture */}
@@ -432,27 +460,31 @@ export default function ContactSection() {
           className="relative z-10 max-w-2xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
             className="font-bengali mb-4"
-            style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-ink)', lineHeight: 1.15 }}
+            style={{
+              fontSize: "var(--fs-h1)",
+              color: "var(--text-ink)",
+              lineHeight: 1.15,
+            }}
             variants={fadeUp}
           >
-            {t('contact.headline')}
+            {t("contact.headline")}
           </motion.h2>
 
           <motion.p
             className="font-bengali mb-3"
-            style={{ fontSize: 'var(--fs-body-lg)', color: 'var(--text-body)' }}
+            style={{ fontSize: "var(--fs-body-lg)", color: "var(--text-body)" }}
             variants={fadeUp}
           >
-            {t('contact.sub')}
+            {t("contact.sub")}
           </motion.p>
 
           <motion.p
             className="font-display italic"
-            style={{ fontSize: '17px', color: 'var(--text-muted)' }}
+            style={{ fontSize: "17px", color: "var(--text-muted)" }}
             variants={fadeUp}
           >
             We&apos;re real people. We pick up the phone.
@@ -466,34 +498,34 @@ export default function ContactSection() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={isInView ? "visible" : "hidden"}
         >
           <ContactCard
             icon={MessageCircle}
-            title={t('contact.cards.whatsapp.title')}
-            subtitle={t('contact.cards.whatsapp.subtitle')}
-            badge={t('contact.cards.whatsapp.badge')}
+            title={t("contact.cards.whatsapp.title")}
+            subtitle={t("contact.cards.whatsapp.subtitle")}
+            badge={t("contact.cards.whatsapp.badge")}
             badgeColor="var(--gold)"
-            value="+880 1XXX-XXXXXX"
-            action={t('contact.cards.whatsapp.action')}
-            buttonLabel={t('contact.cards.whatsapp.button')}
+            value="+880 1734114388"
+            action={t("contact.cards.whatsapp.action")}
+            buttonLabel={t("contact.cards.whatsapp.button")}
             buttonStyle="green"
             primary
           />
           <ContactCard
             icon={Phone}
-            title={t('contact.cards.phone.title')}
-            value="+880 1XXX-XXXXXX"
-            action={t('contact.cards.phone.action')}
-            buttonLabel={t('contact.cards.phone.button')}
+            title={t("contact.cards.phone.title")}
+            value="+880 1922557436"
+            action={t("contact.cards.phone.action")}
+            buttonLabel={t("contact.cards.phone.button")}
             buttonStyle="outline"
           />
           <ContactCard
             icon={Mail}
-            title={t('contact.cards.email.title')}
+            title={t("contact.cards.email.title")}
             value="hello@hellokhata.com"
-            action={t('contact.cards.email.action')}
-            buttonLabel={t('contact.cards.email.button')}
+            action={t("contact.cards.email.action")}
+            buttonLabel={t("contact.cards.email.button")}
             buttonStyle="outline"
           />
         </motion.div>
@@ -503,14 +535,14 @@ export default function ContactSection() {
       <div
         ref={promiseRef}
         className="relative overflow-hidden py-[var(--section-v)] px-6"
-        style={{ background: 'var(--ink)' }}
+        style={{ background: "var(--ink)" }}
       >
         {/* Green glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 600px 400px at 50% 50%, rgba(201,169,110,0.12) 0%, transparent 70%)',
+              "radial-gradient(ellipse 600px 400px at 50% 50%, rgba(201,169,110,0.12) 0%, transparent 70%)",
           }}
         />
         {/* Nakshi texture at low opacity */}
@@ -523,19 +555,19 @@ export default function ContactSection() {
           className="relative z-10 max-w-2xl mx-auto text-center"
           variants={containerVariants}
           initial="hidden"
-          animate={isPromiseInView ? 'visible' : 'hidden'}
+          animate={isPromiseInView ? "visible" : "hidden"}
         >
           <motion.h2
             className="font-bengali text-white mb-4"
-            style={{ fontSize: 'var(--fs-h1)', lineHeight: 1.15 }}
+            style={{ fontSize: "var(--fs-h1)", lineHeight: 1.15 }}
             variants={fadeUp}
           >
-            {t('contact.inPerson.headline')}
+            {t("contact.inPerson.headline")}
           </motion.h2>
 
           <motion.p
             className="font-display italic mb-2"
-            style={{ fontSize: '20px', color: 'var(--text-cream-muted)' }}
+            style={{ fontSize: "20px", color: "var(--text-cream-muted)" }}
             variants={fadeUp}
           >
             Our team will come to your shop. In person.
@@ -543,7 +575,10 @@ export default function ContactSection() {
 
           <motion.p
             className="font-body mb-8"
-            style={{ fontSize: 'var(--fs-body)', color: 'var(--text-cream-muted)' }}
+            style={{
+              fontSize: "var(--fs-body)",
+              color: "var(--text-cream-muted)",
+            }}
             variants={fadeUp}
           >
             We&apos;ll show you everything. No pressure.
@@ -552,15 +587,15 @@ export default function ContactSection() {
           <motion.div variants={fadeUp}>
             <motion.button
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body text-[15px] font-semibold text-white"
-              style={{ background: 'var(--gold)' }}
+              style={{ background: "var(--gold)" }}
               whileHover={{
                 scale: 1.04,
-                boxShadow: '0 0 32px rgba(201,169,110,0.4)',
+                boxShadow: "0 0 32px rgba(201,169,110,0.4)",
               }}
               whileTap={{ scale: 0.97 }}
             >
               <MapPin className="w-4 h-4" />
-              {t('contact.inPerson.button')}
+              {t("contact.inPerson.button")}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -570,7 +605,7 @@ export default function ContactSection() {
       <div
         ref={formRef}
         className="relative py-[var(--section-v)] px-6"
-        style={{ background: 'var(--cream)' }}
+        style={{ background: "var(--cream)" }}
       >
         <div className="texture-nakshi-subtle absolute inset-0 pointer-events-none" />
 
@@ -578,21 +613,21 @@ export default function ContactSection() {
           className="relative z-10 max-w-[640px] mx-auto"
           variants={containerVariants}
           initial="hidden"
-          animate={isFormInView ? 'visible' : 'hidden'}
+          animate={isFormInView ? "visible" : "hidden"}
         >
           {/* Heading */}
           <motion.div className="text-center mb-10" variants={fadeUp}>
             <h3
               className="font-bengali mb-2"
-              style={{ fontSize: 'var(--fs-h2)', color: 'var(--text-ink)' }}
+              style={{ fontSize: "var(--fs-h2)", color: "var(--text-ink)" }}
             >
-              {t('contact.form.heading')}
+              {t("contact.form.heading")}
             </h3>
             <p
               className="font-body"
-              style={{ fontSize: 'var(--fs-body)', color: 'var(--text-muted)' }}
+              style={{ fontSize: "var(--fs-body)", color: "var(--text-muted)" }}
             >
-              {t('contact.form.sub')}
+              {t("contact.form.sub")}
             </p>
           </motion.div>
 
@@ -601,8 +636,8 @@ export default function ContactSection() {
             <motion.div
               className="text-center py-16 rounded-[var(--card-r)] px-6"
               style={{
-                background: 'var(--white)',
-                border: '1px solid rgba(201,169,110,0.2)',
+                background: "var(--white)",
+                border: "1px solid rgba(201,169,110,0.2)",
               }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -612,7 +647,7 @@ export default function ContactSection() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{
-                  type: 'spring',
+                  type: "spring",
                   stiffness: 200,
                   damping: 15,
                   delay: 0.15,
@@ -620,32 +655,35 @@ export default function ContactSection() {
               >
                 <CheckCircle2
                   className="w-16 h-16 mx-auto mb-5"
-                  style={{ color: 'var(--gold)' }}
+                  style={{ color: "var(--gold)" }}
                 />
               </motion.div>
               <motion.p
                 className="font-bengali text-xl mb-2"
-                style={{ color: 'var(--text-ink)' }}
+                style={{ color: "var(--text-ink)" }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                {t('contact.form.success.title')}
+                {t("contact.form.success.title")}
               </motion.p>
               <motion.p
                 className="font-body"
-                style={{ fontSize: 'var(--fs-body)', color: 'var(--text-muted)' }}
+                style={{
+                  fontSize: "var(--fs-body)",
+                  color: "var(--text-muted)",
+                }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
               >
-                {t('contact.form.success.body')}
+                {t("contact.form.success.body")}
               </motion.p>
               <motion.button
                 className="mt-6 px-5 py-2 rounded-full font-body text-sm font-medium"
                 style={{
-                  border: '1px solid var(--canvas-border-strong)',
-                  color: 'var(--text-body)',
+                  border: "1px solid var(--canvas-border-strong)",
+                  color: "var(--text-body)",
                 }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
@@ -654,12 +692,18 @@ export default function ContactSection() {
                 transition={{ delay: 0.7 }}
                 onClick={() => {
                   setSubmitted(false);
-                  setFormData({ name: '', phone: '', businessType: '', district: '', message: '' });
+                  setFormData({
+                    name: "",
+                    phone: "",
+                    businessType: "",
+                    district: "",
+                    message: "",
+                  });
                   setFieldErrors({});
-                  setServerError('');
+                  setServerError("");
                 }}
               >
-                {t('contact.form.success.anotherMessage')}
+                {t("contact.form.success.anotherMessage")}
               </motion.button>
             </motion.div>
           ) : (
@@ -668,16 +712,16 @@ export default function ContactSection() {
               onSubmit={handleSubmit}
               className="khata-lines rounded-[var(--card-r)] p-6 md:p-10"
               style={{
-                background: 'var(--white)',
-                border: '1px solid var(--canvas-border)',
+                background: "var(--white)",
+                border: "1px solid var(--canvas-border)",
               }}
               variants={fadeUp}
             >
               <div className="flex flex-col gap-5">
                 <FormField
-                  label={t('contact.form.labels.name')}
+                  label={t("contact.form.labels.name")}
                   name="name"
-                  placeholder={t('contact.form.placeholders.name')}
+                  placeholder={t("contact.form.placeholders.name")}
                   required
                   value={formData.name}
                   onChange={handleChange}
@@ -685,10 +729,10 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label={t('contact.form.labels.phone')}
+                  label={t("contact.form.labels.phone")}
                   name="phone"
                   type="tel"
-                  placeholder={t('contact.form.placeholders.phone')}
+                  placeholder={t("contact.form.placeholders.phone")}
                   required
                   value={formData.phone}
                   onChange={handleChange}
@@ -696,20 +740,22 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label={t('contact.form.labels.businessType')}
+                  label={t("contact.form.labels.businessType")}
                   name="businessType"
-                  placeholder={t('contact.form.placeholders.businessType')}
+                  placeholder={t("contact.form.placeholders.businessType")}
                   required
                   value={formData.businessType}
                   onChange={handleChange}
-                  options={(tArray('contact.form.businessTypes') ?? BUSINESS_TYPES).map((item) => ({ value: item, label: item }))}
+                  options={(
+                    tArray("contact.form.businessTypes") ?? BUSINESS_TYPES
+                  ).map((item) => ({ value: item, label: item }))}
                   error={fieldErrors.businessType}
                 />
 
                 <FormField
-                  label={t('contact.form.labels.district')}
+                  label={t("contact.form.labels.district")}
                   name="district"
-                  placeholder={t('contact.form.placeholders.district')}
+                  placeholder={t("contact.form.placeholders.district")}
                   required
                   value={formData.district}
                   onChange={handleChange}
@@ -718,9 +764,9 @@ export default function ContactSection() {
                 />
 
                 <FormField
-                  label={t('contact.form.labels.message')}
+                  label={t("contact.form.labels.message")}
                   name="message"
-                  placeholder={t('contact.form.placeholders.message')}
+                  placeholder={t("contact.form.placeholders.message")}
                   value={formData.message}
                   onChange={handleChange}
                   error={fieldErrors.message}
@@ -732,16 +778,22 @@ export default function ContactSection() {
                     <motion.div
                       className="flex items-center gap-2 p-4 rounded-xl"
                       style={{
-                        background: 'rgba(220, 38, 38, 0.06)',
-                        border: '1px solid rgba(220, 38, 38, 0.15)',
+                        background: "rgba(220, 38, 38, 0.06)",
+                        border: "1px solid rgba(220, 38, 38, 0.15)",
                       }}
                       initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                      animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
+                      animate={{ opacity: 1, height: "auto", marginTop: 0 }}
                       exit={{ opacity: 0, height: 0, marginTop: 0 }}
                       transition={{ duration: 0.25 }}
                     >
-                      <AlertCircle className="w-4 h-4 shrink-0" style={{ color: 'var(--crimson)' }} />
-                      <p className="font-bengali text-sm" style={{ color: 'var(--crimson)' }}>
+                      <AlertCircle
+                        className="w-4 h-4 shrink-0"
+                        style={{ color: "var(--crimson)" }}
+                      />
+                      <p
+                        className="font-bengali text-sm"
+                        style={{ color: "var(--crimson)" }}
+                      >
                         {serverError}
                       </p>
                     </motion.div>
@@ -753,15 +805,17 @@ export default function ContactSection() {
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-body text-[15px] font-semibold text-white"
                   style={{
-                    background: isSubmitting ? 'rgba(201,169,110,0.6)' : 'var(--gold)',
-                    cursor: isSubmitting ? 'wait' : 'pointer',
+                    background: isSubmitting
+                      ? "rgba(201,169,110,0.6)"
+                      : "var(--gold)",
+                    cursor: isSubmitting ? "wait" : "pointer",
                   }}
                   whileHover={
                     isSubmitting
                       ? {}
                       : {
                           scale: 1.02,
-                          boxShadow: '0 0 28px rgba(201,169,110,0.35)',
+                          boxShadow: "0 0 28px rgba(201,169,110,0.35)",
                         }
                   }
                   whileTap={isSubmitting ? {} : { scale: 0.98 }}
@@ -770,12 +824,12 @@ export default function ContactSection() {
                   {isSubmitting ? (
                     <>
                       <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      {t('contact.form.submitting')}
+                      {t("contact.form.submitting")}
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      {t('contact.form.submit')}
+                      {t("contact.form.submit")}
                     </>
                   )}
                 </motion.button>
@@ -783,9 +837,9 @@ export default function ContactSection() {
 
               <p
                 className="font-body text-center mt-5"
-                style={{ fontSize: 'var(--fs-sm)', color: 'var(--text-muted)' }}
+                style={{ fontSize: "var(--fs-sm)", color: "var(--text-muted)" }}
               >
-                {t('contact.form.note')}
+                {t("contact.form.note")}
               </p>
             </motion.form>
           )}
