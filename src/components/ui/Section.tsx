@@ -2,7 +2,8 @@ import { cn } from "@/lib/cn";
 import { noOrphanDash } from "@/lib/format";
 
 export function Container({ className, children }: { className?: string; children: React.ReactNode }) {
-  return <div className={cn("mx-auto w-full max-w-[1240px] px-5 sm:px-8", className)}>{children}</div>;
+  // Fluid on every screen: side margins are a share of the screen width (see .hk-container in globals.css).
+  return <div className={cn("hk-container", className)}>{children}</div>;
 }
 
 export function Eyebrow({ children, tone = "leaf", className }: { children: React.ReactNode; tone?: "leaf" | "light"; className?: string }) {

@@ -209,7 +209,7 @@ export function FeaturesMegaMenu({ isActive }: { isActive: (href: string) => boo
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       className="absolute inset-x-0 top-full z-10"
     >
-      <div className="mx-auto max-w-[1320px] px-5 pt-2 sm:px-8">
+      <div className="hk-container-wide pt-2">
         <div className="paper-cream rounded-[1.5rem] p-3 shadow-[0_1px_0_rgb(23_34_28/0.04),0_24px_60px_-24px_rgb(12_35_24/0.35)] ring-1 ring-ink/10">
           <div className="grid grid-cols-4 gap-y-3 xl:grid-cols-[24fr_19fr_20fr_19fr_18fr]">
             {groups.map((g, i) => (

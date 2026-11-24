@@ -116,7 +116,7 @@ export function SiteNav({ menu }: { menu: NavMenu }) {
           scrolled || open ? "bg-paper/85 shadow-[0_1px_0_rgb(23_34_28/0.08)] backdrop-blur-md" : "bg-transparent",
         )}
       >
-        <nav aria-label={t.nav.label} className={cn("mx-auto flex max-w-[1320px] items-center gap-6 px-5 transition-[height] duration-500 sm:px-8", scrolled ? "h-16" : "h-20")}>
+        <nav aria-label={t.nav.label} className={cn("hk-container-wide flex items-center gap-6 transition-[height] duration-500", scrolled ? "h-16" : "h-20")}>
           <Link href={p("")} className="shrink-0 rounded-md" aria-label="HelloKhata">
             <Wordmark />
           </Link>
