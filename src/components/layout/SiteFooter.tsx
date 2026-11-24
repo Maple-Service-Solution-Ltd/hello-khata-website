@@ -6,6 +6,7 @@ import { fmtDigits, interpolate } from "@/lib/format";
 import { contactInfo, localDigits } from "@/lib/site";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { StoreBadges } from "@/components/ui/StoreBadges";
+import { ProgramBadges } from "@/components/ui/ProgramBadges";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { Container } from "@/components/ui/Section";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -117,6 +118,10 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                   <div>
                     <p className="mb-3 text-sm text-cream/60">{t.app.link}</p>
                     <StoreBadges locale={locale} tone="light" />
+                  </div>
+                  <div>
+                    <p className="mb-3 text-sm text-cream/60">{t.footer.programs}</p>
+                    <ProgramBadges />
                   </div>
                 </div>
               </div>
