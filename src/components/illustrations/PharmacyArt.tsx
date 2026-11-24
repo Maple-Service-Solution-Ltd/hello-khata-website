@@ -176,17 +176,18 @@ function Hand({ x, y, len, size = 19, rot = 0, o = 0.92, children }: { x: number
   );
 }
 
-export function PrescriptionSlip({ className, alt }: { className?: string; alt: string }) {
+/** `uid` keeps the gradient ids unique when the slip is drawn more than once on a page. */
+export function PrescriptionSlip({ className, alt, uid = "a" }: { className?: string; alt: string; uid?: string }) {
   const s = new Sketch(2401);
   const print = { fontFamily: "var(--font-manrope)" } as const;
   return (
     <svg viewBox="0 0 400 520" className={className} role="img" aria-label={alt}>
       <defs>
-        <linearGradient id="rx-paper" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={`rx-paper-${uid}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#fffdf6" />
           <stop offset="1" stopColor="#f6f1e4" />
         </linearGradient>
-        <linearGradient id="rx-fold" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`rx-fold-${uid}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#000" stopOpacity="0" />
           <stop offset="0.5" stopColor="#000" stopOpacity="0.06" />
           <stop offset="0.52" stopColor="#fff" stopOpacity="0.5" />
@@ -195,8 +196,8 @@ export function PrescriptionSlip({ className, alt }: { className?: string; alt: 
       </defs>
 
       {/* Paper with a soft fold across the middle */}
-      <rect x="0" y="0" width="400" height="520" fill="url(#rx-paper)" />
-      <rect x="0" y="246" width="400" height="24" fill="url(#rx-fold)" />
+      <rect x="0" y="0" width="400" height="520" fill={`url(#rx-paper-${uid})`} />
+      <rect x="0" y="246" width="400" height="24" fill={`url(#rx-fold-${uid})`} />
 
       {/* Printed letterhead (fictional) */}
       <rect x="0" y="0" width="400" height="6" fill={teal} />

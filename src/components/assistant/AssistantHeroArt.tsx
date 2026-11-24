@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { Sketch } from "@/lib/sketch";
@@ -52,6 +52,8 @@ type Layout = keyof typeof LAYOUT;
 
 /** The open khata in wide coordinates (pages from x 30 to 340, y 384 to 532). */
 function Khata({ lines, total, written, showTotal, reduce }: { lines: string[]; total: string; written: number; showTotal: boolean; reduce: boolean }) {
+  // Unique per instance: the khata is drawn more than once on the assistant page.
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const s = new Sketch(9021);
   const left = "M30 392 L185 384 L188 520 L34 532 Z";
   const right = "M185 384 L340 392 L336 532 L188 520 Z";
@@ -89,20 +91,20 @@ function Khata({ lines, total, written, showTotal, reduce }: { lines: string[]; 
         const [x, y] = spots[i];
         return (
           <g key={i}>
-            <clipPath id={`hk-khata-line-${i}`}>
+            <clipPath id={`hk-khata-line-${uid}-${i}`}>
               <motion.rect x={x - 2} y={y - 14} height="20" initial={reduce ? false : { width: 0 }} animate={{ width: i < written ? 130 : 0 }} transition={{ duration: reduce ? 0 : 0.55, ease: "easeOut" }} />
             </clipPath>
-            <text x={x} y={y} fontSize="12.5" fill={c.ink} fillOpacity="0.82" className="font-hand" clipPath={`url(#hk-khata-line-${i})`} transform={`rotate(${i < 3 ? -2.5 : 2.5} ${x} ${y})`}>
+            <text x={x} y={y} fontSize="12.5" fill={c.ink} fillOpacity="0.82" className="font-hand" clipPath={`url(#hk-khata-line-${uid}-${i})`} transform={`rotate(${i < 3 ? -2.5 : 2.5} ${x} ${y})`}>
               {line}
             </text>
           </g>
         );
       })}
       {/* The answer comes back to paper: the day's total, underlined twice */}
-      <clipPath id="hk-khata-total">
+      <clipPath id={`hk-khata-total-${uid}`}>
         <motion.rect x="212" y="474" height="26" initial={reduce ? false : { width: 0 }} animate={{ width: showTotal ? 130 : 0 }} transition={{ duration: reduce ? 0 : 0.8, ease: "easeOut" }} />
       </clipPath>
-      <g clipPath="url(#hk-khata-total)" transform="rotate(2.5 214 492)">
+      <g clipPath={`url(#hk-khata-total-${uid})`} transform="rotate(2.5 214 492)">
         <text x="214" y="492" fontSize="14" fontWeight="700" fill={c.leafDeep} className="font-hand">
           {total}
         </text>

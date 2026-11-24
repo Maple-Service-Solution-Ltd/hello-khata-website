@@ -287,9 +287,17 @@ export function PharmacyJourney() {
     if (reduce) return;
     const timers: number[] = [];
     const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
+    // A drawer can be asked to open again while it is still open (two medicines in one drawer, or the next
+    // loop): keep it listed once, and only the latest open's timer closes it.
+    const lastOpen = new Map<number, number>();
+    let openSeq = 0;
     const openDrawer = (cell: number) => {
-      setOpen((o) => [...o, cell]);
-      at(1700, () => setOpen((o) => o.filter((x) => x !== cell)));
+      const token = ++openSeq;
+      lastOpen.set(cell, token);
+      setOpen((o) => (o.includes(cell) ? o : [...o, cell]));
+      at(1700, () => {
+        if (lastOpen.get(cell) === token) setOpen((o) => o.filter((x) => x !== cell));
+      });
     };
     const run = () => {
       // Grandfather and grandson walk in; the grandson hands over the slip
@@ -595,7 +603,7 @@ export function PharmacyJourney() {
                   stroke={c.ink}
                   strokeWidth="0.55"
                   strokeLinecap="round"
-                  initial={{ x: SLIP[0] - 5, y: SLIP[1] - 1 + i * 4, scale: 0.6 }}
+                  initial={{ x: SLIP[0] - 5, y: SLIP[1] - 1 + i * 4, scale: 0.6, d: scribble }}
                   animate={lift === "up" ? { x: cx - 41, y: cy + 8, scale: 3.4, d: [scribble, scribble, straight] } : { x: cx - 41, y: cy + 8, scale: 3.4, opacity: 0, d: straight }}
                   transition={{ duration: 1.1, ease, delay: i * 0.12 }}
                   style={{ originX: 0, originY: 0.5 }}

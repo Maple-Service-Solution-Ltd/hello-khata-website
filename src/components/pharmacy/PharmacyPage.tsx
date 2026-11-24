@@ -34,7 +34,7 @@ export function PharmacyPage({ locale }: { locale: Locale }) {
     </div>
   );
 
-  const slip = <PrescriptionSlip className="block w-full" alt={ph.ocr.slipAlt} />;
+  const slip = (uid: string) => <PrescriptionSlip className="block w-full" alt={ph.ocr.slipAlt} uid={uid} />;
 
   return (
     <RxProvider>
@@ -86,7 +86,7 @@ export function PharmacyPage({ locale }: { locale: Locale }) {
           <Heading id="ph-ocr" eyebrow={ph.ocr.eyebrow} title={ph.ocr.title} lead={ph.ocr.lead} status="prescriptionOcr" tone="light" />
           <p className="mt-6 max-w-3xl rounded-2xl border border-marigold/30 bg-marigold/10 p-4 text-sm text-marigold-soft">{ph.ocr.demoNote}</p>
           <div className="mt-12">
-            <OcrDemo slip={slip} />
+            <OcrDemo slip={slip("ocr")} />
           </div>
           <div className="mt-14 rounded-[1.6rem] bg-white/[0.04] p-6 ring-1 ring-white/10 sm:p-8">
             <p className="font-semibold text-leaf-glow">{ph.ocr.principlesTitle}</p>
@@ -224,7 +224,7 @@ export function PharmacyPage({ locale }: { locale: Locale }) {
           <Reveal className="relative order-2 lg:order-1">
             <MedicineShelfArt className="w-full opacity-90" />
             <div className="absolute -top-6 left-[4%] w-[30%] -rotate-6 rounded shadow-[var(--shadow-float)]" aria-hidden="true">
-              {slip}
+              {slip("page")}
             </div>
             <div className="absolute right-0 -bottom-6 w-[46%] rotate-2 rounded-xl bg-white p-3 shadow-[var(--shadow-float)] ring-1 ring-ink/10" aria-hidden="true">
               <p className="font-latin text-[0.65rem] font-extrabold" translate="no">
