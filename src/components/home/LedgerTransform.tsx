@@ -130,9 +130,18 @@ function Stage({ p, arrive }: { p: MotionValue<number>; arrive: MotionValue<numb
 
   // Arrival (before the pin): rise, untilt, settle
   const arriveY = useTransform(arrive, [0, 1], [90, 0]);
-  const arriveTilt = useTransform(arrive, [0, 1], [22, 0]);
   const arriveScale = useTransform(arrive, [0, 1], [0.9, 1]);
   const arriveOpacity = useTransform(arrive, [0, 0.45], [0, 1]);
+
+  // 3D pose: while it is a book it lies on a desk, seen from the front-right, so its page edges and
+  // boards show. It flattens to face the reader as the page becomes the app card.
+  const pose = useTransform(p, [0, 0.58, 0.74], [1, 1, 0]);
+  const tiltX = useTransform([arrive, pose], ([a, b]: number[]) => (1 - a) * 22 + b * BOOK_TILT.x);
+  const tiltY = useTransform(pose, (b) => b * BOOK_TILT.y);
+  const tiltZ = useTransform(pose, (b) => b * BOOK_TILT.z);
+  const edgeOpacity = useTransform(p, [0.58, 0.7], [1, 0]);
+  // Cloth sheen slides across the cover as it swings open
+  const sheenX = useTransform(p, [0, 0.18], ["-30%", "60%"]);
 
   // Book opening
   const coverRotate = useTransform(p, [0, 0.18], [0, -180]);
@@ -167,10 +176,10 @@ function Stage({ p, arrive }: { p: MotionValue<number>; arrive: MotionValue<numb
   return (
     <motion.div
       className="relative mx-auto aspect-[5/4] w-full max-w-[600px]"
-      style={{ perspective: 2200, y: arriveY, scale: arriveScale, opacity: arriveOpacity }}
+      style={{ perspective: 1500, y: arriveY, scale: arriveScale, opacity: arriveOpacity }}
       aria-hidden="true"
     >
-      <motion.div className="absolute inset-0" style={{ rotateX: arriveTilt, transformStyle: "preserve-3d" }}>
+      <motion.div className="absolute inset-0" style={{ rotateX: tiltX, rotateY: tiltY, rotateZ: tiltZ, transformStyle: "preserve-3d" }}>
         {/* Soft floor shadow that grows as the book settles */}
         <motion.div className="absolute inset-x-[18%] bottom-[2%] h-[6%] rounded-[50%] bg-ink/15 blur-xl" style={{ opacity: arriveOpacity }} />
 
@@ -178,6 +187,7 @@ function Stage({ p, arrive }: { p: MotionValue<number>; arrive: MotionValue<numb
           className="absolute top-[6%] left-1/2 h-[86%] w-[46%] will-change-transform"
           style={{ x: pageX, y: pageLift, scale: pageScale, transformStyle: "preserve-3d" }}
         >
+          <BookBody opacity={edgeOpacity} />
           {/* Right page / app surface */}
           <div className="absolute inset-0 rounded-r-md bg-[#fbf6ea] shadow-[0_24px_48px_-24px_rgb(23_34_28/0.5)]">
             <motion.div className="absolute inset-0 rounded-r-md" style={{ opacity: paperOpacity }}>
@@ -227,17 +237,29 @@ function Stage({ p, arrive }: { p: MotionValue<number>; arrive: MotionValue<numb
           </div>
 
           {/* Cover: red cloth outside, inside page on the back */}
-          <motion.div className="absolute inset-0 origin-left will-change-transform" style={{ rotateY: coverRotate, x: coverX, opacity: coverOpacity, transformStyle: "preserve-3d" }}>
+          <motion.div
+            className="absolute inset-0 origin-left will-change-transform"
+            style={{ rotateY: coverRotate, x: coverX, z: BOARD, opacity: coverOpacity, transformStyle: "preserve-3d" }}
+          >
+            {/* Board thickness, seen along the bottom and fore-edge; it turns with the cover */}
+            <div className="absolute inset-x-0 top-full origin-top bg-[#9b2a17]" style={{ height: BOARD, transform: "rotateX(-90deg)" }} />
+            <div className="absolute inset-y-0 left-full origin-left bg-[#8a2414]" style={{ width: BOARD, transform: "rotateY(90deg)" }} />
             <motion.div
-              className="absolute inset-0 flex flex-col items-center justify-center rounded-r-md bg-vermilion shadow-[inset_0_0_0_6px_rgb(0_0_0/0.08),0_24px_48px_-24px_rgb(23_34_28/0.55)]"
+              className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden rounded-r-md bg-vermilion shadow-[inset_0_0_0_6px_rgb(0_0_0/0.08)]"
               style={{ opacity: frontOpacity }}
             >
-              <div className="absolute inset-[7%] rounded-sm border-2 border-marigold/80" />
+              <div className="absolute inset-[7%] rounded-sm border-2 border-marigold/80 shadow-[inset_0_1px_0_rgb(0_0_0/0.25),0_1px_0_rgb(255_255_255/0.18)]" />
               <div className="absolute inset-[9%] rounded-sm border border-marigold/50" />
               <div className="absolute inset-0 rounded-r-md opacity-30 mix-blend-multiply [background-image:var(--grain)]" />
-              <div className="absolute inset-y-0 left-0 w-[7%] bg-gradient-to-r from-black/25 to-transparent" />
-              <p className="font-display relative text-[clamp(1.6rem,5vw,3rem)] text-marigold-soft">{L.coverTitle}</p>
-              <p className="font-display relative mt-1 text-[clamp(0.9rem,2.4vw,1.4rem)] text-marigold-soft/80">{L.coverYear}</p>
+              {/* Hinge groove and the rounded spine catching light */}
+              <div className="absolute inset-y-0 left-0 w-[7%] bg-gradient-to-r from-black/35 via-black/10 to-transparent" />
+              <div className="absolute inset-y-0 left-[7%] w-[1.2%] bg-gradient-to-r from-black/25 to-white/10" />
+              {/* Cloth sheen */}
+              <motion.div className="absolute inset-y-0 w-[45%] -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent" style={{ x: sheenX }} />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20" />
+              {/* Foil title pressed into the cloth */}
+              <p className="font-display relative text-[clamp(1.6rem,5vw,3rem)] text-marigold-soft [text-shadow:0_-1px_0_rgb(0_0_0/0.35),0_1px_0_rgb(255_235_190/0.35)]">{L.coverTitle}</p>
+              <p className="font-display relative mt-1 text-[clamp(0.9rem,2.4vw,1.4rem)] text-marigold-soft/80 [text-shadow:0_-1px_0_rgb(0_0_0/0.3)]">{L.coverYear}</p>
             </motion.div>
             <motion.div className="absolute inset-0 rounded-l-md bg-[#f6efdf] [transform:rotateY(180deg)]" style={{ opacity: backOpacity }}>
               <div className="absolute inset-y-0 right-0 w-[8%] bg-gradient-to-l from-ink/10 to-transparent" />
@@ -267,6 +289,63 @@ function Stage({ p, arrive }: { p: MotionValue<number>; arrive: MotionValue<numb
           <span className="block text-xs text-cream/70">{L.stockItem}</span>
         </span>
       </motion.div>
+    </motion.div>
+  );
+}
+
+/** Desk pose of the closed/open book, in degrees: tipped back, turned to show the fore-edge, slightly askew. */
+const BOOK_TILT = { x: 30, y: -24, z: 3 };
+/** Thickness of the page block and of each cover board, in px. */
+const PAGES = 36;
+const BOARD = 4;
+
+/** Edges of a stack of paper: thin cream leaves with faint gaps, running along `dir`. */
+const leaves = (dir: "to bottom" | "to right") =>
+  `repeating-linear-gradient(${dir}, #f4ecda 0, #f4ecda 1.6px, #d9ccae 1.6px, #d9ccae 2.2px)`;
+
+/**
+ * The solid part of the ledger behind the top page: page-block edges along the bottom and fore-edge,
+ * the back board under them, a ribbon bookmark and a shadow cast on the desk. Faces are hinged to the
+ * page's edges and turned 90° into the book, so they only show while the book is tilted.
+ */
+function BookBody({ opacity }: { opacity: MotionValue<number> }) {
+  const depth = PAGES + BOARD;
+  return (
+    <motion.div className="pointer-events-none absolute inset-0" style={{ opacity, transformStyle: "preserve-3d" }}>
+      {/* Shadow cast on the desk, under the back board */}
+      <div
+        className="absolute inset-[2%] rounded-md bg-ink/45 blur-[18px]"
+        style={{ transform: `translateZ(${-depth - 2}px) translate(5%, 7%)` }}
+      />
+      {/* Back board */}
+      <div className="absolute inset-0 rounded-r-md bg-[#8a2414]" style={{ transform: `translateZ(${-depth}px)` }} />
+      {/* Bottom edge: page leaves, then the back board */}
+      <div
+        className="absolute inset-x-0 top-full origin-top rounded-b-sm"
+        style={{
+          height: depth,
+          transform: "rotateX(-90deg)",
+          background: `linear-gradient(to bottom, transparent ${PAGES}px, #8a2414 ${PAGES}px), ${leaves("to bottom")}`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/25 via-transparent to-ink/10" />
+      </div>
+      {/* Fore-edge: page leaves, then the back board */}
+      <div
+        className="absolute inset-y-0 left-full origin-left rounded-r-sm"
+        style={{
+          width: depth,
+          transform: "rotateY(90deg)",
+          background: `linear-gradient(to right, transparent ${PAGES}px, #7a1f11 ${PAGES}px), ${leaves("to right")}`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-ink/30" />
+      </div>
+      {/* Ribbon bookmark hanging out of the bottom, near the spine */}
+      <div
+        className="absolute top-full left-[18%] h-[9%] w-[5%] origin-top bg-marigold shadow-[1px_2px_3px_rgb(0_0_0/0.25)] [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]"
+        style={{ transform: `translateZ(${-PAGES / 2}px) rotateX(-58deg)` }}
+      />
     </motion.div>
   );
 }
