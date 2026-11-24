@@ -43,11 +43,11 @@
       },
       "privacy": {
         "title": "Privacy Policy",
-        "description": "How HelloKhata handles your information."
+        "description": "How HelloKhata, operated by Maple Service Solution Limited, collects, uses, shares and protects your personal and business information."
       },
       "terms": {
         "title": "Terms and Conditions",
-        "description": "The terms that apply to using HelloKhata."
+        "description": "The terms for using HelloKhata, operated by Maple Service Solution Limited: accounts, subscriptions, payments, your data, AI features and liability."
       }
     },
     "sceneAlt": "Hand-drawn illustration of a Bangladeshi street: a small pharmacy, a general store with a shopkeeper recording sales on his phone, an apartment balcony with potted plants and a parked rickshaw. A green ink line runs from his phone to a larger phone showing the HelloKhata assistant.",
@@ -2413,57 +2413,1148 @@
     "programs": "Startup programs & tools"
   },
   "legal": {
-    "draft": "Draft — this page is a placeholder and must be reviewed by a qualified legal professional before publication.",
-    "updated": "Last updated: to be confirmed",
     "privacy": {
       "title": "Privacy Policy",
+      "updated": "Last updated: 24 November 2026",
       "sections": [
         {
-          "h": "Information we collect",
-          "p": "This section will describe the information HelloKhata collects, such as account details and the business records you enter."
+          "h": "1. Introduction",
+          "blocks": [
+            {
+              "p": "Welcome to HelloKhata."
+            },
+            {
+              "p": "HelloKhata (\"HelloKhata\", \"we\", \"our\" or \"us\") is a business management software platform owned and operated by Maple Service Solution Limited, a company incorporated in Bangladesh."
+            },
+            {
+              "p": "We respect your privacy and are committed to protecting the personal and business information entrusted to us when you access our website, mobile applications, web applications and related services."
+            },
+            {
+              "p": "This Privacy Policy explains what information we collect, why we collect it, how we use and protect it, when we share it, and what rights you may have regarding your information."
+            },
+            {
+              "p": "By accessing or using HelloKhata, you acknowledge that you have read this Privacy Policy. Where consent is required by applicable law, we will request it separately and through an appropriate mechanism."
+            }
+          ]
         },
         {
-          "h": "How we use information",
-          "p": "This section will explain how information is used to provide and improve the service, including the AI assistant."
+          "h": "2. Scope of This Policy",
+          "blocks": [
+            {
+              "p": "This Privacy Policy applies to:"
+            },
+            {
+              "ul": [
+                "The HelloKhata website and its associated pages.",
+                "HelloKhata mobile applications.",
+                "HelloKhata web applications and POS services.",
+                "Our AI-powered business assistant and voice-enabled features.",
+                "Customer support, communication and notification services.",
+                "Related services, integrations and features provided by HelloKhata."
+              ]
+            },
+            {
+              "p": "This Policy also covers information relating to business owners, employees, authorized account users and individuals whose information is entered into HelloKhata by a business customer."
+            }
+          ]
         },
         {
-          "h": "Who can access it",
-          "p": "This section will describe access controls, authorised users and any service providers involved."
+          "h": "3. Information We Collect",
+          "blocks": [
+            {
+              "p": "Depending on how you use HelloKhata, we may collect the following categories of information."
+            },
+            {
+              "h3": "3.1 Account and Identity Information"
+            },
+            {
+              "p": "When you register or use an account, we may collect:"
+            },
+            {
+              "ul": [
+                "Full name.",
+                "Mobile phone number.",
+                "Email address.",
+                "Business or shop name.",
+                "Business address and location information where provided.",
+                "Account credentials and authentication information.",
+                "Account type, role and access permissions."
+              ]
+            },
+            {
+              "h3": "3.2 Business and Transaction Information"
+            },
+            {
+              "p": "To provide business management and accounting functionality, HelloKhata may process:"
+            },
+            {
+              "ul": [
+                "Sales and purchase records.",
+                "Product and inventory information.",
+                "Customer and supplier records.",
+                "Outstanding balances and digital khata entries.",
+                "Expenses and financial transaction records.",
+                "Business reports and operational information.",
+                "Branch, employee and business configuration information.",
+                "POS and device-related transaction records."
+              ]
+            },
+            {
+              "p": "You are responsible for ensuring that you have an appropriate legal basis and authorization to enter information relating to your customers, employees, suppliers and other individuals."
+            },
+            {
+              "h3": "3.3 Voice and AI Information"
+            },
+            {
+              "p": "HelloKhata provides voice-enabled and AI-assisted features to help users manage business activities."
+            },
+            {
+              "p": "When you use these features, we may process:"
+            },
+            {
+              "ul": [
+                "Voice recordings submitted through the application.",
+                "Audio converted into text.",
+                "Written prompts and instructions.",
+                "AI-generated responses and summaries.",
+                "Information required to interpret and process your business commands.",
+                "Relevant business records used to generate requested answers."
+              ]
+            },
+            {
+              "p": "Voice and AI information may be processed by third-party AI, speech recognition or infrastructure providers acting on our behalf."
+            },
+            {
+              "p": "We process this information to provide the requested functionality, improve service reliability and maintain security."
+            },
+            {
+              "p": "We do not claim that every voice input is automatically stored permanently. The actual retention period depends on the feature, technical configuration and applicable legal requirements."
+            },
+            {
+              "h3": "3.4 Device and Technical Information"
+            },
+            {
+              "p": "We may automatically collect:"
+            },
+            {
+              "ul": [
+                "IP address.",
+                "Browser type and version.",
+                "Device type and operating system.",
+                "Application version.",
+                "Device and session identifiers.",
+                "Login timestamps.",
+                "Error reports and diagnostic logs.",
+                "Usage activity and performance information.",
+                "Cookie and similar technology information."
+              ]
+            },
+            {
+              "h3": "3.5 Payment and Subscription Information"
+            },
+            {
+              "p": "If you purchase a subscription or additional services, we may process:"
+            },
+            {
+              "ul": [
+                "Subscription plan.",
+                "Payment amount and currency.",
+                "Transaction reference.",
+                "Payment status.",
+                "Billing history.",
+                "Renewal and cancellation information."
+              ]
+            },
+            {
+              "p": "Payments may be handled by external payment service providers. We do not intend to store complete payment card credentials or payment authentication secrets on our own systems."
+            },
+            {
+              "h3": "3.6 Communication Information"
+            },
+            {
+              "p": "We may collect information you provide through:"
+            },
+            {
+              "ul": [
+                "Customer support requests.",
+                "Email correspondence.",
+                "Feedback and surveys.",
+                "Complaints.",
+                "SMS-related service requests.",
+                "Other communications with our team."
+              ]
+            }
+          ]
         },
         {
-          "h": "Your choices",
-          "p": "This section will explain how you can access, correct, export or delete your information."
+          "h": "4. How We Use Your Information",
+          "blocks": [
+            {
+              "p": "We use information for legitimate business and service purposes, including:"
+            },
+            {
+              "ol": [
+                "Creating and managing user accounts.",
+                "Providing POS, ERP, inventory and digital khata functionality.",
+                "Processing sales, purchases, expenses and other business records.",
+                "Providing AI-powered assistance and voice recognition.",
+                "Generating reports, summaries and business insights.",
+                "Sending account verification messages and security notifications.",
+                "Managing subscriptions, billing and payments.",
+                "Providing customer support and resolving technical issues.",
+                "Maintaining service availability and performance.",
+                "Detecting fraud, unauthorized access and misuse.",
+                "Improving the reliability, functionality and security of HelloKhata.",
+                "Meeting applicable legal and regulatory obligations.",
+                "Protecting our rights and enforcing our agreements."
+              ]
+            },
+            {
+              "p": "We will not use personal information for purposes incompatible with the purposes disclosed to you unless permitted by applicable law or with the required authorization."
+            }
+          ]
         },
         {
-          "h": "Contact",
-          "p": "Questions about privacy can be emailed to contact@hellokhata.com or sent through the contact page."
+          "h": "5. AI Processing and Automated Features",
+          "blocks": [
+            {
+              "p": "HelloKhata uses artificial intelligence and related technologies to assist users with business operations."
+            },
+            {
+              "p": "These technologies may process relevant account and business information to:"
+            },
+            {
+              "ul": [
+                "Understand voice and text commands.",
+                "Record or categorize business activities.",
+                "Retrieve relevant business information.",
+                "Generate business summaries and insights.",
+                "Respond to user questions.",
+                "Assist with supported operational workflows."
+              ]
+            },
+            {
+              "p": "AI-generated information may be incomplete, inaccurate or misunderstood."
+            },
+            {
+              "p": "Users should review important financial records, transaction details and AI-generated recommendations before relying on them."
+            },
+            {
+              "p": "HelloKhata does not guarantee that AI-generated outputs will always be accurate or suitable for every business decision."
+            },
+            {
+              "p": "Where external AI providers are involved, relevant information may be transmitted to those providers for processing in accordance with the applicable service arrangements and safeguards."
+            }
+          ]
+        },
+        {
+          "h": "6. Cookies and Similar Technologies",
+          "blocks": [
+            {
+              "p": "Our website and applications may use cookies, local storage and similar technologies to:"
+            },
+            {
+              "ul": [
+                "Maintain login sessions.",
+                "Remember user preferences.",
+                "Improve website functionality.",
+                "Understand usage and performance.",
+                "Detect security issues.",
+                "Analyze website traffic."
+              ]
+            },
+            {
+              "p": "You may be able to control cookies through your browser settings. Disabling certain cookies may affect some website functionality."
+            },
+            {
+              "p": "Where required, we will obtain consent before using non-essential cookies or similar tracking technologies."
+            }
+          ]
+        },
+        {
+          "h": "7. How We Share Information",
+          "blocks": [
+            {
+              "p": "We do not sell personal information as a commercial product."
+            },
+            {
+              "p": "However, we may share or disclose relevant information in the following circumstances:"
+            },
+            {
+              "h3": "7.1 Service Providers"
+            },
+            {
+              "p": "We may engage third-party providers for:"
+            },
+            {
+              "ul": [
+                "Cloud hosting and infrastructure.",
+                "Database and storage services.",
+                "AI and speech recognition.",
+                "SMS and communication delivery.",
+                "Payment processing.",
+                "Analytics and monitoring.",
+                "Security and technical support."
+              ]
+            },
+            {
+              "p": "These providers may process information only as necessary to perform their contracted services, subject to applicable contractual and legal obligations."
+            },
+            {
+              "h3": "7.2 Business Account Administrators"
+            },
+            {
+              "p": "Business owners and authorized administrators may access information associated with their shop or organization according to the account's role and permission settings."
+            },
+            {
+              "h3": "7.3 Legal and Regulatory Requirements"
+            },
+            {
+              "p": "We may disclose information where required by law, court order, lawful government request or applicable regulatory obligation."
+            },
+            {
+              "h3": "7.4 Business Transfers"
+            },
+            {
+              "p": "If Maple Service Solution Limited undergoes a merger, restructuring, acquisition or transfer of relevant business assets, information may be transferred as part of that transaction, subject to applicable legal requirements."
+            },
+            {
+              "h3": "7.5 With Your Authorization"
+            },
+            {
+              "p": "We may share information when you explicitly request or authorize us to do so."
+            }
+          ]
+        },
+        {
+          "h": "8. Data Storage and International Transfers",
+          "blocks": [
+            {
+              "p": "Your information may be stored or processed using infrastructure located in Bangladesh or other countries, depending on the services and infrastructure providers we use."
+            },
+            {
+              "p": "Where information is transferred across borders, we will take appropriate measures to comply with applicable data protection requirements."
+            },
+            {
+              "p": "We seek to use appropriate contractual, technical and organizational safeguards to protect information handled by our service providers."
+            }
+          ]
+        },
+        {
+          "h": "9. Data Retention",
+          "blocks": [
+            {
+              "p": "We retain information only for as long as reasonably necessary for the purposes described in this Policy, including:"
+            },
+            {
+              "ul": [
+                "Providing our services.",
+                "Maintaining business records.",
+                "Managing subscriptions and accounts.",
+                "Resolving disputes.",
+                "Preventing fraud and security incidents.",
+                "Complying with applicable legal obligations."
+              ]
+            },
+            {
+              "p": "Different categories of information may have different retention periods."
+            },
+            {
+              "p": "When information is no longer required, we will take appropriate steps to delete, anonymize or securely dispose of it, subject to applicable legal obligations and legitimate record-retention requirements."
+            }
+          ]
+        },
+        {
+          "h": "10. Data Security",
+          "blocks": [
+            {
+              "p": "We take reasonable technical and organizational measures designed to protect information against unauthorized access, alteration, disclosure, loss and destruction."
+            },
+            {
+              "p": "These measures may include:"
+            },
+            {
+              "ul": [
+                "Access controls and authentication.",
+                "Role-based permissions.",
+                "Encryption where appropriate.",
+                "Secure data transmission.",
+                "Monitoring and security logging.",
+                "Backup and recovery procedures.",
+                "Restricted access to internal systems.",
+                "Security assessments and maintenance."
+              ]
+            },
+            {
+              "p": "However, no internet-based service or electronic storage system can be guaranteed to be completely secure."
+            },
+            {
+              "p": "Users are also responsible for maintaining the confidentiality of their login credentials and protecting access to their devices."
+            }
+          ]
+        },
+        {
+          "h": "11. Your Privacy Rights",
+          "blocks": [
+            {
+              "p": "Subject to applicable law, you may have the right to:"
+            },
+            {
+              "ul": [
+                "Request access to your personal information.",
+                "Obtain a copy of information we process about you.",
+                "Request correction of inaccurate information.",
+                "Request completion or updating of incomplete information.",
+                "Request deletion or erasure where legally applicable.",
+                "Withdraw consent where processing is based on consent.",
+                "Request information about relevant data processing and sharing.",
+                "Exercise applicable data portability rights.",
+                "Raise concerns or submit complaints regarding our handling of information."
+              ]
+            },
+            {
+              "p": "Certain information may need to be retained where required by law, necessary for legal claims or otherwise permitted by applicable law."
+            },
+            {
+              "p": "To exercise your rights, contact us using the details provided in this Policy."
+            },
+            {
+              "p": "We may request reasonable information to verify your identity before processing a request."
+            }
+          ]
+        },
+        {
+          "h": "12. Business Customer Responsibilities",
+          "blocks": [
+            {
+              "p": "HelloKhata provides software tools that allow businesses to maintain records about their customers, employees and suppliers."
+            },
+            {
+              "p": "If you use HelloKhata to enter or manage another individual's personal information, you are responsible for:"
+            },
+            {
+              "ul": [
+                "Ensuring you have the necessary authority or lawful basis.",
+                "Providing appropriate privacy notices where required.",
+                "Obtaining consent where required by law.",
+                "Maintaining accurate and relevant information.",
+                "Restricting access to authorized personnel.",
+                "Responding appropriately to requests from individuals whose information you control."
+              ]
+            },
+            {
+              "p": "Maple Service Solution Limited processes such information as necessary to provide and maintain the HelloKhata service, subject to applicable law and the relevant service arrangements."
+            }
+          ]
+        },
+        {
+          "h": "13. Children's Privacy",
+          "blocks": [
+            {
+              "p": "HelloKhata is designed for business owners, employees and authorized business users."
+            },
+            {
+              "p": "Our services are not intended for independent use by children under the age of 18."
+            },
+            {
+              "p": "We do not knowingly seek to collect personal information directly from children without appropriate authorization from a parent or legal guardian where required by applicable law."
+            },
+            {
+              "p": "If you believe that a child has provided personal information in violation of this Policy, please contact us."
+            }
+          ]
+        },
+        {
+          "h": "14. Third-Party Websites and Services",
+          "blocks": [
+            {
+              "p": "HelloKhata may contain links to third-party websites, services or integrations."
+            },
+            {
+              "p": "Those services operate under their own privacy policies and terms. We are not responsible for the privacy practices of independent third-party services."
+            },
+            {
+              "p": "We encourage users to review the relevant policies before providing information to those services."
+            }
+          ]
+        },
+        {
+          "h": "15. Changes to This Privacy Policy",
+          "blocks": [
+            {
+              "p": "We may update this Privacy Policy from time to time to reflect changes in our services, technology, business practices or applicable laws."
+            },
+            {
+              "p": "When we make material changes, we will take reasonable steps to notify users through our website, application, email or other appropriate communication channels."
+            },
+            {
+              "p": "The updated version will display its revised effective or last-updated date."
+            },
+            {
+              "p": "Your continued use of HelloKhata after an update does not replace any consent or notification required by applicable law."
+            }
+          ]
+        },
+        {
+          "h": "16. Contact Us",
+          "blocks": [
+            {
+              "p": "If you have questions, concerns or requests relating to this Privacy Policy or your personal information, please contact:"
+            },
+            {
+              "lines": [
+                "Maple Service Solution Limited",
+                "Product: HelloKhata",
+                "Address: 38 (3rd Floor), Shah Makhdum Avenue, Sector 13, Uttara, Dhaka-1230, Bangladesh",
+                "Email: info@mapleitfirm.com",
+                "Website: https://hellokhata.com"
+              ]
+            },
+            {
+              "p": "We will review and respond to privacy-related requests in accordance with applicable laws."
+            }
+          ]
         }
-      ]
+      ],
+      "copyright": "© 2026 Maple Service Solution Limited. All rights reserved."
     },
     "terms": {
       "title": "Terms and Conditions",
+      "updated": "Last updated: 24 November 2026",
       "sections": [
         {
-          "h": "Using HelloKhata",
-          "p": "This section will set out the conditions for creating an account and using the service."
+          "h": "1. Introduction and Acceptance",
+          "blocks": [
+            {
+              "p": "Welcome to HelloKhata."
+            },
+            {
+              "p": "These Terms and Conditions (\"Terms\") govern your access to and use of HelloKhata, a business management software platform owned and operated by Maple Service Solution Limited, a company incorporated in Bangladesh."
+            },
+            {
+              "p": "In these Terms, \"HelloKhata\", \"we\", \"our\" and \"us\" refer to Maple Service Solution Limited and its HelloKhata product."
+            },
+            {
+              "p": "\"User\", \"you\" and \"your\" refer to any individual, business or authorized representative accessing or using our services."
+            },
+            {
+              "p": "By creating an account, accessing or using HelloKhata, you agree to be bound by these Terms and our Privacy Policy."
+            },
+            {
+              "p": "If you are using HelloKhata on behalf of a business or organization, you confirm that you are authorized to accept these Terms on its behalf."
+            },
+            {
+              "p": "If you do not agree with these Terms, you must not access or use HelloKhata."
+            }
+          ]
         },
         {
-          "h": "Plans and payment",
-          "p": "HelloKhata offers five plans: Mini, Basic, Premium, Intelligence and Enterprise. The price, features and limits of each are listed on the pricing page; Enterprise is priced separately based on your requirements. New accounts get a 14-day free trial with every feature of the chosen plan; there is no permanent free plan. Subscriptions can be paid monthly or yearly, and yearly payment includes two months free. Upgrades take effect immediately, with the rest of the current billing period adjusted proportionally; downgrades take effect from the next billing cycle. SMS is charged per part from a prepaid wallet, and AI credits beyond your plan are bought as prepaid top-ups; add-ons, domain registration and hardware are charged separately. If a payment is overdue there is a 7-day grace period, after which the account becomes read-only. When a subscription ends, your records are not deleted automatically—you can still view and export them. Details on VAT and applicable taxes will be added to this section once finalised."
+          "h": "2. About HelloKhata",
+          "blocks": [
+            {
+              "p": "HelloKhata is a digital business management platform designed to help businesses manage their daily operations."
+            },
+            {
+              "p": "Depending on the subscription plan and available features, our services may include:"
+            },
+            {
+              "ul": [
+                "Digital khata and customer credit management.",
+                "Sales and purchase management.",
+                "Point of Sale (POS).",
+                "Inventory and product management.",
+                "Expense and business record management.",
+                "Customer and supplier management.",
+                "Business reports and analytics.",
+                "Voice-enabled business recording.",
+                "AI-powered business assistance.",
+                "Multi-user and multi-branch functionality.",
+                "SMS and notification services.",
+                "Supported hardware and third-party integrations.",
+                "Other business management tools introduced from time to time."
+              ]
+            },
+            {
+              "p": "The features available to you depend on your subscription, account configuration and the services currently offered."
+            },
+            {
+              "p": "HelloKhata is a software service. We do not operate your shop, sell your inventory, collect debts on your behalf or act as a party to transactions between you and your customers or suppliers."
+            }
+          ]
         },
         {
-          "h": "Your content",
-          "p": "This section will explain ownership and responsibility for the business records you enter."
+          "h": "3. Eligibility and Account Registration",
+          "blocks": [
+            {
+              "p": "To use HelloKhata, you must:"
+            },
+            {
+              "ol": [
+                "Be at least 18 years old.",
+                "Have the legal capacity to enter into a binding agreement.",
+                "Provide accurate and complete registration information.",
+                "Use the service for lawful business purposes.",
+                "Maintain accurate and updated account information."
+              ]
+            },
+            {
+              "p": "You are responsible for ensuring that your business activities comply with applicable laws, licenses, permits and regulatory requirements."
+            },
+            {
+              "p": "We reserve the right to refuse registration or restrict access where reasonably necessary for security, legal compliance or protection of our services."
+            }
+          ]
         },
         {
-          "h": "Limitations",
-          "p": "This section will describe the limits of the service, including AI-generated answers."
+          "h": "4. Account Security and Responsibilities",
+          "blocks": [
+            {
+              "p": "You are responsible for:"
+            },
+            {
+              "ul": [
+                "Maintaining the confidentiality of your login credentials.",
+                "Protecting access to your registered mobile number and email.",
+                "Ensuring that only authorized persons access your account.",
+                "Managing employee and staff permissions.",
+                "Reviewing account activity for unauthorized access.",
+                "Informing us promptly of suspected account compromise."
+              ]
+            },
+            {
+              "p": "You are responsible for activities performed through your account, except where applicable law provides otherwise or the activity results from our own failure to meet our legal obligations."
+            },
+            {
+              "p": "You must not share account credentials in a manner that compromises account security or bypasses subscription and user restrictions."
+            }
+          ]
         },
         {
-          "h": "Contact",
-          "p": "Questions about these terms can be emailed to contact@hellokhata.com or sent through the contact page."
+          "h": "5. Subscription Plans and Features",
+          "blocks": [
+            {
+              "p": "HelloKhata may offer multiple subscription packages with different features, usage limits and pricing."
+            },
+            {
+              "p": "These may include mobile-only plans, business management plans, POS plans and AI-enabled plans."
+            },
+            {
+              "p": "Each subscription will be governed by its applicable:"
+            },
+            {
+              "ul": [
+                "Plan description.",
+                "Price.",
+                "Billing period.",
+                "Usage limits.",
+                "Feature availability.",
+                "Additional service charges.",
+                "Applicable renewal and cancellation conditions."
+              ]
+            },
+            {
+              "p": "We may introduce new plans, modify existing packages or discontinue features, subject to applicable law and reasonable notice where required."
+            },
+            {
+              "p": "Your access to paid features depends on maintaining an active and eligible subscription."
+            }
+          ]
+        },
+        {
+          "h": "6. Payments, Billing and Taxes",
+          "blocks": [
+            {
+              "p": "You agree to pay all applicable subscription fees and additional charges associated with your selected plan."
+            },
+            {
+              "p": "Prices and payment terms will be communicated before you complete a purchase."
+            },
+            {
+              "p": "Payments may be processed through supported payment service providers, banks or other authorized payment channels."
+            },
+            {
+              "p": "You agree that:"
+            },
+            {
+              "ul": [
+                "Payment information must be accurate.",
+                "You must use an authorized payment method.",
+                "Applicable charges must be paid within the stated billing period.",
+                "You are responsible for applicable taxes unless otherwise stated.",
+                "Payment confirmation may be subject to processing by the relevant payment provider."
+              ]
+            },
+            {
+              "p": "We are not responsible for delays caused solely by external payment providers, banks or payment networks."
+            }
+          ]
+        },
+        {
+          "h": "7. Subscription Renewal and Cancellation",
+          "blocks": [
+            {
+              "p": "Where a subscription is configured for automatic renewal, it may renew at the end of the applicable billing period unless cancelled before the renewal date."
+            },
+            {
+              "p": "Cancellation will generally stop future renewals. It does not automatically entitle you to a refund for an already commenced or completed billing period."
+            },
+            {
+              "p": "Your access to paid features may continue until the end of the paid period unless otherwise specified."
+            },
+            {
+              "p": "Any cancellation, renewal or refund rights provided by applicable law will remain unaffected by this section."
+            }
+          ]
+        },
+        {
+          "h": "8. Refunds and Billing Disputes",
+          "blocks": [
+            {
+              "p": "Subscription fees and additional service charges are subject to the refund conditions disclosed at the time of purchase and applicable law."
+            },
+            {
+              "p": "If you believe you have been incorrectly charged, charged more than once or billed for a service that was not properly provided, contact our support team."
+            },
+            {
+              "p": "We will review the relevant transaction and take appropriate action where a billing error is established."
+            },
+            {
+              "p": "Nothing in these Terms excludes any refund or remedy that cannot legally be excluded under applicable law."
+            }
+          ]
+        },
+        {
+          "h": "9. Acceptable Use",
+          "blocks": [
+            {
+              "p": "You agree to use HelloKhata lawfully and responsibly."
+            },
+            {
+              "p": "You must not:"
+            },
+            {
+              "ul": [
+                "Use HelloKhata for fraudulent, deceptive or unlawful activities.",
+                "Enter information that you are not authorized to process.",
+                "Attempt to access another user's account or business data.",
+                "Interfere with the operation, security or availability of the platform.",
+                "Introduce malicious software, viruses or harmful code.",
+                "Reverse-engineer, decompile or attempt to extract source code, except where applicable law expressly permits.",
+                "Copy, resell, sublicense or redistribute the platform without written authorization.",
+                "Circumvent subscription limits or security controls.",
+                "Use automated systems to abuse or overload our services.",
+                "Misuse SMS, voice, AI or integration features.",
+                "Use HelloKhata in violation of applicable laws or third-party rights."
+              ]
+            },
+            {
+              "p": "We may investigate suspected violations and take reasonable enforcement action."
+            }
+          ]
+        },
+        {
+          "h": "10. Your Business Data and Content",
+          "blocks": [
+            {
+              "p": "You retain ownership of the business information and content that you submit to HelloKhata, subject to any rights belonging to other parties."
+            },
+            {
+              "p": "This may include:"
+            },
+            {
+              "ul": [
+                "Product and inventory records.",
+                "Sales and purchase records.",
+                "Customer and supplier information.",
+                "Digital khata entries.",
+                "Business documents and operational records.",
+                "Other content entered into your account."
+              ]
+            },
+            {
+              "p": "You grant Maple Service Solution Limited a limited, non-exclusive right to host, store, process, transmit and use this information solely as necessary to:"
+            },
+            {
+              "ol": [
+                "Provide and operate HelloKhata.",
+                "Perform requested business operations.",
+                "Provide AI and related services.",
+                "Maintain platform security and reliability.",
+                "Provide technical support.",
+                "Comply with applicable legal obligations."
+              ]
+            },
+            {
+              "p": "This permission does not transfer ownership of your business data to us."
+            },
+            {
+              "p": "You are responsible for ensuring that you have the necessary rights and permissions to submit information belonging to customers, employees, suppliers and other individuals."
+            }
+          ]
+        },
+        {
+          "h": "11. AI and Voice-Enabled Services",
+          "blocks": [
+            {
+              "p": "HelloKhata may provide AI-powered and voice-enabled features to simplify business operations."
+            },
+            {
+              "p": "These features may interpret spoken or written instructions and process business information to produce responses or perform supported actions."
+            },
+            {
+              "p": "You acknowledge that:"
+            },
+            {
+              "ul": [
+                "Voice recognition may misunderstand spoken words.",
+                "AI-generated answers may contain errors.",
+                "AI-generated reports may depend on the completeness of your records.",
+                "Automated classifications and suggestions may require human verification.",
+                "AI services may depend on third-party technology providers.",
+                "Some AI functionality may be subject to usage limits or additional charges."
+              ]
+            },
+            {
+              "p": "You must review important transactions and records before relying on them."
+            },
+            {
+              "p": "HelloKhata is not a substitute for professional accounting, legal, tax, medical or financial advice."
+            },
+            {
+              "p": "You remain responsible for verifying your business records and complying with applicable accounting, tax and regulatory requirements."
+            }
+          ]
+        },
+        {
+          "h": "12. Data Backup and Offline Functionality",
+          "blocks": [
+            {
+              "p": "Some HelloKhata features may support offline operation and synchronization."
+            },
+            {
+              "p": "Where available, offline functionality may depend on device storage, application version, connectivity and synchronization status."
+            },
+            {
+              "p": "You acknowledge that:"
+            },
+            {
+              "ul": [
+                "Offline records may not synchronize immediately.",
+                "Synchronization may fail or be delayed.",
+                "Conflicting changes may require resolution.",
+                "Device loss or damage may affect locally stored information."
+              ]
+            },
+            {
+              "p": "You should maintain appropriate independent records and backups of important business information."
+            },
+            {
+              "p": "We will take reasonable measures to maintain platform reliability and data integrity, but we do not guarantee uninterrupted synchronization under all circumstances."
+            }
+          ]
+        },
+        {
+          "h": "13. Third-Party Services and Integrations",
+          "blocks": [
+            {
+              "p": "HelloKhata may integrate with external services, including:"
+            },
+            {
+              "ul": [
+                "Payment providers.",
+                "SMS providers.",
+                "Cloud infrastructure.",
+                "AI and speech recognition providers.",
+                "Hardware and POS devices.",
+                "Other supported business tools."
+              ]
+            },
+            {
+              "p": "Third-party services may be governed by their own terms and privacy policies."
+            },
+            {
+              "p": "We do not control independent third-party services and are not responsible for their separate products, policies or availability, except to the extent responsibility cannot legally be excluded."
+            },
+            {
+              "p": "Your use of third-party services may require separate registration, authorization or acceptance of additional terms."
+            }
+          ]
+        },
+        {
+          "h": "14. Hardware and POS Compatibility",
+          "blocks": [
+            {
+              "p": "HelloKhata may support compatible hardware, including barcode scanners, receipt printers, thermal printers and other POS devices."
+            },
+            {
+              "p": "Compatibility may depend on:"
+            },
+            {
+              "ul": [
+                "Device manufacturer and model.",
+                "Operating system.",
+                "Drivers and firmware.",
+                "Browser and application capabilities.",
+                "Connectivity and hardware configuration."
+              ]
+            },
+            {
+              "p": "We do not guarantee compatibility with every device or configuration."
+            },
+            {
+              "p": "Where hardware is purchased from a third-party seller, the seller's applicable warranty, return and service conditions may apply."
+            }
+          ]
+        },
+        {
+          "h": "15. Intellectual Property",
+          "blocks": [
+            {
+              "p": "All intellectual property rights in HelloKhata, including its:"
+            },
+            {
+              "ul": [
+                "Software and source code.",
+                "Website and application design.",
+                "Logos and trademarks.",
+                "Branding and visual identity.",
+                "Product interfaces.",
+                "Documentation.",
+                "Proprietary systems and technology.",
+                "Original content and materials."
+              ]
+            },
+            {
+              "p": "belong to Maple Service Solution Limited or its respective licensors."
+            },
+            {
+              "p": "We grant you a limited, non-exclusive, non-transferable and revocable right to access and use HelloKhata for your authorized business purposes during the applicable subscription period."
+            },
+            {
+              "p": "No ownership rights are transferred to you through the use of our services."
+            },
+            {
+              "p": "You must not use our brand, trademarks or proprietary materials without prior written authorization."
+            }
+          ]
+        },
+        {
+          "h": "16. Service Availability and Modifications",
+          "blocks": [
+            {
+              "p": "We aim to provide reliable and secure services."
+            },
+            {
+              "p": "However, HelloKhata may occasionally experience:"
+            },
+            {
+              "ul": [
+                "Scheduled maintenance.",
+                "Technical interruptions.",
+                "Infrastructure failures.",
+                "Third-party service disruptions.",
+                "Network or connectivity issues.",
+                "Security-related restrictions.",
+                "Emergency maintenance."
+              ]
+            },
+            {
+              "p": "We reserve the right to modify, improve, suspend or discontinue specific features where reasonably necessary, subject to applicable law and contractual commitments."
+            },
+            {
+              "p": "Where practical, we will provide advance notice of material service changes."
+            }
+          ]
+        },
+        {
+          "h": "17. Suspension and Termination",
+          "blocks": [
+            {
+              "p": "We may temporarily suspend or restrict an account if:"
+            },
+            {
+              "ul": [
+                "You violate these Terms.",
+                "Your account is involved in suspected fraud or unlawful activity.",
+                "Your use creates a security risk.",
+                "Required payments remain overdue.",
+                "Your activities threaten the integrity or availability of our services.",
+                "Suspension is required by law or a competent authority."
+              ]
+            },
+            {
+              "p": "Where reasonably possible, we will notify you and provide an opportunity to resolve the issue."
+            },
+            {
+              "p": "You may discontinue your use of HelloKhata and request account closure through our designated support channels."
+            },
+            {
+              "p": "Upon termination, your access to certain services may be discontinued. The handling, export and deletion of your information will be governed by our Privacy Policy, applicable service arrangements and legal requirements."
+            },
+            {
+              "p": "Some records may need to be retained where required by law or necessary to establish, exercise or defend legal claims."
+            }
+          ]
+        },
+        {
+          "h": "18. Disclaimer of Warranties",
+          "blocks": [
+            {
+              "p": "To the extent permitted by applicable law, HelloKhata is provided on an \"as available\" basis."
+            },
+            {
+              "p": "We do not warrant that:"
+            },
+            {
+              "ul": [
+                "The platform will always be available without interruption.",
+                "Every feature will operate without errors.",
+                "AI-generated information will always be accurate.",
+                "Voice recognition will always interpret instructions correctly.",
+                "Third-party integrations will remain continuously available.",
+                "The platform will meet every individual business requirement."
+              ]
+            },
+            {
+              "p": "Nothing in these Terms excludes any warranty, consumer right or statutory protection that cannot legally be excluded."
+            }
+          ]
+        },
+        {
+          "h": "19. Limitation of Liability",
+          "blocks": [
+            {
+              "p": "To the maximum extent permitted by applicable law, Maple Service Solution Limited will not be liable for indirect, incidental, special or consequential losses arising from the use of HelloKhata, including loss of profits, business opportunities or anticipated savings."
+            },
+            {
+              "p": "We are not responsible for:"
+            },
+            {
+              "ul": [
+                "Incorrect information entered by users.",
+                "Business decisions made solely on the basis of unverified AI outputs.",
+                "Transactions conducted independently between users and their customers or suppliers.",
+                "Loss resulting from compromised user credentials where not attributable to our failure to meet our legal obligations.",
+                "Third-party service interruptions beyond our reasonable control."
+              ]
+            },
+            {
+              "p": "Nothing in these Terms limits or excludes liability for fraud, wilful misconduct, gross negligence, or any liability that cannot legally be limited or excluded under applicable law."
+            },
+            {
+              "p": "Where a limitation of liability is legally permitted, the extent of that limitation will be determined in accordance with applicable law and the circumstances of the claim."
+            }
+          ]
+        },
+        {
+          "h": "20. Indemnification",
+          "blocks": [
+            {
+              "p": "To the extent permitted by applicable law, you agree to be responsible for losses, claims and reasonable costs arising from your unlawful use of HelloKhata, your violation of these Terms or your infringement of third-party rights."
+            },
+            {
+              "p": "This provision does not apply to the extent a claim results from our own breach of applicable law or legal obligations."
+            }
+          ]
+        },
+        {
+          "h": "21. Privacy and Data Protection",
+          "blocks": [
+            {
+              "p": "Your use of HelloKhata is also governed by our Privacy Policy."
+            },
+            {
+              "p": "We process personal information in accordance with applicable data protection and privacy laws."
+            },
+            {
+              "p": "Please review our Privacy Policy to understand how we collect, use, store, share and protect information."
+            },
+            {
+              "p": "In the event of a conflict between these Terms and a mandatory legal requirement, the applicable legal requirement will prevail."
+            }
+          ]
+        },
+        {
+          "h": "22. Changes to These Terms",
+          "blocks": [
+            {
+              "p": "We may update these Terms to reflect:"
+            },
+            {
+              "ul": [
+                "Changes to our services.",
+                "New features or subscription arrangements.",
+                "Changes in technology.",
+                "Changes in applicable laws.",
+                "Security and operational requirements."
+              ]
+            },
+            {
+              "p": "Material changes will be communicated through reasonable channels, such as our website, application or email."
+            },
+            {
+              "p": "Where required by applicable law, we will obtain renewed acceptance before applying material changes."
+            },
+            {
+              "p": "The updated Terms will display their revised effective or last-updated date."
+            }
+          ]
+        },
+        {
+          "h": "23. Governing Law and Dispute Resolution",
+          "blocks": [
+            {
+              "p": "These Terms are governed by the laws of the People's Republic of Bangladesh."
+            },
+            {
+              "p": "The parties will first attempt to resolve disputes through good-faith communication."
+            },
+            {
+              "p": "If a dispute cannot be resolved amicably, it will be submitted to the competent courts of Bangladesh, subject to applicable jurisdictional and mandatory legal requirements."
+            },
+            {
+              "p": "Nothing in this section restricts any statutory rights or remedies available to consumers or other protected parties."
+            }
+          ]
+        },
+        {
+          "h": "24. Severability",
+          "blocks": [
+            {
+              "p": "If any provision of these Terms is found to be invalid, unlawful or unenforceable, the remaining provisions will continue to apply to the extent permitted by law."
+            }
+          ]
+        },
+        {
+          "h": "25. Entire Agreement",
+          "blocks": [
+            {
+              "p": "These Terms, together with our Privacy Policy and any applicable subscription-specific terms, constitute the agreement governing your use of HelloKhata."
+            },
+            {
+              "p": "Any additional written agreement between Maple Service Solution Limited and a customer will prevail over these Terms to the extent of any express conflict."
+            }
+          ]
+        },
+        {
+          "h": "26. Contact Information",
+          "blocks": [
+            {
+              "p": "For questions, support requests or concerns relating to these Terms, please contact:"
+            },
+            {
+              "lines": [
+                "Maple Service Solution Limited",
+                "Product: HelloKhata",
+                "Address: 38 (3rd Floor), Shah Makhdum Avenue, Sector 13, Uttara, Dhaka-1230, Bangladesh",
+                "Email: info@mapleitfirm.com",
+                "Website: https://hellokhata.com"
+              ]
+            }
+          ]
         }
-      ]
+      ],
+      "copyright": "© 2026 Maple Service Solution Limited. All rights reserved."
     }
   },
   "notFound": {

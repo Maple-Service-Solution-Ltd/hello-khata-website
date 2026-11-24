@@ -9,8 +9,8 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const m = getDict(locale).meta.pages.terms;
-  // Draft legal text must not be indexed until it has been reviewed.
-  return { ...pageMetadata(locale, "/terms", m.title, m.description), robots: { index: false, follow: true } };
+  // The published terms (Maple Service Solution Limited) are indexable.
+  return pageMetadata(locale, "/terms", m.title, m.description);
 }
 
 export default async function TermsPage({ params }: Props) {

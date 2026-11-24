@@ -9,8 +9,8 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const m = getDict(locale).meta.pages.privacy;
-  // Draft legal text must not be indexed until it has been reviewed.
-  return { ...pageMetadata(locale, "/privacy", m.title, m.description), robots: { index: false, follow: true } };
+  // The published policy (Maple Service Solution Limited) is indexable.
+  return pageMetadata(locale, "/privacy", m.title, m.description);
 }
 
 export default async function PrivacyPage({ params }: Props) {

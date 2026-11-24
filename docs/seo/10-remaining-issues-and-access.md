@@ -10,7 +10,7 @@
 | R4 | Medium | Home HTML 1.26 MB; CWV unmeasured on real users | Dev | Live PSI/CrUX data, then an art-pipeline decision |
 | R5 | Medium | H1s are slogans without the category term | Product / brand | Copy sign-off (05-B) |
 | R6 | Medium | Prescription OCR fields unconfirmed, which blocks a dedicated landing page | Product | Confirmation |
-| R7 | Low | Privacy and terms are drafts, noindex | Legal | Review |
+| R7 | Done | Privacy and terms were published on 24 Nov 2026 and are now indexable and in the sitemap. | — | — |
 | R8 | Low | No Organization `logo` (placeholder icon) | Brand | Final logo files |
 | R9 | Low | App store links empty | Product | Store listings |
 | R10 | Low | OG image is English-only | Dev | Decide; bundle a Bengali TTF |
