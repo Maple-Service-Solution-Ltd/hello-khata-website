@@ -6,9 +6,11 @@ import "../globals.css";
 import { isLocale, locales, localeMeta } from "@/i18n/config";
 import { getDict } from "@/i18n/dictionaries";
 import { I18nProvider } from "@/i18n/client";
+import { baseNamespaces, pickDict } from "@/i18n/scope";
+import { categorySlugs, featureSlugs } from "@/content/site";
 import { isProductionSite, siteUrl } from "@/lib/site";
 import { jsonLdString, organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
-import { SiteNav } from "@/components/layout/SiteNav";
+import { SiteNav, type NavMenu } from "@/components/layout/SiteNav";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { InkDefs } from "@/components/illustrations/InkDefs";
 import { MotionProvider } from "@/components/ui/MotionProvider";
@@ -63,11 +65,16 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getDict(locale);
+  const label = ({ name, short }: { name: string; short: string }) => ({ name, short });
+  const navMenu = {
+    features: Object.fromEntries(featureSlugs.map((s) => [s, label(t.features.items[s])])),
+    solutions: Object.fromEntries(categorySlugs.map((s) => [s, label(t.solutions.items[s])])),
+  } as NavMenu;
 
   return (
     <html lang={localeMeta[locale].htmlLang} className={`${banglaDigits.variable} ${hind.variable} ${tiro.variable} ${galada.variable} ${scrawl.variable} ${arabic.variable} ${manrope.variable}`}>
       <body className="paper min-h-dvh">
-        <I18nProvider locale={locale} dict={t}>
+        <I18nProvider locale={locale} dict={pickDict(locale, baseNamespaces)}>
           <MotionProvider>
             <a
               href="#main"
@@ -76,7 +83,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
               {t.common.skipToContent}
             </a>
             <InkDefs />
-            <SiteNav />
+            <SiteNav menu={navMenu} />
             <main id="main">{children}</main>
             <SiteFooter locale={locale} />
           </MotionProvider>

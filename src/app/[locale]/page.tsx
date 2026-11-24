@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDict } from "@/i18n/dictionaries";
+import { I18nScope } from "@/i18n/scope";
 import { pageMetadata } from "@/lib/metadata";
 import { categorySlugs, type CategorySlug } from "@/content/site";
 import { Hero } from "@/components/home/Hero";
@@ -36,7 +37,7 @@ export default async function HomePage({ params }: Props) {
   const storefronts = Object.fromEntries(categorySlugs.map((s) => [s, <Storefront key={s} slug={s} className="h-full w-full" />])) as Record<CategorySlug, React.ReactNode>;
 
   return (
-    <>
+    <I18nScope locale={locale} ns={["demo", "ecosystem", "fcommerce", "home", "meta", "modules", "onlineStore", "pharmacyDemo", "solutions", "status", "supershop"]}>
       <Hero locale={locale} />
       <Pillars locale={locale} />
       <LedgerTransform />
@@ -56,6 +57,6 @@ export default async function HomePage({ params }: Props) {
       <AppDownload locale={locale} />
       <FinalCta locale={locale} />
       <JsonLd nodes={[softwareJsonLd(locale)]} />
-    </>
+    </I18nScope>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { getDict } from "@/i18n/dictionaries";
+import { I18nScope } from "@/i18n/scope";
 import { pageMetadata } from "@/lib/metadata";
 import { categoryAccent, categoryGroup, flagshipSlugs } from "@/content/site";
 import { groupStatus } from "@/content/capabilities";
@@ -26,7 +27,7 @@ export default async function SolutionsPage({ params }: Props) {
   const t = getDict(locale);
   const other = t.solutions.items.other;
   return (
-    <>
+    <I18nScope locale={locale} ns={["ecosystem", "modules", "status"]}>
       <PageHero eyebrow={t.solutions.index.eyebrow} title={t.solutions.index.title} lead={t.solutions.index.lead} />
       <Container className="pb-12">
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
@@ -76,6 +77,6 @@ export default async function SolutionsPage({ params }: Props) {
       </Container>
       <EcosystemMap />
       <CtaBand locale={locale} />
-    </>
+    </I18nScope>
   );
 }

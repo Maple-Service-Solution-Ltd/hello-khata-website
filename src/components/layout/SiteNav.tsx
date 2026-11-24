@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useI18n } from "@/i18n/client";
-import { categorySlugs, featureSlugs } from "@/content/site";
+import { categorySlugs, featureSlugs, type CategorySlug, type FeatureSlug } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { ButtonLink } from "@/components/ui/Button";
@@ -15,7 +15,11 @@ import { FeaturesMegaMenu, MobileFeatures } from "./FeaturesMegaMenu";
 type MenuItem = { href: string; label: string; desc?: string };
 type MenuGroup = { key: string; label: string; items: MenuItem[]; footer?: MenuItem; wide?: boolean };
 
-function useNavModel() {
+/** Menu names and one-line descriptions, picked on the server so the full features/solutions copy is not sent on every page. */
+type MenuLabel = { name: string; short: string };
+export type NavMenu = { features: Record<FeatureSlug, MenuLabel>; solutions: Record<CategorySlug, MenuLabel> };
+
+function useNavModel(menu: NavMenu) {
   const { locale, t } = useI18n();
   const p = (path: string) => `/${locale}${path}`;
   const groups: MenuGroup[] = [
@@ -23,14 +27,14 @@ function useNavModel() {
       key: "features",
       label: t.nav.features,
       wide: true,
-      items: featureSlugs.map((s) => ({ href: p(`/features/${s}`), label: t.features.items[s].name, desc: t.features.items[s].short })),
+      items: featureSlugs.map((s) => ({ href: p(`/features/${s}`), label: menu.features[s].name, desc: menu.features[s].short })),
       footer: { href: p("/features"), label: t.nav.allFeatures },
     },
     {
       key: "solutions",
       label: t.nav.solutions,
       wide: true,
-      items: categorySlugs.map((s) => ({ href: p(`/solutions/${s}`), label: t.solutions.items[s].name, desc: t.solutions.items[s].short })),
+      items: categorySlugs.map((s) => ({ href: p(`/solutions/${s}`), label: menu.solutions[s].name, desc: menu.solutions[s].short })),
       footer: { href: p("/solutions"), label: t.nav.allSolutions },
     },
     {
@@ -53,8 +57,8 @@ function useNavModel() {
   return { groups, pricing: { href: p("/pricing"), label: t.nav.pricing }, p, t, locale };
 }
 
-export function SiteNav() {
-  const { groups, pricing, p, t } = useNavModel();
+export function SiteNav({ menu }: { menu: NavMenu }) {
+  const { groups, pricing, p, t } = useNavModel(menu);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
