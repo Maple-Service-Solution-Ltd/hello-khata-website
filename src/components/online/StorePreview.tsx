@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { cn } from "@/lib/cn";
 import { fmtNumber, fmtTaka, interpolate } from "@/lib/format";
+import { ProductArt } from "./ProductArt";
 
 export const themeKeys = ["fashion", "electronics", "grocery", "pharmacy", "general"] as const;
 export type ThemeKey = (typeof themeKeys)[number];
@@ -23,14 +24,6 @@ export const fontFamilies: Record<FontKey, string> = {
   modern: "var(--font-manrope), var(--font-bn-digits), var(--font-hind), sans-serif",
   classic: "var(--font-tiro), Georgia, serif",
   friendly: "var(--font-bn-digits), var(--font-hind), var(--font-manrope), sans-serif",
-};
-
-const glyph: Record<ThemeKey, string> = {
-  fashion: "M10.5 6.5A1.5 1.5 0 1 1 12 8v1.6M12 9.6 3.5 15.4c-.7.5-.4 1.6.5 1.6h16c.9 0 1.2-1.1.5-1.6L12 9.6Z",
-  electronics: "M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h2",
-  grocery: "M5 9h14l-1.5 10h-11L5 9Zm3 0 2-5m6 5-2-5",
-  pharmacy: "M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z",
-  general: "M4 8l8-4 8 4v8l-8 4-8-4V8Zm0 0 8 4 8-4M12 12v8",
 };
 
 export type StoreConfig = { theme: ThemeKey; accent: string; font: FontKey; banner: string; sections: SectionId[]; columns: 2 | 3 | 4 };
@@ -74,7 +67,11 @@ export function StorePreview({
                   </span>
                 )}
               </div>
-              {p.heroStyle === "split" && !mini && device === "desktop" && <div className="aspect-[4/3]" style={{ background: `linear-gradient(135deg, ${p.tiles[1]}, ${config.accent}55)`, borderRadius: p.radius }} />}
+              {p.heroStyle === "split" && !mini && device === "desktop" && (
+                <div className="flex aspect-[4/3] items-center justify-center" style={{ background: `linear-gradient(135deg, ${p.tiles[1]}, ${config.accent}55)`, borderRadius: p.radius }}>
+                  <ProductArt theme={config.theme} index={0} accent={config.accent} className="h-[92%]" />
+                </div>
+              )}
             </div>
           </div>
         );
@@ -103,9 +100,7 @@ export function StorePreview({
                 return (
                   <div key={pr.name} className="overflow-hidden" style={{ background: p.surface, borderRadius: p.radius, boxShadow: p.dark ? "none" : "0 1px 3px rgb(0 0 0 / 0.08)", border: p.dark ? "1px solid #26324a" : "none" }}>
                     <div className="flex aspect-square items-center justify-center" style={{ background: p.tiles[i % p.tiles.length] }}>
-                      <svg viewBox="0 0 24 24" className="size-1/3" aria-hidden="true">
-                        <path d={glyph[config.theme]} fill="none" stroke={config.accent} strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round" />
-                      </svg>
+                      <ProductArt theme={config.theme} index={i} accent={config.accent} className="size-[94%]" />
                     </div>
                     <div className={mini ? "p-1.5" : "p-2.5"}>
                       <p className={cn("truncate font-semibold", mini ? "text-[0.6rem]" : "text-xs sm:text-sm")} style={{ color: p.text }}>

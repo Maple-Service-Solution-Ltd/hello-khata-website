@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { fmtDigits, fmtTaka } from "@/lib/format";
 import { Container, Eyebrow } from "@/components/ui/Section";
 import { StorePreview, themePresets, type StoreConfig } from "./StorePreview";
+import { ProductArt } from "./ProductArt";
 
 /**
  * Signature story: a hand-drawn seller → catalogue → editor → theme → live change →
@@ -44,7 +45,9 @@ export function StoreStory({ sellerArt }: { sellerArt: React.ReactNode }) {
           <div className="grid grid-cols-3 gap-3">
             {items.fashion.products.map((n, k) => (
               <motion.div key={n} initial={{ opacity: 0, y: 20, rotate: k % 2 ? 3 : -3 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ delay: k * 0.07 }} className="rounded-xl bg-white p-2 shadow-[var(--shadow-card)]">
-                <div className="aspect-square rounded-lg" style={{ background: themePresets.fashion.tiles[k] }} />
+                <div className="flex aspect-square items-center justify-center rounded-lg" style={{ background: themePresets.fashion.tiles[k] }}>
+                  <ProductArt theme="fashion" index={k} accent={themePresets.fashion.accent} className="size-[94%]" />
+                </div>
                 <p className="mt-1.5 truncate text-xs font-semibold">{n}</p>
                 <p className="font-latin text-xs text-muted">{fmtTaka(items.fashion.prices[k], locale)}</p>
               </motion.div>
