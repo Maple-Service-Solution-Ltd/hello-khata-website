@@ -25,7 +25,7 @@ export function EcosystemMap() {
   const n = nodes[sel];
 
   return (
-    <section aria-labelledby="eco-title" className="relative overflow-hidden bg-[#f3eee3] py-24 sm:py-32">
+    <section aria-labelledby="eco-title" className="hk-cv [contain-intrinsic-size:auto_1400px] relative overflow-hidden bg-[#f3eee3] py-24 sm:py-32">
       <Container>
         <SectionHeading id="eco-title" eyebrow={e.eyebrow} title={e.title} lead={e.lead} />
         <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.05fr_1fr]">

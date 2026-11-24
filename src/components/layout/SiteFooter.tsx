@@ -62,7 +62,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   );
 
   return (
-    <footer className="on-dark relative mt-0 bg-forest text-cream">
+    <footer className="hk-cv on-dark relative mt-0 bg-forest text-cream">
       {/* Torn paper edge: the page above "tears" into the dark footer */}
       <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="absolute inset-x-0 -top-px h-6 w-full text-paper sm:h-10" aria-hidden="true">
         <path

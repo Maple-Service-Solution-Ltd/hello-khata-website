@@ -48,7 +48,7 @@ export default async function HomePage({ params }: Props) {
       <GrowthChapters locale={locale} />
       <EcosystemMap />
       <TrustSection locale={locale} />
-      <section aria-labelledby="pricing-title" className="paper py-24 sm:py-32">
+      <section aria-labelledby="pricing-title" className="hk-cv paper py-24 [contain-intrinsic-size:auto_1600px] sm:py-32">
         <Container>
           <SectionHeading id="pricing-title" eyebrow={t.pricing.eyebrow} title={t.pricing.title} lead={t.pricing.lead} align="center" className="mb-12" />
           <PricingPlans locale={locale} showCompareLink />

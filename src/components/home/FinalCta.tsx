@@ -15,7 +15,7 @@ export function FinalCta({ locale }: { locale: Locale }) {
   const t = getDict(locale);
   const f = t.home.final;
   return (
-    <section aria-labelledby="final-title" className="paper relative overflow-hidden pt-24 pb-36 sm:pt-32 sm:pb-44">
+    <section aria-labelledby="final-title" className="hk-cv paper relative overflow-hidden pt-24 pb-36 sm:pt-32 sm:pb-44">
       <Container className="relative">
         <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.6fr_0.8fr]">
           <Reveal kind="fade" className="mx-auto w-48 -rotate-3 lg:w-full">

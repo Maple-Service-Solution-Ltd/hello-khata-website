@@ -285,6 +285,13 @@ html[lang="en"] body {
   .overflow-x-auto {
     position: relative;
   }
+  /* Below-the-fold sections heavy with ink drawings: the browser skips laying out and painting them until
+     they come near the screen, which cuts start-up work on budget phones. `auto` remembers each section's real
+     height once it has been shown, so the scrollbar stays steady. Never on scroll-pinned (sticky) sections. */
+  .hk-cv {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
   /* The top bar sits a little wider than the content, as before */
   .hk-container-wide {
     --hk-gutter: clamp(1.25rem, 3.6vw, 4.5rem);

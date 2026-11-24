@@ -44,7 +44,7 @@ export function FeatureSystem({ locale }: { locale: Locale }) {
   );
 
   return (
-    <section aria-labelledby="features-title" className="paper py-24 sm:py-32">
+    <section aria-labelledby="features-title" className="hk-cv paper py-24 [contain-intrinsic-size:auto_2600px] sm:py-32">
       <Container>
         <SectionHeading id="features-title" eyebrow={fs.eyebrow} title={fs.title} lead={fs.lead} />
         <div className="mt-14 grid gap-5 lg:grid-cols-12">

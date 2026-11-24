@@ -28,7 +28,7 @@ export function TrustSection({ locale }: { locale: Locale }) {
   const t = getDict(locale);
   const tr = t.home.trust;
   return (
-    <section aria-labelledby="trust-title" className="paper-cream py-24 sm:py-32">
+    <section aria-labelledby="trust-title" className="hk-cv paper-cream py-24 sm:py-32">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <div>

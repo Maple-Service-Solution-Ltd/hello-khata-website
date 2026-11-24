@@ -74,7 +74,7 @@ function PhoneArt({ locale }: { locale: Locale }) {
 export function AppDownload({ locale }: { locale: Locale }) {
   const a = getDict(locale).app;
   return (
-    <section id="app" aria-labelledby="app-title" className="paper-cream scroll-mt-24 py-20 sm:py-28">
+    <section id="app" aria-labelledby="app-title" className="hk-cv paper-cream scroll-mt-24 py-20 sm:py-28">
       <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <Reveal>
           <Eyebrow>{a.eyebrow}</Eyebrow>

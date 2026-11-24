@@ -23,7 +23,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
   const start = `/${locale}/get-started`;
 
   const Split = ({ eyebrow, title, lead, points, children, reverse, tone = "paper", note, id, extra }: { eyebrow: string; title: string; lead: string; points?: string[]; children: React.ReactNode; reverse?: boolean; tone?: "paper" | "cream" | "green"; note?: string; id?: string; extra?: React.ReactNode }) => (
-    <section id={id} className={cn("scroll-mt-20 py-20 sm:py-28", tone === "cream" && "paper-cream", tone === "green" && "bg-leaf-soft/40")}>
+    <section id={id} className={cn("hk-cv scroll-mt-20 py-20 sm:py-28", tone === "cream" && "paper-cream", tone === "green" && "bg-leaf-soft/40")}>
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <Reveal className={reverse ? "lg:order-2" : ""}>
           <Eyebrow>{eyebrow}</Eyebrow>
@@ -99,7 +99,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
       </Split>
 
       {/* D — Stock */}
-      <section className="paper-cream py-20 sm:py-28" aria-labelledby="g-stock">
+      <section className="hk-cv paper-cream py-20 sm:py-28" aria-labelledby="g-stock">
         <Container>
           <SectionHeading id="g-stock" eyebrow={g.stock.eyebrow} title={g.stock.title} lead={g.stock.lead} />
           <div className="mt-12">
@@ -119,7 +119,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
       </Split>
 
       {/* G — Voice */}
-      <section aria-labelledby="g-voice" className="on-dark grain-dark relative overflow-hidden bg-forest py-24 text-cream sm:py-32">
+      <section aria-labelledby="g-voice" className="hk-cv on-dark grain-dark relative overflow-hidden bg-forest py-24 text-cream sm:py-32">
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-paper/10 to-transparent" />
         <div aria-hidden="true" className="absolute top-1/3 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(22_163_74/0.25),transparent)]" />
         <Container className="relative">
@@ -131,7 +131,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
       </section>
 
       {/* H — Benefits */}
-      <section aria-labelledby="g-benefits" className="py-20 sm:py-28">
+      <section aria-labelledby="g-benefits" className="hk-cv py-20 sm:py-28">
         <Container>
           <SectionHeading id="g-benefits" eyebrow={g.benefits.eyebrow} title={g.benefits.title} />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[auto_auto]">
@@ -216,7 +216,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
       </section>
 
       {/* I — Mobile tour */}
-      <section aria-labelledby="g-tour" className="bg-[#eef4ee] py-20 sm:py-28">
+      <section aria-labelledby="g-tour" className="hk-cv bg-[#eef4ee] py-20 sm:py-28">
         <Container>
           <SectionHeading id="g-tour" eyebrow={g.tour.eyebrow} title={g.tour.title} lead={g.tour.lead} />
           <div className="mt-12">
@@ -233,7 +233,7 @@ export function GroceryPage({ locale }: { locale: Locale }) {
       </section>
 
       {/* K — Final */}
-      <section aria-labelledby="g-final" className="paper-cream relative overflow-hidden py-20 sm:py-28">
+      <section aria-labelledby="g-final" className="hk-cv paper-cream relative overflow-hidden py-20 sm:py-28">
         <Container className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal className="relative order-2 lg:order-1">
             <CounterArt className="w-full" />

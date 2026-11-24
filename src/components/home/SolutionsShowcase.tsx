@@ -31,7 +31,7 @@ export function SolutionsShowcase({ arts }: { arts: Record<CategorySlug, React.R
   const [open, setOpen] = useState<Flagship | null>(null);
 
   return (
-    <section aria-labelledby="showcase-title" className="paper-cream py-24 sm:py-32">
+    <section aria-labelledby="showcase-title" className="hk-cv paper-cream py-24 [contain-intrinsic-size:auto_1600px] sm:py-32">
       <Container>
         <SectionHeading id="showcase-title" eyebrow={s.eyebrow} title={s.title} lead={s.lead} />
         <p className="mt-4 text-sm text-muted">{s.hint}</p>
