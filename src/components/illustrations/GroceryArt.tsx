@@ -206,49 +206,180 @@ export function DeliveryArt({ className }: { className?: string }) {
   );
 }
 
-/* ---------------- Shopkeeper with a regular customer ---------------- */
+/* ---------------- বাকি: a regular customer and the shopkeeper who trusts him ---------------- */
+/**
+ * The dues story in one frame: an elderly regular in a white panjabi and tupi, bazar bag in hand, puts his
+ * hand on his chest and promises to pay at month-end (speech bubble: a calendar with its last day ringed, and
+ * ৳). Behind the counter the shopkeeper notes it on his phone and it is saved (green tick); the old red khata
+ * lies closed beside the scale. Around them: shelves, hanging snack strips, sweet jars, a calendar, a tube light.
+ */
 export function RegularCustomerArt({ className }: { className?: string }) {
   const s = new Sketch(1601);
+  const skin = c.clay;
+  const white = "#f7f3ea";
   return (
-    <svg viewBox="0 0 520 340" className={className} aria-hidden="true">
+    <svg viewBox="0 0 560 400" className={className} aria-hidden="true">
       <g filter="url(#hk-wobble)" className="text-ink">
-        <ShelfRow s={s} x={20} y={80} w={480} seed={4} />
-        <ShelfRow s={s} x={20} y={140} w={480} seed={7} />
-        {/* Shopkeeper behind counter (right) */}
-        <Occlude d="M300 240 C302 206 318 188 344 182 L372 182 C398 188 412 206 414 240 Z" />
-        <Wash d="M300 240 C302 206 318 188 344 182 L372 182 C398 188 412 206 414 240 Z" fill={c.sky} o={0.55} />
-        <P d={s.curve([[300, 240], [302, 206], [318, 188], [344, 182], [372, 182], [398, 188], [412, 206], [414, 240]], 0.4)} w={1.5} />
-        <Occlude d={s.ellipse(358, 152, 26, 28, 0)} />
-        <Wash d={s.ellipse(358, 154, 23, 25, 0.2)} fill={c.clay} o={0.45} />
-        <P d={s.ellipse(358, 154, 24, 26, 0.4)} w={1.4} />
-        <Wash d="M334 146 C333 122 383 120 382 146 C376 134 340 134 334 146 Z" fill={c.ink} o={0.8} />
-        <P d={s.curve([[348, 166], [358, 171], [368, 166]], 0.2)} w={1.2} />
-        <P d={s.line(347, 154, 352, 154, 0.2, 1)} w={1.3} />
-        <P d={s.line(364, 154, 369, 154, 0.2, 1)} w={1.3} />
-        {/* Elderly customer (left) in a sari with glasses, smiling */}
-        <Occlude d="M80 340 C80 270 100 226 140 214 L172 214 C208 226 224 270 224 340 Z" />
-        <Wash d="M80 340 C80 270 100 226 140 214 L172 214 C208 226 224 270 224 340 Z" fill={c.marigold} o={0.55} />
-        <Wash d="M140 214 C150 250 176 286 214 300 L224 340 L190 340 C168 300 150 260 140 214 Z" fill={c.vermilion} o={0.55} />
-        <P d={s.curve([[80, 340], [80, 270], [100, 226], [140, 214], [172, 214], [208, 226], [224, 270], [224, 340]], 0.5)} w={1.5} />
-        <Occlude d={s.ellipse(156, 182, 26, 28, 0)} />
-        <Wash d={s.ellipse(156, 184, 23, 25, 0.2)} fill={c.clay} o={0.5} />
-        <P d={s.ellipse(156, 184, 24, 26, 0.4)} w={1.4} />
-        <Wash d="M130 178 C128 150 184 148 182 180 C182 166 170 158 156 158 C142 158 132 166 130 178 Z" fill="#d9d4cb" o={0.9} />
-        <P d={s.ellipse(147, 184, 6, 5, 0.2)} w={1.1} />
-        <P d={s.ellipse(165, 184, 6, 5, 0.2)} w={1.1} />
-        <P d={s.line(153, 184, 159, 184, 0.1, 1)} w={1} />
-        <P d={s.curve([[148, 198], [156, 203], [164, 198]], 0.2)} w={1.2} />
-        {/* Bag passing over the counter */}
-        <P d={s.curve([[304, 210], [282, 218], [262, 222]], 0.3)} w={1.4} />
-        <P d={s.curve([[214, 250], [228, 236], [240, 226]], 0.3)} w={1.4} />
-        <Wash d="M232 206 L268 206 L272 244 L228 244 Z" fill={c.leafWash} o={0.85} />
-        <P d={s.poly([[232, 206], [268, 206], [272, 244], [228, 244]], true, 0.4)} w={1.3} />
-        <P d={s.curve([[240, 206], [250, 194], [260, 206]], 0.2)} w={1.1} />
+        {/* Tube light and its glow */}
+        <Wash d={s.ellipse(286, 22, 90, 18, 0.2)} fill="#fff3c4" o={0.7} />
+        <P d={s.rect(236, 14, 100, 7, 0.2)} w={1.2} />
+        <P d={s.line(250, 14, 248, 4, 0.1, 1)} w={0.8} />
+        <P d={s.line(322, 14, 324, 4, 0.1, 1)} w={0.8} />
+
+        {/* Wall calendar */}
+        <Wash d={box(24, 34, 56, 66)} fill={c.cream} o={0.95} />
+        <Wash d={box(24, 34, 56, 14)} fill={c.vermilion} o={0.75} />
+        <P d={s.rect(24, 34, 56, 66, 0.3)} w={1.2} />
+        <P d={s.line(52, 34, 52, 26, 0.1, 1)} w={1} />
+        {Array.from({ length: 3 }, (_, r) =>
+          Array.from({ length: 4 }, (_, k) => <circle key={`${r}${k}`} cx={32 + k * 12} cy={58 + r * 12} r="1.6" fill={c.ink} opacity="0.45" />),
+        )}
+        <P d={s.ellipse(68, 82, 6, 5, 0.3)} w={1.2} c={c.leafDeep} />
+
+        {/* Shelves */}
+        <ShelfRow s={s} x={100} y={112} w={440} seed={4} />
+        <ShelfRow s={s} x={100} y={172} w={440} seed={7} />
+
+        {/* Snack strips hanging from the lower shelf, between customer and shopkeeper */}
+        {[282, 304].map((x, k) => (
+          <g key={x}>
+            <P d={s.line(x, 178, x, 238, 0.2, 1)} w={0.7} o={0.6} />
+            {[0, 1, 2].map((n) => {
+              const y = 184 + n * 19;
+              const tint = [c.marigold, c.vermilion, c.sky, c.leafWash][(n + k) % 4];
+              return (
+                <g key={n}>
+                  <Wash d={quad([[x - 9, y], [x + 9, y], [x + 8, y + 16], [x - 8, y + 16]])} fill={tint} o={0.75} />
+                  <P d={s.poly([[x - 9, y], [x + 9, y], [x + 8, y + 16], [x - 8, y + 16]], true, 0.3)} w={0.9} />
+                </g>
+              );
+            })}
+          </g>
+        ))}
+
+        {/* Shopkeeper behind the counter (right) */}
+        <Occlude d="M346 284 C348 252 366 236 390 232 L414 232 C438 236 454 252 456 284 Z" />
+        <Wash d="M346 284 C348 252 366 236 390 232 L414 232 C438 236 454 252 456 284 Z" fill={c.sky} o={0.6} />
+        <P d={s.curve([[346, 284], [348, 252], [366, 236], [390, 232], [414, 232], [438, 236], [454, 252], [456, 284]], 0.4)} w={1.5} />
+        <P d={s.curve([[392, 234], [402, 248], [412, 234]], 0.2)} w={1.1} />
+        <Occlude d={s.ellipse(402, 200, 26, 28, 0)} />
+        <Wash d={s.ellipse(402, 202, 23, 25, 0.2)} fill={skin} o={0.5} />
+        <P d={s.ellipse(402, 202, 24, 26, 0.4)} w={1.4} />
+        <Wash d="M378 196 C374 168 430 166 426 196 C420 182 386 182 378 196 Z" fill={c.ink} o={0.85} />
+        <P d={s.curve([[392, 196], [395, 193], [398, 196]], 0.1)} w={1.2} />
+        <P d={s.curve([[406, 196], [409, 193], [412, 196]], 0.1)} w={1.2} />
+        <P d={s.curve([[394, 212], [402, 215], [410, 212]], 0.1)} w={2} />
+        <P d={s.curve([[396, 219], [402, 222], [408, 219]], 0.1)} w={1.1} />
+        {/* His arm and the phone he notes the dues on */}
+        <P d={s.curve([[446, 250], [458, 262], [462, 270]], 0.3)} w={1.5} />
+        <g transform="rotate(-12 462 252)">
+          <Wash d={box(450, 232, 24, 40)} fill={c.ink} o={0.9} />
+          <path d={box(453, 237, 18, 28)} fill={c.leafWash} opacity="0.85" />
+          <P d={s.rect(450, 232, 24, 40, 0.2)} w={1.2} />
+        </g>
+        <Wash d={s.ellipse(462, 272, 8, 7, 0.2)} fill={skin} o={0.7} />
+        <P d={s.ellipse(462, 272, 8, 7, 0.3)} w={1.2} />
+        {/* Saved: green tick rising from the phone */}
+        {[0, 1, 2].map((k) => (
+          <circle key={k} cx={476 + k * 5} cy={226 - k * 6} r={1.4 + k * 0.4} fill={c.leaf} />
+        ))}
+        <Wash d={s.ellipse(500, 202, 15, 15, 0.2)} fill={c.leaf} o={0.9} />
+        <P d={s.ellipse(500, 202, 15, 15, 0.3)} w={1.2} c={c.leafDeep} />
+        <path d="M493 202 l5 5 l9 -10" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+
         {/* Counter */}
-        <Occlude d={box(260, 240, 260, 100)} />
-        <Wash d={box(262, 252, 256, 88)} fill={c.clay} o={0.35} />
-        <P d={s.poly([[266, 240], [516, 240], [520, 252], [260, 252]], true, 0.5)} w={1.5} />
-        <P d={s.rect(260, 252, 260, 88, 0.5)} w={1.5} />
+        <Occlude d={box(262, 282, 298, 118)} />
+        <Wash d={box(262, 282, 298, 12)} fill={c.clay} o={0.7} />
+        <Wash d={box(264, 294, 294, 106)} fill={c.clay} o={0.32} />
+        <P d={s.poly([[268, 282], [556, 282], [560, 294], [262, 294]], true, 0.5)} w={1.5} />
+        <P d={s.rect(262, 294, 298, 106, 0.5)} w={1.5} />
+        {[336, 410, 484].map((x) => (
+          <P key={x} d={s.line(x, 300, x, 396, 0.3, 1)} w={0.7} o={0.5} />
+        ))}
+        <P d={s.hatch(266, 360, 290, 36, 7, 0.4)} w={0.5} o={0.3} />
+
+        {/* On the counter: scale, the old red khata (closed, set aside), sweet jars */}
+        <Wash d={box(290, 254, 40, 28)} fill={c.cream} o={0.95} />
+        <P d={s.rect(290, 254, 40, 28, 0.3)} w={1.2} />
+        <P d={s.ellipse(310, 266, 8, 8, 0.2)} w={1} />
+        <P d={s.line(310, 266, 314, 260, 0.1, 1)} w={1} c={c.vermilion} />
+        <Wash d={s.ellipse(310, 250, 26, 5, 0.2)} fill="#cfd6d6" o={0.9} />
+        <P d={s.ellipse(310, 250, 26, 5, 0.3)} w={1.1} />
+        <Wash d={quad([[338, 282], [392, 282], [386, 270], [344, 270]])} fill={c.vermilion} o={0.85} />
+        <P d={s.poly([[338, 282], [392, 282], [386, 270], [344, 270]], true, 0.3)} w={1.1} />
+        <P d={s.line(358, 270, 356, 282, 0.1, 1)} w={1.6} c={c.marigold} />
+        {[506, 536].map((x, k) => (
+          <g key={x}>
+            <Wash d={box(x - 13, 248, 26, 34)} fill="#e6f1f2" o={0.7} />
+            {Array.from({ length: 7 }, (_, n) => (
+              <circle key={n} cx={x - 8 + (n % 4) * 5 + (k ? 1 : 0)} cy={274 - Math.floor(n / 4) * 6} r="2.2" fill={[c.vermilion, c.marigold, c.leafWash, c.plum][(n + k) % 4]} opacity="0.85" />
+            ))}
+            <P d={s.rect(x - 13, 248, 26, 34, 0.3)} w={1.1} />
+            <Wash d={box(x - 11, 241, 22, 7)} fill={c.leafDeep} o={0.7} />
+            <P d={s.rect(x - 11, 241, 22, 7, 0.2, 1)} w={1} />
+          </g>
+        ))}
+
+        {/* Regular customer (left): white panjabi, tupi, beard; hand on his chest — "I'll pay at month-end" */}
+        <Occlude d="M96 400 C98 322 114 270 150 252 L194 252 C228 270 242 322 244 400 Z" />
+        <Wash d="M96 400 C98 322 114 270 150 252 L194 252 C228 270 242 322 244 400 Z" fill={white} o={1} />
+        <P d={s.curve([[96, 400], [98, 322], [114, 270], [150, 252], [194, 252], [228, 270], [242, 322], [244, 400]], 0.5)} w={1.5} />
+        <P d={s.line(172, 256, 172, 300, 0.2, 1)} w={1} />
+        {[266, 278, 290].map((y) => (
+          <circle key={y} cx="172" cy={y} r="1.4" fill={c.ink} opacity="0.6" />
+        ))}
+        <P d={s.curve([[154, 254], [172, 266], [190, 254]], 0.2)} w={1.1} />
+        {/* Head, tupi and white beard */}
+        <Occlude d={s.ellipse(172, 218, 27, 30, 0)} />
+        <Wash d={s.ellipse(172, 220, 24, 27, 0.2)} fill={skin} o={0.5} />
+        <P d={s.ellipse(172, 220, 25, 28, 0.4)} w={1.4} />
+        <Wash d="M147 208 C148 186 196 186 197 208 Z" fill={white} o={1} />
+        <P d={s.curve([[147, 208], [150, 188], [172, 184], [194, 188], [197, 208]], 0.3)} w={1.3} />
+        <P d={s.line(148, 208, 196, 208, 0.2, 1)} w={1.2} />
+        <P d={s.line(156, 200, 188, 200, 0.2, 1)} w={0.6} o={0.5} />
+        <Wash d="M150 226 C150 256 194 256 194 226 C186 238 158 238 150 226 Z" fill="#ece8e0" o={1} />
+        <P d={s.curve([[150, 226], [152, 246], [172, 254], [192, 246], [194, 226]], 0.3)} w={1.1} />
+        <P d={s.curve([[160, 216], [164, 212], [168, 216]], 0.1)} w={1.2} />
+        <P d={s.curve([[176, 216], [180, 212], [184, 216]], 0.1)} w={1.2} />
+        <P d={s.curve([[164, 232], [172, 236], [180, 232]], 0.1)} w={1.6} />
+        {/* Right hand on his chest */}
+        <P d={s.curve([[214, 272], [206, 292], [190, 300]], 0.3)} w={1.4} />
+        <Wash d={s.ellipse(186, 298, 10, 8, 0.2)} fill={skin} o={0.7} />
+        <P d={s.ellipse(186, 298, 10, 8, 0.3)} w={1.2} />
+        {/* Left hand holding his bazar bag: greens and a lau sticking out */}
+        <P d={s.curve([[124, 276], [112, 304], [104, 330]], 0.3)} w={1.4} />
+        <Wash d={s.ellipse(104, 334, 7, 6, 0.2)} fill={skin} o={0.7} />
+        <Wash d={s.ellipse(100, 300, 9, 30, 0.2)} fill="#c7dfa4" o={0.9} />
+        <P d={s.ellipse(100, 300, 9, 30, 0.3)} w={1.1} />
+        {[[70, 300], [78, 292], [86, 302]].map(([x, y]) => (
+          <g key={x}>
+            <P d={s.line(x + 6, 342, x, y, 0.3, 1)} w={1} c={c.leafDeep} />
+            <Wash d={s.ellipse(x, y, 5, 9, 0.2)} fill={c.leafWash} o={0.85} />
+          </g>
+        ))}
+        <Wash d="M64 340 L124 340 L118 396 L70 396 Z" fill={c.rice} o={0.95} />
+        <P d={s.poly([[64, 340], [124, 340], [118, 396], [70, 396]], true, 0.4)} w={1.3} />
+        <P d={s.curve([[80, 340], [92, 322], [104, 340]], 0.2)} w={1.2} />
+        <P d={s.line(68, 360, 120, 360, 0.2, 1)} w={0.7} c={c.vermilion} o={0.7} />
+
+        {/* Speech bubble: month-end on the calendar, and taka */}
+        <Occlude d="M214 112 h104 a12 12 0 0 1 12 12 v38 a12 12 0 0 1 -12 12 h-66 l-34 24 l10 -24 h-14 a12 12 0 0 1 -12 -12 v-38 a12 12 0 0 1 12 -12 z" />
+        <path d="M214 112 h104 a12 12 0 0 1 12 12 v38 a12 12 0 0 1 -12 12 h-66 l-34 24 l10 -24 h-14 a12 12 0 0 1 -12 -12 v-38 a12 12 0 0 1 12 -12 z" fill={c.cream} stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+        <Wash d={box(220, 124, 40, 38)} fill={c.cream} o={1} />
+        <Wash d={box(220, 124, 40, 9)} fill={c.vermilion} o={0.75} />
+        <P d={s.rect(220, 124, 40, 38, 0.2)} w={1.1} />
+        {Array.from({ length: 2 }, (_, r) =>
+          Array.from({ length: 4 }, (_, k) => <circle key={`${r}${k}`} cx={226 + k * 9} cy={142 + r * 9} r="1.3" fill={c.ink} opacity="0.45" />),
+        )}
+        <P d={s.ellipse(253, 151, 5, 4.5, 0.2)} w={1.3} c={c.leafDeep} />
+        <P d={s.line(268, 144, 286, 144, 0.2, 1)} w={1.3} o={0.7} />
+        <P d={s.poly([[281, 139], [287, 144], [281, 149]], false, 0.1, 1)} w={1.3} o={0.7} />
+        <text x="306" y="156" textAnchor="middle" fontSize="30" fontWeight="700" fill={c.leafDeep} fontFamily="var(--font-sans)">
+          ৳
+        </text>
+
+        {/* Floor */}
+        <P d={s.line(0, 398, 560, 398, 0.6)} w={1.3} />
       </g>
     </svg>
   );
