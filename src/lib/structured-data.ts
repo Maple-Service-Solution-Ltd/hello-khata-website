@@ -21,6 +21,7 @@ export function organizationJsonLd(locale: Locale) {
     "@id": orgId,
     name: "HelloKhata",
     url: siteUrl,
+    logo: { "@type": "ImageObject", url: `${siteUrl}/brand/hellokhata-mark-512.png`, width: 512, height: 512 },
     description: t.meta.defaultDescription,
     email: contactInfo.email.display,
     telephone: "+8801734114388",

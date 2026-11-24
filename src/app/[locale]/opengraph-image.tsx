@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { logoMarkSvg } from "@/components/ui/LogoMark";
 
 export const alt = "HelloKhata — Your business, in your language";
 export const size = { width: 1200, height: 630 };
@@ -12,9 +13,11 @@ export default function OpengraphImage() {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#F7F2E7", padding: 80, color: "#17221C" }}>
-        <div style={{ display: "flex", fontSize: 44, fontWeight: 800, letterSpacing: -1 }}>
-          <span>Hello</span>
-          <span style={{ color: "#15803D" }}>Khata</span>
+        <div style={{ display: "flex", alignItems: "center", fontSize: 48, letterSpacing: -1 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- the OG renderer needs a plain img */}
+          <img src={`data:image/svg+xml;utf8,${encodeURIComponent(logoMarkSvg)}`} width={72} height={72} alt="" style={{ marginRight: 20 }} />
+          <span style={{ fontWeight: 800, color: "#0D3C2B" }}>Hello</span>
+          <span style={{ fontWeight: 600, color: "#B1873C" }}>Khata</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 84, lineHeight: 1.05, fontWeight: 700, letterSpacing: -2 }}>Your business,</div>

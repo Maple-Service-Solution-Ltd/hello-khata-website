@@ -11,7 +11,7 @@
 | R5 | Medium | H1s are slogans without the category term | Product / brand | Copy sign-off (05-B) |
 | R6 | Medium | Prescription OCR fields unconfirmed, which blocks a dedicated landing page | Product | Confirmation |
 | R7 | Done | Privacy and terms were published on 24 Nov 2026 and are now indexable and in the sitemap. | — | — |
-| R8 | Low | No Organization `logo` (placeholder icon) | Brand | Final logo files |
+| R8 | Done | Official logo added (25 Nov 2026): header, footer, favicon, Apple icon, share image and Organization `logo`. | — | — |
 | R9 | Low | App store links empty | Product | Store listings |
 | R10 | Low | OG image is English-only | Dev | Decide; bundle a Bengali TTF |
 | R11 | Low | 404 shell client-rendered (status and noindex correct) | Dev | — |
