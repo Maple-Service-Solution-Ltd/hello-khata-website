@@ -19,6 +19,7 @@ export function OnlineStorePage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHero
+        wideAside
         eyebrow={o.eyebrow}
         title={item.title}
         lead={item.lead}
@@ -28,7 +29,7 @@ export function OnlineStorePage({ locale }: { locale: Locale }) {
           { href: `/${locale}/solutions`, label: t.nav.solutions },
         ]}
         aside={
-          <Reveal className="mx-auto w-full max-w-xl">
+          <Reveal className="mx-auto w-full max-w-[760px]">
             <HomeShopHero />
           </Reveal>
         }

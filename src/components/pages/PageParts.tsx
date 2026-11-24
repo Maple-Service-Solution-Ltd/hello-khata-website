@@ -17,6 +17,7 @@ export function PageHero({
   aside,
   crumbs,
   crumbLabel,
+  wideAside = false,
 }: {
   eyebrow: string;
   title: string;
@@ -25,6 +26,8 @@ export function PageHero({
   aside?: React.ReactNode;
   crumbs?: { href: string; label: string }[];
   crumbLabel?: string;
+  /** Give the illustration the wider column (as on the pharmacy page), with a slightly smaller headline. */
+  wideAside?: boolean;
 }) {
   return (
     <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
@@ -44,10 +47,10 @@ export function PageHero({
             </ol>
           </nav>
         )}
-        <div className={cn("grid items-center gap-12", !!aside && "lg:grid-cols-[1.15fr_1fr]")}>
+        <div className={cn("grid items-center gap-12", !!aside && (wideAside ? "lg:grid-cols-[0.85fr_1.15fr]" : "lg:grid-cols-[1.15fr_1fr]"))}>
           <div className="max-w-3xl">
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h1 className="font-display hk-rise mt-4 text-[2.4rem] leading-tight text-balance sm:text-6xl sm:leading-[1.15]">{noOrphanDash(title)}</h1>
+            <h1 className={cn("font-display hk-rise mt-4 text-[2.4rem] leading-tight text-balance sm:text-6xl sm:leading-[1.15]", wideAside && "lg:text-[2.9rem] xl:text-[3.25rem]")}>{noOrphanDash(title)}</h1>
             <InkStroke viewBox="0 0 300 20" d="M3 12 C 60 4, 120 18, 180 9 S 260 7, 297 11" className="mt-3 h-4 w-40" width={4} delay={0.3} duration={1} />
             {lead && <p className="mt-6 text-lg text-pretty text-muted sm:text-xl">{lead}</p>}
             {children}

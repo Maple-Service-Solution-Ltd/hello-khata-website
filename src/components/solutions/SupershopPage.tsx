@@ -35,6 +35,7 @@ export function SupershopPage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHero
+        wideAside
         eyebrow={ss.eyebrow}
         title={item.title}
         lead={item.lead}
@@ -44,7 +45,7 @@ export function SupershopPage({ locale }: { locale: Locale }) {
           { href: `/${locale}/solutions`, label: t.nav.solutions },
         ]}
         aside={
-          <Reveal className="mx-auto w-full max-w-xl">
+          <Reveal className="mx-auto w-full max-w-[760px]">
             <SupershopCutaway />
           </Reveal>
         }

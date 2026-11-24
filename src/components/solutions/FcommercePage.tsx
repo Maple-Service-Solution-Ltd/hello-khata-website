@@ -34,6 +34,7 @@ export function FcommercePage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHero
+        wideAside
         eyebrow={f.eyebrow}
         title={item.title}
         lead={item.lead}
@@ -43,7 +44,7 @@ export function FcommercePage({ locale }: { locale: Locale }) {
           { href: `/${locale}/solutions`, label: t.nav.solutions },
         ]}
         aside={
-          <Reveal className="mx-auto w-full max-w-xl">
+          <Reveal className="mx-auto w-full max-w-[760px]">
             <LiveBackstage />
           </Reveal>
         }
