@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { PageHero } from "@/components/pages/PageParts";
 import { HelpCenter } from "@/components/forms/HelpCenter";
 import { HelpDeskArt } from "@/components/illustrations/HelpArt";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -21,7 +22,6 @@ export default async function ResourcesPage({ params }: Props) {
   const t = getDict(locale);
   const r = t.resources;
   const faqJsonLd = {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: r.articles.map((a) => ({ "@type": "Question", name: a.q, acceptedAnswer: { "@type": "Answer", text: a.a } })),
   };
@@ -37,7 +37,7 @@ export default async function ResourcesPage({ params }: Props) {
           </ButtonLink>
         </div>
       </Container>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <JsonLd nodes={[faqJsonLd]} />
     </>
   );
 }

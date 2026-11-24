@@ -3,7 +3,7 @@
     "siteName": "HelloKhata",
     "titleTemplate": "%s · HelloKhata",
     "defaultTitle": "HelloKhata — POS, ডিজিটাল বাকির খাতা ও ব্যবসার হিসাবের অ্যাপ",
-    "defaultDescription": "HelloKhata বাংলাদেশের ব্যবসা ব্যবস্থাপনা সফটওয়্যার: POS বিলিং, পণ্যের মজুত, ক্রয়, খরচ আর গ্রাহকের বকেয়ার জন্য ডিজিটাল বাকির খাতা—সঙ্গে বাংলা ও ইংরেজিতে ভয়েস AI সহকারী।",
+    "defaultDescription": "HelloKhata বাংলাদেশের ব্যবসার সফটওয়্যার: POS বিলিং, মজুত, ক্রয়, খরচ আর গ্রাহকের বাকির ডিজিটাল খাতা—সঙ্গে বাংলায় ভয়েস AI সহকারী।",
     "pages": {
       "features": {
         "title": "ফিচার — POS, স্টক, বাকি ও রিপোর্ট",

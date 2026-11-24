@@ -3,7 +3,7 @@
     "siteName": "HelloKhata",
     "titleTemplate": "%s · HelloKhata",
     "defaultTitle": "HelloKhata — POS, digital khata & business app for Bangladesh",
-    "defaultDescription": "HelloKhata is business management software from Bangladesh: POS billing, stock, purchases, expenses and a digital baki khata for customer dues, with a voice AI assistant in Bangla or English.",
+    "defaultDescription": "HelloKhata is POS and business software from Bangladesh: billing, stock, purchases, expenses and a digital baki khata, with a voice AI assistant in Bangla.",
     "pages": {
       "features": {
         "title": "Features — POS, inventory, dues & reports",
